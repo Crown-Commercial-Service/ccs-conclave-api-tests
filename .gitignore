@@ -1,0 +1,12 @@
+# Project exclude paths
+target/
+Reports/
+Screenshots/
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+.DS_Store
+*.json
