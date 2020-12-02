@@ -1,0 +1,9 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+
+<suite name="cii.api.tests" verbose="1">
+    <test name="Get Scheme info tests">
+        <classes>
+            <class name="com.ccs.conclave.cii.api.tests.GetSchemeInfoTests"/>
+        </classes>
+    </test>
+</suite>
