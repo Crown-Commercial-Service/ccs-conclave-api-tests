@@ -1,4 +1,4 @@
-package com.ccs.comclave.cii.api.listeners;
+package com.ccs.conclave.api.ExtentReports;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -6,7 +6,7 @@ import java.util.Map;
 import com.relevantcodes.extentreports.ExtentReports;
 import com.relevantcodes.extentreports.ExtentTest;
 
-public class ExtentTestManager {  
+public class ExtentTestManager {
     static Map extentTestMap = new HashMap();
     static ExtentReports extent = ExtentManager.getReporter();
 
