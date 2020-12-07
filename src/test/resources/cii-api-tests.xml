@@ -3,7 +3,7 @@
 <suite name="cii.api.tests" verbose="1">
     <test name="Get Scheme info tests">
         <classes>
-            <class name="com.ccs.conclave.cii.api.tests.GetSchemeInfoTests"/>
+            <class name="com.ccs.conclave.api.cii.tests.GetSchemeInfoTests"/>
         </classes>
     </test>
 </suite>
