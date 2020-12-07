@@ -2,8 +2,8 @@ package com.ccs.conclave.api.common;
 
 import java.lang.reflect.Method;
 
-import com.ccs.conclave.api.reports.ExtentManager;
-import com.ccs.conclave.api.reports.ExtentTestManager;
+import com.ccs.conclave.api.report.ExtentManager;
+import com.ccs.conclave.api.report.ExtentTestManager;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
