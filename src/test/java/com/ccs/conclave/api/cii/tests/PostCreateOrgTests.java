@@ -7,16 +7,13 @@ import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import java.io.File;
-
 public class PostCreateOrgTests extends BaseClass {
 
     RestRequests restRequests = new RestRequests();
 
 
-    // Get scheme info from companies house
-//    @Test(dataProvider = "CompaniesHouse")
-    @Test
+    // Create Organisation registration
+    @Test(dataProvider = "CompaniesHouse")
     public void postOrgReg() {
         String payload = JsonMgr.readFile("payload.json");
         Response response = restRequests.postApi(payload, "");
