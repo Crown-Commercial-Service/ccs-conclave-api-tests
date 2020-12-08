@@ -17,7 +17,7 @@ public class RestRequests extends BaseRequest {
         return null;
     }
 
-    public Response postApi(File messageBody, String baseURI) {
+    public Response postApi(String messageBody, String baseURI) {
         Response res = setUp().when().body(messageBody).post(baseURI);
         if (res.getStatusCode() == 201)
             return res;

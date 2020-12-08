@@ -2,6 +2,7 @@ package com.ccs.conclave.api.cii.tests;
 
 import com.ccs.conclave.api.cii.requests.RestRequests;
 import com.ccs.conclave.api.common.BaseClass;
+import com.ccs.conclave.api.utilities.JsonMgr;
 import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -11,14 +12,15 @@ import java.io.File;
 public class PostCreateOrgTests extends BaseClass {
 
     RestRequests restRequests = new RestRequests();
-    File jsonDataInFile = new File("src/main/java/com/ccs/conclave/api/payload/payload.json");
 
 
     // Get scheme info from companies house
-    @Test(dataProvider = "CompaniesHouse")
+//    @Test(dataProvider = "CompaniesHouse")
+    @Test
     public void postOrgReg() {
-        Response response = restRequests.postApi(jsonDataInFile, "");
-        response.then().log().status();
+        String payload = JsonMgr.readFile("payload.json");
+        Response response = restRequests.postApi(payload, "");
+        response.then().log().body();
         Assert.assertEquals(response.getStatusCode(), 201);
     }
 
