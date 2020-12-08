@@ -11,9 +11,9 @@ public class GetSchemeInfoTests extends BaseClass {
     // Get scheme info from companies house
     @Test(dataProvider = "CompaniesHouse")
     public void getCHSchemeInfo() {
-        restRequests.get("/").then()
+        restRequests.getApi("").then()
                             //.log().headers();
-                            //.log().body();
+//                            .log().body();
                             //.log().cookies();
                             //.log().all();
                             //.log().status();
