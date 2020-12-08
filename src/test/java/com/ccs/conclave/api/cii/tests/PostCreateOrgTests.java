@@ -17,9 +17,9 @@ public class PostCreateOrgTests extends BaseClass {
     // Get scheme info from companies house
     @Test(dataProvider = "CompaniesHouse")
     public void postOrgReg() {
-        Response response = restRequests.postApi(jsonDataInFile,"https://reqres.in/api/users/");
+        Response response = restRequests.postApi(jsonDataInFile, "");
         response.then().log().status();
-        Assert.assertEquals(response.getStatusCode(),201);
+        Assert.assertEquals(response.getStatusCode(), 201);
     }
 
 }
