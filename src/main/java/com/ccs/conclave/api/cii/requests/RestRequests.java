@@ -16,7 +16,7 @@ public class RestRequests extends BaseRequest {
         if (res.getStatusCode() == 200)
             return res;
         else
-            // Todo log error message
+            res.then().log().ifError();
             return null;
     }
 
@@ -25,7 +25,7 @@ public class RestRequests extends BaseRequest {
         if (res.getStatusCode() == 201)
             return res;
         else
-            // Todo log error message
+            res.then().log().ifError();
             return null;
     }
 
