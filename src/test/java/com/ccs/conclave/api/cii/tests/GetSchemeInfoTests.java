@@ -20,6 +20,7 @@ public class GetSchemeInfoTests extends BaseClass {
 
     @Test
     public void getCCSchemeInfoWithCH() {
+
     }
 
 
