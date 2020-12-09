@@ -10,15 +10,11 @@ import org.testng.annotations.BeforeMethod;
 
 import com.relevantcodes.extentreports.LogStatus;
 
-
-public abstract class BaseClass {
-
-
+public class BaseClass {
     @BeforeMethod
     public void beforeMethod(Method method) {
         ExtentTestManager.startTest(method.getName());
     }
-
 
     @AfterMethod
     protected void afterMethod(ITestResult result) {
@@ -33,6 +29,4 @@ public abstract class BaseClass {
         ExtentManager.getReporter().endTest(ExtentTestManager.getTest());
         ExtentManager.getReporter().flush();
     }
-
-
 }
