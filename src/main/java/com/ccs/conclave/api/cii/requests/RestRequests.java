@@ -16,7 +16,7 @@ public class RestRequests {
 
     private static Response get(String baseURI) {
         Response res = given().expect().defaultParser(Parser.JSON).when().get(baseURI);
-        if (res.getStatusCode() == 200)
+        if (res.getStatusCode() == 200 && res.contentType().contains("application/json"))
             return res;
         else
             // Todo log error message

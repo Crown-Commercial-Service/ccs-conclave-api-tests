@@ -1,35 +1,64 @@
 package com.ccs.conclave.api.cii.data;
 
+import com.ccs.conclave.api.cii.pojo.AdditionalIdentifiers;
+import com.ccs.conclave.api.cii.pojo.Address;
+import com.ccs.conclave.api.cii.pojo.Identifier;
+import com.ccs.conclave.api.cii.pojo.SchemeInfo;
+import com.ccs.conclave.api.cii.response.SchemeInfoResponse;
 import com.ccs.conclave.api.common.SchemeRegistry;
-import lombok.Getter;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import static com.ccs.conclave.api.common.SchemeRegistry.*;
 
 public class OrgDataProvider {
-    @Setter  @Getter
-    public class SchemeInfo {
-        private String schemeCode;
-        private String identifier;
-        private String uri;
-        private String legalName;
-        private String streetName;
-        private String locality;
-        private String region;
-        private String postcode;
-        private String countryCode;
+    private SchemeInfoResponse schemeInfoResponse;
+
+    private static ObjectMapper objectMapper = new ObjectMapper()
+            .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+            .configure(JsonParser.Feature.ALLOW_UNQUOTED_FIELD_NAMES, true)
+            .setSerializationInclusion(JsonInclude.Include.NON_NULL);
+
+    public void setSchemeInfoResponse(String response) throws JsonProcessingException {
+        this.schemeInfoResponse = objectMapper.readValue(response, SchemeInfoResponse.class);
     }
 
-    public SchemeInfo getInfo(SchemeRegistry schemeRegistry) {
+    public SchemeInfoResponse getSchemeInfoResponse() {
+        return this.schemeInfoResponse;
+    }
+
+    public static SchemeInfo getInfo(SchemeRegistry schemeRegistry) {
         SchemeInfo schemeInfo = new SchemeInfo();
+        Identifier identifier = new Identifier();
+        AdditionalIdentifiers additionalIdentifiers = new AdditionalIdentifiers();
+        Address address = new Address();
         switch (schemeRegistry) {
             case COMPANIES_HOUSE:
-                schemeInfo.setSchemeCode(getSchemeCode(COMPANIES_HOUSE));
-                schemeInfo.setIdentifier("1800000");
-                schemeInfo.setLegalName("BRITISH TELECOMMUNICATIONS PUBLIC LIMITED COMPANY");
-                schemeInfo.setUri("");
-                schemeInfo.setStreetName("22 Baker Street");
-                schemeInfo.setPostcode("W1U 3BW");
+                schemeInfo.setName("BRITISH TELECOMMUNICATIONS PUBLIC LIMITED COMPANY");
+
+                identifier.setId("1800000");
+                identifier.setLegalName("BRITISH TELECOMMUNICATIONS PUBLIC LIMITED COMPANY");
+                identifier.setScheme(SchemeRegistry.getSchemeCode(COMPANIES_HOUSE));
+                identifier.setUri("");
+                schemeInfo.setIdentifier(identifier);
+
+                identifier.setId("1800000");
+                identifier.setLegalName("BRITISH TELECOMMUNICATIONS PUBLIC LIMITED COMPANY");
+                identifier.setScheme(SchemeRegistry.getSchemeCode(COMPANIES_HOUSE));
+                identifier.setUri("");
+                additionalIdentifiers.setIdentifier(identifier);
+
+                address.setCountryName("");
+                address.setLocality("");
+                address.setPostcode("");
+                address.setRegion("");
+                address.setStreetAddress("");
+
+                schemeInfo.setAddress(address);
+
                 break;
 
             case DUNS_AND_BRADSTREET:
