@@ -19,7 +19,7 @@ public class RestRequests {
         if (res.getStatusCode() == 200 && res.contentType().contains("application/json"))
             return res;
         else
-            // Todo log error message
+            res.then().log().ifError();
             return null;
     }
 }
