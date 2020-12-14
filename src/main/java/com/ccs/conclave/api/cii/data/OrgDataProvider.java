@@ -1,41 +1,53 @@
 package com.ccs.conclave.api.cii.data;
 
+import com.ccs.conclave.api.cii.pojo.Address;
+import com.ccs.conclave.api.cii.pojo.Identifier;
+import com.ccs.conclave.api.cii.pojo.SchemeInfo;
 import com.ccs.conclave.api.common.SchemeRegistry;
-import lombok.Getter;
-import lombok.Setter;
 
 import static com.ccs.conclave.api.common.SchemeRegistry.*;
 
 public class OrgDataProvider {
-    @Setter  @Getter
-    public class SchemeInfo {
-        private String schemeCode;
-        private String identifier;
-        private String uri;
-        private String legalName;
-        private String streetName;
-        private String locality;
-        private String region;
-        private String postcode;
-        private String countryCode;
-    }
 
-    public SchemeInfo getInfo(SchemeRegistry schemeRegistry) {
+    public static SchemeInfo getInfo(SchemeRegistry schemeRegistry) {
         SchemeInfo schemeInfo = new SchemeInfo();
+        Identifier identifier = new Identifier();
+//        AdditionalIdentifiers additionalIdentifiers = new AdditionalIdentifiers();
+//        Identifier additionalIdentifier = new Identifier();
+        Address address = new Address();
         switch (schemeRegistry) {
             case COMPANIES_HOUSE:
-                schemeInfo.setSchemeCode(getSchemeCode(COMPANIES_HOUSE));
-                schemeInfo.setIdentifier("1800000");
-                schemeInfo.setLegalName("BRITISH TELECOMMUNICATIONS PUBLIC LIMITED COMPANY");
-                schemeInfo.setUri("");
-                schemeInfo.setStreetName("22 Baker Street");
-                schemeInfo.setPostcode("W1U 3BW");
+                schemeInfo.setName("BRITISH TELECOMMUNICATIONS PUBLIC LIMITED COMPANY");
+                identifier.setId("1800000");
+                identifier.setLegalName("BRITISH TELECOMMUNICATIONS PUBLIC LIMITED COMPANY");
+                identifier.setScheme(SchemeRegistry.getSchemeCode(COMPANIES_HOUSE));
+                identifier.setUri("");
+                schemeInfo.setIdentifier(identifier);
+
+//                additionalIdentifier.setId("");
+//                additionalIdentifier.setLegalName("");
+//                additionalIdentifier.setScheme(SchemeRegistry.getSchemeCode(COMPANIES_HOUSE));
+//                identifier.setUri("");
+//                additionalIdentifiers.setIdentifier(additionalIdentifier);
+
+                address.setCountryName("");
+                address.setLocality("");
+                address.setPostcode("");
+                address.setRegion("");
+                address.setStreetAddress("");
+
+                schemeInfo.setAddress(address);
+
+                // TODO Contact info
+
                 break;
 
             case DUNS_AND_BRADSTREET:
+                // TODO Duns data
                 break;
 
             case CHARITIES_COMMISSION:
+                // TODO Charity data
                 break;
 
             default:
