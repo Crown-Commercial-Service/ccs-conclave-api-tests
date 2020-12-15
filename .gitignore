@@ -2,6 +2,7 @@
 target/
 Reports/
 Screenshots/
+Logs/
 
 ### IntelliJ IDEA ###
 .idea
@@ -10,3 +11,4 @@ Screenshots/
 *.ipr
 .DS_Store
 *.json
+*.log
