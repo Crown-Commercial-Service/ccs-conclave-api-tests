@@ -4,6 +4,8 @@ import java.lang.reflect.Method;
 
 import com.ccs.conclave.api.report.ExtentManager;
 import com.ccs.conclave.api.report.ExtentTestManager;
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -11,9 +13,11 @@ import org.testng.annotations.BeforeMethod;
 import com.relevantcodes.extentreports.LogStatus;
 
 public class BaseClass {
+
     @BeforeMethod
     public void beforeMethod(Method method) {
         ExtentTestManager.startTest(method.getName());
+        PropertyConfigurator.configure("log4j.properties");
     }
 
     @AfterMethod
