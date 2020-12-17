@@ -5,7 +5,6 @@ import com.ccs.conclave.api.cii.pojo.SchemeInfo;
 import com.ccs.conclave.api.cii.requests.RestRequests;
 import com.ccs.conclave.api.cii.response.SchemeInfoResponse;
 import com.ccs.conclave.api.common.BaseClass;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import io.restassured.response.Response;
 import org.apache.log4j.Logger;
 import org.testng.annotations.Test;
