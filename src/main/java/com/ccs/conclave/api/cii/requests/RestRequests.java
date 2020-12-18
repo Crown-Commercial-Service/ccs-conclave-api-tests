@@ -14,12 +14,17 @@ public class RestRequests {
         return get(baseURI);
     }
 
+    public static Response getSchemeNames() {
+        String baseURI = Endpoints.getSchemeNamesURI;
+        return get(baseURI);
+    }
+
     private static Response get(String baseURI) {
         Response res = given().expect().defaultParser(Parser.JSON).when().get(baseURI);
         if (res.getStatusCode() == 200 && res.contentType().contains("application/json"))
             return res;
         else
             res.then().log().ifError();
-            return null;
+        return null;
     }
 }

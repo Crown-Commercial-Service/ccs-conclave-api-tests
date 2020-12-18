@@ -5,11 +5,16 @@ i) CII Api Tests - tests endpoints described in https://app.swaggerhub.com/apis/
 
 
 #### Acronymns:
-CH - Companies House
+COH - Companies House
 
-CC - Charity Commission
+CHC - Charity Commission
 
-Duns - Duns and Bradstreet 
+NIC - Northern Ireland Charities
+
+SC - Scottish Charities
+
+DUNS - Duns and Bradstreet
+
 
 
  
