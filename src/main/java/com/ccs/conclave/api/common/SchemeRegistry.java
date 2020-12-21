@@ -3,7 +3,9 @@ package com.ccs.conclave.api.common;
 public enum SchemeRegistry {
     COMPANIES_HOUSE("GB-COH", "Companies House", "GB", "URL"),
     CHARITIES_COMMISSION("GB-CHC", "Charities Commission", "GB", "URL"),
-    DUNS_AND_BRADSTREET("US-DUN", "Duns and BradStreet", "US", "URL");
+    DUNS_AND_BRADSTREET("GB-DUN", "Duns and BradStreet", "GB", "URL"),
+    NORTHERN_ISLAND_CHARITY("GB-NIC", "Duns and BradStreet", "GB", "URL"),
+    SCOTLAND_CHARITY("GB-SC", "Duns and BradStreet", "GB", "URL");
 
     private static String schemeCode;
     private static String schemeName;

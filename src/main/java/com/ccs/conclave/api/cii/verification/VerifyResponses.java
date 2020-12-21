@@ -29,6 +29,24 @@ public class VerifyResponses {
         Assert.assertEquals(schemeNameDUNS.getSchemeURI(), getSchemeURL(DUNS_AND_BRADSTREET), "Wrong SchemeURL!");
         Assert.assertEquals(schemeNameDUNS.getSchemeCountryCode(), getSchemeCountryCode(DUNS_AND_BRADSTREET), "Wrong CountryCode!");
 
-        // Todo verify all the scheme name details
+        SchemeName schemeNameCHC = schemeNamesResponse.getSchemeCOH();
+        Assert.assertEquals(schemeNameCHC.getSchemeRegisterCode(), getSchemeCode(CHARITIES_COMMISSION), "Wrong SchemeCode!");
+        Assert.assertEquals(schemeNameCHC.getSchemeName(), getSchemeName(CHARITIES_COMMISSION), "Wrong SchemeName!");
+        Assert.assertEquals(schemeNameCHC.getSchemeURI(), getSchemeURL(CHARITIES_COMMISSION), "Wrong SchemeURL!");
+        Assert.assertEquals(schemeNameCHC.getSchemeCountryCode(), getSchemeCountryCode(CHARITIES_COMMISSION), "Wrong CountryCode!");
+
+        SchemeName schemeNameNIC = schemeNamesResponse.getSchemeCOH();
+        Assert.assertEquals(schemeNameNIC.getSchemeRegisterCode(), getSchemeCode(NORTHERN_ISLAND_CHARITY), "Wrong SchemeCode!");
+        Assert.assertEquals(schemeNameNIC.getSchemeName(), getSchemeName(NORTHERN_ISLAND_CHARITY), "Wrong SchemeName!");
+        Assert.assertEquals(schemeNameNIC.getSchemeURI(), getSchemeURL(NORTHERN_ISLAND_CHARITY), "Wrong SchemeURL!");
+        Assert.assertEquals(schemeNameNIC.getSchemeCountryCode(), getSchemeCountryCode(NORTHERN_ISLAND_CHARITY), "Wrong CountryCode!");
+
+        SchemeName schemeNameSC = schemeNamesResponse.getSchemeCOH();
+        Assert.assertEquals(schemeNameSC.getSchemeRegisterCode(), getSchemeCode(SCOTLAND_CHARITY), "Wrong SchemeCode!");
+        Assert.assertEquals(schemeNameSC.getSchemeName(), getSchemeName(SCOTLAND_CHARITY), "Wrong SchemeName!");
+        Assert.assertEquals(schemeNameSC.getSchemeURI(), getSchemeURL(SCOTLAND_CHARITY), "Wrong SchemeURL!");
+        Assert.assertEquals(schemeNameSC.getSchemeCountryCode(), getSchemeCountryCode(SCOTLAND_CHARITY), "Wrong CountryCode!");
+
+
     }
 }

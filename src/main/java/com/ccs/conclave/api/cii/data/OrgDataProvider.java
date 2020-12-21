@@ -50,6 +50,14 @@ public class OrgDataProvider {
                 // TODO Charity data
                 break;
 
+            case NORTHERN_ISLAND_CHARITY:
+                // TODO Charity data
+                break;
+
+            case SCOTLAND_CHARITY:
+                // TODO Charity data
+                break;
+
             default:
                 throw new IllegalStateException("Unexpected value: " + schemeRegistry);
         }
