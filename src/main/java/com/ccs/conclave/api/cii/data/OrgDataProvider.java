@@ -1,5 +1,6 @@
 package com.ccs.conclave.api.cii.data;
 
+import com.ccs.conclave.api.cii.pojo.AdditionalIdentifiers;
 import com.ccs.conclave.api.cii.pojo.Address;
 import com.ccs.conclave.api.cii.pojo.Identifier;
 import com.ccs.conclave.api.cii.pojo.SchemeInfo;
@@ -12,8 +13,8 @@ public class OrgDataProvider {
     public static SchemeInfo getInfo(SchemeRegistry schemeRegistry) {
         SchemeInfo schemeInfo = new SchemeInfo();
         Identifier identifier = new Identifier();
-//        AdditionalIdentifiers additionalIdentifiers = new AdditionalIdentifiers();
-//        Identifier additionalIdentifier = new Identifier();
+        AdditionalIdentifiers additionalIdentifiers = new AdditionalIdentifiers();
+        Identifier additionalIdentifier = new Identifier();
         Address address = new Address();
         switch (schemeRegistry) {
             case COMPANIES_HOUSE:
@@ -50,6 +51,12 @@ public class OrgDataProvider {
                 identifier.setUri("");
                 schemeInfo.setIdentifier(identifier);
 
+                additionalIdentifier.setId("1060403");
+//                additionalIdentifier.setLegalName("");
+                additionalIdentifier.setScheme(SchemeRegistry.getSchemeCode(COMPANIES_HOUSE));
+//                identifier.setUri("");
+                additionalIdentifiers.setIdentifier(additionalIdentifier);
+
                 address.setCountryName("United Kingdom");
                 address.setLocality("WARRINGTON");
                 address.setPostcode("WA4 2TE");
@@ -67,6 +74,12 @@ public class OrgDataProvider {
                 identifier.setScheme(SchemeRegistry.getSchemeCode(CHARITIES_COMMISSION));
                 identifier.setUri("http://www.ncvo.org.uk");
                 schemeInfo.setIdentifier(identifier);
+
+                additionalIdentifier.setId("GB-COH-00198344");
+//                additionalIdentifier.setLegalName("");
+                additionalIdentifier.setScheme(SchemeRegistry.getSchemeCode(COMPANIES_HOUSE));
+//                identifier.setUri("");
+                additionalIdentifiers.setIdentifier(additionalIdentifier);
 
                 address.setCountryName("United Kingdom");
                 address.setLocality("Society Building");
