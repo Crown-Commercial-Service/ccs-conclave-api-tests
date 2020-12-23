@@ -43,19 +43,72 @@ public class OrgDataProvider {
                 break;
 
             case DUNS_AND_BRADSTREET:
-                // TODO Duns data
+                schemeInfo.setName("CHAIGELEY EDUCATIONAL FOUNDATION");
+                identifier.setId("378509368");
+                identifier.setLegalName("CHAIGELEY EDUCATIONAL FOUNDATION");
+                identifier.setScheme(SchemeRegistry.getSchemeCode(DUNS_AND_BRADSTREET));
+                identifier.setUri("");
+                schemeInfo.setIdentifier(identifier);
+
+                address.setCountryName("United Kingdom");
+                address.setLocality("WARRINGTON");
+                address.setPostcode("WA4 2TE");
+                address.setRegion("Europe");
+                address.setStreetAddress("Chaigeley School Lymm Road Thelwall");
+
+                schemeInfo.setAddress(address);
+
                 break;
 
             case CHARITIES_COMMISSION:
-                // TODO Charity data
+                schemeInfo.setName("THE NATIONAL COUNCIL FOR VOLUNTARY ORGANISATIONS");
+                identifier.setId("225922");
+                identifier.setLegalName("THE NATIONAL COUNCIL FOR VOLUNTARY ORGANISATIONS");
+                identifier.setScheme(SchemeRegistry.getSchemeCode(CHARITIES_COMMISSION));
+                identifier.setUri("http://www.ncvo.org.uk");
+                schemeInfo.setIdentifier(identifier);
+
+                address.setCountryName("United Kingdom");
+                address.setLocality("Society Building");
+                address.setPostcode("N1 9RL");
+                address.setRegion("8 Regents Wharf");
+                address.setStreetAddress("National Council For Voluntary, Organisations ");
+
+                schemeInfo.setAddress(address);
                 break;
 
             case NORTHERN_ISLAND_CHARITY:
-                // TODO Charity data
+                schemeInfo.setName("Supporting Communities Ni");
+                identifier.setId("100005");
+                identifier.setLegalName("Supporting Communities Ni");
+                identifier.setScheme(SchemeRegistry.getSchemeCode(NORTHERN_ISLAND_CHARITY));
+                identifier.setUri("");
+                schemeInfo.setIdentifier(identifier);
+
+                address.setCountryName("");
+                address.setLocality("");
+                address.setPostcode("BT42 3AH");
+                address.setRegion("");
+                address.setStreetAddress("");
+
+                schemeInfo.setAddress(address);
                 break;
 
             case SCOTLAND_CHARITY:
-                // TODO Charity data
+                schemeInfo.setName("Abbeyfield Perth Society Ltd");
+                identifier.setId("SC008993");
+                identifier.setLegalName("Abbeyfield Perth Society Ltd");
+                identifier.setScheme(SchemeRegistry.getSchemeCode(SCOTLAND_CHARITY));
+                identifier.setUri("");
+                schemeInfo.setIdentifier(identifier);
+
+                address.setCountryName("Scotland");
+                address.setLocality("25 Viewlands Road");
+                address.setPostcode("PH1 1BL");
+                address.setRegion("Perth");
+                address.setStreetAddress("Viewlands House");
+
+                schemeInfo.setAddress(address);
                 break;
 
             default:
