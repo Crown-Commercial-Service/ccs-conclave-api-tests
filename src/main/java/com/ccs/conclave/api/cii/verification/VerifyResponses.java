@@ -2,7 +2,8 @@ package com.ccs.conclave.api.cii.verification;
 
 import com.ccs.conclave.api.cii.data.OrgDataProvider;
 import com.ccs.conclave.api.cii.pojo.SchemeName;
-import com.ccs.conclave.api.cii.response.SchemeInfoResponse;
+import com.ccs.conclave.api.cii.response.GetSchemeInfoResponse;
+import com.ccs.conclave.api.cii.response.PostSchemeInfoResponse;
 import com.ccs.conclave.api.cii.response.SchemeNamesResponse;
 import com.ccs.conclave.api.common.SchemeRegistry;
 import io.restassured.response.Response;
@@ -12,8 +13,8 @@ import static com.ccs.conclave.api.common.SchemeRegistry.*;
 
 public class VerifyResponses {
 
-    public static void verifyGetSchemeInfoResponse(SchemeRegistry registry, OrgDataProvider expectedRes, SchemeInfoResponse actualRes) {
-        Assert.assertEquals(actualRes.getSchemeInfo(), expectedRes.getInfo(registry), "Wrong GetSchemeInfo response!" );
+    public static void verifyGetSchemeInfoResponse(SchemeRegistry scheme, OrgDataProvider expectedRes, GetSchemeInfoResponse actualRes) {
+        Assert.assertEquals(actualRes.getSchemeInfo(), expectedRes.getInfo(scheme), "Wrong GetSchemeInfo response!" );
     }
 
     public static void verifyGetSchemeNamesResponse(Response response) {
@@ -47,5 +48,9 @@ public class VerifyResponses {
         Assert.assertEquals(schemeNameSC.getSchemeName(), getSchemeName(SCOTLAND_CHARITY), "Wrong SchemeName!");
         Assert.assertEquals(schemeNameSC.getSchemeURI(), getSchemeURL(SCOTLAND_CHARITY), "Wrong SchemeURL!");
         Assert.assertEquals(schemeNameSC.getSchemeCountryCode(), getSchemeCountryCode(SCOTLAND_CHARITY), "Wrong CountryCode!");
+    }
+
+    public static void verifyPostSchemeInfoResponse(SchemeRegistry scheme, OrgDataProvider expectedRes, PostSchemeInfoResponse actualRes) {
+        Assert.assertEquals(actualRes.getSchemeInfo(), expectedRes.getInfo(scheme), "Wrong PostSchemeInfo response!" );
     }
 }
