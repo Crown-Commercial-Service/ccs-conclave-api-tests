@@ -1,9 +1,11 @@
 language: java
-key: DISPLAY
-  value:0:0
-
+key: DISPLAY value:0:0
 before_install:
-  - mvn install
-
+- mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+env:
+  global:
+    - BASEURL_DEV=$BASE_URL_DEV
+    - BASEURL_PREPROD=$BASE_URL_PREPROD
+    - BASEURL_PROD=$BASE_URL_PROD
 script:
-  - mvn clean test
+- mvn clean test -Dbase.url=$BASEURL_PROD
