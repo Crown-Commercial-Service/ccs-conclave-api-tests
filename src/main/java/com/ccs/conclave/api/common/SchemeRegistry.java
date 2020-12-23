@@ -7,12 +7,16 @@ public enum SchemeRegistry {
     NORTHERN_ISLAND_CHARITY("GB-NIC", "Duns and BradStreet", "GB", "URL"),
     SCOTLAND_CHARITY("GB-SC", "Duns and BradStreet", "GB", "URL");
 
-    private static String schemeCode;
-    private static String schemeName;
-    private static String schemeURL;
-    private static String countryCode;
+    private String schemeCode;
+    private String schemeName;
+    private String schemeURL;
+    private String countryCode;
 
     SchemeRegistry(String schemeCode, String schemeName, String countryCode, String url) {
+        this.schemeCode = schemeCode;
+        this.schemeName = schemeName;
+        this.countryCode = countryCode;
+        this.schemeURL = url;
     }
 
     public static String getSchemeCode(SchemeRegistry registry) {
