@@ -1,20 +1,26 @@
 package com.ccs.conclave.api.cii.verification;
 
 import com.ccs.conclave.api.cii.data.OrgDataProvider;
+import com.ccs.conclave.api.cii.pojo.SchemeInfo;
 import com.ccs.conclave.api.cii.pojo.SchemeName;
 import com.ccs.conclave.api.cii.response.GetSchemeInfoResponse;
 import com.ccs.conclave.api.cii.response.PostSchemeInfoResponse;
 import com.ccs.conclave.api.cii.response.SchemeNamesResponse;
-import com.ccs.conclave.api.common.SchemeRegistry;
+import com.ccs.conclave.api.cii.data.SchemeRegistry;
 import io.restassured.response.Response;
 import org.testng.Assert;
 
-import static com.ccs.conclave.api.common.SchemeRegistry.*;
+import static com.ccs.conclave.api.cii.data.SchemeRegistry.*;
 
 public class VerifyResponses {
 
-    public static void verifyGetSchemeInfoResponse(SchemeRegistry scheme, OrgDataProvider expectedRes, GetSchemeInfoResponse actualRes) {
-        Assert.assertEquals(actualRes.getSchemeInfo(), expectedRes.getInfo(scheme), "Wrong GetSchemeInfo response!" );
+    public static void verifyGetSchemeInfoResponse(SchemeRegistry scheme, SchemeInfo schemeInfo, Response response) {
+        GetSchemeInfoResponse actualRes = response.as(GetSchemeInfoResponse.class);
+        Assert.assertEquals(actualRes.getSchemeInfo(), schemeInfo, "Wrong GetSchemeInfo response!" );
+    }
+
+    public static void verifyInvalidGetSchemeInfoResponse(Response response) {
+
     }
 
     public static void verifyGetSchemeNamesResponse(Response response) {

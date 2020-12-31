@@ -4,9 +4,8 @@ import com.ccs.conclave.api.cii.pojo.AdditionalIdentifiers;
 import com.ccs.conclave.api.cii.pojo.Address;
 import com.ccs.conclave.api.cii.pojo.Identifier;
 import com.ccs.conclave.api.cii.pojo.SchemeInfo;
-import com.ccs.conclave.api.common.SchemeRegistry;
 
-import static com.ccs.conclave.api.common.SchemeRegistry.*;
+import static com.ccs.conclave.api.cii.data.SchemeRegistry.*;
 
 public class OrgDataProvider {
 

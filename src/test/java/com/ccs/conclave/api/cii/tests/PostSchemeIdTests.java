@@ -9,7 +9,7 @@ import io.restassured.response.Response;
 import org.apache.log4j.Logger;
 import org.testng.annotations.Test;
 import static com.ccs.conclave.api.cii.verification.VerifyResponses.verifyPostSchemeInfoResponse;
-import static com.ccs.conclave.api.common.SchemeRegistry.COMPANIES_HOUSE;
+import static com.ccs.conclave.api.cii.data.SchemeRegistry.COMPANIES_HOUSE;
 
 public class PostSchemeIdTests extends BaseClass {
 
