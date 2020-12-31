@@ -4,8 +4,6 @@ before_install:
 - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
 env:
   global:
-    - BASEURL_DEV=$BASE_URL_DEV
-    - BASEURL_PREPROD=$BASE_URL_PREPROD
-    - BASEURL_PROD=$BASE_URL_PROD
+    - BASEURL=$BASE_URL
 script:
-- mvn clean test -Dbase.url=$BASEURL_PROD
+- mvn clean test -Dbase.url=$BASEURL || echo = 'done'
