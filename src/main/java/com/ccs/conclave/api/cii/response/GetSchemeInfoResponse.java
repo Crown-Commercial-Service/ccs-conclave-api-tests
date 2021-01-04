@@ -6,6 +6,6 @@ import lombok.Setter;
 
 @Setter
 @Getter
-public class SchemeInfoResponse {
+public class GetSchemeInfoResponse {
     private SchemeInfo schemeInfo;
 }

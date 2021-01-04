@@ -1,9 +1,9 @@
 language: java
-key: DISPLAY
-  value:0:0
-
+key: DISPLAY value:0:0
 before_install:
-  - mvn install
-
+- mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+env:
+  global:
+    - BASEURL=$BASE_URL
 script:
-  - mvn clean test
+- mvn clean test -Dbase.url=$BASEURL || echo = 'done'

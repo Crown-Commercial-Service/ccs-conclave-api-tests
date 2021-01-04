@@ -1,5 +1,6 @@
 package com.ccs.conclave.api.cii.data;
 
+import com.ccs.conclave.api.cii.pojo.AdditionalIdentifiers;
 import com.ccs.conclave.api.cii.pojo.Address;
 import com.ccs.conclave.api.cii.pojo.Identifier;
 import com.ccs.conclave.api.cii.pojo.SchemeInfo;
@@ -12,20 +13,18 @@ public class OrgDataProvider {
     public static SchemeInfo getInfo(SchemeRegistry schemeRegistry) {
         SchemeInfo schemeInfo = new SchemeInfo();
         Identifier identifier = new Identifier();
-//        AdditionalIdentifiers additionalIdentifiers = new AdditionalIdentifiers();
-//        Identifier additionalIdentifier = new Identifier();
+        AdditionalIdentifiers additionalIdentifiers = new AdditionalIdentifiers();
+        Identifier additionalIdentifier = new Identifier();
         Address address = new Address();
         switch (schemeRegistry) {
             case COMPANIES_HOUSE:
                 schemeInfo.setName("BRITISH TELECOMMUNICATIONS PUBLIC LIMITED COMPANY");
                 identifier.setId("1800000");
-                identifier.setLegalName("BRITISH TELECOMMUNICATIONS PUBLIC LIMITED COMPANY");
                 identifier.setScheme(SchemeRegistry.getSchemeCode(COMPANIES_HOUSE));
                 identifier.setUri("");
                 schemeInfo.setIdentifier(identifier);
 
 //                additionalIdentifier.setId("");
-//                additionalIdentifier.setLegalName("");
 //                additionalIdentifier.setScheme(SchemeRegistry.getSchemeCode(COMPANIES_HOUSE));
 //                identifier.setUri("");
 //                additionalIdentifiers.setIdentifier(additionalIdentifier);
@@ -45,10 +44,14 @@ public class OrgDataProvider {
             case DUNS_AND_BRADSTREET:
                 schemeInfo.setName("CHAIGELEY EDUCATIONAL FOUNDATION");
                 identifier.setId("378509368");
-                identifier.setLegalName("CHAIGELEY EDUCATIONAL FOUNDATION");
                 identifier.setScheme(SchemeRegistry.getSchemeCode(DUNS_AND_BRADSTREET));
                 identifier.setUri("");
                 schemeInfo.setIdentifier(identifier);
+
+                additionalIdentifier.setId("1060403");
+                additionalIdentifier.setScheme(SchemeRegistry.getSchemeCode(COMPANIES_HOUSE));
+//                identifier.setUri("");
+                additionalIdentifiers.setIdentifier(additionalIdentifier);
 
                 address.setCountryName("United Kingdom");
                 address.setLocality("WARRINGTON");
@@ -63,10 +66,14 @@ public class OrgDataProvider {
             case CHARITIES_COMMISSION:
                 schemeInfo.setName("THE NATIONAL COUNCIL FOR VOLUNTARY ORGANISATIONS");
                 identifier.setId("225922");
-                identifier.setLegalName("THE NATIONAL COUNCIL FOR VOLUNTARY ORGANISATIONS");
                 identifier.setScheme(SchemeRegistry.getSchemeCode(CHARITIES_COMMISSION));
                 identifier.setUri("http://www.ncvo.org.uk");
                 schemeInfo.setIdentifier(identifier);
+
+                additionalIdentifier.setId("GB-COH-00198344");
+                additionalIdentifier.setScheme(SchemeRegistry.getSchemeCode(COMPANIES_HOUSE));
+//                identifier.setUri("");
+                additionalIdentifiers.setIdentifier(additionalIdentifier);
 
                 address.setCountryName("United Kingdom");
                 address.setLocality("Society Building");
@@ -80,7 +87,6 @@ public class OrgDataProvider {
             case NORTHERN_ISLAND_CHARITY:
                 schemeInfo.setName("Supporting Communities Ni");
                 identifier.setId("100005");
-                identifier.setLegalName("Supporting Communities Ni");
                 identifier.setScheme(SchemeRegistry.getSchemeCode(NORTHERN_ISLAND_CHARITY));
                 identifier.setUri("");
                 schemeInfo.setIdentifier(identifier);
@@ -97,7 +103,6 @@ public class OrgDataProvider {
             case SCOTLAND_CHARITY:
                 schemeInfo.setName("Abbeyfield Perth Society Ltd");
                 identifier.setId("SC008993");
-                identifier.setLegalName("Abbeyfield Perth Society Ltd");
                 identifier.setScheme(SchemeRegistry.getSchemeCode(SCOTLAND_CHARITY));
                 identifier.setUri("");
                 schemeInfo.setIdentifier(identifier);
