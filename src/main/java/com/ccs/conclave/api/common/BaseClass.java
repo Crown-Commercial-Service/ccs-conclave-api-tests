@@ -4,7 +4,6 @@ import java.lang.reflect.Method;
 
 import com.ccs.conclave.api.report.ExtentManager;
 import com.ccs.conclave.api.report.ExtentTestManager;
-import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;

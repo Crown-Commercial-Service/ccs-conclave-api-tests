@@ -3,22 +3,21 @@ package com.ccs.conclave.api.cii.tests;
 import com.ccs.conclave.api.cii.data.OrgDataProvider;
 import com.ccs.conclave.api.cii.pojo.SchemeInfo;
 import com.ccs.conclave.api.cii.requests.RestRequests;
-import com.ccs.conclave.api.cii.response.GetSchemeInfoResponse;
 import com.ccs.conclave.api.common.BaseClass;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
 
 import static com.ccs.conclave.api.cii.verification.VerifyResponses.*;
-import static com.ccs.conclave.api.common.SchemeRegistry.*;
+import static com.ccs.conclave.api.cii.data.SchemeRegistry.*;
+import static com.ccs.conclave.api.cii.verification.VerifyResponses.verifyGetSchemeInfoResponse;
 
 public class GetSchemeInfoTests extends BaseClass {
 
     @Test
     public void getCompaniesHouseSchemeInfo() {
-        OrgDataProvider orgData = new OrgDataProvider();
-        SchemeInfo schemeInfo = orgData.getInfo(COMPANIES_HOUSE);
+        SchemeInfo schemeInfo = OrgDataProvider.getInfo(COMPANIES_HOUSE);
         Response response = RestRequests.getSchemeInfo(COMPANIES_HOUSE, schemeInfo.getIdentifier().getId());
-        verifyGetSchemeInfoResponse(COMPANIES_HOUSE, orgData, response.as(GetSchemeInfoResponse.class));
+        verifyGetSchemeInfoResponse(COMPANIES_HOUSE, schemeInfo, response);
     }
 
     @Test
@@ -34,5 +33,20 @@ public class GetSchemeInfoTests extends BaseClass {
     @Test
     public void getScottishCharitySchemeInfo() {
         // Todo
+    }
+
+    @Test
+    public void getSchemeInfoWithInvalidSchemeNameValidIdentifier() {
+        String identifier = OrgDataProvider.getInfo(COMPANIES_HOUSE).getIdentifier().getId();
+        Response response = RestRequests.getSchemeInfo(INVALID_SCHEME, identifier);
+        verifyInvalidGetSchemeInfoResponse(response);
+        // Todo verify response message and status code
+    }
+
+    @Test
+    public void getSchemeInfoWithInvalidIdentifierValidSchemeName() {
+        Response response = RestRequests.getSchemeInfo(COMPANIES_HOUSE, "00000000");
+        verifyInvalidGetSchemeInfoResponse(response);
+        // Todo verify response message and status code
     }
 }

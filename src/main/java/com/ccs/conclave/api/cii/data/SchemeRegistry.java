@@ -1,11 +1,12 @@
-package com.ccs.conclave.api.common;
+package com.ccs.conclave.api.cii.data;
 
 public enum SchemeRegistry {
     COMPANIES_HOUSE("GB-COH", "Companies House", "GB", "URL"),
     CHARITIES_COMMISSION("GB-CHC", "Charities Commission", "GB", "URL"),
     DUNS_AND_BRADSTREET("GB-DUN", "Duns and BradStreet", "GB", "URL"),
     NORTHERN_ISLAND_CHARITY("GB-NIC", "Duns and BradStreet", "GB", "URL"),
-    SCOTLAND_CHARITY("GB-SC", "Duns and BradStreet", "GB", "URL");
+    SCOTLAND_CHARITY("GB-SC", "Duns and BradStreet", "GB", "URL"),
+    INVALID_SCHEME("", "", "", "");
 
     private String schemeCode;
     private String schemeName;
