@@ -4,9 +4,10 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Getter @Setter
-public class SchemeName {
+public class Schemes {
     private String schemeRegisterCode;
     private String schemeName;
-    private String schemeURI;
+    private String schemeUri;
+    private String schemeIdentifier;
     private String schemeCountryCode;
 }
