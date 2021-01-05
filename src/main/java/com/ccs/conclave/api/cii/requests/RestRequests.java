@@ -11,8 +11,7 @@ import static io.restassured.RestAssured.given;
 
 public class RestRequests {
     private final static Logger logger = Logger.getLogger(RestRequests.class);
-    private static String baseURI ="https://conclave-cii-dev-stellar-puku-zr.london.cloudapps.digital/api/v1";
-        // System.getProperty("base.url");
+    private static String baseURI = System.getProperty("base.url");
 
     public static Response getSchemeInfo(SchemeRegistry scheme, String identifier) {
         String endpoint = baseURI + Endpoints.getSchemeInfoURI + getSchemeCode(scheme) + "/" + identifier;
