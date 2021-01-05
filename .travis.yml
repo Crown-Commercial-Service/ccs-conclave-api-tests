@@ -11,10 +11,10 @@ script:
 before_deploy:
   - cp target/report/conclave_api_test_report.html target/report/index.html
 deploy:
-    local_dir: target/report/
-    provider: pages
-    skip_cleanup: true
-    github_token: $GITHUB_TOKEN
-    keep_history: true
-    on:
-      branch: feature/FixSchemeNamesTest
+  local_dir: target/report/
+  provider: pages
+  skip_cleanup: true
+  github_token: $GITHUB_TOKEN
+  keep_history: true
+  on:
+    branch: feature/FixSchemeNamesTest
