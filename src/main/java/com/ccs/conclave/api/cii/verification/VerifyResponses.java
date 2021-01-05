@@ -3,25 +3,23 @@ package com.ccs.conclave.api.cii.verification;
 import com.ccs.conclave.api.cii.data.OrgDataProvider;
 import com.ccs.conclave.api.cii.pojo.SchemeInfo;
 
-import com.ccs.conclave.api.cii.pojo.Schemes;
+import com.ccs.conclave.api.cii.pojo.Scheme;
 import com.ccs.conclave.api.cii.response.GetSchemeInfoResponse;
 import com.ccs.conclave.api.cii.response.PostSchemeInfoResponse;
 import com.ccs.conclave.api.cii.response.GetSchemesResponse;
 import com.ccs.conclave.api.cii.data.SchemeRegistry;
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import io.restassured.response.Response;
+import org.apache.log4j.Logger;
 import org.testng.Assert;
 
+import java.io.IOException;
 import java.util.Arrays;
-import java.util.List;
+
+import static com.ccs.conclave.api.cii.data.SchemeRegistry.*;
 
 
 public class VerifyResponses {
+    private final static Logger logger = Logger.getLogger(VerifyResponses.class);
 
     public static void verifyGetSchemeInfoResponse(SchemeRegistry scheme, SchemeInfo schemeInfo, Response response) {
         GetSchemeInfoResponse actualRes = response.as(GetSchemeInfoResponse.class);
@@ -32,49 +30,45 @@ public class VerifyResponses {
 
     }
 
-    public static void verifyGetSchemesResponse(Response response) throws JsonProcessingException {
-       ObjectMapper objectMapper = new ObjectMapper();
-//         ObjectMapper objectMapper = new ObjectMapper()
-//                .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
-//                .configure(JsonParser.Feature.ALLOW_UNQUOTED_FIELD_NAMES, true)
-//                .setSerializationInclusion(JsonInclude.Include.NON_NULL);
+    public static void verifyGetSchemesResponse(Response response) throws IOException {
+        verifyStatusCode(response, 200);
 
-        System.out.println(response.asString());
-        GetSchemesResponse schemesResponses = objectMapper.readValue(response.asString(), GetSchemesResponse.class);
+        GetSchemesResponse schemesResponse = new GetSchemesResponse(Arrays.asList(response.getBody().as(Scheme[].class)));
+        Assert.assertEquals(schemesResponse.getSchemes().size(), 5, "Wrong number of schemes are returned!");
 
-    //    GetSchemesResponse schemesResponse = response.as(GetSchemesResponse.class);
-     //   List<Schemes> schemesList = Arrays.asList(response.getBody().as(Schemes[].class));
-  //      GetSchemesResponse schemesResponse = response.getBody().as(GetSchemesResponse.class);
-        System.out.println("response.asString()");
-//        Schemes schemeCOH = schemesResponse.getSchemeCOH();
-//        Assert.assertEquals(schemeCOH.getSchemeRegisterCode(), getSchemeCode(COMPANIES_HOUSE), "Wrong SchemeCode!");
-//        Assert.assertEquals(schemeCOH.getSchemeName(), getSchemeName(COMPANIES_HOUSE), "Wrong SchemeName!");
-//        Assert.assertEquals(schemeCOH.getSchemeUri(), getSchemeURL(COMPANIES_HOUSE), "Wrong SchemeURL!");
-//        Assert.assertEquals(schemeCOH.getSchemeCountryCode(), getSchemeCountryCode(COMPANIES_HOUSE), "Wrong CountryCode!");
-//
-//        Schemes schemeDUNS = schemesResponse.getSchemeDUNS();
-//        Assert.assertEquals(schemeDUNS.getSchemeRegisterCode(), getSchemeCode(DUNS_AND_BRADSTREET), "Wrong SchemeCode!");
-//        Assert.assertEquals(schemeDUNS.getSchemeName(), getSchemeName(DUNS_AND_BRADSTREET), "Wrong SchemeName!");
-//        Assert.assertEquals(schemeDUNS.getSchemeUri(), getSchemeURL(DUNS_AND_BRADSTREET), "Wrong SchemeURL!");
-//        Assert.assertEquals(schemeDUNS.getSchemeCountryCode(), getSchemeCountryCode(DUNS_AND_BRADSTREET), "Wrong CountryCode!");
-//
-//        Schemes schemeCHC = schemesResponse.getSchemeCHC();
-//        Assert.assertEquals(schemeCHC.getSchemeRegisterCode(), getSchemeCode(CHARITIES_COMMISSION), "Wrong SchemeCode!");
-//        Assert.assertEquals(schemeCHC.getSchemeName(), getSchemeName(CHARITIES_COMMISSION), "Wrong SchemeName!");
-//        Assert.assertEquals(schemeCHC.getSchemeUri(), getSchemeURL(CHARITIES_COMMISSION), "Wrong SchemeURL!");
-//        Assert.assertEquals(schemeCHC.getSchemeCountryCode(), getSchemeCountryCode(CHARITIES_COMMISSION), "Wrong CountryCode!");
-//
-//        Schemes schemeNIC = schemesResponse.getSchemeNIC();
-//        Assert.assertEquals(schemeNIC.getSchemeRegisterCode(), getSchemeCode(NORTHERN_ISLAND_CHARITY), "Wrong SchemeCode!");
-//        Assert.assertEquals(schemeNIC.getSchemeName(), getSchemeName(NORTHERN_ISLAND_CHARITY), "Wrong SchemeName!");
-//        Assert.assertEquals(schemeNIC.getSchemeUri(), getSchemeURL(NORTHERN_ISLAND_CHARITY), "Wrong SchemeURL!");
-//        Assert.assertEquals(schemeNIC.getSchemeCountryCode(), getSchemeCountryCode(NORTHERN_ISLAND_CHARITY), "Wrong CountryCode!");
-//
-//        Schemes schemeSC = schemesResponse.getSchemeSC();
-//        Assert.assertEquals(schemeSC.getSchemeRegisterCode(), getSchemeCode(SCOTLAND_CHARITY), "Wrong SchemeCode!");
-//        Assert.assertEquals(schemeSC.getSchemeName(), getSchemeName(SCOTLAND_CHARITY), "Wrong SchemeName!");
-//        Assert.assertEquals(schemeSC.getSchemeUri(), getSchemeURL(SCOTLAND_CHARITY), "Wrong SchemeURL!");
-//        Assert.assertEquals(schemeSC.getSchemeCountryCode(), getSchemeCountryCode(SCOTLAND_CHARITY), "Wrong CountryCode!");
+        Scheme scheme = schemesResponse.getSchemes().get(0);
+        Assert.assertEquals(scheme.getSchemeRegisterCode(), getSchemeCode(COMPANIES_HOUSE), "Invalid SchemeCode!");
+        Assert.assertEquals(scheme.getSchemeName(), getSchemeName(COMPANIES_HOUSE), "Invalid SchemeName!");
+        Assert.assertEquals(scheme.getSchemeUri(), getSchemeURL(COMPANIES_HOUSE), "Invalid SchemeURL!");
+        Assert.assertEquals(scheme.getSchemeCountryCode(), getSchemeCountryCode(COMPANIES_HOUSE), "Invalid CountryCode!");
+
+        scheme = schemesResponse.getSchemes().get(1);
+        Assert.assertEquals(scheme.getSchemeRegisterCode(), getSchemeCode(DUNS_AND_BRADSTREET), "Invalid SchemeCode!");
+        Assert.assertEquals(scheme.getSchemeName(), getSchemeName(DUNS_AND_BRADSTREET), "Invalid SchemeName!");
+        Assert.assertEquals(scheme.getSchemeUri(), getSchemeURL(DUNS_AND_BRADSTREET), "InvalidWrong SchemeURL!");
+        Assert.assertEquals(scheme.getSchemeCountryCode(), getSchemeCountryCode(DUNS_AND_BRADSTREET), "Invalid CountryCode!");
+
+        scheme = schemesResponse.getSchemes().get(2);
+        Assert.assertEquals(scheme.getSchemeRegisterCode(), getSchemeCode(CHARITIES_COMMISSION), "Invalid SchemeCode!");
+        Assert.assertEquals(scheme.getSchemeName(), getSchemeName(CHARITIES_COMMISSION), "Invalid SchemeName!");
+        Assert.assertEquals(scheme.getSchemeUri(), getSchemeURL(CHARITIES_COMMISSION), "Invalid SchemeURL!");
+        Assert.assertEquals(scheme.getSchemeCountryCode(), getSchemeCountryCode(CHARITIES_COMMISSION), "Invalid CountryCode!");
+
+        scheme = schemesResponse.getSchemes().get(3);
+        Assert.assertEquals(scheme.getSchemeRegisterCode(), getSchemeCode(SCOTLAND_CHARITY), "Invalid SchemeCode!");
+        Assert.assertEquals(scheme.getSchemeName(), getSchemeName(SCOTLAND_CHARITY), "Invalid SchemeName!");
+        Assert.assertEquals(scheme.getSchemeUri(), getSchemeURL(SCOTLAND_CHARITY), "Invalid SchemeURL!");
+        Assert.assertEquals(scheme.getSchemeCountryCode(), getSchemeCountryCode(SCOTLAND_CHARITY), "Invalid CountryCode!");
+
+        scheme = schemesResponse.getSchemes().get(4);
+        Assert.assertEquals(scheme.getSchemeRegisterCode(), getSchemeCode(NORTHERN_ISLAND_CHARITY), "Invalid SchemeCode!");
+        Assert.assertEquals(scheme.getSchemeName(), getSchemeName(NORTHERN_ISLAND_CHARITY), "Invalid SchemeName!");
+        Assert.assertEquals(scheme.getSchemeUri(), getSchemeURL(NORTHERN_ISLAND_CHARITY), "Invalid SchemeURL!");
+        Assert.assertEquals(scheme.getSchemeCountryCode(), getSchemeCountryCode(NORTHERN_ISLAND_CHARITY), "Invalid CountryCode!");
+    }
+
+    private static void verifyStatusCode(Response response, int expectedCode) {
+        Assert.assertEquals(response.getStatusCode(), expectedCode, "Unexpected Status code returned!!");
     }
 
     public static void verifyPostSchemeInfoResponse(SchemeRegistry scheme, OrgDataProvider expectedRes, PostSchemeInfoResponse actualRes) {

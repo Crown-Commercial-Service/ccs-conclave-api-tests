@@ -20,9 +20,9 @@ public class RestRequests {
         return get(endpoint);
     }
 
-    public static Response getSchemeNames() {
+    public static Response getSchemes() {
         String endpoint = baseURI + Endpoints.getSchemeNamesURI;
-        logger.info("getSchemeNames Endpoint: "+ endpoint);
+        logger.info("getSchemes Endpoint: "+ endpoint);
         return get(endpoint);
     }
 
