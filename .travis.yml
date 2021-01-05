@@ -5,8 +5,9 @@ before_install:
 env:
   global:
     - BASEURL=$BASE_URL
+    - APIKEY=$API_KEY
 script:
-  - mvn clean test -Dbase.url=$BASEURL || echo "done"
+  - mvn clean test -Dbase.url=$BASEURL -Dapi.key=$APIKEY || echo "done"
 before_deploy:
   - cp target/report/conclave_api_test_report.html target/report/index.html
 deploy:
@@ -16,4 +17,4 @@ deploy:
     github_token: $GITHUB_TOKEN
     keep_history: true
     on:
-      branch: main
+      branch: feature/FixSchemeNamesTest

@@ -2,7 +2,7 @@ package com.ccs.conclave.api.cii.data;
 
 public enum SchemeRegistry {
     COMPANIES_HOUSE("GB-COH", "Companies House",  "https://api.company-information.service.gov.uk", "Company Registration Number", "GB"),
-    DUNS_AND_BRADSTREET("US-DUN", "Dun and Bradstreet",  "https://api.company-information.service.gov.uk", "DUNS Number","US"),
+    DUN_AND_BRADSTREET("US-DUN", "Dun and Bradstreet",  "https://plus.dnb.com", "DUNS Number","US"),
     CHARITIES_COMMISSION("GB-CHC", "Charities Commission for England and Wales",  "https://findthatcharity.uk" , "Registered Charity Number","GB"),
     NORTHERN_ISLAND_CHARITY("GB-NIC", "Northern Ireland Charities Commission","https://findthatcharity.uk", "Registered Charity Number", "GB"),
     SCOTLAND_CHARITY("GB-SC", "Scottish Charities Commission", "https://findthatcharity.uk", "Registered Charity Number", "GB"),
@@ -36,5 +36,9 @@ public enum SchemeRegistry {
 
     public static String getSchemeCountryCode(SchemeRegistry registry) {
         return registry.countryCode;
+    }
+
+    public static String getSchemeIdentifier(SchemeRegistry registry) {
+        return registry.schemeIdentifier;
     }
 };

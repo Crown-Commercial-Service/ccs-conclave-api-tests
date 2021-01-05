@@ -40,10 +40,10 @@ public class OrgDataProvider {
 
                 break;
 
-            case DUNS_AND_BRADSTREET:
+            case DUN_AND_BRADSTREET:
                 schemeInfo.setName("CHAIGELEY EDUCATIONAL FOUNDATION");
                 identifier.setId("378509368");
-                identifier.setScheme(SchemeRegistry.getSchemeCode(DUNS_AND_BRADSTREET));
+                identifier.setScheme(SchemeRegistry.getSchemeCode(DUN_AND_BRADSTREET));
                 identifier.setUri("");
                 schemeInfo.setIdentifier(identifier);
 
