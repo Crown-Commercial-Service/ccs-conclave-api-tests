@@ -1,9 +1,6 @@
 package com.ccs.conclave.api.cii.data;
 
-import com.ccs.conclave.api.cii.pojo.AdditionalIdentifiers;
-import com.ccs.conclave.api.cii.pojo.Address;
-import com.ccs.conclave.api.cii.pojo.Identifier;
-import com.ccs.conclave.api.cii.pojo.SchemeInfo;
+import com.ccs.conclave.api.cii.pojo.*;
 
 import static com.ccs.conclave.api.cii.data.SchemeRegistry.*;
 
@@ -15,29 +12,31 @@ public class OrgDataProvider {
         AdditionalIdentifiers additionalIdentifiers = new AdditionalIdentifiers();
         Identifier additionalIdentifier = new Identifier();
         Address address = new Address();
+        ContactPoint contactPoint = new ContactPoint();
         switch (schemeRegistry) {
             case COMPANIES_HOUSE:
-                schemeInfo.setName("BRITISH TELECOMMUNICATIONS PUBLIC LIMITED COMPANY");
-                identifier.setId("1800000");
+                schemeInfo.setName("AI RECRUITMENT TECHNOLOGIES LIMITED");
+                identifier.setId("07651107");
                 identifier.setScheme(SchemeRegistry.getSchemeCode(COMPANIES_HOUSE));
+                identifier.setLegalName("AI RECRUITMENT TECHNOLOGIES LIMITED");
                 identifier.setUri("");
                 schemeInfo.setIdentifier(identifier);
 
-//                additionalIdentifier.setId("");
-//                additionalIdentifier.setScheme(SchemeRegistry.getSchemeCode(COMPANIES_HOUSE));
-//                identifier.setUri("");
-//                additionalIdentifiers.setIdentifier(additionalIdentifier);
+                // No additionalIdentifier for COMPANIES_HOUSE
 
-                address.setCountryName("");
-                address.setLocality("");
-                address.setPostcode("");
-                address.setRegion("");
-                address.setStreetAddress("");
-
+                address.setCountryName("England");
+                address.setLocality("Prescot");
+                address.setPostalCode("L34 4AT");
+                address.setRegion("Merseyside");
+                address.setStreetAddress("Upper Floor, The Granary, Stanley Grange Ormskirk Road");
                 schemeInfo.setAddress(address);
 
-                // TODO Contact info
-
+                contactPoint.setName("");
+                contactPoint.setEmail("");
+                contactPoint.setFaxNumber("");
+                contactPoint.setTelephone("");
+                contactPoint.setUrl("");
+                schemeInfo.setContactPoint(contactPoint);
                 break;
 
             case DUN_AND_BRADSTREET:
@@ -54,7 +53,7 @@ public class OrgDataProvider {
 
                 address.setCountryName("United Kingdom");
                 address.setLocality("WARRINGTON");
-                address.setPostcode("WA4 2TE");
+                address.setPostalCode("WA4 2TE");
                 address.setRegion("Europe");
                 address.setStreetAddress("Chaigeley School Lymm Road Thelwall");
 
@@ -76,7 +75,7 @@ public class OrgDataProvider {
 
                 address.setCountryName("United Kingdom");
                 address.setLocality("Society Building");
-                address.setPostcode("N1 9RL");
+                address.setPostalCode("N1 9RL");
                 address.setRegion("8 Regents Wharf");
                 address.setStreetAddress("National Council For Voluntary, Organisations ");
 
@@ -92,7 +91,7 @@ public class OrgDataProvider {
 
                 address.setCountryName("");
                 address.setLocality("");
-                address.setPostcode("BT42 3AH");
+                address.setPostalCode("BT42 3AH");
                 address.setRegion("");
                 address.setStreetAddress("");
 
@@ -108,7 +107,7 @@ public class OrgDataProvider {
 
                 address.setCountryName("Scotland");
                 address.setLocality("25 Viewlands Road");
-                address.setPostcode("PH1 1BL");
+                address.setPostalCode("PH1 1BL");
                 address.setRegion("Perth");
                 address.setStreetAddress("Viewlands House");
 
