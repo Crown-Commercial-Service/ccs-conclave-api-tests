@@ -18,4 +18,4 @@ deploy:
   github_token: $GITHUBTOKEN
   keep_history: true
   on:
-    branch: feature/FixSchemeNamesTest
+    branch: feature/FixGetSchemeInfoTests

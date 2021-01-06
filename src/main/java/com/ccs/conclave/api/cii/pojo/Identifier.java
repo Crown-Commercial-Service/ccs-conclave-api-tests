@@ -7,5 +7,6 @@ import lombok.Setter;
 public class Identifier {
     private String scheme;
     private String id;
+    private String legalName;
     private String uri;
 }
