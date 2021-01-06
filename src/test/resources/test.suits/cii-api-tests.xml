@@ -1,19 +1,19 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
 
 <suite name="cii.api.tests" verbose="1">
-    <test name="Get Scheme info tests">
-        <classes>
-            <class name="com.ccs.conclave.api.cii.tests.GetSchemeInfoTests"/>
-        </classes>
-    </test>
-    <test name="Post Scheme info tests">
-        <classes>
-            <class name="com.ccs.conclave.api.cii.tests.PostSchemeIdTests"/>
-        </classes>
-    </test>
     <test name="Get Scheme Names tests">
         <classes>
-            <class name="com.ccs.conclave.api.cii.tests.GetSchemeNamesTests"/>
+            <class name="com.ccs.conclave.api.cii.tests.GetSchemesTests"/>
         </classes>
     </test>
+<!--    <test name="Get Scheme info tests">-->
+<!--        <classes>-->
+<!--            <class name="com.ccs.conclave.api.cii.tests.GetSchemeInfoTests"/>-->
+<!--        </classes>-->
+<!--    </test>-->
+<!--    <test name="Post Scheme info tests">-->
+<!--        <classes>-->
+<!--            <class name="com.ccs.conclave.api.cii.tests.PostSchemeIdTests"/>-->
+<!--        </classes>-->
+<!--    </test>-->
 </suite>
