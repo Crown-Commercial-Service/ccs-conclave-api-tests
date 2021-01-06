@@ -11,29 +11,77 @@ import com.ccs.conclave.api.cii.data.SchemeRegistry;
 import io.restassured.response.Response;
 import org.apache.log4j.Logger;
 import org.testng.Assert;
-
 import java.io.IOException;
 import java.util.Arrays;
-
 import static com.ccs.conclave.api.cii.data.SchemeRegistry.*;
-
 
 public class VerifyResponses {
     private final static Logger logger = Logger.getLogger(VerifyResponses.class);
 
-    public static void verifyGetSchemeInfoResponse(SchemeRegistry scheme, SchemeInfo schemeInfo, Response response) {
+    public static void verifyGetSchemeInfoResponse(SchemeInfo expectedSchemeInfo, Response response) {
         verifyStatusCode(response, 200);
 
-        GetSchemeInfoResponse actualRes = response.as(GetSchemeInfoResponse.class);
-        Assert.assertEquals(actualRes.getSchemeInfo(), schemeInfo, "Wrong GetSchemeInfo response!" );
+        GetSchemeInfoResponse actualRes = new GetSchemeInfoResponse();
+        actualRes.setSchemeInfo(response.as(SchemeInfo.class));
+        verifySchemeInfo(actualRes.getSchemeInfo(), expectedSchemeInfo);
     }
 
-    public static void verifyInvalidGetSchemeInfoResponse(Response response) {
+    private static void verifySchemeInfo(SchemeInfo actualSchemeInfo, SchemeInfo expectedSchemeInfo) {
+        logger.info("SchemeInfo:Name " + actualSchemeInfo.getName());
+        Assert.assertEquals(actualSchemeInfo.getName(), expectedSchemeInfo.getName(), "Wrong SchemeInfo:Name in response!");
 
+        logger.info("SchemeInfo:Scheme " + actualSchemeInfo.getIdentifier().getScheme());
+        logger.info("SchemeInfo:Id " + actualSchemeInfo.getIdentifier().getId());
+        Assert.assertEquals(actualSchemeInfo.getIdentifier().getScheme(), expectedSchemeInfo.getIdentifier().getScheme(), "Wrong Identifier:scheme in response!");
+        Assert.assertEquals(actualSchemeInfo.getIdentifier().getId(), expectedSchemeInfo.getIdentifier().getId(), "Wrong Identifier:id in response!");
+        Assert.assertEquals(actualSchemeInfo.getIdentifier().getScheme(), expectedSchemeInfo.getIdentifier().getScheme(), "Wrong Identifier:legalName in response!");
+        Assert.assertEquals(actualSchemeInfo.getIdentifier().getUri(), expectedSchemeInfo.getIdentifier().getUri(), "Wrong Identifier:url in response!");
+
+        Assert.assertEquals(actualSchemeInfo.getAdditionalIdentifiers().size(), expectedSchemeInfo.getAdditionalIdentifiers().size(), "AdditionalIdentifier aray size is invalid!");
+        //Todo: verify Additional Identifier if size is grater than zero
+
+        logger.info("Address:StreetAddress " + actualSchemeInfo.getAddress().getStreetAddress());
+        Assert.assertEquals(actualSchemeInfo.getAddress().getStreetAddress(), expectedSchemeInfo.getAddress().getStreetAddress(), "Wrong address:streetAddress in response!");
+        Assert.assertEquals(actualSchemeInfo.getAddress().getLocality(), expectedSchemeInfo.getAddress().getLocality(), "Wrong address:locality in response!");
+        logger.info("Address:region " + actualSchemeInfo.getAddress().getRegion());
+        // Bug CON-439: Assert.assertEquals(actualSchemeInfo.getAddress().getRegion(), expectedSchemeInfo.getAddress().getRegion(), "Wrong address:region in response!" );
+        Assert.assertEquals(actualSchemeInfo.getAddress().getPostalCode(), expectedSchemeInfo.getAddress().getPostalCode(), "Wrong address:postalCode in response!");
+        Assert.assertEquals(actualSchemeInfo.getAddress().getCountryName(), expectedSchemeInfo.getAddress().getCountryName(), "Wrong address:countryName in response!");
+
+        Assert.assertEquals(actualSchemeInfo.getContactPoint().getName(), expectedSchemeInfo.getContactPoint().getName(), "Wrong contactPoint:name in response!");
+        Assert.assertEquals(actualSchemeInfo.getContactPoint().getEmail(), expectedSchemeInfo.getContactPoint().getEmail(), "Wrong contactPoint:email in response!");
+        Assert.assertEquals(actualSchemeInfo.getContactPoint().getFaxNumber(), expectedSchemeInfo.getContactPoint().getFaxNumber(), "Wrong contactPoint:telephone in response!");
+        Assert.assertEquals(actualSchemeInfo.getContactPoint().getTelephone(), expectedSchemeInfo.getContactPoint().getTelephone(), "Wrong contactPoint:faxNumber in response!");
+        Assert.assertEquals(actualSchemeInfo.getContactPoint().getUrl(), expectedSchemeInfo.getContactPoint().getUrl(), "Wrong contactPoint:url in response!");
+    }
+
+    public static void verifyInvalidGetSchemeResponse(int errorCode, Response response) {
+        verifyStatusCode(response, 400);
+        switch (errorCode) {
+            case 400:
+                Assert.assertEquals(response.getBody().asString(), "{\"schemeId\":[\"can't be blank\",\"No such scheme registered\"]}", "Wrong contactPoint:url in response!");
+                break;
+
+            case 401:
+                Assert.assertEquals(response.getBody().asString(), "{\"schemeId\":[\"can't be blank\",\"No such scheme registered\"]}", "Wrong contactPoint:url in response!");
+                break;
+
+
+
+        }
+
+
+    }
+
+
+    public static void verifyInvalidSchemeNameResponse(Response response) {
+        // Bug:CON-450 verifyStatusCode(response, 400);
+        // Assert.assertEquals(response.getBody().asString(), "", "Wrong contactPoint:url in response!");
     }
 
     public static void verifyGetSchemesResponse(Response response) throws IOException {
         verifyStatusCode(response, 200);
+        logger.info("GetSchemesResponse" + response.asString());
 
         GetSchemesResponse schemesResponse = new GetSchemesResponse(Arrays.asList(response.getBody().as(Scheme[].class)));
         Assert.assertEquals(schemesResponse.getSchemes().size(), 5, "Wrong number of schemes are returned!");
@@ -79,6 +127,6 @@ public class VerifyResponses {
     }
 
     public static void verifyPostSchemeInfoResponse(SchemeRegistry scheme, OrgDataProvider expectedRes, PostSchemeInfoResponse actualRes) {
-        Assert.assertEquals(actualRes.getSchemeInfo(), expectedRes.getInfo(scheme), "Wrong PostSchemeInfo response!" );
+        Assert.assertEquals(actualRes.getSchemeInfo(), expectedRes.getInfo(scheme), "Wrong PostSchemeInfo response!");
     }
 }

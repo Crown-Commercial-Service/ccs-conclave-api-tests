@@ -9,7 +9,6 @@ import org.testng.annotations.Test;
 
 import static com.ccs.conclave.api.cii.verification.VerifyResponses.*;
 import static com.ccs.conclave.api.cii.data.SchemeRegistry.*;
-import static com.ccs.conclave.api.cii.verification.VerifyResponses.verifyGetSchemeInfoResponse;
 
 public class GetSchemeInfoTests extends BaseClass {
 
@@ -17,36 +16,34 @@ public class GetSchemeInfoTests extends BaseClass {
     public void getCompaniesHouseSchemeInfo() {
         SchemeInfo schemeInfo = OrgDataProvider.getInfo(COMPANIES_HOUSE);
         Response response = RestRequests.getSchemeInfo(COMPANIES_HOUSE, schemeInfo.getIdentifier().getId());
-        verifyGetSchemeInfoResponse(COMPANIES_HOUSE, schemeInfo, response);
+        verifyGetSchemeInfoResponse(schemeInfo, response);
     }
 
-    @Test
+    //@Test
     public void getDunsWithCharitySchemeInfo() {
         // Todo
     }
 
-    @Test
+    //@Test
     public void getNorthernCharitySchemeInfo() {
         // Todo
     }
 
-    @Test
+    //@Test
     public void getScottishCharitySchemeInfo() {
         // Todo
     }
 
     @Test
-    public void getSchemeInfoWithInvalidSchemeNameValidIdentifier() {
+    public void getSchemeInfoErrorCode400() {
         String identifier = OrgDataProvider.getInfo(COMPANIES_HOUSE).getIdentifier().getId();
         Response response = RestRequests.getSchemeInfo(INVALID_SCHEME, identifier);
-        verifyInvalidGetSchemeInfoResponse(response);
-        // Todo verify response message and status code
+        verifyInvalidSchemeIdResponse(response);
     }
 
     @Test
-    public void getSchemeInfoWithInvalidIdentifierValidSchemeName() {
+    public void getSchemeInfoErrorCode401() {
         Response response = RestRequests.getSchemeInfo(COMPANIES_HOUSE, "00000000");
-        verifyInvalidGetSchemeInfoResponse(response);
-        // Todo verify response message and status code
+        verifyInvalidSchemeNameResponse(response);
     }
 }
