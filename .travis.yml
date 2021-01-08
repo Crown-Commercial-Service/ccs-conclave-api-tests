@@ -16,6 +16,5 @@ deploy:
   provider: pages
   skip_cleanup: true
   github_token: $GITHUBTOKEN
-  keep_history: true
   on:
-    branch: feature/FixGetSchemeInfoTests
+    branch: feature/FixErrorScenariosTests

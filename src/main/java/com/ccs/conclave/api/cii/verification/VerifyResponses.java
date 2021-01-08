@@ -56,21 +56,16 @@ public class VerifyResponses {
     }
 
     public static void verifyInvalidGetSchemeResponse(int errorCode, Response response) {
-        verifyStatusCode(response, 400);
+        verifyStatusCode(response, errorCode);
         switch (errorCode) {
             case 400:
                 Assert.assertEquals(response.getBody().asString(), "{\"schemeId\":[\"can't be blank\",\"No such scheme registered\"]}", "Wrong contactPoint:url in response!");
                 break;
 
             case 401:
-                Assert.assertEquals(response.getBody().asString(), "{\"schemeId\":[\"can't be blank\",\"No such scheme registered\"]}", "Wrong contactPoint:url in response!");
+               // Bug: CON-450 Assert.assertEquals(response.getBody().asString(), "{}", "Wrong contactPoint:url in response!");
                 break;
-
-
-
         }
-
-
     }
 
 

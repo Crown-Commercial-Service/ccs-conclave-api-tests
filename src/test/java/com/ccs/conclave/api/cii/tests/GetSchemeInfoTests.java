@@ -38,12 +38,12 @@ public class GetSchemeInfoTests extends BaseClass {
     public void getSchemeInfoErrorCode400() {
         String identifier = OrgDataProvider.getInfo(COMPANIES_HOUSE).getIdentifier().getId();
         Response response = RestRequests.getSchemeInfo(INVALID_SCHEME, identifier);
-        verifyInvalidSchemeIdResponse(response);
+        verifyInvalidGetSchemeResponse(400, response);
     }
 
     @Test
     public void getSchemeInfoErrorCode401() {
         Response response = RestRequests.getSchemeInfo(COMPANIES_HOUSE, "00000000");
-        verifyInvalidSchemeNameResponse(response);
+        verifyInvalidGetSchemeResponse(401, response);
     }
 }
