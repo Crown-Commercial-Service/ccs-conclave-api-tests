@@ -12,11 +12,10 @@ public class OrgDataProvider {
     public static SchemeInfo getInfo(SchemeRegistry schemeRegistry) {
         SchemeInfo schemeInfo = new SchemeInfo();
         Identifier identifier = new Identifier();
-        List<Identifier> additionalIdentifiers = new ArrayList<>();
         Identifier additionalIdentifier = new Identifier();
+        List<Identifier> additionalIdentifiers = new ArrayList<>();
         Address address = new Address();
         ContactPoint contactPoint = new ContactPoint();
-
 
         switch (schemeRegistry) {
             case COMPANIES_HOUSE:
@@ -51,6 +50,8 @@ public class OrgDataProvider {
                 identifier.setUri("");
                 schemeInfo.setIdentifier(identifier);
 
+                // No additionalIdentifier
+
                 address.setCountryName("United Kingdom");
                 address.setLocality("WARRINGTON");
                 address.setPostalCode("WA4 2TE");
@@ -66,18 +67,18 @@ public class OrgDataProvider {
                 schemeInfo.setContactPoint(contactPoint);
                 break;
 
-            case DUN_AND_BRADSTREET_WITH_COMP_HOUSE:
+            case DUN_AND_BRADSTREET_WITH_COH:
                 schemeInfo.setName("CHAIN GANG LIMITED");
                 identifier.setId("297663445");
-                identifier.setScheme(SchemeRegistry.getSchemeCode(DUN_AND_BRADSTREET_WITH_COMP_HOUSE));
+                identifier.setScheme(SchemeRegistry.getSchemeCode(DUN_AND_BRADSTREET_WITH_COH));
                 identifier.setUri("");
                 schemeInfo.setIdentifier(identifier);
 
-                identifier.setId("02029405");
-                identifier.setScheme(SchemeRegistry.getSchemeCode(COMPANIES_HOUSE));
-                identifier.setUri("");
-                identifier.setLegalName("CHAIN GANG LIMITED LIMITED");
-                additionalIdentifiers.add(identifier);
+                additionalIdentifier.setId("02029405");
+                additionalIdentifier.setScheme(SchemeRegistry.getSchemeCode(COMPANIES_HOUSE));
+                additionalIdentifier.setUri("");
+                additionalIdentifier.setLegalName("CHAIN GANG LIMITED LIMITED");
+                additionalIdentifiers.add(additionalIdentifier);
                 schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
 
                 address.setCountryName("United Kingdom");

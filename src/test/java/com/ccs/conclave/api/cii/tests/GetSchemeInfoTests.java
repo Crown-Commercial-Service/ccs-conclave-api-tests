@@ -28,8 +28,8 @@ public class GetSchemeInfoTests extends BaseClass {
 
     @Test
     public void getDunsSchemeInfoWithCompaniesHouse() {
-        SchemeInfo schemeInfo = OrgDataProvider.getInfo(DUN_AND_BRADSTREET_WITH_COMP_HOUSE);
-        Response response = RestRequests.getSchemeInfo(DUN_AND_BRADSTREET_WITH_COMP_HOUSE, schemeInfo.getIdentifier().getId());
+        SchemeInfo schemeInfo = OrgDataProvider.getInfo(DUN_AND_BRADSTREET_WITH_COH);
+        Response response = RestRequests.getSchemeInfo(DUN_AND_BRADSTREET_WITH_COH, schemeInfo.getIdentifier().getId());
         verifyGetSchemeInfoResponse(schemeInfo, response);
     }
 
