@@ -6,7 +6,6 @@ import com.ccs.conclave.api.cii.requests.RestRequests;
 import com.ccs.conclave.api.common.BaseClass;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
-
 import static com.ccs.conclave.api.cii.verification.VerifyResponses.*;
 import static com.ccs.conclave.api.cii.data.SchemeRegistry.*;
 import static com.ccs.conclave.api.cii.verification.VerifyResponses.verifyGetSchemeInfoResponse;
@@ -20,9 +19,18 @@ public class GetSchemeInfoTests extends BaseClass {
         verifyGetSchemeInfoResponse(schemeInfo, response);
     }
 
-    //@Test
-    public void getDunsWithCharitySchemeInfo() {
-        // Todo
+    @Test
+    public void getDunsSchemeInfoWithoutAdditionalIdentifier() {
+        SchemeInfo schemeInfo = OrgDataProvider.getInfo(DUN_AND_BRADSTREET);
+        Response response = RestRequests.getSchemeInfo(DUN_AND_BRADSTREET, schemeInfo.getIdentifier().getId());
+        verifyGetSchemeInfoResponse(schemeInfo, response);
+    }
+
+    @Test
+    public void getDunsSchemeInfoWithCompaniesHouse() {
+        SchemeInfo schemeInfo = OrgDataProvider.getInfo(DUN_AND_BRADSTREET_WITH_COMP_HOUSE);
+        Response response = RestRequests.getSchemeInfo(DUN_AND_BRADSTREET_WITH_COMP_HOUSE, schemeInfo.getIdentifier().getId());
+        verifyGetSchemeInfoResponse(schemeInfo, response);
     }
 
     //@Test

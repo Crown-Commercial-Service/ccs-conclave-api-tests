@@ -2,6 +2,9 @@ package com.ccs.conclave.api.cii.data;
 
 import com.ccs.conclave.api.cii.pojo.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static com.ccs.conclave.api.cii.data.SchemeRegistry.*;
 
 public class OrgDataProvider {
@@ -9,10 +12,12 @@ public class OrgDataProvider {
     public static SchemeInfo getInfo(SchemeRegistry schemeRegistry) {
         SchemeInfo schemeInfo = new SchemeInfo();
         Identifier identifier = new Identifier();
-        AdditionalIdentifiers additionalIdentifiers = new AdditionalIdentifiers();
+        List<Identifier> additionalIdentifiers = new ArrayList<>();
         Identifier additionalIdentifier = new Identifier();
         Address address = new Address();
         ContactPoint contactPoint = new ContactPoint();
+
+
         switch (schemeRegistry) {
             case COMPANIES_HOUSE:
                 schemeInfo.setName("AI RECRUITMENT TECHNOLOGIES LIMITED");
@@ -46,20 +51,50 @@ public class OrgDataProvider {
                 identifier.setUri("");
                 schemeInfo.setIdentifier(identifier);
 
-                additionalIdentifier.setId("1060403");
-                additionalIdentifier.setScheme(SchemeRegistry.getSchemeCode(COMPANIES_HOUSE));
-//                identifier.setUri("");
-                additionalIdentifiers.setIdentifier(additionalIdentifier);
-
                 address.setCountryName("United Kingdom");
                 address.setLocality("WARRINGTON");
                 address.setPostalCode("WA4 2TE");
-                address.setRegion("Europe");
-                address.setStreetAddress("Chaigeley School Lymm Road Thelwall");
-
+                address.setRegion("");
+                address.setStreetAddress("Lymm Road Thelwall");
                 schemeInfo.setAddress(address);
 
+                contactPoint.setName("");
+                contactPoint.setEmail("");
+                contactPoint.setFaxNumber("");
+                contactPoint.setTelephone("");
+                contactPoint.setUrl("");
+                schemeInfo.setContactPoint(contactPoint);
                 break;
+
+            case DUN_AND_BRADSTREET_WITH_COMP_HOUSE:
+                schemeInfo.setName("CHAIN GANG LIMITED");
+                identifier.setId("297663445");
+                identifier.setScheme(SchemeRegistry.getSchemeCode(DUN_AND_BRADSTREET_WITH_COMP_HOUSE));
+                identifier.setUri("");
+                schemeInfo.setIdentifier(identifier);
+
+                identifier.setId("02029405");
+                identifier.setScheme(SchemeRegistry.getSchemeCode(COMPANIES_HOUSE));
+                identifier.setUri("");
+                identifier.setLegalName("CHAIN GANG LIMITED LIMITED");
+                additionalIdentifiers.add(identifier);
+                schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
+
+                address.setCountryName("United Kingdom");
+                address.setLocality("LONDON");
+                address.setPostalCode("SW11 3SX");
+                address.setRegion("");
+                address.setStreetAddress("Unit 4, River Reach Business Park 1 Gartons Way");
+                schemeInfo.setAddress(address);
+
+                contactPoint.setName("");
+                contactPoint.setEmail("");
+                contactPoint.setFaxNumber("");
+                contactPoint.setTelephone("");
+                contactPoint.setUrl("");
+                schemeInfo.setContactPoint(contactPoint);
+                break;
+
 
             case CHARITIES_COMMISSION:
                 schemeInfo.setName("THE NATIONAL COUNCIL FOR VOLUNTARY ORGANISATIONS");
@@ -68,10 +103,10 @@ public class OrgDataProvider {
                 identifier.setUri("http://www.ncvo.org.uk");
                 schemeInfo.setIdentifier(identifier);
 
-                additionalIdentifier.setId("GB-COH-00198344");
-                additionalIdentifier.setScheme(SchemeRegistry.getSchemeCode(COMPANIES_HOUSE));
-//                identifier.setUri("");
-                additionalIdentifiers.setIdentifier(additionalIdentifier);
+//                additionalIdentifier.setId("GB-COH-00198344");
+//                additionalIdentifier.setScheme(SchemeRegistry.getSchemeCode(COMPANIES_HOUSE));
+////                identifier.setUri("");
+//                additionalIdentifiers.setIdentifier(additionalIdentifier);
 
                 address.setCountryName("United Kingdom");
                 address.setLocality("Society Building");

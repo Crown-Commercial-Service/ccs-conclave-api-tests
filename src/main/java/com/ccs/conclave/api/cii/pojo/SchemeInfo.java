@@ -1,5 +1,6 @@
 package com.ccs.conclave.api.cii.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,7 +12,7 @@ import java.util.List;
 public class SchemeInfo {
     private String name;
     private Identifier identifier;
-    private List<AdditionalIdentifiers> additionalIdentifiers = new ArrayList<>();
+    private List<Identifier> additionalIdentifiers = new ArrayList<>();
     private Address address;
     private ContactPoint contactPoint;
 }
