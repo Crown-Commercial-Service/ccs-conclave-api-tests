@@ -55,8 +55,24 @@ public class VerifyResponses {
         Assert.assertEquals(actualSchemeInfo.getContactPoint().getUrl(), expectedSchemeInfo.getContactPoint().getUrl(), "Wrong contactPoint:url in response!");
     }
 
-    public static void verifyInvalidGetSchemeInfoResponse(Response response) {
+    public static void verifyInvalidGetSchemeResponse(int errorCode, Response response) {
+        switch (errorCode) {
+            case 400:
+                verifyStatusCode(response, errorCode);
+                Assert.assertEquals(response.getBody().asString(), "{\"schemeId\":[\"can't be blank\",\"No such scheme registered\"]}", "Wrong contactPoint:url in response!");
+                break;
 
+            case 401:
+                //verifyStatusCode(response, errorCode);
+               // Bug: CON-450 Assert.assertEquals(response.getBody().asString(), "{}", "Wrong contactPoint:url in response!");
+                break;
+        }
+    }
+
+
+    public static void verifyInvalidSchemeNameResponse(Response response) {
+        // Bug:CON-450 verifyStatusCode(response, 400);
+        // Assert.assertEquals(response.getBody().asString(), "", "Wrong contactPoint:url in response!");
     }
 
     public static void verifyGetSchemesResponse(Response response) throws IOException {
