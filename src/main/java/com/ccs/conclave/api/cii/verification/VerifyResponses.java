@@ -19,24 +19,17 @@ import static com.ccs.conclave.api.cii.data.SchemeRegistry.*;
 
 public class VerifyResponses {
     private final static Logger logger = Logger.getLogger(VerifyResponses.class);
-    private static GetSchemeInfoResponse actualRes = new GetSchemeInfoResponse();
 
 
-    public static void verifyGetSchemeInfoResponseWithNoAddIdentifier(SchemeInfo expectedSchemeInfo, Response response) {
+    public static void verifyGetSchemeInfoResponse(SchemeInfo expectedSchemeInfo, Response response) {
 
+        GetSchemeInfoResponse actualRes = new GetSchemeInfoResponse();
         verifyStatusCode(response, 200);
         actualRes.setSchemeInfo(response.as(SchemeInfo.class));
-        verifySchemeInfoWithNoAddIdentifier(actualRes.getSchemeInfo(), expectedSchemeInfo);
+        verifySchemeInfo(actualRes.getSchemeInfo(), expectedSchemeInfo);
     }
 
-    public static void verifyGetSchemeInfoResponseWithOneAddIdentifier(SchemeInfo expectedSchemeInfo, Response response) {
-
-        verifyStatusCode(response, 200);
-        actualRes.setSchemeInfo(response.as(SchemeInfo.class));
-        verifySchemeInfoWithOneAddIdentifier(actualRes.getSchemeInfo(), expectedSchemeInfo);
-    }
-
-    private static void verifySchemeInfoWithNoAddIdentifier(SchemeInfo actualSchemeInfo, SchemeInfo expectedSchemeInfo) {
+    private static void verifySchemeInfo(SchemeInfo actualSchemeInfo, SchemeInfo expectedSchemeInfo) {
         logger.info("SchemeInfo:Name " + actualSchemeInfo.getName());
         Assert.assertEquals(actualSchemeInfo.getName(), expectedSchemeInfo.getName(), "Wrong SchemeInfo:Name in response!");
 
@@ -64,21 +57,23 @@ public class VerifyResponses {
         Assert.assertEquals(actualSchemeInfo.getContactPoint().getUrl(), expectedSchemeInfo.getContactPoint().getUrl(), "Wrong contactPoint:url in response!");
     }
 
-    private static void verifySchemeInfoWithOneAddIdentifier(SchemeInfo actualSchemeInfo, SchemeInfo expectedSchemeInfo) {
+    public static void verifyInvalidGetSchemeResponse(int errorCode, Response response) {
+        switch (errorCode) {
+            case 400:
+                verifyStatusCode(response, errorCode);
+                Assert.assertEquals(response.getBody().asString(), "{\"schemeId\":[\"can't be blank\",\"No such scheme registered\"]}", "Wrong contactPoint:url in response!");
+                break;
 
-        verifySchemeInfoWithNoAddIdentifier(actualSchemeInfo, expectedSchemeInfo);
-        Assert.assertEquals(actualSchemeInfo.getAdditionalIdentifiers().size(), expectedSchemeInfo.getAdditionalIdentifiers().size(), "AdditionalIdentifier array size is invalid!");
-        logger.info("Additional Identifier :ID " + actualSchemeInfo.getAdditionalIdentifiers().get(0).getId());
-        Assert.assertTrue(actualSchemeInfo.getAdditionalIdentifiers().size() > 0);
-        Assert.assertEquals(actualSchemeInfo.getAdditionalIdentifiers().get(0).getId(), expectedSchemeInfo.getAdditionalIdentifiers().get(0).getId(), "Wrong Additional Identifier:id in response!");
-        Assert.assertEquals(actualSchemeInfo.getAdditionalIdentifiers().get(0).getScheme(), expectedSchemeInfo.getAdditionalIdentifiers().get(0).getScheme(), "Wrong Additional Identifier:scheme in response!");
-        Assert.assertEquals(actualSchemeInfo.getAdditionalIdentifiers().get(0).getLegalName(), expectedSchemeInfo.getAdditionalIdentifiers().get(0).getLegalName(), "Wrong Additional Identifier:legal name in response!");
-        Assert.assertEquals(actualSchemeInfo.getAdditionalIdentifiers().get(0).getUri(), expectedSchemeInfo.getAdditionalIdentifiers().get(0).getUri(), "Wrong Additional Identifier:Uri in response!");
-
+            case 401:
+                //verifyStatusCode(response, errorCode);
+               // Bug: CON-450 Assert.assertEquals(response.getBody().asString(), "{}", "Wrong contactPoint:url in response!");
+                break;
+        }
     }
 
-    public static void verifyInvalidGetSchemeInfoResponse(Response response) {
-
+    public static void verifyInvalidSchemeNameResponse(Response response) {
+        // Bug:CON-450 verifyStatusCode(response, 400);
+        // Assert.assertEquals(response.getBody().asString(), "", "Wrong contactPoint:url in response!");
     }
 
     public static void verifyGetSchemesResponse(Response response) throws IOException {
