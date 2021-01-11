@@ -12,12 +12,8 @@ import static io.restassured.RestAssured.given;
 
 public class RestRequests {
     private final static Logger logger = Logger.getLogger(RestRequests.class);
-//    private static String baseURI = System.getProperty("base.url");
-//    private static String apiKey = System.getProperty("api.key");
-    private static String baseURI = "https://conclave-cii-dev-stellar-puku-zr.london.cloudapps.digital/api/v1";
-    //= System.getProperty("base.url");
-    private static String apiKey = "994E4BC17B91875A7D36C664A929D";
-    //System.getProperty("api.key");
+    private static String baseURI = System.getProperty("base.url");
+    private static String apiKey = System.getProperty("api.key");
 
 
 
