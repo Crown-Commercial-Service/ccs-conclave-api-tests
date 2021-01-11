@@ -1,11 +1,11 @@
 package com.ccs.conclave.api.cii.data;
 
 public enum SchemeRegistry {
-    COMPANIES_HOUSE("GB-COH", "Companies House",  "https://api.company-information.service.gov.uk", "Company Registration Number", "GB"),
-    DUN_AND_BRADSTREET("US-DUN", "Dun and Bradstreet",  "https://plus.dnb.com", "DUNS Number","US"),
-    DUN_AND_BRADSTREET_WITH_COH("US-DUN", "Dun and Bradstreet",  "https://plus.dnb.com", "DUNS Number","US"),
-    CHARITIES_COMMISSION("GB-CHC", "Charities Commission for England and Wales",  "https://findthatcharity.uk" , "Registered Charity Number","GB"),
-    NORTHERN_ISLAND_CHARITY("GB-NIC", "Northern Ireland Charities Commission","https://findthatcharity.uk", "Registered Charity Number", "GB"),
+    COMPANIES_HOUSE("GB-COH", "Companies House", "https://api.company-information.service.gov.uk", "Company Registration Number", "GB"),
+    DUN_AND_BRADSTREET("US-DUN", "Dun and Bradstreet", "https://plus.dnb.com", "DUNS Number", "US"),
+    DUN_AND_BRADSTREET_WITH_COH("US-DUN", "Dun and Bradstreet", "https://plus.dnb.com", "DUNS Number", "US"),
+    CHARITIES_COMMISSION("GB-CHC", "Charities Commission for England and Wales", "https://findthatcharity.uk", "Registered Charity Number", "GB"),
+    NORTHERN_ISLAND_CHARITY("GB-NIC", "Northern Ireland Charities Commission", "https://findthatcharity.uk", "Registered Charity Number", "GB"),
     SCOTLAND_CHARITY("GB-SC", "Scottish Charities Commission", "https://findthatcharity.uk", "Registered Charity Number", "GB"),
     INVALID_SCHEME("", "", "", "", "");
 

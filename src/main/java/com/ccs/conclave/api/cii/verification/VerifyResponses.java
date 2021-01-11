@@ -11,22 +11,32 @@ import com.ccs.conclave.api.cii.data.SchemeRegistry;
 import io.restassured.response.Response;
 import org.apache.log4j.Logger;
 import org.testng.Assert;
+
 import java.io.IOException;
 import java.util.Arrays;
+
 import static com.ccs.conclave.api.cii.data.SchemeRegistry.*;
 
 public class VerifyResponses {
     private final static Logger logger = Logger.getLogger(VerifyResponses.class);
+    private static GetSchemeInfoResponse actualRes = new GetSchemeInfoResponse();
 
-    public static void verifyGetSchemeInfoResponse(SchemeInfo expectedSchemeInfo, Response response) {
+
+    public static void verifyGetSchemeInfoResponseWithNoAddIdentifier(SchemeInfo expectedSchemeInfo, Response response) {
+
         verifyStatusCode(response, 200);
-
-        GetSchemeInfoResponse actualRes = new GetSchemeInfoResponse();
         actualRes.setSchemeInfo(response.as(SchemeInfo.class));
-        verifySchemeInfo(actualRes.getSchemeInfo(), expectedSchemeInfo);
+        verifySchemeInfoWithNoAddIdentifier(actualRes.getSchemeInfo(), expectedSchemeInfo);
     }
 
-    private static void verifySchemeInfo(SchemeInfo actualSchemeInfo, SchemeInfo expectedSchemeInfo) {
+    public static void verifyGetSchemeInfoResponseWithOneAddIdentifier(SchemeInfo expectedSchemeInfo, Response response) {
+
+        verifyStatusCode(response, 200);
+        actualRes.setSchemeInfo(response.as(SchemeInfo.class));
+        verifySchemeInfoWithOneAddIdentifier(actualRes.getSchemeInfo(), expectedSchemeInfo);
+    }
+
+    private static void verifySchemeInfoWithNoAddIdentifier(SchemeInfo actualSchemeInfo, SchemeInfo expectedSchemeInfo) {
         logger.info("SchemeInfo:Name " + actualSchemeInfo.getName());
         Assert.assertEquals(actualSchemeInfo.getName(), expectedSchemeInfo.getName(), "Wrong SchemeInfo:Name in response!");
 
@@ -34,11 +44,10 @@ public class VerifyResponses {
         logger.info("SchemeInfo:Id " + actualSchemeInfo.getIdentifier().getId());
         Assert.assertEquals(actualSchemeInfo.getIdentifier().getScheme(), expectedSchemeInfo.getIdentifier().getScheme(), "Wrong Identifier:scheme in response!");
         Assert.assertEquals(actualSchemeInfo.getIdentifier().getId(), expectedSchemeInfo.getIdentifier().getId(), "Wrong Identifier:id in response!");
-        Assert.assertEquals(actualSchemeInfo.getIdentifier().getScheme(), expectedSchemeInfo.getIdentifier().getScheme(), "Wrong Identifier:legalName in response!");
+        Assert.assertEquals(actualSchemeInfo.getIdentifier().getLegalName(), expectedSchemeInfo.getIdentifier().getLegalName(), "Wrong Identifier:legalName in response!");
         Assert.assertEquals(actualSchemeInfo.getIdentifier().getUri(), expectedSchemeInfo.getIdentifier().getUri(), "Wrong Identifier:url in response!");
 
         Assert.assertEquals(actualSchemeInfo.getAdditionalIdentifiers().size(), expectedSchemeInfo.getAdditionalIdentifiers().size(), "AdditionalIdentifier array size is invalid!");
-        //Todo: verify Additional Identifier if size is grater than zero
 
         logger.info("Address:StreetAddress " + actualSchemeInfo.getAddress().getStreetAddress());
         Assert.assertEquals(actualSchemeInfo.getAddress().getStreetAddress(), expectedSchemeInfo.getAddress().getStreetAddress(), "Wrong address:streetAddress in response!");
@@ -53,6 +62,19 @@ public class VerifyResponses {
         Assert.assertEquals(actualSchemeInfo.getContactPoint().getFaxNumber(), expectedSchemeInfo.getContactPoint().getFaxNumber(), "Wrong contactPoint:telephone in response!");
         Assert.assertEquals(actualSchemeInfo.getContactPoint().getTelephone(), expectedSchemeInfo.getContactPoint().getTelephone(), "Wrong contactPoint:faxNumber in response!");
         Assert.assertEquals(actualSchemeInfo.getContactPoint().getUrl(), expectedSchemeInfo.getContactPoint().getUrl(), "Wrong contactPoint:url in response!");
+    }
+
+    private static void verifySchemeInfoWithOneAddIdentifier(SchemeInfo actualSchemeInfo, SchemeInfo expectedSchemeInfo) {
+
+        verifySchemeInfoWithNoAddIdentifier(actualSchemeInfo, expectedSchemeInfo);
+        Assert.assertEquals(actualSchemeInfo.getAdditionalIdentifiers().size(), expectedSchemeInfo.getAdditionalIdentifiers().size(), "AdditionalIdentifier array size is invalid!");
+        logger.info("Additional Identifier :ID " + actualSchemeInfo.getAdditionalIdentifiers().get(0).getId());
+        Assert.assertTrue(actualSchemeInfo.getAdditionalIdentifiers().size() > 0);
+        Assert.assertEquals(actualSchemeInfo.getAdditionalIdentifiers().get(0).getId(), expectedSchemeInfo.getAdditionalIdentifiers().get(0).getId(), "Wrong Additional Identifier:id in response!");
+        Assert.assertEquals(actualSchemeInfo.getAdditionalIdentifiers().get(0).getScheme(), expectedSchemeInfo.getAdditionalIdentifiers().get(0).getScheme(), "Wrong Additional Identifier:scheme in response!");
+        Assert.assertEquals(actualSchemeInfo.getAdditionalIdentifiers().get(0).getLegalName(), expectedSchemeInfo.getAdditionalIdentifiers().get(0).getLegalName(), "Wrong Additional Identifier:legal name in response!");
+        Assert.assertEquals(actualSchemeInfo.getAdditionalIdentifiers().get(0).getUri(), expectedSchemeInfo.getAdditionalIdentifiers().get(0).getUri(), "Wrong Additional Identifier:Uri in response!");
+
     }
 
     public static void verifyInvalidGetSchemeInfoResponse(Response response) {

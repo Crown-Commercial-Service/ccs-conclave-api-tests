@@ -6,9 +6,10 @@ import com.ccs.conclave.api.cii.requests.RestRequests;
 import com.ccs.conclave.api.common.BaseClass;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
+
 import static com.ccs.conclave.api.cii.verification.VerifyResponses.*;
 import static com.ccs.conclave.api.cii.data.SchemeRegistry.*;
-import static com.ccs.conclave.api.cii.verification.VerifyResponses.verifyGetSchemeInfoResponse;
+import static com.ccs.conclave.api.cii.verification.VerifyResponses.verifyGetSchemeInfoResponseWithNoAddIdentifier;
 
 public class GetSchemeInfoTests extends BaseClass {
 
@@ -16,21 +17,21 @@ public class GetSchemeInfoTests extends BaseClass {
     public void getCompaniesHouseSchemeInfo() {
         SchemeInfo schemeInfo = OrgDataProvider.getInfo(COMPANIES_HOUSE);
         Response response = RestRequests.getSchemeInfo(COMPANIES_HOUSE, schemeInfo.getIdentifier().getId());
-        verifyGetSchemeInfoResponse(schemeInfo, response);
+        verifyGetSchemeInfoResponseWithNoAddIdentifier(schemeInfo, response);
     }
 
     @Test
     public void getDunsSchemeInfoWithoutAdditionalIdentifier() {
         SchemeInfo schemeInfo = OrgDataProvider.getInfo(DUN_AND_BRADSTREET);
         Response response = RestRequests.getSchemeInfo(DUN_AND_BRADSTREET, schemeInfo.getIdentifier().getId());
-        verifyGetSchemeInfoResponse(schemeInfo, response);
+        verifyGetSchemeInfoResponseWithNoAddIdentifier(schemeInfo, response);
     }
 
     @Test
     public void getDunsSchemeInfoWithCompaniesHouse() {
         SchemeInfo schemeInfo = OrgDataProvider.getInfo(DUN_AND_BRADSTREET_WITH_COH);
         Response response = RestRequests.getSchemeInfo(DUN_AND_BRADSTREET_WITH_COH, schemeInfo.getIdentifier().getId());
-        verifyGetSchemeInfoResponse(schemeInfo, response);
+        verifyGetSchemeInfoResponseWithOneAddIdentifier(schemeInfo, response);
     }
 
     //@Test

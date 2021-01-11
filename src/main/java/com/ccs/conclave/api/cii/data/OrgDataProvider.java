@@ -44,19 +44,20 @@ public class OrgDataProvider {
                 break;
 
             case DUN_AND_BRADSTREET:
-                schemeInfo.setName("CHAIGELEY EDUCATIONAL FOUNDATION");
-                identifier.setId("378509368");
+                schemeInfo.setName("Thus Group Holdings Ltd");
+                identifier.setId("211221260");
                 identifier.setScheme(SchemeRegistry.getSchemeCode(DUN_AND_BRADSTREET));
+                identifier.setLegalName("Thus Group Holdings Ltd");
                 identifier.setUri("");
                 schemeInfo.setIdentifier(identifier);
 
                 // No additionalIdentifier
 
                 address.setCountryName("United Kingdom");
-                address.setLocality("WARRINGTON");
-                address.setPostalCode("WA4 2TE");
+                address.setLocality("LONDON");
+                address.setPostalCode("EC1Y 8LZ");
                 address.setRegion("");
-                address.setStreetAddress("Lymm Road Thelwall");
+                address.setStreetAddress("Finsbury Tower, 103-105 Bunhill Row");
                 schemeInfo.setAddress(address);
 
                 contactPoint.setName("");
@@ -71,13 +72,14 @@ public class OrgDataProvider {
                 schemeInfo.setName("CHAIN GANG LIMITED");
                 identifier.setId("297663445");
                 identifier.setScheme(SchemeRegistry.getSchemeCode(DUN_AND_BRADSTREET_WITH_COH));
+                identifier.setLegalName("CHAIN GANG LIMITED");
                 identifier.setUri("");
                 schemeInfo.setIdentifier(identifier);
 
-                additionalIdentifier.setId("02029405");
                 additionalIdentifier.setScheme(SchemeRegistry.getSchemeCode(COMPANIES_HOUSE));
+                additionalIdentifier.setId("02029405");
                 additionalIdentifier.setUri("");
-                additionalIdentifier.setLegalName("CHAIN GANG LIMITED LIMITED");
+                additionalIdentifier.setLegalName("CHAIN GANG LIMITED");
                 additionalIdentifiers.add(additionalIdentifier);
                 schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
 
