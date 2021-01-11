@@ -7,14 +7,18 @@ env:
     - BASEURL=$BASE_URL
     - APIKEY=$API_KEY
     - GITHUBTOKEN=$GITHUB_TOKEN
+    - BUILDNUMBER=$TRAVIS_BUILD_NUMBER
 script:
   - mvn clean test -Dbase.url=$BASEURL -Dapi.key=$APIKEY || echo "done"
 before_deploy:
-  - cp target/report/conclave_api_test_report.html target/report/index.html
+  - mv target/report target/report_$BUILDNUMBER
+  - mv target/report_$BUILDNUMBER/conclave_api_test_report.html target/report_$BUILDNUMBER/conclave_api_test_report_$BUILDNUMBER.html
+  - cp target/report_$BUILDNUMBER/conclave_api_test_report_$BUILDNUMBER.html target/report_$BUILDNUMBER/index.html
 deploy:
-  local_dir: target/report/
+  local_dir: target/
   provider: pages
   skip_cleanup: true
   github_token: $GITHUBTOKEN
+  keep_history: true
   on:
     branch: feature/FixErrorScenariosTests
