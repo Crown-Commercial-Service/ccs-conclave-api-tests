@@ -41,6 +41,23 @@ public class VerifyResponses {
         Assert.assertEquals(actualSchemeInfo.getIdentifier().getUri(), expectedSchemeInfo.getIdentifier().getUri(), "Wrong Identifier:url in response!");
 
         Assert.assertEquals(actualSchemeInfo.getAdditionalIdentifiers().size(), expectedSchemeInfo.getAdditionalIdentifiers().size(), "AdditionalIdentifier array size is invalid!");
+        if(actualSchemeInfo.getAdditionalIdentifiers().size() == 1){
+            logger.info("Additional Identifier :ID " + actualSchemeInfo.getAdditionalIdentifiers().get(0).getId());
+            Assert.assertTrue(actualSchemeInfo.getAdditionalIdentifiers().size() > 0);
+            Assert.assertEquals(actualSchemeInfo.getAdditionalIdentifiers().get(0).getId(), expectedSchemeInfo.getAdditionalIdentifiers().get(0).getId(), "Wrong Additional Identifier:id in response!");
+            Assert.assertEquals(actualSchemeInfo.getAdditionalIdentifiers().get(0).getScheme(), expectedSchemeInfo.getAdditionalIdentifiers().get(0).getScheme(), "Wrong Additional Identifier:scheme in response!");
+            Assert.assertEquals(actualSchemeInfo.getAdditionalIdentifiers().get(0).getLegalName(), expectedSchemeInfo.getAdditionalIdentifiers().get(0).getLegalName(), "Wrong Additional Identifier:legal name in response!");
+            Assert.assertEquals(actualSchemeInfo.getAdditionalIdentifiers().get(0).getUri(), expectedSchemeInfo.getAdditionalIdentifiers().get(0).getUri(), "Wrong Additional Identifier:Uri in response!");
+        }
+        //Defect CON-470
+//        else if(actualSchemeInfo.getAdditionalIdentifiers().size() == 2){
+//            logger.info("Additional Identifier :ID " + actualSchemeInfo.getAdditionalIdentifiers().get(0).getId());
+//            Assert.assertTrue(actualSchemeInfo.getAdditionalIdentifiers().size() > 0);
+//            Assert.assertEquals(actualSchemeInfo.getAdditionalIdentifiers().get(1).getId(), expectedSchemeInfo.getAdditionalIdentifiers().get(0).getId(), "Wrong Additional Identifier:id in response!");
+//            Assert.assertEquals(actualSchemeInfo.getAdditionalIdentifiers().get(1).getScheme(), expectedSchemeInfo.getAdditionalIdentifiers().get(0).getScheme(), "Wrong Additional Identifier:scheme in response!");
+//            Assert.assertEquals(actualSchemeInfo.getAdditionalIdentifiers().get(1).getLegalName(), expectedSchemeInfo.getAdditionalIdentifiers().get(0).getLegalName(), "Wrong Additional Identifier:legal name in response!");
+//            Assert.assertEquals(actualSchemeInfo.getAdditionalIdentifiers().get(1).getUri(), expectedSchemeInfo.getAdditionalIdentifiers().get(0).getUri(), "Wrong Additional Identifier:Uri in response!");
+//        }
 
         logger.info("Address:StreetAddress " + actualSchemeInfo.getAddress().getStreetAddress());
         Assert.assertEquals(actualSchemeInfo.getAddress().getStreetAddress(), expectedSchemeInfo.getAddress().getStreetAddress(), "Wrong address:streetAddress in response!");

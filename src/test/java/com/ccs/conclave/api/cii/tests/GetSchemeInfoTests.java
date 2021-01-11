@@ -9,6 +9,7 @@ import org.testng.annotations.Test;
 
 import static com.ccs.conclave.api.cii.verification.VerifyResponses.*;
 import static com.ccs.conclave.api.cii.data.SchemeRegistry.*;
+import static com.ccs.conclave.api.cii.verification.VerifyResponses.verifyGetSchemeInfoResponse;
 public class GetSchemeInfoTests extends BaseClass {
 
     @Test
@@ -32,14 +33,39 @@ public class GetSchemeInfoTests extends BaseClass {
         verifyGetSchemeInfoResponse(schemeInfo, response);
     }
 
-    //@Test
-    public void getNorthernCharitySchemeInfo() {
-        // Todo
+    @Test
+    public void getDunsSchemeInfoWithCompaniesHouseAndCHC() {
+        SchemeInfo schemeInfo = OrgDataProvider.getInfo(DUN_AND_BRADSTREET_WITH_COH_AND_CHC);
+        Response response = RestRequests.getSchemeInfo(DUN_AND_BRADSTREET_WITH_COH_AND_CHC, schemeInfo.getIdentifier().getId());
+        verifyGetSchemeInfoResponse(schemeInfo, response);
     }
 
-    //@Test
+    @Test
+    public void getEnglandAndWalesSchemeInfo() {
+        SchemeInfo schemeInfo = OrgDataProvider.getInfo(CHARITIES_COMMISSION);
+        Response response = RestRequests.getSchemeInfo(CHARITIES_COMMISSION, schemeInfo.getIdentifier().getId());
+        verifyGetSchemeInfoResponse(schemeInfo, response);
+    }
+
+    @Test
+    public void getEnglandAndWalesSchemeInfoWithTwoAddIdentifiers() {
+        SchemeInfo schemeInfo = OrgDataProvider.getInfo(CHARITIES_COMMISSION);
+        Response response = RestRequests.getSchemeInfo(CHARITIES_COMMISSION, schemeInfo.getIdentifier().getId());
+        verifyGetSchemeInfoResponse(schemeInfo, response);
+    }
+
+    @Test
+    public void getNorthernCharitySchemeInfo() {
+        SchemeInfo schemeInfo = OrgDataProvider.getInfo(NORTHERN_ISLAND_CHARITY);
+        Response response = RestRequests.getSchemeInfo(NORTHERN_ISLAND_CHARITY, schemeInfo.getIdentifier().getId());
+        verifyGetSchemeInfoResponse(schemeInfo, response);
+    }
+
+    @Test
     public void getScottishCharitySchemeInfo() {
-        // Todo
+        SchemeInfo schemeInfo = OrgDataProvider.getInfo(SCOTLAND_CHARITY);
+        Response response = RestRequests.getSchemeInfo(SCOTLAND_CHARITY, schemeInfo.getIdentifier().getId());
+        verifyGetSchemeInfoResponse(schemeInfo, response);
     }
 
     @Test
