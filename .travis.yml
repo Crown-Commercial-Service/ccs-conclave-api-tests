@@ -15,7 +15,7 @@ before_deploy:
   - mv target/report_$BUILDNUMBER/conclave_api_test_report.html target/report_$BUILDNUMBER/conclave_api_test_report_$BUILDNUMBER.html
   - cp target/report_$BUILDNUMBER/conclave_api_test_report_$BUILDNUMBER.html target/report_$BUILDNUMBER/index.html
 deploy:
-  local_dir: target/
+  local_dir: target/report_$BUILDNUMBER
   provider: pages
   skip_cleanup: true
   github_token: $GITHUBTOKEN
