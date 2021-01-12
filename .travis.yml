@@ -18,8 +18,8 @@ deploy:
   provider: pages
   skip_cleanup: true
   github_token: $GITHUBTOKEN
-  keep_history: false
-#  verbose: true
-  target-branch: multi-provider-gh-pages-nonexistent
+  keep_history: true
+  verbose: true
+  target-branch: gh-pages-$BUILDNUMBER
   on:
     branch: feature/ExtendCharitiesTests
