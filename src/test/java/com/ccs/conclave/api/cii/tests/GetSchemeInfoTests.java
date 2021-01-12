@@ -19,7 +19,7 @@ public class GetSchemeInfoTests extends BaseClass {
         verifyGetSchemeInfoResponse(schemeInfo, response);
     }
 
-    @Test
+    @Test //Bug: CON-470
     public void getDunsSchemeInfoWithoutAdditionalIdentifier() {
         SchemeInfo schemeInfo = OrgDataProvider.getInfo(DUN_AND_BRADSTREET);
         Response response = RestRequests.getSchemeInfo(DUN_AND_BRADSTREET, schemeInfo.getIdentifier().getId());
@@ -27,30 +27,30 @@ public class GetSchemeInfoTests extends BaseClass {
     }
 
     @Test
-    public void getDunsSchemeInfoWithCompaniesHouse() {
+    public void getDunsSchemeInfoWithCOH() {
         SchemeInfo schemeInfo = OrgDataProvider.getInfo(DUN_AND_BRADSTREET_WITH_COH);
         Response response = RestRequests.getSchemeInfo(DUN_AND_BRADSTREET_WITH_COH, schemeInfo.getIdentifier().getId());
         verifyGetSchemeInfoResponse(schemeInfo, response);
     }
 
     @Test
-    public void getDunsSchemeInfoWithCompaniesHouseAndCHC() {
+    public void getDunsSchemeInfoWithCOHAndCHC() {
         SchemeInfo schemeInfo = OrgDataProvider.getInfo(DUN_AND_BRADSTREET_WITH_COH_AND_CHC);
         Response response = RestRequests.getSchemeInfo(DUN_AND_BRADSTREET_WITH_COH_AND_CHC, schemeInfo.getIdentifier().getId());
         verifyGetSchemeInfoResponse(schemeInfo, response);
     }
 
     @Test
-    public void getEnglandAndWalesSchemeInfo() {
+    public void getGBCharitiesSchemeInfo() {
         SchemeInfo schemeInfo = OrgDataProvider.getInfo(CHARITIES_COMMISSION);
         Response response = RestRequests.getSchemeInfo(CHARITIES_COMMISSION, schemeInfo.getIdentifier().getId());
         verifyGetSchemeInfoResponse(schemeInfo, response);
     }
 
     @Test
-    public void getEnglandAndWalesSchemeInfoWithTwoAddIdentifiers() {
-        SchemeInfo schemeInfo = OrgDataProvider.getInfo(CHARITIES_COMMISSION);
-        Response response = RestRequests.getSchemeInfo(CHARITIES_COMMISSION, schemeInfo.getIdentifier().getId());
+    public void getGBCharitiesSchemeInfoWithTwoAddIdentifiers() {
+        SchemeInfo schemeInfo = OrgDataProvider.getInfo(CHARITIES_COMMISSION_WITH_ADD_IDENTIFIER);
+        Response response = RestRequests.getSchemeInfo(CHARITIES_COMMISSION_WITH_ADD_IDENTIFIER, schemeInfo.getIdentifier().getId());
         verifyGetSchemeInfoResponse(schemeInfo, response);
     }
 

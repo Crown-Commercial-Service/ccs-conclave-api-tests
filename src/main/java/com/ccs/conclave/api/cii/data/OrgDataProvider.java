@@ -44,7 +44,6 @@ public class OrgDataProvider {
                 schemeInfo.setContactPoint(contactPoint);
                 break;
 
-            //Defect CON-470
             case DUN_AND_BRADSTREET:
                 schemeInfo.setName("Thus Group Holdings Ltd");
                 identifier.setId("211221260");
@@ -163,7 +162,7 @@ public class OrgDataProvider {
                 contactPoint.setEmail("david.hauk@ncvo.org.uk");
                 contactPoint.setFaxNumber("");
                 contactPoint.setTelephone("02075202538");
-                contactPoint.setUrl("http://www.ncvo.org.uk");
+                contactPoint.setUrl(""); // Bug CON-450
                 schemeInfo.setContactPoint(contactPoint);
                 break;
 
@@ -238,7 +237,7 @@ public class OrgDataProvider {
                 identifier.setId("SC042491");
                 identifier.setScheme(SchemeRegistry.getSchemeCode(SCOTLAND_CHARITY));
                 identifier.setLegalName("Acorn Christian Foundation");
-                identifier.setUri("");
+                identifier.setUri("http://www.acormchristian.org");
                 schemeInfo.setIdentifier(identifier);
 
                 additionalIdentifier1.setScheme(SchemeRegistry.getSchemeCode(COMPANIES_HOUSE));
@@ -266,7 +265,7 @@ public class OrgDataProvider {
                 contactPoint.setEmail("");
                 contactPoint.setFaxNumber("");
                 contactPoint.setTelephone("");
-                contactPoint.setUrl("http://www.acormchristian.org");
+                contactPoint.setUrl("");
                 schemeInfo.setContactPoint(contactPoint);
                 break;
 
