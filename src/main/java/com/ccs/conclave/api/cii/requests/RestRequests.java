@@ -9,6 +9,7 @@ import org.apache.log4j.Logger;
 import static com.ccs.conclave.api.cii.data.SchemeRegistry.*;
 import static io.restassured.RestAssured.given;
 
+
 public class RestRequests {
     private final static Logger logger = Logger.getLogger(RestRequests.class);
     private static String baseURI = System.getProperty("base.url");
