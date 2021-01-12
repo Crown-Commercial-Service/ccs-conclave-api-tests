@@ -15,7 +15,6 @@ public class RestRequests {
     private static String baseURI = System.getProperty("base.url");
     private static String apiKey = System.getProperty("api.key");
 
-
     public static Response getSchemeInfo(SchemeRegistry scheme, String identifier) {
         String endpoint = baseURI + Endpoints.getSchemeInfoURI + "scheme_id=" + getSchemeCode(scheme) + "&organisation_id=" + identifier;
         logger.info("getSchemeInfo Endpoint: "+ endpoint);

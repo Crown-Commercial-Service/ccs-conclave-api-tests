@@ -162,7 +162,7 @@ public class OrgDataProvider {
                 contactPoint.setEmail("david.hauk@ncvo.org.uk");
                 contactPoint.setFaxNumber("");
                 contactPoint.setTelephone("02075202538");
-                contactPoint.setUrl(""); // Bug CON-450
+                contactPoint.setUrl("");
                 schemeInfo.setContactPoint(contactPoint);
                 break;
 

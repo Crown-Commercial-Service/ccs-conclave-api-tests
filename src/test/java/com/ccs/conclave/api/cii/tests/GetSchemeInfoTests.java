@@ -33,21 +33,21 @@ public class GetSchemeInfoTests extends BaseClass {
         verifyGetSchemeInfoResponse(schemeInfo, response);
     }
 
-    @Test
+    @Test //Bug: CON-470
     public void getDunsSchemeInfoWithCOHAndCHC() {
         SchemeInfo schemeInfo = OrgDataProvider.getInfo(DUN_AND_BRADSTREET_WITH_COH_AND_CHC);
         Response response = RestRequests.getSchemeInfo(DUN_AND_BRADSTREET_WITH_COH_AND_CHC, schemeInfo.getIdentifier().getId());
         verifyGetSchemeInfoResponse(schemeInfo, response);
     }
 
-    @Test
+    @Test // Bug: CON-450
     public void getGBCharitiesSchemeInfo() {
         SchemeInfo schemeInfo = OrgDataProvider.getInfo(CHARITIES_COMMISSION);
         Response response = RestRequests.getSchemeInfo(CHARITIES_COMMISSION, schemeInfo.getIdentifier().getId());
         verifyGetSchemeInfoResponse(schemeInfo, response);
     }
 
-    @Test
+    @Test // Bug: CON-452
     public void getGBCharitiesSchemeInfoWithTwoAddIdentifiers() {
         SchemeInfo schemeInfo = OrgDataProvider.getInfo(CHARITIES_COMMISSION_WITH_ADD_IDENTIFIER);
         Response response = RestRequests.getSchemeInfo(CHARITIES_COMMISSION_WITH_ADD_IDENTIFIER, schemeInfo.getIdentifier().getId());
@@ -61,7 +61,7 @@ public class GetSchemeInfoTests extends BaseClass {
         verifyGetSchemeInfoResponse(schemeInfo, response);
     }
 
-    @Test
+    @Test // Bug: CON-452
     public void getScottishCharitySchemeInfo() {
         SchemeInfo schemeInfo = OrgDataProvider.getInfo(SCOTLAND_CHARITY);
         Response response = RestRequests.getSchemeInfo(SCOTLAND_CHARITY, schemeInfo.getIdentifier().getId());
@@ -75,7 +75,7 @@ public class GetSchemeInfoTests extends BaseClass {
         verifyInvalidGetSchemeResponse(400, response);
     }
 
-    @Test
+    @Test // Bug: CON-450
     public void getSchemeInfoErrorCode401() {
         Response response = RestRequests.getSchemeInfo(COMPANIES_HOUSE, "00000000");
         verifyInvalidGetSchemeResponse(401, response);

@@ -20,4 +20,4 @@ deploy:
   github_token: $GITHUBTOKEN
   keep_history: false
   on:
-    branch: feature/DandBSchemeInfo
+    branch: DandBSchemeInfo
