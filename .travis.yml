@@ -19,5 +19,7 @@ deploy:
   skip_cleanup: true
   github_token: $GITHUBTOKEN
   keep_history: false
+#  verbose: true
+  target-branch: multi-provider-gh-pages-nonexistent
   on:
-    branch: DandBSchemeInfo
+    branch: feature/ExtendCharitiesTests
