@@ -11,8 +11,8 @@ env:
 script:
   - mvn clean test -Dbase.url=$BASEURL -Dapi.key=$APIKEY || echo "done"
 before_deploy:
-#  - git config --global user.name 'amrutha-sireesh'
-#  - git config --global user.email 'amrutha.sireesh@crowncommercial.gov.uk'
+  #  - git config --global user.name 'amrutha-sireesh'
+  #  - git config --global user.email 'amrutha.sireesh@crowncommercial.gov.uk'
   - mv target/report/conclave_api_test_report.html target/report/conclave_api_test_report_$BUILDNUMBER.html
   - cp target/report/conclave_api_test_report_$BUILDNUMBER.html target/report/index.html
 deploy:
