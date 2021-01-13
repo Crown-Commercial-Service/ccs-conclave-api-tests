@@ -11,13 +11,15 @@ env:
 script:
   - mvn clean test -Dbase.url=$BASEURL -Dapi.key=$APIKEY || echo "done"
 before_deploy:
-  - mv target/report/conclave_api_test_report.html target/report/conclave_api_test_report_$BUILDNUMBER.html
-  - cp target/report/conclave_api_test_report_$BUILDNUMBER.html target/report/index.html
+#  - mv target/report/conclave_api_test_report.html target/report/conclave_api_test_report_$BUILDNUMBER.html
+  - cp target/report/conclave_api_test_report.html target/report/index.html
 deploy:
   local_dir: target/report
   provider: pages
   skip_cleanup: true
   github_token: $GITHUBTOKEN
-  keep_history: false
+  keep_history: true
+  verbose: true
+  target-branch: gh-pages
   on:
-    branch: DandBSchemeInfo
+    branch: main

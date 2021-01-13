@@ -17,19 +17,19 @@ public class RestRequests {
 
     public static Response getSchemeInfo(SchemeRegistry scheme, String identifier) {
         String endpoint = baseURI + Endpoints.getSchemeInfoURI + "scheme_id=" + getSchemeCode(scheme) + "&organisation_id=" + identifier;
-        logger.info("getSchemeInfo Endpoint: "+ endpoint);
+        logger.info("getSchemeInfo Endpoint: " + endpoint);
         return get(endpoint);
     }
 
     public static Response getSchemes() {
         String endpoint = baseURI + Endpoints.getSchemesURI;
-        logger.info("getSchemes Endpoint: "+ endpoint);
+        logger.info("getSchemes Endpoint: " + endpoint);
         return get(endpoint);
     }
 
     public static Response postSchemeInfo(SchemeRegistry scheme, String identifier) {
         String endpoint = baseURI + Endpoints.postSchemeInfo + getSchemeCode(scheme) + "/" + identifier;
-        logger.info("postSchemeInfo Endpoint: "+ endpoint);
+        logger.info("postSchemeInfo Endpoint: " + endpoint);
         return post(endpoint);
     }
 
