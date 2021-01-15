@@ -9,5 +9,5 @@ public class ContactPoint {
     private String email;
     private String telephone;
     private String faxNumber;
-    private String url;
+    private String uri;
 }

@@ -62,14 +62,14 @@ public class VerifyResponses {
         Assert.assertEquals(actualSchemeInfo.getContactPoint().getEmail(), expectedSchemeInfo.getContactPoint().getEmail(), "Wrong contactPoint:email in response!");
         Assert.assertEquals(actualSchemeInfo.getContactPoint().getFaxNumber(), expectedSchemeInfo.getContactPoint().getFaxNumber(), "Wrong contactPoint:telephone in response!");
         Assert.assertEquals(actualSchemeInfo.getContactPoint().getTelephone(), expectedSchemeInfo.getContactPoint().getTelephone(), "Wrong contactPoint:faxNumber in response!");
-        Assert.assertEquals(actualSchemeInfo.getContactPoint().getUrl(), expectedSchemeInfo.getContactPoint().getUrl(), "Wrong contactPoint:url in response!");
+        Assert.assertEquals(actualSchemeInfo.getContactPoint().getUri(), expectedSchemeInfo.getContactPoint().getUri(), "Wrong contactPoint:uri in response!");
     }
 
     public static void verifyInvalidGetSchemeResponse(int errorCode, Response response) {
         verifyStatusCode(response, errorCode);
         switch (errorCode) {
             case 400:
-                Assert.assertEquals(response.getBody().asString(), "{\"schemeId\":[\"can't be blank\",\"No such scheme registered\"]}", "Wrong contactPoint:url in response!");
+                Assert.assertEquals(response.getBody().asString(), "{\"scheme\":[\"can't be blank\",\"No such scheme registered\"]}", "Wrong contactPoint:url in response!");
                 break;
 
             case 401:
@@ -114,11 +114,11 @@ public class VerifyResponses {
         Assert.assertEquals(scheme.getSchemeCountryCode(), getSchemeCountryCode(SCOTLAND_CHARITY), "Invalid CountryCode!");
 
         scheme = schemesResponse.getSchemes().get(4);
-        Assert.assertEquals(scheme.getSchemeRegisterCode(), getSchemeCode(NORTHERN_CHARITY_WITH_ADD_IDENTIFIER), "Invalid SchemeCode!");
-        Assert.assertEquals(scheme.getSchemeName(), getSchemeName(NORTHERN_CHARITY_WITH_ADD_IDENTIFIER), "Invalid SchemeName!");
-        Assert.assertEquals(scheme.getSchemeUri(), getSchemeURL(NORTHERN_CHARITY_WITH_ADD_IDENTIFIER), "Invalid SchemeURL!");
-        Assert.assertEquals(scheme.getSchemeIdentifier(), getSchemeIdentifier(NORTHERN_CHARITY_WITH_ADD_IDENTIFIER), "Invalid SchemeIdentifier!");
-        Assert.assertEquals(scheme.getSchemeCountryCode(), getSchemeCountryCode(NORTHERN_CHARITY_WITH_ADD_IDENTIFIER), "Invalid CountryCode!");
+        Assert.assertEquals(scheme.getSchemeRegisterCode(), getSchemeCode(NORTHERN_CHARITY), "Invalid SchemeCode!");
+        Assert.assertEquals(scheme.getSchemeName(), getSchemeName(NORTHERN_CHARITY), "Invalid SchemeName!");
+        Assert.assertEquals(scheme.getSchemeUri(), getSchemeURL(NORTHERN_CHARITY), "Invalid SchemeURL!");
+        Assert.assertEquals(scheme.getSchemeIdentifier(), getSchemeIdentifier(NORTHERN_CHARITY), "Invalid SchemeIdentifier!");
+        Assert.assertEquals(scheme.getSchemeCountryCode(), getSchemeCountryCode(NORTHERN_CHARITY), "Invalid CountryCode!");
     }
 
     private static void verifyStatusCode(Response response, int expectedCode) {

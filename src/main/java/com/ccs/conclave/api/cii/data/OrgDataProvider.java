@@ -14,6 +14,10 @@ public class OrgDataProvider {
         Identifier identifier = new Identifier();
         Identifier additionalIdentifier1 = new Identifier();
         Identifier additionalIdentifier2 = new Identifier();
+        Identifier additionalIdentifier3 = new Identifier();
+        Identifier additionalIdentifier4 = new Identifier();
+        Identifier additionalIdentifier5 = new Identifier();
+        Identifier additionalIdentifier6 = new Identifier();
         List<Identifier> additionalIdentifiers = new ArrayList<>();
         Address address = new Address();
         ContactPoint contactPoint = new ContactPoint();
@@ -40,7 +44,7 @@ public class OrgDataProvider {
                 contactPoint.setEmail("");
                 contactPoint.setFaxNumber("");
                 contactPoint.setTelephone("");
-                contactPoint.setUrl("");
+                contactPoint.setUri("");
                 schemeInfo.setContactPoint(contactPoint);
                 break;
 
@@ -65,7 +69,7 @@ public class OrgDataProvider {
                 contactPoint.setEmail("");
                 contactPoint.setFaxNumber("");
                 contactPoint.setTelephone("");
-                contactPoint.setUrl("");
+                contactPoint.setUri("");
                 schemeInfo.setContactPoint(contactPoint);
                 break;
 
@@ -95,7 +99,7 @@ public class OrgDataProvider {
                 contactPoint.setEmail("");
                 contactPoint.setFaxNumber("");
                 contactPoint.setTelephone("");
-                contactPoint.setUrl("");
+                contactPoint.setUri("");
                 schemeInfo.setContactPoint(contactPoint);
                 break;
 
@@ -131,10 +135,9 @@ public class OrgDataProvider {
                 contactPoint.setEmail("");
                 contactPoint.setFaxNumber("");
                 contactPoint.setTelephone("");
-                contactPoint.setUrl("");
+                contactPoint.setUri("");
                 schemeInfo.setContactPoint(contactPoint);
                 break;
-
 
             case CHARITIES_COMMISSION:
                 schemeInfo.setName("THE NATIONAL COUNCIL FOR VOLUNTARY ORGANISATIONS");
@@ -162,14 +165,14 @@ public class OrgDataProvider {
                 contactPoint.setEmail("david.hauk@ncvo.org.uk");
                 contactPoint.setFaxNumber("");
                 contactPoint.setTelephone("02075202538");
-                contactPoint.setUrl("");
+                contactPoint.setUri("");
                 schemeInfo.setContactPoint(contactPoint);
                 break;
 
-            case CHARITIES_COMMISSION_WITH_ADD_IDENTIFIER:
+            case CHARITIES_COMMISSION_WITH_TWO_COH:
                 schemeInfo.setName("THE CEDAR CENTRE");
                 identifier.setId("802955");
-                identifier.setScheme(SchemeRegistry.getSchemeCode(CHARITIES_COMMISSION_WITH_ADD_IDENTIFIER));
+                identifier.setScheme(SchemeRegistry.getSchemeCode(CHARITIES_COMMISSION_WITH_TWO_COH));
                 identifier.setLegalName("THE CEDAR CENTRE");
                 identifier.setUri("");
                 schemeInfo.setIdentifier(identifier);
@@ -198,7 +201,7 @@ public class OrgDataProvider {
                 contactPoint.setEmail("");
                 contactPoint.setFaxNumber("");
                 contactPoint.setTelephone("02077909085");
-                contactPoint.setUrl("");
+                contactPoint.setUri("");
                 schemeInfo.setContactPoint(contactPoint);
                 break;
 
@@ -228,15 +231,86 @@ public class OrgDataProvider {
                 contactPoint.setEmail("");
                 contactPoint.setFaxNumber("");
                 contactPoint.setTelephone("");
-                contactPoint.setUrl("");
+                contactPoint.setUri("");
                 schemeInfo.setContactPoint(contactPoint);
                 break;
 
+            case CHARITIES_COMMISSION_WITH_KNOWN_AND_UNKNOWN_IDENTIFIERS:
+                schemeInfo.setName("ACTION FOR BLIND PEOPLE");
+                identifier.setId("205913");
+                identifier.setScheme(SchemeRegistry.getSchemeCode(CHARITIES_COMMISSION_WITH_KNOWN_AND_UNKNOWN_IDENTIFIERS));
+                identifier.setLegalName("ACTION FOR BLIND PEOPLE");
+                identifier.setUri("http://www.actionforblindpeople.org.uk");
+                schemeInfo.setIdentifier(identifier);
 
-            case NORTHERN_CHARITY_WITH_ADD_IDENTIFIER:
+                additionalIdentifier1.setScheme(SchemeRegistry.getSchemeCode(CHARITIES_COMMISSION));
+                additionalIdentifier1.setId("1091458");
+                additionalIdentifier1.setUri("");
+                additionalIdentifier1.setLegalName("STAFFORDSHIRE BLIND");
+                additionalIdentifiers.add(additionalIdentifier1);
+                schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
+
+                additionalIdentifier2.setScheme(SchemeRegistry.getSchemeCode(CHARITIES_COMMISSION));
+                additionalIdentifier2.setId("214330");
+                additionalIdentifier2.setUri("");
+                additionalIdentifier2.setLegalName("GLYNN VIVIAN");
+                additionalIdentifiers.add(additionalIdentifier2);
+                schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
+
+                additionalIdentifier2.setScheme(SchemeRegistry.getSchemeCode(CHARITIES_COMMISSION));
+                additionalIdentifier2.setId("226227");
+                additionalIdentifier2.setUri("http://www.rnib.org.uk");
+                additionalIdentifier2.setLegalName("THE ROYAL NATIONAL INSTITUTE OF BLIND PEOPLE");
+                additionalIdentifiers.add(additionalIdentifier2);
+                schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
+
+                additionalIdentifier3.setScheme(SchemeRegistry.getSchemeCode(COMPANIES_HOUSE));
+                additionalIdentifier3.setId("00026688");
+                additionalIdentifier3.setUri("");
+                additionalIdentifier3.setLegalName("ACTION FOR BLIND PEOPLE");
+                additionalIdentifiers.add(additionalIdentifier3);
+                schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
+
+                additionalIdentifier4.setScheme(SchemeRegistry.getSchemeCode(COMPANIES_HOUSE));
+                additionalIdentifier4.setId("RC000500");
+                additionalIdentifier4.setUri("");
+                additionalIdentifier4.setLegalName("ROYAL NATIONAL INSTITUTE OF BLIND PEOPLE");
+                additionalIdentifiers.add(additionalIdentifier4);
+                schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
+
+                additionalIdentifier5.setScheme(SchemeRegistry.getSchemeCode(SCOTLAND_CHARITY));
+                additionalIdentifier5.setId("SC039316");
+                additionalIdentifier5.setUri("http://www.rnib.org.uk");
+                additionalIdentifier5.setLegalName("Royal National Institute of Blind People");
+                additionalIdentifiers.add(additionalIdentifier5);
+                schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
+
+                additionalIdentifier6.setScheme(SchemeRegistry.getSchemeCode(SCOTLAND_CHARITY));
+                additionalIdentifier6.setId("SC040050");
+                additionalIdentifier6.setUri("http://www.rnib.org.uk/who-we-are/action-for-blind-people");
+                additionalIdentifier6.setLegalName("Action for Blind People");
+                additionalIdentifiers.add(additionalIdentifier6);
+                schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
+
+                address.setCountryName("");
+                address.setLocality("");
+                address.setPostalCode("");
+                address.setRegion("");
+                address.setStreetAddress("");
+                schemeInfo.setAddress(address);
+
+                contactPoint.setName("");
+                contactPoint.setEmail("");
+                contactPoint.setFaxNumber("");
+                contactPoint.setTelephone("");
+                contactPoint.setUri("");
+                schemeInfo.setContactPoint(contactPoint);
+                break;
+
+            case NORTHERN_CHARITY_WITH_COH:
                 schemeInfo.setName("Craigavon Christian Youth");
                 identifier.setId("107049");
-                identifier.setScheme(SchemeRegistry.getSchemeCode(NORTHERN_CHARITY_WITH_ADD_IDENTIFIER));
+                identifier.setScheme(SchemeRegistry.getSchemeCode(NORTHERN_CHARITY_WITH_COH));
                 identifier.setLegalName("Craigavon Christian Youth");
                 identifier.setUri("");
                 schemeInfo.setIdentifier(identifier);
@@ -259,7 +333,7 @@ public class OrgDataProvider {
                 contactPoint.setEmail("ccyclubs@hotmail.com");
                 contactPoint.setFaxNumber("");
                 contactPoint.setTelephone("07753483295");
-                contactPoint.setUrl("");
+                contactPoint.setUri("");
                 schemeInfo.setContactPoint(contactPoint);
                 break;
 
@@ -282,7 +356,7 @@ public class OrgDataProvider {
                 contactPoint.setEmail("info@lifereachni.com");
                 contactPoint.setFaxNumber("");
                 contactPoint.setTelephone("07809655601");
-                contactPoint.setUrl("http://www.lifereachni.com");
+                contactPoint.setUri("");
                 schemeInfo.setContactPoint(contactPoint);
                 break;
 
@@ -305,15 +379,15 @@ public class OrgDataProvider {
                 contactPoint.setEmail("");
                 contactPoint.setFaxNumber("");
                 contactPoint.setTelephone("");
-                contactPoint.setUrl("http://www.11thbroughton.scoutsites.org.uk");
+                contactPoint.setUri("");
                 schemeInfo.setContactPoint(contactPoint);
                 break;
 
 
-            case SCOTLAND_CHARITY_WITH_ADD_IDENTIFIER:
+            case SCOTLAND_CHARITY_WITH_COH_CHC:
                 schemeInfo.setName("Acorn Christian Foundation");
                 identifier.setId("SC042491");
-                identifier.setScheme(SchemeRegistry.getSchemeCode(SCOTLAND_CHARITY_WITH_ADD_IDENTIFIER));
+                identifier.setScheme(SchemeRegistry.getSchemeCode(SCOTLAND_CHARITY_WITH_COH_CHC));
                 identifier.setLegalName("Acorn Christian Foundation");
                 identifier.setUri("http://www.acormchristian.org");
                 schemeInfo.setIdentifier(identifier);
@@ -343,7 +417,7 @@ public class OrgDataProvider {
                 contactPoint.setEmail("");
                 contactPoint.setFaxNumber("");
                 contactPoint.setTelephone("");
-                contactPoint.setUrl("");
+                contactPoint.setUri("");
                 schemeInfo.setContactPoint(contactPoint);
                 break;
 
