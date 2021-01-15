@@ -7,8 +7,11 @@ public enum SchemeRegistry {
     DUN_AND_BRADSTREET_WITH_COH_AND_CHC("US-DUN", "Dun and Bradstreet", "https://plus.dnb.com", "DUNS Number", "US"),
     CHARITIES_COMMISSION("GB-CHC", "Charities Commission for England and Wales", "https://findthatcharity.uk", "Registered Charity Number", "GB"),
     CHARITIES_COMMISSION_WITH_ADD_IDENTIFIER("GB-CHC", "Charities Commission for England and Wales", "https://findthatcharity.uk", "Registered Charity Number", "GB"),
-    NORTHERN_ISLAND_CHARITY("GB-NIC", "Northern Ireland Charities Commission", "https://findthatcharity.uk", "Registered Charity Number", "GB"),
+    CHARITIES_COMMISSION_WITH_SC("GB-CHC", "Charities Commission for England and Wales", "https://findthatcharity.uk", "Registered Charity Number", "GB"),
+    NORTHERN_CHARITY_WITH_ADD_IDENTIFIER("GB-NIC", "Northern Ireland Charities Commission", "https://findthatcharity.uk", "Registered Charity Number", "GB"),
+    NORTHERN_CHARITY("GB-NIC", "Northern Ireland Charities Commission", "https://findthatcharity.uk", "Registered Charity Number", "GB"),
     SCOTLAND_CHARITY("GB-SC", "Scottish Charities Commission", "https://findthatcharity.uk", "Registered Charity Number", "GB"),
+    SCOTLAND_CHARITY_WITH_ADD_IDENTIFIER("GB-SC", "Scottish Charities Commission", "https://findthatcharity.uk", "Registered Charity Number", "GB"),
     INVALID_SCHEME("", "", "", "", "");
 
     private String schemeCode;

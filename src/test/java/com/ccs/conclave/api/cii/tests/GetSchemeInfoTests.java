@@ -54,17 +54,38 @@ public class GetSchemeInfoTests extends BaseClass {
         verifyGetSchemeInfoResponse(schemeInfo, response);
     }
 
-    @Test
+    @Test // Bug: CON-452
+    public void getGBCharitiesSchemeInfoWithSC() {
+        SchemeInfo schemeInfo = OrgDataProvider.getInfo(CHARITIES_COMMISSION_WITH_SC);
+        Response response = RestRequests.getSchemeInfo(CHARITIES_COMMISSION_WITH_SC, schemeInfo.getIdentifier().getId());
+        verifyGetSchemeInfoResponse(schemeInfo, response);
+    }
+
+    @Test //Bug: CON-489
     public void getNorthernCharitySchemeInfo() {
-        SchemeInfo schemeInfo = OrgDataProvider.getInfo(NORTHERN_ISLAND_CHARITY);
-        Response response = RestRequests.getSchemeInfo(NORTHERN_ISLAND_CHARITY, schemeInfo.getIdentifier().getId());
+        SchemeInfo schemeInfo = OrgDataProvider.getInfo(NORTHERN_CHARITY);
+        Response response = RestRequests.getSchemeInfo(NORTHERN_CHARITY, schemeInfo.getIdentifier().getId());
+        verifyGetSchemeInfoResponse(schemeInfo, response);
+    }
+
+    @Test
+    public void getNorthernCharitySchemeInfoWithAddIdentifier() {
+        SchemeInfo schemeInfo = OrgDataProvider.getInfo(NORTHERN_CHARITY_WITH_ADD_IDENTIFIER);
+        Response response = RestRequests.getSchemeInfo(NORTHERN_CHARITY_WITH_ADD_IDENTIFIER, schemeInfo.getIdentifier().getId());
+        verifyGetSchemeInfoResponse(schemeInfo, response);
+    }
+
+    @Test // Bug: CON-489
+    public void getScottishCharitySchemeInfo() {
+        SchemeInfo schemeInfo = OrgDataProvider.getInfo(SCOTLAND_CHARITY);
+        Response response = RestRequests.getSchemeInfo(SCOTLAND_CHARITY, schemeInfo.getIdentifier().getId());
         verifyGetSchemeInfoResponse(schemeInfo, response);
     }
 
     @Test // Bug: CON-452
-    public void getScottishCharitySchemeInfo() {
-        SchemeInfo schemeInfo = OrgDataProvider.getInfo(SCOTLAND_CHARITY);
-        Response response = RestRequests.getSchemeInfo(SCOTLAND_CHARITY, schemeInfo.getIdentifier().getId());
+    public void getScottishCharitySchemeInfoWithAddIdentifier() {
+        SchemeInfo schemeInfo = OrgDataProvider.getInfo(SCOTLAND_CHARITY_WITH_ADD_IDENTIFIER);
+        Response response = RestRequests.getSchemeInfo(SCOTLAND_CHARITY_WITH_ADD_IDENTIFIER, schemeInfo.getIdentifier().getId());
         verifyGetSchemeInfoResponse(schemeInfo, response);
     }
 

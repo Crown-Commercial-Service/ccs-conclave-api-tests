@@ -1,7 +1,6 @@
 package com.ccs.conclave.api.cii.verification;
 
 import com.ccs.conclave.api.cii.data.OrgDataProvider;
-import com.ccs.conclave.api.cii.pojo.Identifier;
 import com.ccs.conclave.api.cii.pojo.SchemeInfo;
 
 import com.ccs.conclave.api.cii.pojo.Scheme;
@@ -115,11 +114,11 @@ public class VerifyResponses {
         Assert.assertEquals(scheme.getSchemeCountryCode(), getSchemeCountryCode(SCOTLAND_CHARITY), "Invalid CountryCode!");
 
         scheme = schemesResponse.getSchemes().get(4);
-        Assert.assertEquals(scheme.getSchemeRegisterCode(), getSchemeCode(NORTHERN_ISLAND_CHARITY), "Invalid SchemeCode!");
-        Assert.assertEquals(scheme.getSchemeName(), getSchemeName(NORTHERN_ISLAND_CHARITY), "Invalid SchemeName!");
-        Assert.assertEquals(scheme.getSchemeUri(), getSchemeURL(NORTHERN_ISLAND_CHARITY), "Invalid SchemeURL!");
-        Assert.assertEquals(scheme.getSchemeIdentifier(), getSchemeIdentifier(NORTHERN_ISLAND_CHARITY), "Invalid SchemeIdentifier!");
-        Assert.assertEquals(scheme.getSchemeCountryCode(), getSchemeCountryCode(NORTHERN_ISLAND_CHARITY), "Invalid CountryCode!");
+        Assert.assertEquals(scheme.getSchemeRegisterCode(), getSchemeCode(NORTHERN_CHARITY_WITH_ADD_IDENTIFIER), "Invalid SchemeCode!");
+        Assert.assertEquals(scheme.getSchemeName(), getSchemeName(NORTHERN_CHARITY_WITH_ADD_IDENTIFIER), "Invalid SchemeName!");
+        Assert.assertEquals(scheme.getSchemeUri(), getSchemeURL(NORTHERN_CHARITY_WITH_ADD_IDENTIFIER), "Invalid SchemeURL!");
+        Assert.assertEquals(scheme.getSchemeIdentifier(), getSchemeIdentifier(NORTHERN_CHARITY_WITH_ADD_IDENTIFIER), "Invalid SchemeIdentifier!");
+        Assert.assertEquals(scheme.getSchemeCountryCode(), getSchemeCountryCode(NORTHERN_CHARITY_WITH_ADD_IDENTIFIER), "Invalid CountryCode!");
     }
 
     private static void verifyStatusCode(Response response, int expectedCode) {

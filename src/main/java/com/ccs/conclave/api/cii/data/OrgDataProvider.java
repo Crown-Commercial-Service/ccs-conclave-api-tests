@@ -124,7 +124,7 @@ public class OrgDataProvider {
                 address.setLocality("WARRINGTON");
                 address.setPostalCode("WA4 2TE");
                 address.setRegion("");
-                address.setStreetAddress("Lymm Road Thelwall");
+                address.setStreetAddress("Chaigeley School Lymm Road Thelwall");
                 schemeInfo.setAddress(address);
 
                 contactPoint.setName("");
@@ -202,10 +202,41 @@ public class OrgDataProvider {
                 schemeInfo.setContactPoint(contactPoint);
                 break;
 
-            case NORTHERN_ISLAND_CHARITY:
+            case CHARITIES_COMMISSION_WITH_SC:
+                schemeInfo.setName("MOUNTAINS ANIMAL SANCTUARY");
+                identifier.setId("290356");
+                identifier.setScheme(SchemeRegistry.getSchemeCode(CHARITIES_COMMISSION_WITH_SC));
+                identifier.setLegalName("MOUNTAINS ANIMAL SANCTUARY");
+                identifier.setUri("");
+                schemeInfo.setIdentifier(identifier);
+
+                additionalIdentifier1.setScheme(SchemeRegistry.getSchemeCode(SCOTLAND_CHARITY));
+                additionalIdentifier1.setId("SC037536");
+                additionalIdentifier1.setUri("");
+                additionalIdentifier1.setLegalName("MOUNTAINS ANIMAL SANCTUARY");
+                additionalIdentifiers.add(additionalIdentifier1);
+                schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
+
+                address.setCountryName("Scotland");
+                address.setLocality("");
+                address.setPostalCode("");
+                address.setRegion("");
+                address.setStreetAddress("");
+                schemeInfo.setAddress(address);
+
+                contactPoint.setName("");
+                contactPoint.setEmail("");
+                contactPoint.setFaxNumber("");
+                contactPoint.setTelephone("");
+                contactPoint.setUrl("");
+                schemeInfo.setContactPoint(contactPoint);
+                break;
+
+
+            case NORTHERN_CHARITY_WITH_ADD_IDENTIFIER:
                 schemeInfo.setName("Craigavon Christian Youth");
                 identifier.setId("107049");
-                identifier.setScheme(SchemeRegistry.getSchemeCode(NORTHERN_ISLAND_CHARITY));
+                identifier.setScheme(SchemeRegistry.getSchemeCode(NORTHERN_CHARITY_WITH_ADD_IDENTIFIER));
                 identifier.setLegalName("Craigavon Christian Youth");
                 identifier.setUri("");
                 schemeInfo.setIdentifier(identifier);
@@ -217,7 +248,7 @@ public class OrgDataProvider {
                 additionalIdentifiers.add(additionalIdentifier1);
                 schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
 
-                address.setCountryName("UK");
+                address.setCountryName("Northern Ireland");
                 address.setLocality("Lurgan");
                 address.setPostalCode("BT66 6LJ");
                 address.setRegion("Craigavon");
@@ -232,10 +263,57 @@ public class OrgDataProvider {
                 schemeInfo.setContactPoint(contactPoint);
                 break;
 
+            case NORTHERN_CHARITY:
+                schemeInfo.setName("Lifereach Ni");
+                identifier.setId("103185");
+                identifier.setScheme(SchemeRegistry.getSchemeCode(NORTHERN_CHARITY));
+                identifier.setLegalName("Lifereach Ni");
+                identifier.setUri("");
+                schemeInfo.setIdentifier(identifier);
+
+                address.setCountryName("Northern Ireland");
+                address.setLocality("Belfast");
+                address.setPostalCode("BT2 7JD");
+                address.setRegion("");
+                address.setStreetAddress("1A Bruce Street");
+                schemeInfo.setAddress(address);
+
+                contactPoint.setName("");
+                contactPoint.setEmail("info@lifereachni.com");
+                contactPoint.setFaxNumber("");
+                contactPoint.setTelephone("07809655601");
+                contactPoint.setUrl("http://www.lifereachni.com");
+                schemeInfo.setContactPoint(contactPoint);
+                break;
+
             case SCOTLAND_CHARITY:
+                schemeInfo.setName("11th Edinburgh North East Scout Group");
+                identifier.setId("SC045754");
+                identifier.setScheme(SchemeRegistry.getSchemeCode(SCOTLAND_CHARITY));
+                identifier.setLegalName("11th Edinburgh North East Scout Group");
+                identifier.setUri("http://www.11thbroughton.scoutsites.org.uk");
+                schemeInfo.setIdentifier(identifier);
+
+                address.setCountryName("Scotland");
+                address.setLocality("Edinburgh");
+                address.setPostalCode("EH7 5AL");
+                address.setRegion("");
+                address.setStreetAddress("8 Allanfield Place");
+                schemeInfo.setAddress(address);
+
+                contactPoint.setName("");
+                contactPoint.setEmail("");
+                contactPoint.setFaxNumber("");
+                contactPoint.setTelephone("");
+                contactPoint.setUrl("http://www.11thbroughton.scoutsites.org.uk");
+                schemeInfo.setContactPoint(contactPoint);
+                break;
+
+
+            case SCOTLAND_CHARITY_WITH_ADD_IDENTIFIER:
                 schemeInfo.setName("Acorn Christian Foundation");
                 identifier.setId("SC042491");
-                identifier.setScheme(SchemeRegistry.getSchemeCode(SCOTLAND_CHARITY));
+                identifier.setScheme(SchemeRegistry.getSchemeCode(SCOTLAND_CHARITY_WITH_ADD_IDENTIFIER));
                 identifier.setLegalName("Acorn Christian Foundation");
                 identifier.setUri("http://www.acormchristian.org");
                 schemeInfo.setIdentifier(identifier);
