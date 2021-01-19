@@ -10,7 +10,7 @@ import java.util.List;
 @Setter @Getter
 public class GetSchemesResponse {
 
-    private List<Scheme> schemes = new ArrayList<>();
+    private List<Scheme> schemes;
 
     public GetSchemesResponse(List<Scheme> schemes) {
         this.schemes = schemes;

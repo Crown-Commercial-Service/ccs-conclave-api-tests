@@ -1,13 +1,13 @@
 package com.ccs.conclave.api.cii.verification;
 
-import com.ccs.conclave.api.cii.data.OrgDataProvider;
+import com.ccs.conclave.api.cii.pojo.OrgIdentifier;
 import com.ccs.conclave.api.cii.pojo.SchemeInfo;
 
 import com.ccs.conclave.api.cii.pojo.Scheme;
+import com.ccs.conclave.api.cii.requests.RequestTestEndpoints;
 import com.ccs.conclave.api.cii.response.GetSchemeInfoResponse;
 import com.ccs.conclave.api.cii.response.PostSchemeInfoResponse;
 import com.ccs.conclave.api.cii.response.GetSchemesResponse;
-import com.ccs.conclave.api.cii.data.SchemeRegistry;
 import io.restassured.response.Response;
 import org.apache.log4j.Logger;
 import org.testng.Assert;
@@ -125,7 +125,18 @@ public class VerifyResponses {
         Assert.assertEquals(response.getStatusCode(), expectedCode, "Unexpected Status code returned!!");
     }
 
-    public static void verifyPostSchemeInfoResponse(SchemeRegistry scheme, OrgDataProvider expectedRes, PostSchemeInfoResponse actualRes) {
-        Assert.assertEquals(actualRes.getSchemeInfo(), expectedRes.getInfo(scheme), "Wrong PostSchemeInfo response!");
+    public static void verifyPostSchemeInfoResponse(SchemeInfo actualSchemeInfo, Response response) {
+        PostSchemeInfoResponse actualResponse = new PostSchemeInfoResponse(Arrays.asList(response.getBody().as(OrgIdentifier[].class)));
+        Assert.assertTrue(actualResponse.getOrgIdentifiers().size() == 1, "Not expected Post response!");
+        Assert.assertTrue(!actualResponse.getOrgIdentifiers().get(0).getCcsOrgId().isEmpty()); // CcsOrgId is not empty
+        logger.info("CcsOrgId: " + actualResponse.getOrgIdentifiers());
+
+        String dbCCSOrgId = RequestTestEndpoints.getCCSOrgId(actualSchemeInfo.getIdentifier().getId());
+        Assert.assertEquals(actualResponse.getOrgIdentifiers().get(0).getCcsOrgId(), dbCCSOrgId, "ccsOrgId is different, something wrong with registering organisation!");
+    }
+
+
+    public static void verifyDuplicateResourceResponse(int statusCode, Response response) {
+        Assert.assertEquals(response.getStatusCode(), statusCode, "Unexpected Status code returned for Duplicate Entries!!");
     }
 }
