@@ -5,9 +5,7 @@ import lombok.Setter;
 
 @Getter @Setter
 public class Scheme {
-    private String schemeRegisterCode;
     private String schemeName;
-    private String schemeUri;
-    private String schemeIdentifier;
     private String schemeCountryCode;
+    private String scheme;
 }
