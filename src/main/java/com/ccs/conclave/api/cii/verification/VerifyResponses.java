@@ -35,7 +35,7 @@ public class VerifyResponses {
         logger.info("SchemeInfo:Scheme " + actualSchemeInfo.getIdentifier().getScheme());
         logger.info("SchemeInfo:Id " + actualSchemeInfo.getIdentifier().getId());
         Assert.assertEquals(actualSchemeInfo.getIdentifier().getScheme(), expectedSchemeInfo.getIdentifier().getScheme(), "Wrong Identifier:scheme in response!");
-        // Bug:CON-488 Change below assertion to equal if the bug is prioritized and fixed
+        // Bug:CON-488 Fixed
         Assert.assertTrue(actualSchemeInfo.getIdentifier().getId().contains(expectedSchemeInfo.getIdentifier().getId()), "Wrong Identifier:id in response!");
         Assert.assertEquals(actualSchemeInfo.getIdentifier().getLegalName(), expectedSchemeInfo.getIdentifier().getLegalName(), "Wrong Identifier:legalName in response!");
         Assert.assertEquals(actualSchemeInfo.getIdentifier().getUri(), expectedSchemeInfo.getIdentifier().getUri(), "Wrong Identifier:url in response!");

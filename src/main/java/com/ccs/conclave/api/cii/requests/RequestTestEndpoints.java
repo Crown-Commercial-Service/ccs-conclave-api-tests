@@ -14,16 +14,17 @@ public class RequestTestEndpoints {
 
     public static void deleteOrgIdentifiers(String id) {
         String ccsOrgId = getCCSOrgId(id);
-        Response response = RestRequests.delete(RestRequests.getBaseURI() + deleteOrganisation + ccsOrgId);
-        Assert.assertEquals(response.getStatusCode(), 200, "Something went wrong while deleting existing organisation!");
-        logger.info("Successfully deleted existing Organisation.");
-
+        if(!ccsOrgId.isEmpty()) {
+            Response response = RestRequests.delete(RestRequests.getBaseURI() + deleteOrganisation + ccsOrgId);
+            Assert.assertEquals(response.getStatusCode(), 200, "Something went wrong while deleting existing organisation!");
+            logger.info("Successfully deleted if Organisation already exists.");
+        }
     }
 
     public static String getCCSOrgId(String id) {
         String endpoint = RestRequests.getBaseURI() + getCCSOrgId + id;
         Response response = RestRequests.get(endpoint);
-        String ccsOrgId = null;
+        String ccsOrgId = "";
         if (response.getStatusCode() == 200) {
             String res = response.asString();
             ccsOrgId = StringUtils.substringBetween(res, "\"ccsOrgId\":", ",");

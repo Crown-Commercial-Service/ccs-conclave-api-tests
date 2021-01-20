@@ -20,9 +20,6 @@ public class PostSchemeIdTests extends BaseClass {
     public void postSchemeInfoCOH_NoAddIdentifier() {
         SchemeInfo schemeInfo = OrgDataProvider.getInfo(COMPANIES_HOUSE);
 
-        // Delete Database entry if the Org. is already registered
-        RequestTestEndpoints.deleteOrgIdentifiers(schemeInfo.getIdentifier().getId());
-
         // Perform Get call to form the request payload for POST call
         Response response = RestRequests.getSchemeInfo(COMPANIES_HOUSE, schemeInfo.getIdentifier().getId());
         verifyGetSchemeInfoResponse(schemeInfo, response); // verify Get SchemeInfo response before passing to Post

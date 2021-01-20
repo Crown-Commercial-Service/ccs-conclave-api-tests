@@ -1,6 +1,7 @@
 package com.ccs.conclave.api.cii.data;
 
 import com.ccs.conclave.api.cii.pojo.*;
+import com.ccs.conclave.api.cii.requests.RequestTestEndpoints;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -424,6 +425,14 @@ public class OrgDataProvider {
             default:
                 throw new IllegalStateException("Unexpected value: " + schemeRegistry);
         }
+
+
+        // Delete Database entry if the Org. is already registered
+        RequestTestEndpoints.deleteOrgIdentifiers(schemeInfo.getIdentifier().getId());
+        for (Identifier id : schemeInfo.getAdditionalIdentifiers()) {
+            RequestTestEndpoints.deleteOrgIdentifiers(id.getId());
+        }
+
         return schemeInfo;
     }
 }
