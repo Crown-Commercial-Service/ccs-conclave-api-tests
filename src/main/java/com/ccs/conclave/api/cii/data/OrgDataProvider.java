@@ -163,9 +163,9 @@ public class OrgDataProvider {
                 schemeInfo.setAddress(address);
 
                 contactPoint.setName("");
-                contactPoint.setEmail("david.hauk@ncvo.org.uk");
+                contactPoint.setEmail("NotEmpty");
                 contactPoint.setFaxNumber("");
-                contactPoint.setTelephone("02075202538");
+                contactPoint.setTelephone("NotEmpty");
                 contactPoint.setUri("");
                 schemeInfo.setContactPoint(contactPoint);
                 break;
@@ -201,7 +201,7 @@ public class OrgDataProvider {
                 contactPoint.setName("");
                 contactPoint.setEmail("");
                 contactPoint.setFaxNumber("");
-                contactPoint.setTelephone("02077909085");
+                contactPoint.setTelephone("NotEmpty");
                 contactPoint.setUri("");
                 schemeInfo.setContactPoint(contactPoint);
                 break;
@@ -331,9 +331,9 @@ public class OrgDataProvider {
                 schemeInfo.setAddress(address);
 
                 contactPoint.setName("");
-                contactPoint.setEmail("ccyclubs@hotmail.com");
+                contactPoint.setEmail("NotEmpty");
                 contactPoint.setFaxNumber("");
-                contactPoint.setTelephone("07753483295");
+                contactPoint.setTelephone("NotEmpty");
                 contactPoint.setUri("");
                 schemeInfo.setContactPoint(contactPoint);
                 break;
@@ -354,9 +354,9 @@ public class OrgDataProvider {
                 schemeInfo.setAddress(address);
 
                 contactPoint.setName("");
-                contactPoint.setEmail("info@lifereachni.com");
+                contactPoint.setEmail("NotEmpty");
                 contactPoint.setFaxNumber("");
-                contactPoint.setTelephone("07809655601");
+                contactPoint.setTelephone("NotEmpty");
                 contactPoint.setUri("");
                 schemeInfo.setContactPoint(contactPoint);
                 break;

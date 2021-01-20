@@ -57,11 +57,35 @@ public class VerifyResponses {
         Assert.assertEquals(actualSchemeInfo.getAddress().getPostalCode(), expectedSchemeInfo.getAddress().getPostalCode(), "Wrong address:postalCode in response!");
         Assert.assertEquals(actualSchemeInfo.getAddress().getCountryName(), expectedSchemeInfo.getAddress().getCountryName(), "Wrong address:countryName in response!");
 
-        Assert.assertEquals(actualSchemeInfo.getContactPoint().getName(), expectedSchemeInfo.getContactPoint().getName(), "Wrong contactPoint:name in response!");
-        Assert.assertEquals(actualSchemeInfo.getContactPoint().getEmail(), expectedSchemeInfo.getContactPoint().getEmail(), "Wrong contactPoint:email in response!");
-        Assert.assertEquals(actualSchemeInfo.getContactPoint().getFaxNumber(), expectedSchemeInfo.getContactPoint().getFaxNumber(), "Wrong contactPoint:telephone in response!");
-        Assert.assertEquals(actualSchemeInfo.getContactPoint().getTelephone(), expectedSchemeInfo.getContactPoint().getTelephone(), "Wrong contactPoint:faxNumber in response!");
-        Assert.assertEquals(actualSchemeInfo.getContactPoint().getUri(), expectedSchemeInfo.getContactPoint().getUri(), "Wrong contactPoint:uri in response!");
+        verifyContactPoint(expectedSchemeInfo, actualSchemeInfo);
+    }
+
+    // Verify Contact point is not empty if expected
+    private static void verifyContactPoint(SchemeInfo expectedSchemeInfo, SchemeInfo actualSchemeInfo) {
+        if (!expectedSchemeInfo.getContactPoint().getName().isEmpty())
+            Assert.assertTrue(!(actualSchemeInfo.getContactPoint().getName().isEmpty()), "Wrong contactPoint:name in response!");
+        else
+            Assert.assertTrue((actualSchemeInfo.getContactPoint().getName().isEmpty()), "Wrong contactPoint:name in response!");
+
+        if (!expectedSchemeInfo.getContactPoint().getEmail().isEmpty())
+            Assert.assertTrue(!(actualSchemeInfo.getContactPoint().getEmail().isEmpty()), "Wrong contactPoint:name in response!");
+        else
+            Assert.assertTrue((actualSchemeInfo.getContactPoint().getEmail().isEmpty()), "Wrong contactPoint:name in response!");
+
+        if (!expectedSchemeInfo.getContactPoint().getFaxNumber().isEmpty())
+            Assert.assertTrue(!(actualSchemeInfo.getContactPoint().getFaxNumber().isEmpty()), "Wrong contactPoint:name in response!");
+        else
+            Assert.assertTrue((actualSchemeInfo.getContactPoint().getFaxNumber().isEmpty()), "Wrong contactPoint:name in response!");
+
+        if (!expectedSchemeInfo.getContactPoint().getTelephone().isEmpty())
+            Assert.assertTrue(!(actualSchemeInfo.getContactPoint().getTelephone().isEmpty()), "Wrong contactPoint:name in response!");
+        else
+            Assert.assertTrue((actualSchemeInfo.getContactPoint().getTelephone().isEmpty()), "Wrong contactPoint:name in response!");
+
+        if (!expectedSchemeInfo.getContactPoint().getUri().isEmpty())
+            Assert.assertTrue(!(actualSchemeInfo.getContactPoint().getUri().isEmpty()), "Wrong contactPoint:name in response!");
+        else
+            Assert.assertTrue((actualSchemeInfo.getContactPoint().getUri().isEmpty()), "Wrong contactPoint:name in response!");
     }
 
     public static void verifyInvalidGetSchemeResponse(int errorCode, Response response) {
