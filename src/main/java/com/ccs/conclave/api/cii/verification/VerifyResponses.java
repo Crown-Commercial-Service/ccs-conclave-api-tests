@@ -1,13 +1,13 @@
 package com.ccs.conclave.api.cii.verification;
 
-import com.ccs.conclave.api.cii.data.OrgDataProvider;
+import com.ccs.conclave.api.cii.pojo.OrgIdentifier;
 import com.ccs.conclave.api.cii.pojo.SchemeInfo;
 
 import com.ccs.conclave.api.cii.pojo.Scheme;
+import com.ccs.conclave.api.cii.requests.RequestTestEndpoints;
 import com.ccs.conclave.api.cii.response.GetSchemeInfoResponse;
 import com.ccs.conclave.api.cii.response.PostSchemeInfoResponse;
 import com.ccs.conclave.api.cii.response.GetSchemesResponse;
-import com.ccs.conclave.api.cii.data.SchemeRegistry;
 import io.restassured.response.Response;
 import org.apache.log4j.Logger;
 import org.testng.Assert;
@@ -22,7 +22,6 @@ public class VerifyResponses {
 
 
     public static void verifyGetSchemeInfoResponse(SchemeInfo expectedSchemeInfo, Response response) {
-
         GetSchemeInfoResponse actualRes = new GetSchemeInfoResponse();
         verifyStatusCode(response, 200);
         actualRes.setSchemeInfo(response.as(SchemeInfo.class));
@@ -36,7 +35,7 @@ public class VerifyResponses {
         logger.info("SchemeInfo:Scheme " + actualSchemeInfo.getIdentifier().getScheme());
         logger.info("SchemeInfo:Id " + actualSchemeInfo.getIdentifier().getId());
         Assert.assertEquals(actualSchemeInfo.getIdentifier().getScheme(), expectedSchemeInfo.getIdentifier().getScheme(), "Wrong Identifier:scheme in response!");
-        // Bug:CON-488 Change below assertion to equal if the bug is prioritized and fixed
+        // Bug:CON-488 Fixed
         Assert.assertTrue(actualSchemeInfo.getIdentifier().getId().contains(expectedSchemeInfo.getIdentifier().getId()), "Wrong Identifier:id in response!");
         Assert.assertEquals(actualSchemeInfo.getIdentifier().getLegalName(), expectedSchemeInfo.getIdentifier().getLegalName(), "Wrong Identifier:legalName in response!");
         Assert.assertEquals(actualSchemeInfo.getIdentifier().getUri(), expectedSchemeInfo.getIdentifier().getUri(), "Wrong Identifier:url in response!");
@@ -58,11 +57,35 @@ public class VerifyResponses {
         Assert.assertEquals(actualSchemeInfo.getAddress().getPostalCode(), expectedSchemeInfo.getAddress().getPostalCode(), "Wrong address:postalCode in response!");
         Assert.assertEquals(actualSchemeInfo.getAddress().getCountryName(), expectedSchemeInfo.getAddress().getCountryName(), "Wrong address:countryName in response!");
 
-        Assert.assertEquals(actualSchemeInfo.getContactPoint().getName(), expectedSchemeInfo.getContactPoint().getName(), "Wrong contactPoint:name in response!");
-        Assert.assertEquals(actualSchemeInfo.getContactPoint().getEmail(), expectedSchemeInfo.getContactPoint().getEmail(), "Wrong contactPoint:email in response!");
-        Assert.assertEquals(actualSchemeInfo.getContactPoint().getFaxNumber(), expectedSchemeInfo.getContactPoint().getFaxNumber(), "Wrong contactPoint:telephone in response!");
-        Assert.assertEquals(actualSchemeInfo.getContactPoint().getTelephone(), expectedSchemeInfo.getContactPoint().getTelephone(), "Wrong contactPoint:faxNumber in response!");
-        Assert.assertEquals(actualSchemeInfo.getContactPoint().getUri(), expectedSchemeInfo.getContactPoint().getUri(), "Wrong contactPoint:uri in response!");
+        verifyContactPoint(expectedSchemeInfo, actualSchemeInfo);
+    }
+
+    // Verify Contact point is not empty if expected
+    private static void verifyContactPoint(SchemeInfo expectedSchemeInfo, SchemeInfo actualSchemeInfo) {
+        if (!expectedSchemeInfo.getContactPoint().getName().isEmpty())
+            Assert.assertTrue(!(actualSchemeInfo.getContactPoint().getName().isEmpty()), "Wrong contactPoint:name in response!");
+        else
+            Assert.assertTrue((actualSchemeInfo.getContactPoint().getName().isEmpty()), "Wrong contactPoint:name in response!");
+
+        if (!expectedSchemeInfo.getContactPoint().getEmail().isEmpty())
+            Assert.assertTrue(!(actualSchemeInfo.getContactPoint().getEmail().isEmpty()), "Wrong contactPoint:name in response!");
+        else
+            Assert.assertTrue((actualSchemeInfo.getContactPoint().getEmail().isEmpty()), "Wrong contactPoint:name in response!");
+
+        if (!expectedSchemeInfo.getContactPoint().getFaxNumber().isEmpty())
+            Assert.assertTrue(!(actualSchemeInfo.getContactPoint().getFaxNumber().isEmpty()), "Wrong contactPoint:name in response!");
+        else
+            Assert.assertTrue((actualSchemeInfo.getContactPoint().getFaxNumber().isEmpty()), "Wrong contactPoint:name in response!");
+
+        if (!expectedSchemeInfo.getContactPoint().getTelephone().isEmpty())
+            Assert.assertTrue(!(actualSchemeInfo.getContactPoint().getTelephone().isEmpty()), "Wrong contactPoint:name in response!");
+        else
+            Assert.assertTrue((actualSchemeInfo.getContactPoint().getTelephone().isEmpty()), "Wrong contactPoint:name in response!");
+
+        if (!expectedSchemeInfo.getContactPoint().getUri().isEmpty())
+            Assert.assertTrue(!(actualSchemeInfo.getContactPoint().getUri().isEmpty()), "Wrong contactPoint:name in response!");
+        else
+            Assert.assertTrue((actualSchemeInfo.getContactPoint().getUri().isEmpty()), "Wrong contactPoint:name in response!");
     }
 
     public static void verifyInvalidGetSchemeResponse(int errorCode, Response response) {
@@ -86,38 +109,28 @@ public class VerifyResponses {
         Assert.assertEquals(schemesResponse.getSchemes().size(), 5, "Wrong number of schemes are returned!");
 
         Scheme scheme = schemesResponse.getSchemes().get(0);
-        Assert.assertEquals(scheme.getSchemeRegisterCode(), getSchemeCode(COMPANIES_HOUSE), "Invalid SchemeCode!");
+        Assert.assertEquals(scheme.getScheme(), getSchemeCode(COMPANIES_HOUSE), "Invalid SchemeCode!");
         Assert.assertEquals(scheme.getSchemeName(), getSchemeName(COMPANIES_HOUSE), "Invalid SchemeName!");
-        Assert.assertEquals(scheme.getSchemeUri(), getSchemeURL(COMPANIES_HOUSE), "Invalid SchemeURL!");
-        Assert.assertEquals(scheme.getSchemeIdentifier(), getSchemeIdentifier(COMPANIES_HOUSE), "Invalid SchemeIdentifier!");
         Assert.assertEquals(scheme.getSchemeCountryCode(), getSchemeCountryCode(COMPANIES_HOUSE), "Invalid CountryCode!");
 
         scheme = schemesResponse.getSchemes().get(1);
-        Assert.assertEquals(scheme.getSchemeRegisterCode(), getSchemeCode(DUN_AND_BRADSTREET), "Invalid SchemeCode!");
+        Assert.assertEquals(scheme.getScheme(), getSchemeCode(DUN_AND_BRADSTREET), "Invalid SchemeCode!");
         Assert.assertEquals(scheme.getSchemeName(), getSchemeName(DUN_AND_BRADSTREET), "Invalid SchemeName!");
-        Assert.assertEquals(scheme.getSchemeUri(), getSchemeURL(DUN_AND_BRADSTREET), "InvalidWrong SchemeURL!");
-        Assert.assertEquals(scheme.getSchemeIdentifier(), getSchemeIdentifier(DUN_AND_BRADSTREET), "Invalid SchemeIdentifier!");
         Assert.assertEquals(scheme.getSchemeCountryCode(), getSchemeCountryCode(DUN_AND_BRADSTREET), "Invalid CountryCode!");
 
         scheme = schemesResponse.getSchemes().get(2);
-        Assert.assertEquals(scheme.getSchemeRegisterCode(), getSchemeCode(CHARITIES_COMMISSION), "Invalid SchemeCode!");
+        Assert.assertEquals(scheme.getScheme(), getSchemeCode(CHARITIES_COMMISSION), "Invalid SchemeCode!");
         Assert.assertEquals(scheme.getSchemeName(), getSchemeName(CHARITIES_COMMISSION), "Invalid SchemeName!");
-        Assert.assertEquals(scheme.getSchemeUri(), getSchemeURL(CHARITIES_COMMISSION), "Invalid SchemeURL!");
-        Assert.assertEquals(scheme.getSchemeIdentifier(), getSchemeIdentifier(CHARITIES_COMMISSION), "Invalid SchemeIdentifier!");
         Assert.assertEquals(scheme.getSchemeCountryCode(), getSchemeCountryCode(CHARITIES_COMMISSION), "Invalid CountryCode!");
 
         scheme = schemesResponse.getSchemes().get(3);
-        Assert.assertEquals(scheme.getSchemeRegisterCode(), getSchemeCode(SCOTLAND_CHARITY), "Invalid SchemeCode!");
+        Assert.assertEquals(scheme.getScheme(), getSchemeCode(SCOTLAND_CHARITY), "Invalid SchemeCode!");
         Assert.assertEquals(scheme.getSchemeName(), getSchemeName(SCOTLAND_CHARITY), "Invalid SchemeName!");
-        Assert.assertEquals(scheme.getSchemeUri(), getSchemeURL(SCOTLAND_CHARITY), "Invalid SchemeURL!");
-        Assert.assertEquals(scheme.getSchemeIdentifier(), getSchemeIdentifier(SCOTLAND_CHARITY), "Invalid SchemeIdentifier!");
         Assert.assertEquals(scheme.getSchemeCountryCode(), getSchemeCountryCode(SCOTLAND_CHARITY), "Invalid CountryCode!");
 
         scheme = schemesResponse.getSchemes().get(4);
-        Assert.assertEquals(scheme.getSchemeRegisterCode(), getSchemeCode(NORTHERN_CHARITY), "Invalid SchemeCode!");
+        Assert.assertEquals(scheme.getScheme(), getSchemeCode(NORTHERN_CHARITY), "Invalid SchemeCode!");
         Assert.assertEquals(scheme.getSchemeName(), getSchemeName(NORTHERN_CHARITY), "Invalid SchemeName!");
-        Assert.assertEquals(scheme.getSchemeUri(), getSchemeURL(NORTHERN_CHARITY), "Invalid SchemeURL!");
-        Assert.assertEquals(scheme.getSchemeIdentifier(), getSchemeIdentifier(NORTHERN_CHARITY), "Invalid SchemeIdentifier!");
         Assert.assertEquals(scheme.getSchemeCountryCode(), getSchemeCountryCode(NORTHERN_CHARITY), "Invalid CountryCode!");
     }
 
@@ -125,7 +138,18 @@ public class VerifyResponses {
         Assert.assertEquals(response.getStatusCode(), expectedCode, "Unexpected Status code returned!!");
     }
 
-    public static void verifyPostSchemeInfoResponse(SchemeRegistry scheme, OrgDataProvider expectedRes, PostSchemeInfoResponse actualRes) {
-        Assert.assertEquals(actualRes.getSchemeInfo(), expectedRes.getInfo(scheme), "Wrong PostSchemeInfo response!");
+    public static void verifyPostSchemeInfoResponse(SchemeInfo actualSchemeInfo, Response response) {
+        PostSchemeInfoResponse actualResponse = new PostSchemeInfoResponse(Arrays.asList(response.getBody().as(OrgIdentifier[].class)));
+        Assert.assertTrue(actualResponse.getOrgIdentifiers().size() == 1, "Not expected Post response!");
+        Assert.assertTrue(!actualResponse.getOrgIdentifiers().get(0).getCcsOrgId().isEmpty()); // CcsOrgId is not empty
+        logger.info("CcsOrgId: " + actualResponse.getOrgIdentifiers());
+
+        String dbCCSOrgId = RequestTestEndpoints.getCCSOrgId(actualSchemeInfo.getIdentifier().getId());
+        Assert.assertEquals(actualResponse.getOrgIdentifiers().get(0).getCcsOrgId(), dbCCSOrgId, "ccsOrgId is different, something wrong with registering organisation!");
+    }
+
+
+    public static void verifyDuplicateResourceResponse(int statusCode, Response response) {
+        Assert.assertEquals(response.getStatusCode(), statusCode, "Unexpected Status code returned for Duplicate Entries!!");
     }
 }

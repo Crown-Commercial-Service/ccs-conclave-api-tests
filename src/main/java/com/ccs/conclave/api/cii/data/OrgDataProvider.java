@@ -1,6 +1,7 @@
 package com.ccs.conclave.api.cii.data;
 
 import com.ccs.conclave.api.cii.pojo.*;
+import com.ccs.conclave.api.cii.requests.RequestTestEndpoints;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -162,9 +163,9 @@ public class OrgDataProvider {
                 schemeInfo.setAddress(address);
 
                 contactPoint.setName("");
-                contactPoint.setEmail("david.hauk@ncvo.org.uk");
+                contactPoint.setEmail("NotEmpty");
                 contactPoint.setFaxNumber("");
-                contactPoint.setTelephone("02075202538");
+                contactPoint.setTelephone("NotEmpty");
                 contactPoint.setUri("");
                 schemeInfo.setContactPoint(contactPoint);
                 break;
@@ -200,7 +201,7 @@ public class OrgDataProvider {
                 contactPoint.setName("");
                 contactPoint.setEmail("");
                 contactPoint.setFaxNumber("");
-                contactPoint.setTelephone("02077909085");
+                contactPoint.setTelephone("NotEmpty");
                 contactPoint.setUri("");
                 schemeInfo.setContactPoint(contactPoint);
                 break;
@@ -330,9 +331,9 @@ public class OrgDataProvider {
                 schemeInfo.setAddress(address);
 
                 contactPoint.setName("");
-                contactPoint.setEmail("ccyclubs@hotmail.com");
+                contactPoint.setEmail("NotEmpty");
                 contactPoint.setFaxNumber("");
-                contactPoint.setTelephone("07753483295");
+                contactPoint.setTelephone("NotEmpty");
                 contactPoint.setUri("");
                 schemeInfo.setContactPoint(contactPoint);
                 break;
@@ -353,9 +354,9 @@ public class OrgDataProvider {
                 schemeInfo.setAddress(address);
 
                 contactPoint.setName("");
-                contactPoint.setEmail("info@lifereachni.com");
+                contactPoint.setEmail("NotEmpty");
                 contactPoint.setFaxNumber("");
-                contactPoint.setTelephone("07809655601");
+                contactPoint.setTelephone("NotEmpty");
                 contactPoint.setUri("");
                 schemeInfo.setContactPoint(contactPoint);
                 break;
@@ -424,6 +425,14 @@ public class OrgDataProvider {
             default:
                 throw new IllegalStateException("Unexpected value: " + schemeRegistry);
         }
+
+
+        // Delete Database entry if the Org. is already registered
+        RequestTestEndpoints.deleteOrgIdentifiers(schemeInfo.getIdentifier().getId());
+        for (Identifier id : schemeInfo.getAdditionalIdentifiers()) {
+            RequestTestEndpoints.deleteOrgIdentifiers(id.getId());
+        }
+
         return schemeInfo;
     }
 }

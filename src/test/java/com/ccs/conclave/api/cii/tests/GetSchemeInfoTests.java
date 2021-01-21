@@ -2,6 +2,7 @@ package com.ccs.conclave.api.cii.tests;
 
 import com.ccs.conclave.api.cii.data.OrgDataProvider;
 import com.ccs.conclave.api.cii.pojo.SchemeInfo;
+import com.ccs.conclave.api.cii.requests.RequestTestEndpoints;
 import com.ccs.conclave.api.cii.requests.RestRequests;
 import com.ccs.conclave.api.common.BaseClass;
 import io.restassured.response.Response;
@@ -10,6 +11,7 @@ import org.testng.annotations.Test;
 import static com.ccs.conclave.api.cii.verification.VerifyResponses.*;
 import static com.ccs.conclave.api.cii.data.SchemeRegistry.*;
 import static com.ccs.conclave.api.cii.verification.VerifyResponses.verifyGetSchemeInfoResponse;
+
 public class GetSchemeInfoTests extends BaseClass {
 
     @Test
@@ -40,7 +42,7 @@ public class GetSchemeInfoTests extends BaseClass {
         verifyGetSchemeInfoResponse(schemeInfo, response);
     }
 
-    @Test // Bug: CON-450
+    @Test // Bug: CON-450 -FIXED
     public void getGBCharitiesSchemeInfo() {
         SchemeInfo schemeInfo = OrgDataProvider.getInfo(CHARITIES_COMMISSION);
         Response response = RestRequests.getSchemeInfo(CHARITIES_COMMISSION, schemeInfo.getIdentifier().getId());
@@ -54,7 +56,7 @@ public class GetSchemeInfoTests extends BaseClass {
         verifyGetSchemeInfoResponse(schemeInfo, response);
     }
 
-    @Test // Bug: CON-452
+    //@Test // Bug: CON-452
     public void getGBCharitiesSchemeInfoWithSC() {
         SchemeInfo schemeInfo = OrgDataProvider.getInfo(CHARITIES_COMMISSION_WITH_SC);
         Response response = RestRequests.getSchemeInfo(CHARITIES_COMMISSION_WITH_SC, schemeInfo.getIdentifier().getId());
@@ -103,7 +105,7 @@ public class GetSchemeInfoTests extends BaseClass {
         verifyInvalidGetSchemeResponse(400, response);
     }
 
-    @Test // Bug: CON-450
+    @Test // Bug: CON-450 -FIXED
     public void getSchemeInfoErrorCode404() {
         Response response = RestRequests.getSchemeInfo(COMPANIES_HOUSE, "00000000");
         verifyInvalidGetSchemeResponse(404, response);
