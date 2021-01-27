@@ -1,10 +1,12 @@
 package com.ccs.conclave.api.cii.verification;
 
+import com.ccs.conclave.api.cii.pojo.DBData;
 import com.ccs.conclave.api.cii.pojo.OrgIdentifier;
 import com.ccs.conclave.api.cii.pojo.SchemeInfo;
 
 import com.ccs.conclave.api.cii.pojo.Scheme;
 import com.ccs.conclave.api.cii.requests.RequestTestEndpoints;
+import com.ccs.conclave.api.cii.response.GetCIIDBDataTestEndpointResponse;
 import com.ccs.conclave.api.cii.response.GetSchemeInfoResponse;
 import com.ccs.conclave.api.cii.response.PostSchemeInfoResponse;
 import com.ccs.conclave.api.cii.response.GetSchemesResponse;
@@ -138,18 +140,45 @@ public class VerifyResponses {
         Assert.assertEquals(response.getStatusCode(), expectedCode, "Unexpected Status code returned!!");
     }
 
-    public static void verifyPostSchemeInfoResponse(SchemeInfo actualSchemeInfo, Response response) {
+    public static void verifyPostSchemeInfoResponse(SchemeInfo expectedSchemeInfo, Response response) {
+        verifyCreateOrgResponseStatus(response);
         PostSchemeInfoResponse actualResponse = new PostSchemeInfoResponse(Arrays.asList(response.getBody().as(OrgIdentifier[].class)));
-        Assert.assertTrue(actualResponse.getOrgIdentifiers().size() == 1, "Not expected Post response!");
-        Assert.assertTrue(!actualResponse.getOrgIdentifiers().get(0).getCcsOrgId().isEmpty()); // CcsOrgId is not empty
-        logger.info("CcsOrgId: " + actualResponse.getOrgIdentifiers());
+        Assert.assertTrue(actualResponse.getOrgIdentifier().size() == 1, "Not expected Post response!");
+        Assert.assertTrue(!actualResponse.getOrgIdentifier().get(0).getCcsOrgId().isEmpty()); // CcsOrgId is not empty
+        logger.info("CcsOrgId: " + actualResponse.getOrgIdentifier());
 
-        String dbCCSOrgId = RequestTestEndpoints.getCCSOrgId(actualSchemeInfo.getIdentifier().getId());
-        Assert.assertEquals(actualResponse.getOrgIdentifiers().get(0).getCcsOrgId(), dbCCSOrgId, "ccsOrgId is different, something wrong with registering organisation!");
+        GetCIIDBDataTestEndpointResponse dbInfo = RequestTestEndpoints.getRegisteredOrganisations(expectedSchemeInfo.getIdentifier().getId());
+        Assert.assertTrue(dbInfo.getDbData().size() >= 1, "No CII Database entry for the org registration for id :" + expectedSchemeInfo.getIdentifier().getId());
+
+        // verify ccsOrgId
+        Assert.assertEquals(dbInfo.getDbData().get(0).getCcsOrgId(), actualResponse.getOrgIdentifier().get(0).getCcsOrgId(), "Registered OrgId is wrong!");
+
+        // verify scheme, id and isPrimaryScheme
+        Assert.assertEquals(dbInfo.getDbData().get(0).getSchemeOrgRegNumber(), expectedSchemeInfo.getIdentifier().getId(), "Registered Id is wrong!");
+        Assert.assertEquals(dbInfo.getDbData().get(0).getScheme(), expectedSchemeInfo.getIdentifier().getScheme(), "Registered Scheme is wrong!");
+        Assert.assertEquals(dbInfo.getDbData().get(0).getPrimaryScheme(), "true", "IsPrimary flag is wrong!");
+
+        if (expectedSchemeInfo.getAdditionalIdentifiers().size() > 0) {
+            Assert.assertEquals(dbInfo.getDbData().size() - 1, expectedSchemeInfo.getAdditionalIdentifiers().size(),
+                    "Additional identifier/s is not registered for id" + expectedSchemeInfo.getIdentifier().getId());
+
+            for (int i = 1; i < dbInfo.getDbData().size(); i++) {
+                // verify ccsOrgId
+                Assert.assertEquals(dbInfo.getDbData().get(i).getCcsOrgId(), actualResponse.getOrgIdentifier().get(0).getCcsOrgId(), "Registered OrgId is wrong!");
+
+                // verify scheme, id and isPrimaryScheme for additional identifiers
+                Assert.assertEquals(dbInfo.getDbData().get(i).getSchemeOrgRegNumber(), expectedSchemeInfo.getAdditionalIdentifiers().get(i - 1).getId(), "Registered Id is wrong!");
+                Assert.assertEquals(dbInfo.getDbData().get(i).getScheme(), expectedSchemeInfo.getAdditionalIdentifiers().get(i - 1).getScheme(), "Registered Scheme is wrong!");
+                Assert.assertEquals(dbInfo.getDbData().get(i).getPrimaryScheme(), "false", "IsPrimary flag is wrong!");
+            }
+        }
     }
 
+    private static void verifyCreateOrgResponseStatus(Response response) {
+        Assert.assertEquals(response.getStatusCode(), 201, "Unexpected Status code returned for Org Registration!!");
+    }
 
-    public static void verifyDuplicateResourceResponse(int statusCode, Response response) {
-        Assert.assertEquals(response.getStatusCode(), statusCode, "Unexpected Status code returned for Duplicate Entries!!");
+    public static void verifyDuplicateResourceResponse(Response response) {
+        Assert.assertEquals(response.getStatusCode(), 405, "Unexpected Status code returned for Duplicate Entries!!");
     }
 }
