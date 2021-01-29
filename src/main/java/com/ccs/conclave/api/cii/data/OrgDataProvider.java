@@ -19,6 +19,7 @@ public class OrgDataProvider {
         Identifier additionalIdentifier4 = new Identifier();
         Identifier additionalIdentifier5 = new Identifier();
         Identifier additionalIdentifier6 = new Identifier();
+        Identifier additionalIdentifier7 = new Identifier();
         List<Identifier> additionalIdentifiers = new ArrayList<>();
         Address address = new Address();
         ContactPoint contactPoint = new ContactPoint();
@@ -38,7 +39,7 @@ public class OrgDataProvider {
                 address.setLocality("Prescot");
                 address.setPostalCode("L34 4AT");
                 address.setRegion("Merseyside");
-                address.setStreetAddress("Upper Floor, The Granary, Stanley Grange Ormskirk Road");
+                address.setStreetAddress("Upper Floor, The Granary, Stanley Grange Ormskirk Road, Knowsley");
                 schemeInfo.setAddress(address);
 
                 contactPoint.setName("");
@@ -93,7 +94,7 @@ public class OrgDataProvider {
                 address.setLocality("LONDON");
                 address.setPostalCode("SW11 3SX");
                 address.setRegion("");
-                address.setStreetAddress("Unit 4, River Reach Business Park 1 Gartons Way");
+                address.setStreetAddress("Unit 4, River Reach Business Park, 1 Gartons Way");
                 schemeInfo.setAddress(address);
 
                 contactPoint.setName("");
@@ -129,7 +130,7 @@ public class OrgDataProvider {
                 address.setLocality("WARRINGTON");
                 address.setPostalCode("WA4 2TE");
                 address.setRegion("");
-                address.setStreetAddress("Chaigeley School Lymm Road Thelwall");
+                address.setStreetAddress("Lymm Road, Thelwall");
                 schemeInfo.setAddress(address);
 
                 contactPoint.setName("");
@@ -155,7 +156,7 @@ public class OrgDataProvider {
                 additionalIdentifiers.add(additionalIdentifier1);
                 schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
 
-                address.setCountryName("UK");
+                address.setCountryName("All Saints Street");
                 address.setLocality("Society Building");
                 address.setPostalCode("N1 9RL");
                 address.setRegion("8 Regents Wharf");
@@ -258,39 +259,39 @@ public class OrgDataProvider {
                 additionalIdentifiers.add(additionalIdentifier2);
                 schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
 
-                additionalIdentifier2.setScheme(SchemeRegistry.getSchemeCode(CHARITIES_COMMISSION));
-                additionalIdentifier2.setId("226227");
-                additionalIdentifier2.setUri("http://www.rnib.org.uk");
-                additionalIdentifier2.setLegalName("THE ROYAL NATIONAL INSTITUTE OF BLIND PEOPLE");
-                additionalIdentifiers.add(additionalIdentifier2);
-                schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
-
-                additionalIdentifier3.setScheme(SchemeRegistry.getSchemeCode(COMPANIES_HOUSE));
-                additionalIdentifier3.setId("00026688");
-                additionalIdentifier3.setUri("");
-                additionalIdentifier3.setLegalName("ACTION FOR BLIND PEOPLE");
+                additionalIdentifier3.setScheme(SchemeRegistry.getSchemeCode(CHARITIES_COMMISSION));
+                additionalIdentifier3.setId("226227");
+                additionalIdentifier3.setUri("http://www.rnib.org.uk");
+                additionalIdentifier3.setLegalName("THE ROYAL NATIONAL INSTITUTE OF BLIND PEOPLE");
                 additionalIdentifiers.add(additionalIdentifier3);
                 schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
 
                 additionalIdentifier4.setScheme(SchemeRegistry.getSchemeCode(COMPANIES_HOUSE));
-                additionalIdentifier4.setId("RC000500");
+                additionalIdentifier4.setId("00026688");
                 additionalIdentifier4.setUri("");
-                additionalIdentifier4.setLegalName("ROYAL NATIONAL INSTITUTE OF BLIND PEOPLE");
+                additionalIdentifier4.setLegalName("ACTION FOR BLIND PEOPLE");
                 additionalIdentifiers.add(additionalIdentifier4);
                 schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
 
-                additionalIdentifier5.setScheme(SchemeRegistry.getSchemeCode(SCOTLAND_CHARITY));
-                additionalIdentifier5.setId("SC039316");
-                additionalIdentifier5.setUri("http://www.rnib.org.uk");
-                additionalIdentifier5.setLegalName("Royal National Institute of Blind People");
+                additionalIdentifier5.setScheme(SchemeRegistry.getSchemeCode(COMPANIES_HOUSE));
+                additionalIdentifier5.setId("RC000500");
+                additionalIdentifier5.setUri("");
+                additionalIdentifier5.setLegalName("ROYAL NATIONAL INSTITUTE OF BLIND PEOPLE");
                 additionalIdentifiers.add(additionalIdentifier5);
                 schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
 
                 additionalIdentifier6.setScheme(SchemeRegistry.getSchemeCode(SCOTLAND_CHARITY));
-                additionalIdentifier6.setId("SC040050");
-                additionalIdentifier6.setUri("http://www.rnib.org.uk/who-we-are/action-for-blind-people");
-                additionalIdentifier6.setLegalName("Action for Blind People");
+                additionalIdentifier6.setId("SC039316");
+                additionalIdentifier6.setUri("http://www.rnib.org.uk");
+                additionalIdentifier6.setLegalName("Royal National Institute of Blind People");
                 additionalIdentifiers.add(additionalIdentifier6);
+                schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
+
+                additionalIdentifier7.setScheme(SchemeRegistry.getSchemeCode(SCOTLAND_CHARITY));
+                additionalIdentifier7.setId("SC040050");
+                additionalIdentifier7.setUri("http://www.rnib.org.uk/who-we-are/action-for-blind-people");
+                additionalIdentifier7.setLegalName("Action for Blind People");
+                additionalIdentifiers.add(additionalIdentifier7);
                 schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
 
                 address.setCountryName("");
@@ -343,14 +344,14 @@ public class OrgDataProvider {
                 identifier.setId("103185");
                 identifier.setScheme(SchemeRegistry.getSchemeCode(NORTHERN_CHARITY));
                 identifier.setLegalName("Lifereach Ni");
-                identifier.setUri("");
+                identifier.setUri("http://www.lifereachni.com");
                 schemeInfo.setIdentifier(identifier);
 
                 address.setCountryName("Northern Ireland");
                 address.setLocality("Belfast");
                 address.setPostalCode("BT2 7JD");
                 address.setRegion("");
-                address.setStreetAddress("1A Bruce Street");
+                address.setStreetAddress("11A Bruce Street");
                 schemeInfo.setAddress(address);
 
                 contactPoint.setName("");
