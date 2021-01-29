@@ -40,24 +40,16 @@ public class RestRequests {
     public static Response get(String baseURI) {
         logger.info(">>> RestRequests::get() >>>");
         Response res = given().header("Apikey", apiKey).expect().defaultParser(Parser.JSON).when().get(baseURI);
-        if (res.getStatusCode() == 200 && res.contentType().contains("application/json")) {
-            return res;
-        } else {
-            logger.info("RestRequests::get() call with status code: " + res.getStatusCode());
-            return res;
-        }
+        logger.info("RestRequests::get() call with status code: " + res.getStatusCode());
+        return res;
     }
 
     public static Response post(String baseURI, String requestPayload) {
         logger.info(">>> RestRequests::post() >>>");
         Response res = given().header("Apikey", apiKey).header("Content-Type", "application/json")
                 .body(requestPayload).when().post(baseURI);
-        if (res.getStatusCode() == 201 && res.contentType().contains("application/json")) {
-            return res;
-        } else {
-            logger.info("RestRequests::post() call with status code: " + res.getStatusCode());
-            return res;
-        }
+        logger.info("RestRequests::post() call with status code: " + res.getStatusCode());
+        return res;
     }
 
     public static Response delete(String baseURI) {

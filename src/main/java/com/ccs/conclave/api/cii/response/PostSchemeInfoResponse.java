@@ -10,9 +10,9 @@ import java.util.List;
 @Setter
 @Getter
 public class PostSchemeInfoResponse {
-    private List<OrgIdentifier> orgIdentifiers = new ArrayList<>();
+    private List<OrgIdentifier> orgIdentifier = new ArrayList<>();
 
     public PostSchemeInfoResponse(List<OrgIdentifier> ccsOrgId) {
-        this.orgIdentifiers = ccsOrgId;
+        this.orgIdentifier = ccsOrgId;
     }
 }
