@@ -9,20 +9,21 @@ import java.util.List;
 import static com.ccs.conclave.api.cii.data.SchemeRegistry.*;
 
 public class OrgDataProvider {
+    private static SchemeInfo schemeInfo = new SchemeInfo();
+    private static Identifier identifier = new Identifier();
+    private static Identifier additionalIdentifier1 = new Identifier();
+    private static Identifier additionalIdentifier2 = new Identifier();
+    private static Identifier additionalIdentifier3 = new Identifier();
+    private static Identifier additionalIdentifier4 = new Identifier();
+    private static Identifier additionalIdentifier5 = new Identifier();
+    private static Identifier additionalIdentifier6 = new Identifier();
+    private static List<Identifier> additionalIdentifiers = new ArrayList<>();
+    private static Address address = new Address();
+    private static ContactPoint contactPoint = new ContactPoint();
+    private static AdditionalSchemeInfo additionalSchemeInfo = new AdditionalSchemeInfo();
+    private static List<AdditionalSchemeInfo> additionalSchemesInfo = new ArrayList<>();
 
     public static SchemeInfo getInfo(SchemeRegistry schemeRegistry) {
-        SchemeInfo schemeInfo = new SchemeInfo();
-        Identifier identifier = new Identifier();
-        Identifier additionalIdentifier1 = new Identifier();
-        Identifier additionalIdentifier2 = new Identifier();
-        Identifier additionalIdentifier3 = new Identifier();
-        Identifier additionalIdentifier4 = new Identifier();
-        Identifier additionalIdentifier5 = new Identifier();
-        Identifier additionalIdentifier6 = new Identifier();
-        List<Identifier> additionalIdentifiers = new ArrayList<>();
-        Address address = new Address();
-        ContactPoint contactPoint = new ContactPoint();
-
         switch (schemeRegistry) {
             case COMPANIES_HOUSE:
                 schemeInfo.setName("AI RECRUITMENT TECHNOLOGIES LIMITED");
@@ -434,5 +435,29 @@ public class OrgDataProvider {
         }
 
         return schemeInfo;
+    }
+
+    // remove additional identifiers from test data to perform Update/Delete scheme tests
+    public static SchemeInfo getInfoWithoutAddIdentifiers(SchemeRegistry schemeRegistry) {
+        schemeInfo = getInfo(schemeRegistry);
+
+        SchemeInfo schemeInfoModified = new SchemeInfo();
+        schemeInfoModified.setName(schemeInfo.getName());
+        schemeInfoModified.setIdentifier(schemeInfo.getIdentifier());
+        schemeInfoModified.setContactPoint(schemeInfo.getContactPoint());
+        schemeInfoModified.setAddress(schemeInfo.getAddress());
+        return schemeInfoModified;
+    }
+
+    // This method returns only AdditionalSchemesInfo
+    public static AdditionalSchemeInfo getAdditionalIdentifierInfo(SchemeRegistry schemeRegistry) {
+        schemeInfo = getInfo(schemeRegistry);
+        for (Identifier addIdentifier : schemeInfo.getAdditionalIdentifiers()) {
+            AdditionalSchemeInfo additionalSchemeInfo = new AdditionalSchemeInfo();
+            additionalSchemeInfo.setName(schemeInfo.getName());
+            additionalSchemeInfo.setIdentifier(addIdentifier);
+            additionalSchemesInfo.add(additionalSchemeInfo);
+        }
+        return additionalSchemeInfo;
     }
 }
