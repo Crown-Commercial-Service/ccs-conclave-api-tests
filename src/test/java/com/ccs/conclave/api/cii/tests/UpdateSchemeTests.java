@@ -8,6 +8,7 @@ import com.ccs.conclave.api.cii.pojo.SchemeInfo;
 import com.ccs.conclave.api.cii.requests.RestRequests;
 import com.ccs.conclave.api.common.BaseClass;
 import io.restassured.response.Response;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.util.ArrayList;
@@ -18,34 +19,38 @@ import static com.ccs.conclave.api.cii.data.SchemeRegistry.*;
 import static com.ccs.conclave.api.cii.verification.VerifyResponses.*;
 
 public class UpdateSchemeTests extends BaseClass {
-    private static List<Identifier> additionalIdentifiers = new ArrayList<>();
 
     @Test
-    public void updateCOHToDUNSPrimaryScheme() {
+    public void updateScheme_COH_into_DUNS() {
         // GetScheme response without additional identifiers
-        String responseStr = getSchemeInfoResponseWithoutAddIdentifiers(DUN_AND_BRADSTREET_WITH_COH);
+        String responseStr = getSchemeInfoWithoutAddIdentifiers(DUN_AND_BRADSTREET_WITH_COH);
+        SchemeInfo expectedSchemeInfo = getInfoWithoutAddIdentifiers(DUN_AND_BRADSTREET_WITH_COH);
 
         // Perform Post Operation/ register organisation with only Primary Identifier
         Response response = RestRequests.postSchemeInfo(responseStr);
-        verifyPostSchemeInfoResponse(getInfoWithoutAddIdentifiers(DUN_AND_BRADSTREET_WITH_COH), response); // verify the response using modified schemeInfo
 
-        AdditionalSchemeInfo additionalSchemeInfoCOH = getAdditionalIdentifierInfo(COMPANIES_HOUSE_IS_A_DUNS_ADDITIONAL_IDENTIFIER);
-        RestRequests.updateScheme(additionalSchemeInfoCOH);
+        // verify the post response and ensure only Primary identifier is used for organisation registration
+        verifyPostSchemeInfoResponse(expectedSchemeInfo, response);
+
+
+        // get only AdditionalIdentifiers from the given Scheme
+        List<AdditionalSchemeInfo> additionalSchemesInfo = getAdditionalIdentifierInfo(DUN_AND_BRADSTREET_WITH_COH);
+        Assert.assertTrue(additionalSchemesInfo.size() == 1, "Only one additional identifier is expected, please check the test data!");
+        AdditionalSchemeInfo additionalSchemeInfo = additionalSchemesInfo.get(0);
+
+        response = RestRequests.updateScheme(getCCSOrgId(), additionalSchemeInfo);
+        verifyUpdatedResponseStatus(response);
     }
 
-    private String getSchemeInfoResponseWithoutAddIdentifiers(SchemeRegistry scheme) {
+    private String getSchemeInfoWithoutAddIdentifiers(SchemeRegistry scheme) {
         SchemeInfo schemeInfo = OrgDataProvider.getInfo(scheme);
 
-        // Perform Get call to form the request payload for POST call
         Response response = RestRequests.getSchemeInfo(scheme, schemeInfo.getIdentifier().getId());
-        //  verifyGetSchemeInfoResponse(schemeInfo, response); // verify Get SchemeInfo response before passing to Post
+        verifyGetSchemeInfoResponse(schemeInfo, response); // verify Get SchemeInfo response before using it
 
-        String responseWithoutAddIdentifiers = response.getBody().jsonPath().get("name").toString() +
-                response.getBody().jsonPath().get("identifier").toString() +
-                response.getBody().jsonPath().get("address").toString() +
-                response.getBody().jsonPath().get("contactPoint").toString();
-
-        // Todo add additional identifiers in additionalIdentifiers list
+        String[] strings = response.asString().split("additionalIdentifiers\":\\[(.*?)\\]");
+        // Bug: CON-543 - Remove hardcoded string below when the issue is fixed
+        String responseWithoutAddIdentifiers = strings[0] + "additionalIdentifiers\":[]" + strings[1];
         return responseWithoutAddIdentifiers;
     }
 

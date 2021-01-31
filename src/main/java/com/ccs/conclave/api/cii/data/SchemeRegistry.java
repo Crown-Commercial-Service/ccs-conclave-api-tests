@@ -13,9 +13,7 @@ public enum SchemeRegistry {
     NORTHERN_CHARITY("GB-NIC", "Northern Ireland Charities Commission", "https://findthatcharity.uk", "Registered Charity Number", "GB"),
     SCOTLAND_CHARITY("GB-SC", "Scottish Charities Commission", "https://findthatcharity.uk", "Registered Charity Number", "GB"),
     SCOTLAND_CHARITY_WITH_COH_CHC("GB-SC", "Scottish Charities Commission", "https://findthatcharity.uk", "Registered Charity Number", "GB"),
-    INVALID_SCHEME("", "", "", "", ""),
-    COMPANIES_HOUSE_IS_A_DUNS_ADDITIONAL_IDENTIFIER("GB-COH", "Companies House", "https://api.company-information.service.gov.uk", "Company Registration Number", "GB"),
-    CHARITIES_COMMISSION_IS_A_DUNS_ADDITIONAL_IDENTIFIER("GB-CHC", "Charities Commission for England and Wales", "https://findthatcharity.uk", "Registered Charity Number", "GB");
+    INVALID_SCHEME("", "", "", "", "");
 
     private String schemeCode;
     private String schemeName;

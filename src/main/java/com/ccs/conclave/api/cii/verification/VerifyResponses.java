@@ -1,31 +1,30 @@
 package com.ccs.conclave.api.cii.verification;
 
-import com.ccs.conclave.api.cii.pojo.DBData;
 import com.ccs.conclave.api.cii.pojo.OrgIdentifier;
 import com.ccs.conclave.api.cii.pojo.SchemeInfo;
-
 import com.ccs.conclave.api.cii.pojo.Scheme;
 import com.ccs.conclave.api.cii.requests.RequestTestEndpoints;
 import com.ccs.conclave.api.cii.response.GetCIIDBDataTestEndpointResponse;
 import com.ccs.conclave.api.cii.response.GetSchemeInfoResponse;
 import com.ccs.conclave.api.cii.response.PostSchemeInfoResponse;
 import com.ccs.conclave.api.cii.response.GetSchemesResponse;
+import com.ccs.conclave.api.common.StatusCodes;
 import io.restassured.response.Response;
 import org.apache.log4j.Logger;
 import org.testng.Assert;
-
 import java.io.IOException;
 import java.util.Arrays;
 
 import static com.ccs.conclave.api.cii.data.SchemeRegistry.*;
+import static com.ccs.conclave.api.common.StatusCodes.*;
 
 public class VerifyResponses {
     private final static Logger logger = Logger.getLogger(VerifyResponses.class);
-
+    private static String ccsOrgId;
 
     public static void verifyGetSchemeInfoResponse(SchemeInfo expectedSchemeInfo, Response response) {
         GetSchemeInfoResponse actualRes = new GetSchemeInfoResponse();
-        verifyStatusCode(response, 200);
+        verifyStatusCode(response, OK.getCode());
         actualRes.setSchemeInfo(response.as(SchemeInfo.class));
         verifySchemeInfo(actualRes.getSchemeInfo(), expectedSchemeInfo);
     }
@@ -90,21 +89,20 @@ public class VerifyResponses {
             Assert.assertTrue((actualSchemeInfo.getContactPoint().getUri().isEmpty()), "Wrong contactPoint:name in response!");
     }
 
-    public static void verifyInvalidGetSchemeResponse(int errorCode, Response response) {
-        verifyStatusCode(response, errorCode);
-        switch (errorCode) {
-            case 400:
+    public static void verifyInvalidGetSchemeResponse(StatusCodes code, Response response) {
+        verifyStatusCode(response, code.getCode());
+        switch (code) {
+            case BAD_REQUEST:
                 Assert.assertEquals(response.getBody().asString(), "{\"scheme\":[\"can't be blank\",\"No such scheme registered\"]}", "Wrong contactPoint:url in response!");
                 break;
 
-            case 401:
-                Assert.assertEquals(response.getBody().asString(), "{}", "Wrong contactPoint:url in response!");
+            case NOT_FOUND:
                 break;
         }
     }
 
     public static void verifyGetSchemesResponse(Response response) throws IOException {
-        verifyStatusCode(response, 200);
+        verifyStatusCode(response, OK.getCode());
         logger.info("GetSchemesResponse" + response.asString());
 
         GetSchemesResponse schemesResponse = new GetSchemesResponse(Arrays.asList(response.getBody().as(Scheme[].class)));
@@ -136,14 +134,15 @@ public class VerifyResponses {
         Assert.assertEquals(scheme.getSchemeCountryCode(), getSchemeCountryCode(NORTHERN_CHARITY), "Invalid CountryCode!");
     }
 
-    private static void verifyStatusCode(Response response, int expectedCode) {
-        Assert.assertEquals(response.getStatusCode(), expectedCode, "Unexpected Status code returned!!");
+    private static void verifyStatusCode(Response response, int code) {
+        Assert.assertEquals(response.getStatusCode(), code, "Unexpected Status code returned!!");
     }
 
     public static void verifyPostSchemeInfoResponse(SchemeInfo expectedSchemeInfo, Response response) {
-        verifyCreateOrgResponseStatus(response);
+        verifyCreatedResponseStatus(response);
         PostSchemeInfoResponse actualResponse = new PostSchemeInfoResponse(Arrays.asList(response.getBody().as(OrgIdentifier[].class)));
         Assert.assertTrue(actualResponse.getOrgIdentifier().size() == 1, "Not expected Post response!");
+        ccsOrgId = actualResponse.getOrgIdentifier().get(0).getCcsOrgId();
         Assert.assertTrue(!actualResponse.getOrgIdentifier().get(0).getCcsOrgId().isEmpty()); // CcsOrgId is not empty
         logger.info("CcsOrgId: " + actualResponse.getOrgIdentifier());
 
@@ -174,11 +173,19 @@ public class VerifyResponses {
         }
     }
 
-    private static void verifyCreateOrgResponseStatus(Response response) {
-        Assert.assertEquals(response.getStatusCode(), 201, "Unexpected Status code returned for Org Registration!!");
+    public static void verifyUpdatedResponseStatus(Response response) {
+        Assert.assertEquals(response.getStatusCode(), OK.getCode(), "Unexpected Status code returned for Org Registration!!");
+    }
+
+    private static void verifyCreatedResponseStatus(Response response) {
+        Assert.assertEquals(response.getStatusCode(), CREATED.getCode(), "Unexpected Status code returned for Org Registration!!");
     }
 
     public static void verifyDuplicateResourceResponse(Response response) {
-        Assert.assertEquals(response.getStatusCode(), 405, "Unexpected Status code returned for Duplicate Entries!!");
+        Assert.assertEquals(response.getStatusCode(), DUPLICATE_RESOURCE.getCode(), "Unexpected Status code returned for Duplicate Entries!!");
+    }
+
+    public static String getCCSOrgId() {
+        return ccsOrgId;
     }
 }

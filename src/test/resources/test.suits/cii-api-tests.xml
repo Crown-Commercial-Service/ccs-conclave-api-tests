@@ -11,9 +11,9 @@
             <class name="com.ccs.conclave.api.cii.tests.GetSchemeInfoTests"/>
         </classes>
     </test>
-<!--    <test name="Post Scheme info tests">-->
-<!--        <classes>-->
-<!--            <class name="com.ccs.conclave.api.cii.tests.PostSchemeIdTests"/>-->
-<!--        </classes>-->
-<!--    </test>-->
+    <test name="Post Scheme info tests">
+        <classes>
+            <class name="com.ccs.conclave.api.cii.tests.PostSchemeIdTests"/>
+        </classes>
+    </test>
 </suite>

@@ -9,21 +9,21 @@ import java.util.List;
 import static com.ccs.conclave.api.cii.data.SchemeRegistry.*;
 
 public class OrgDataProvider {
-    private static SchemeInfo schemeInfo = new SchemeInfo();
-    private static Identifier identifier = new Identifier();
-    private static Identifier additionalIdentifier1 = new Identifier();
-    private static Identifier additionalIdentifier2 = new Identifier();
-    private static Identifier additionalIdentifier3 = new Identifier();
-    private static Identifier additionalIdentifier4 = new Identifier();
-    private static Identifier additionalIdentifier5 = new Identifier();
-    private static Identifier additionalIdentifier6 = new Identifier();
-    private static List<Identifier> additionalIdentifiers = new ArrayList<>();
-    private static Address address = new Address();
-    private static ContactPoint contactPoint = new ContactPoint();
-    private static AdditionalSchemeInfo additionalSchemeInfo = new AdditionalSchemeInfo();
-    private static List<AdditionalSchemeInfo> additionalSchemesInfo = new ArrayList<>();
+
 
     public static SchemeInfo getInfo(SchemeRegistry schemeRegistry) {
+        SchemeInfo schemeInfo = new SchemeInfo();
+        Identifier identifier = new Identifier();
+        Identifier additionalIdentifier1 = new Identifier();
+        Identifier additionalIdentifier2 = new Identifier();
+        Identifier additionalIdentifier3 = new Identifier();
+        Identifier additionalIdentifier4 = new Identifier();
+        Identifier additionalIdentifier5 = new Identifier();
+        Identifier additionalIdentifier6 = new Identifier();
+        Identifier additionalIdentifier7 = new Identifier();
+        List<Identifier> additionalIdentifiers = new ArrayList<>();
+        Address address = new Address();
+        ContactPoint contactPoint = new ContactPoint();
         switch (schemeRegistry) {
             case COMPANIES_HOUSE:
                 schemeInfo.setName("AI RECRUITMENT TECHNOLOGIES LIMITED");
@@ -259,39 +259,39 @@ public class OrgDataProvider {
                 additionalIdentifiers.add(additionalIdentifier2);
                 schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
 
-                additionalIdentifier2.setScheme(SchemeRegistry.getSchemeCode(CHARITIES_COMMISSION));
-                additionalIdentifier2.setId("226227");
-                additionalIdentifier2.setUri("http://www.rnib.org.uk");
-                additionalIdentifier2.setLegalName("THE ROYAL NATIONAL INSTITUTE OF BLIND PEOPLE");
-                additionalIdentifiers.add(additionalIdentifier2);
-                schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
-
-                additionalIdentifier3.setScheme(SchemeRegistry.getSchemeCode(COMPANIES_HOUSE));
-                additionalIdentifier3.setId("00026688");
-                additionalIdentifier3.setUri("");
-                additionalIdentifier3.setLegalName("ACTION FOR BLIND PEOPLE");
+                additionalIdentifier3.setScheme(SchemeRegistry.getSchemeCode(CHARITIES_COMMISSION));
+                additionalIdentifier3.setId("226227");
+                additionalIdentifier3.setUri("http://www.rnib.org.uk");
+                additionalIdentifier3.setLegalName("THE ROYAL NATIONAL INSTITUTE OF BLIND PEOPLE");
                 additionalIdentifiers.add(additionalIdentifier3);
                 schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
 
                 additionalIdentifier4.setScheme(SchemeRegistry.getSchemeCode(COMPANIES_HOUSE));
-                additionalIdentifier4.setId("RC000500");
+                additionalIdentifier4.setId("00026688");
                 additionalIdentifier4.setUri("");
-                additionalIdentifier4.setLegalName("ROYAL NATIONAL INSTITUTE OF BLIND PEOPLE");
+                additionalIdentifier4.setLegalName("ACTION FOR BLIND PEOPLE");
                 additionalIdentifiers.add(additionalIdentifier4);
                 schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
 
-                additionalIdentifier5.setScheme(SchemeRegistry.getSchemeCode(SCOTLAND_CHARITY));
-                additionalIdentifier5.setId("SC039316");
-                additionalIdentifier5.setUri("http://www.rnib.org.uk");
-                additionalIdentifier5.setLegalName("Royal National Institute of Blind People");
+                additionalIdentifier5.setScheme(SchemeRegistry.getSchemeCode(COMPANIES_HOUSE));
+                additionalIdentifier5.setId("RC000500");
+                additionalIdentifier5.setUri("");
+                additionalIdentifier5.setLegalName("ROYAL NATIONAL INSTITUTE OF BLIND PEOPLE");
                 additionalIdentifiers.add(additionalIdentifier5);
                 schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
 
                 additionalIdentifier6.setScheme(SchemeRegistry.getSchemeCode(SCOTLAND_CHARITY));
-                additionalIdentifier6.setId("SC040050");
-                additionalIdentifier6.setUri("http://www.rnib.org.uk/who-we-are/action-for-blind-people");
-                additionalIdentifier6.setLegalName("Action for Blind People");
+                additionalIdentifier6.setId("SC039316");
+                additionalIdentifier6.setUri("http://www.rnib.org.uk");
+                additionalIdentifier6.setLegalName("Royal National Institute of Blind People");
                 additionalIdentifiers.add(additionalIdentifier6);
+                schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
+
+                additionalIdentifier7.setScheme(SchemeRegistry.getSchemeCode(SCOTLAND_CHARITY));
+                additionalIdentifier7.setId("SC040050");
+                additionalIdentifier7.setUri("http://www.rnib.org.uk/who-we-are/action-for-blind-people");
+                additionalIdentifier7.setLegalName("Action for Blind People");
+                additionalIdentifiers.add(additionalIdentifier7);
                 schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
 
                 address.setCountryName("");
@@ -439,6 +439,7 @@ public class OrgDataProvider {
 
     // remove additional identifiers from test data to perform Update/Delete scheme tests
     public static SchemeInfo getInfoWithoutAddIdentifiers(SchemeRegistry schemeRegistry) {
+        SchemeInfo schemeInfo = new SchemeInfo();
         schemeInfo = getInfo(schemeRegistry);
 
         SchemeInfo schemeInfoModified = new SchemeInfo();
@@ -450,14 +451,16 @@ public class OrgDataProvider {
     }
 
     // This method returns only AdditionalSchemesInfo
-    public static AdditionalSchemeInfo getAdditionalIdentifierInfo(SchemeRegistry schemeRegistry) {
+    public static List<AdditionalSchemeInfo> getAdditionalIdentifierInfo(SchemeRegistry schemeRegistry) {
+        List<AdditionalSchemeInfo> additionalSchemesInfo = new ArrayList<>();
+        SchemeInfo schemeInfo = new SchemeInfo();
+
         schemeInfo = getInfo(schemeRegistry);
         for (Identifier addIdentifier : schemeInfo.getAdditionalIdentifiers()) {
             AdditionalSchemeInfo additionalSchemeInfo = new AdditionalSchemeInfo();
-            additionalSchemeInfo.setName(schemeInfo.getName());
             additionalSchemeInfo.setIdentifier(addIdentifier);
             additionalSchemesInfo.add(additionalSchemeInfo);
         }
-        return additionalSchemeInfo;
+        return additionalSchemesInfo;
     }
 }

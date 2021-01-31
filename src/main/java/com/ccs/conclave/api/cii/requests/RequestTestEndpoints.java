@@ -7,6 +7,8 @@ import org.apache.log4j.Logger;
 import org.testng.Assert;
 
 import java.util.Arrays;
+import static com.ccs.conclave.api.common.StatusCodes.*;
+
 
 // Endpoints used in this class are for testing  purpose only and won't be deployed in Production. Therefore the tests
 // which are depending on these endpoints cannot be executed in Production.
@@ -19,7 +21,7 @@ public class RequestTestEndpoints {
         String ccsOrgId = getRegisteredOrgId(id);
         if(!ccsOrgId.isEmpty()) {
             Response response = RestRequests.delete(RestRequests.getBaseURI() + deleteOrganisation + ccsOrgId);
-            Assert.assertEquals(response.getStatusCode(), 200, "Something went wrong while deleting existing organisation!");
+            Assert.assertEquals(response.getStatusCode(), OK.getCode(), "Something went wrong while deleting existing organisation!");
             logger.info("Successfully deleted if Organisation already exists.");
         }
     }
@@ -36,7 +38,7 @@ public class RequestTestEndpoints {
         String endpoint = RestRequests.getBaseURI() + getCCSOrgId + id;
         Response response = RestRequests.get(endpoint);
         GetCIIDBDataTestEndpointResponse dbInfo = null;
-        if (response.getStatusCode() == 200) {
+        if (response.getStatusCode() == OK.getCode()) {
             dbInfo = new GetCIIDBDataTestEndpointResponse(Arrays.asList(response.getBody().as(DBData[].class)));
         } else {
             logger.info("Given id " + id +" is not registered in CII.");
