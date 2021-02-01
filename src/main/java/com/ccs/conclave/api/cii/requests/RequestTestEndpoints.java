@@ -1,12 +1,16 @@
 package com.ccs.conclave.api.cii.requests;
 
+import com.ccs.conclave.api.cii.pojo.AdditionalSchemeInfo;
 import com.ccs.conclave.api.cii.pojo.DBData;
 import com.ccs.conclave.api.cii.response.GetCIIDBDataTestEndpointResponse;
 import io.restassured.response.Response;
 import org.apache.log4j.Logger;
 import org.testng.Assert;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+
 import static com.ccs.conclave.api.common.StatusCodes.*;
 
 
@@ -45,4 +49,34 @@ public class RequestTestEndpoints {
         }
         return dbInfo;
     }
+
+    public static List<AdditionalSchemeInfo> getAdditionalIdentifiers(String primaryId) {
+        List<AdditionalSchemeInfo> additionalSchemesInfo = new ArrayList<>();
+        GetCIIDBDataTestEndpointResponse dbInfo = RequestTestEndpoints.getRegisteredOrganisations(primaryId);
+        if(dbInfo.getDbData().size() > 0) {
+            for (DBData dbData : dbInfo.getDbData()) {
+                if(dbData.getPrimaryScheme().equals("false")) {
+                    AdditionalSchemeInfo additionalSchemeInfo = new AdditionalSchemeInfo();
+                    additionalSchemeInfo.setCcsOrgId(dbData.getCcsOrgId());
+                    additionalSchemeInfo.getIdentifier().setId(dbData.getSchemeOrgRegNumber());
+                    additionalSchemeInfo.getIdentifier().setScheme(dbData.getScheme());
+                    additionalSchemesInfo.add(additionalSchemeInfo);
+                }
+            }
+        }
+        return additionalSchemesInfo;
+    }
+
+    public static boolean isInCIIDataBase(String id) {
+        GetCIIDBDataTestEndpointResponse dbInfo = RequestTestEndpoints.getRegisteredOrganisations(id);
+        if(dbInfo.getDbData().size() > 0) {
+            for (DBData dbData : dbInfo.getDbData()) {
+                if (dbData.getSchemeOrgRegNumber().equals(id)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 }
+

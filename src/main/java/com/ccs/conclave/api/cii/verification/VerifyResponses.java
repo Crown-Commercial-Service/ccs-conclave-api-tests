@@ -1,8 +1,6 @@
 package com.ccs.conclave.api.cii.verification;
 
-import com.ccs.conclave.api.cii.pojo.OrgIdentifier;
-import com.ccs.conclave.api.cii.pojo.SchemeInfo;
-import com.ccs.conclave.api.cii.pojo.Scheme;
+import com.ccs.conclave.api.cii.pojo.*;
 import com.ccs.conclave.api.cii.requests.RequestTestEndpoints;
 import com.ccs.conclave.api.cii.response.GetCIIDBDataTestEndpointResponse;
 import com.ccs.conclave.api.cii.response.GetSchemeInfoResponse;
@@ -14,6 +12,7 @@ import org.apache.log4j.Logger;
 import org.testng.Assert;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.List;
 
 import static com.ccs.conclave.api.cii.data.SchemeRegistry.*;
 import static com.ccs.conclave.api.common.StatusCodes.*;
@@ -139,7 +138,7 @@ public class VerifyResponses {
     }
 
     public static void verifyPostSchemeInfoResponse(SchemeInfo expectedSchemeInfo, Response response) {
-        verifyCreatedResponseStatus(response);
+        verifyResponseCodeForCreatedResource(response);
         PostSchemeInfoResponse actualResponse = new PostSchemeInfoResponse(Arrays.asList(response.getBody().as(OrgIdentifier[].class)));
         Assert.assertTrue(actualResponse.getOrgIdentifier().size() == 1, "Not expected Post response!");
         ccsOrgId = actualResponse.getOrgIdentifier().get(0).getCcsOrgId();
@@ -173,16 +172,28 @@ public class VerifyResponses {
         }
     }
 
-    public static void verifyUpdatedResponseStatus(Response response) {
-        Assert.assertEquals(response.getStatusCode(), OK.getCode(), "Unexpected Status code returned for Org Registration!!");
+    public static void verifyUpdatedScheme(String primaryId, AdditionalSchemeInfo expectedAdditionalSchemeInfo) {
+        List<AdditionalSchemeInfo> actualAdditionalSchemesInfo = RequestTestEndpoints.getAdditionalIdentifiers(primaryId);
+        Assert.assertTrue(RequestTestEndpoints.isInCIIDataBase(expectedAdditionalSchemeInfo.getIdentifier().getId()), "Expected additional identifier is not in CII DB!!");
+
+        for (AdditionalSchemeInfo actualAdditionalSchemeInfo : actualAdditionalSchemesInfo) {
+            if (actualAdditionalSchemeInfo.getIdentifier().getId() == expectedAdditionalSchemeInfo.getIdentifier().getId()) {
+                Assert.assertEquals(actualAdditionalSchemeInfo.getCcsOrgId(), expectedAdditionalSchemeInfo.getCcsOrgId(), "Wrong ccsOrgId in additional identifier!!");
+                Assert.assertEquals(actualAdditionalSchemeInfo.getIdentifier().getScheme(), expectedAdditionalSchemeInfo.getIdentifier().getScheme(), "Wrong scheme in additional identifier!!");
+            }
+        }
     }
 
-    private static void verifyCreatedResponseStatus(Response response) {
-        Assert.assertEquals(response.getStatusCode(), CREATED.getCode(), "Unexpected Status code returned for Org Registration!!");
+    public static void verifyResponseCodeForUpdatedResource(Response response) {
+        Assert.assertEquals(response.getStatusCode(), OK.getCode(), "Unexpected Status code returned for updated!!");
     }
 
-    public static void verifyDuplicateResourceResponse(Response response) {
-        Assert.assertEquals(response.getStatusCode(), DUPLICATE_RESOURCE.getCode(), "Unexpected Status code returned for Duplicate Entries!!");
+    private static void verifyResponseCodeForCreatedResource(Response response) {
+        Assert.assertEquals(response.getStatusCode(), CREATED.getCode(), "Unexpected Status code returned for created!!");
+    }
+
+    public static void verifyResponseCodeForDuplicateResource(Response response) {
+        Assert.assertEquals(response.getStatusCode(), DUPLICATE_RESOURCE.getCode(), "Unexpected Status code returned for Duplicate Resource!!");
     }
 
     public static String getCCSOrgId() {

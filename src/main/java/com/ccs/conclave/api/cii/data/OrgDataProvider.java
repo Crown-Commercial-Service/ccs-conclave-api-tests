@@ -437,7 +437,7 @@ public class OrgDataProvider {
         return schemeInfo;
     }
 
-    // remove additional identifiers from test data to perform Update/Delete scheme tests
+    // remove additional identifiers from test data to perform Update scheme tests
     public static SchemeInfo getInfoWithoutAddIdentifiers(SchemeRegistry schemeRegistry) {
         SchemeInfo schemeInfo = new SchemeInfo();
         schemeInfo = getInfo(schemeRegistry);

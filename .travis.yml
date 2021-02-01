@@ -22,4 +22,4 @@ deploy:
   verbose: true
   target-branch: gh-pages
   on:
-    branch: feature/UpdateTest
+    branch: main

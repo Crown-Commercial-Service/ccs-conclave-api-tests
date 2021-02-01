@@ -12,9 +12,9 @@ import org.testng.annotations.Test;
 import static com.ccs.conclave.api.cii.data.SchemeRegistry.*;
 import static com.ccs.conclave.api.cii.verification.VerifyResponses.*;
 
-public class PostSchemeIdTests extends BaseClass {
+public class PostSchemeInfoTests extends BaseClass {
 
-    private final static Logger logger = Logger.getLogger(PostSchemeIdTests.class);
+    private final static Logger logger = Logger.getLogger(PostSchemeInfoTests.class);
 
     @Test
     public void postSchemeInfoCOH_NoAddIdentifier() {
