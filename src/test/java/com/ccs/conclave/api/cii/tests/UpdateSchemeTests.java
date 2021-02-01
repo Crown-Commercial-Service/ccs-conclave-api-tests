@@ -7,16 +7,16 @@ import com.ccs.conclave.api.cii.pojo.SchemeInfo;
 import com.ccs.conclave.api.cii.requests.RestRequests;
 import com.ccs.conclave.api.common.BaseClass;
 import io.restassured.response.Response;
+import org.apache.log4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-
 import java.util.List;
-
 import static com.ccs.conclave.api.cii.data.OrgDataProvider.*;
 import static com.ccs.conclave.api.cii.data.SchemeRegistry.*;
 import static com.ccs.conclave.api.cii.verification.VerifyResponses.*;
 
 public class UpdateSchemeTests extends BaseClass {
+    private final static Logger logger = Logger.getLogger(UpdateSchemeTests.class);
 
     @Test
     public void updateScheme_COH_into_DUNS() {
@@ -26,17 +26,19 @@ public class UpdateSchemeTests extends BaseClass {
         // Get expected SchemeInfo without additional identifiers
         SchemeInfo expectedSchemeInfo = getInfoWithoutAddIdentifiers(DUN_AND_BRADSTREET_WITH_COH);
 
-        // Perform Post Operation/ register organisation with only Primary Identifier
+        logger.info("Performing Post Operation/register organisation with only Primary Identifier");
         Response response = RestRequests.postSchemeInfo(responseStr);
 
         // verify the post response and ensure only Primary identifier is used for organisation registration
         verifyPostSchemeInfoResponse(expectedSchemeInfo, response);
 
+        logger.info("Successful post operation...");
 
         // get only AdditionalIdentifiers from the given Scheme
         List<AdditionalSchemeInfo> additionalSchemesInfo = getAdditionalIdentifierInfo(DUN_AND_BRADSTREET_WITH_COH);
         Assert.assertTrue(additionalSchemesInfo.size() == 1, "Only one additional identifier is expected, please check the test data!");
 
+        logger.info("Adding additional identifier to the existing organisation...");
         AdditionalSchemeInfo additionalSchemeInfo = additionalSchemesInfo.get(0);
         response = RestRequests.updateScheme(getCCSOrgId(), additionalSchemeInfo);
         verifyResponseCodeForUpdatedResource(response);
@@ -62,11 +64,13 @@ public class UpdateSchemeTests extends BaseClass {
         List<AdditionalSchemeInfo> additionalSchemesInfo = getAdditionalIdentifierInfo(SCOTLAND_CHARITY_WITH_COH_CHC);
         Assert.assertTrue(additionalSchemesInfo.size() == 2, "Two additional identifier are expected, please check the test data!");
 
+        logger.info("Adding additional identifier1 to the existing organisation...");
         AdditionalSchemeInfo additionalSchemeInfo1 = additionalSchemesInfo.get(0);
         response = RestRequests.updateScheme(getCCSOrgId(), additionalSchemeInfo1);
         verifyResponseCodeForUpdatedResource(response);
         verifyUpdatedScheme(schemeInfo.getIdentifier().getId(), additionalSchemeInfo1);
 
+        logger.info("Adding additional identifier2 to the existing organisation...");
         AdditionalSchemeInfo additionalSchemeInfo2 = additionalSchemesInfo.get(1);
         response = RestRequests.updateScheme(getCCSOrgId(), additionalSchemeInfo2);
         verifyResponseCodeForUpdatedResource(response);
