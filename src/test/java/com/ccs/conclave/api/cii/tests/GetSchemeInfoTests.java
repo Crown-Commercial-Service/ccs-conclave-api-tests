@@ -23,7 +23,7 @@ public class GetSchemeInfoTests extends BaseClass {
         verifyGetSchemeInfoResponse(schemeInfo, response);
     }
 
-    @Test //Bug: CON-470
+    @Test //Bug: CON-470 FIXED
     public void getDunsSchemeInfoWithoutAdditionalIdentifier() {
         SchemeInfo schemeInfo = OrgDataProvider.getInfo(DUN_AND_BRADSTREET);
         Response response = RestRequests.getSchemeInfo(DUN_AND_BRADSTREET, schemeInfo.getIdentifier().getId());
@@ -37,7 +37,7 @@ public class GetSchemeInfoTests extends BaseClass {
         verifyGetSchemeInfoResponse(schemeInfo, response);
     }
 
-    @Test //Bug: CON-470
+    @Test //Bug: CON-470 -FIXED
     public void getDunsSchemeInfoWithCOHAndCHC() {
         SchemeInfo schemeInfo = OrgDataProvider.getInfo(DUN_AND_BRADSTREET_WITH_COH_AND_CHC);
         Response response = RestRequests.getSchemeInfo(DUN_AND_BRADSTREET_WITH_COH_AND_CHC, schemeInfo.getIdentifier().getId());
@@ -58,21 +58,21 @@ public class GetSchemeInfoTests extends BaseClass {
         verifyGetSchemeInfoResponse(schemeInfo, response);
     }
 
-    //@Test // Bug: CON-452
+    @Test // Bug: CON-452
     public void getGBCharitiesSchemeInfoWithSC() {
         SchemeInfo schemeInfo = OrgDataProvider.getInfo(CHARITIES_COMMISSION_WITH_SC);
         Response response = RestRequests.getSchemeInfo(CHARITIES_COMMISSION_WITH_SC, schemeInfo.getIdentifier().getId());
         verifyGetSchemeInfoResponse(schemeInfo, response);
     }
 
-    @Test
+    @Test // Bug: CON-452
     public void getGBCharitiesSchemeInfoWithKnownAndUnknownIdentifiers() {
         SchemeInfo schemeInfo = OrgDataProvider.getInfo(CHARITIES_COMMISSION_WITH_KNOWN_AND_UNKNOWN_IDENTIFIERS);
         Response response = RestRequests.getSchemeInfo(CHARITIES_COMMISSION_WITH_KNOWN_AND_UNKNOWN_IDENTIFIERS, schemeInfo.getIdentifier().getId());
         verifyGetSchemeInfoResponse(schemeInfo, response);
     }
 
-    @Test //Bug: CON-489
+    @Test // Bug: CON-489 -FIXED
     public void getNorthernCharitySchemeInfo() {
         SchemeInfo schemeInfo = OrgDataProvider.getInfo(NORTHERN_CHARITY);
         Response response = RestRequests.getSchemeInfo(NORTHERN_CHARITY, schemeInfo.getIdentifier().getId());
@@ -86,7 +86,7 @@ public class GetSchemeInfoTests extends BaseClass {
         verifyGetSchemeInfoResponse(schemeInfo, response);
     }
 
-    @Test // Bug: CON-489
+    @Test // Bug: CON-489 -FIXED
     public void getScottishCharitySchemeInfo() {
         SchemeInfo schemeInfo = OrgDataProvider.getInfo(SCOTLAND_CHARITY);
         Response response = RestRequests.getSchemeInfo(SCOTLAND_CHARITY, schemeInfo.getIdentifier().getId());

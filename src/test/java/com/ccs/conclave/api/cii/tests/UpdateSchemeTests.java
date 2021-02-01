@@ -67,7 +67,7 @@ public class UpdateSchemeTests extends BaseClass {
         verifyResponseCodeForUpdatedResource(response);
         verifyUpdatedScheme(schemeInfo.getIdentifier().getId(), additionalSchemeInfo1);
 
-        AdditionalSchemeInfo additionalSchemeInfo2 = additionalSchemesInfo.get(0);
+        AdditionalSchemeInfo additionalSchemeInfo2 = additionalSchemesInfo.get(1);
         response = RestRequests.updateScheme(getCCSOrgId(), additionalSchemeInfo2);
         verifyResponseCodeForUpdatedResource(response);
         verifyUpdatedScheme(schemeInfo.getIdentifier().getId(), additionalSchemeInfo2);
