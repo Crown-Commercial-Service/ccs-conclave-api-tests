@@ -4,7 +4,6 @@ import com.ccs.conclave.api.cii.pojo.AdditionalSchemeInfo;
 import com.ccs.conclave.api.common.Endpoints;
 import com.ccs.conclave.api.cii.data.SchemeRegistry;
 import io.restassured.parsing.Parser;
-import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.apache.log4j.Logger;
 
@@ -40,9 +39,15 @@ public class RestRequests {
 
 
     public static Response updateScheme(String ccsOrgId, AdditionalSchemeInfo additionalSchemeInfo) {
-        String endpoint = baseURI + Endpoints.updateSchemeInfo;
+        String endpoint = baseURI + Endpoints.updateScheme;
         additionalSchemeInfo.setCcsOrgId(ccsOrgId);
         return put(endpoint, additionalSchemeInfo.toString());
+    }
+
+    public static Response deleteScheme(String ccsOrgId, AdditionalSchemeInfo additionalSchemeInfo) {
+        String endpoint = baseURI + Endpoints.deleteScheme;
+        additionalSchemeInfo.setCcsOrgId(ccsOrgId);
+        return delete(endpoint, additionalSchemeInfo.toString());
     }
 
     public static Response get(String baseURI) {
@@ -60,10 +65,10 @@ public class RestRequests {
         return res;
     }
 
-    public static Response delete(String baseURI) {
-        logger.info(">>> RestRequests::delete() >>>");
+    public static Response deleteAll(String baseURI) {
+        logger.info(">>> RestRequests::deleteAll() >>>");
         Response res = given().header("Apikey", apiKey).expect().defaultParser(Parser.JSON).when().delete(baseURI);
-        logger.info("RestRequests::delete() call with status code: " + res.getStatusCode());
+        logger.info("RestRequests::deleteAll() call with status code: " + res.getStatusCode());
         return res;
     }
 
@@ -72,6 +77,14 @@ public class RestRequests {
         Response res = given().header("Apikey", apiKey).header("Content-Type", "application/json")
                         .body(requestPayload).when().put(baseURI);
         logger.info("RestRequests::put() call with status code: " + res.getStatusCode());
+        return res;
+    }
+
+    public static Response delete(String baseURI, String requestPayload) {
+        logger.info(">>> RestRequests::delete() >>>");
+        Response res = given().header("Apikey", apiKey).header("Content-Type", "application/json")
+                .body(requestPayload).when().delete(baseURI);
+        logger.info("RestRequests::delete() call with status code: " + res.getStatusCode());
         return res;
     }
 

@@ -184,6 +184,17 @@ public class VerifyResponses {
         }
     }
 
+    public static void verifyDeletedScheme(String primaryId, AdditionalSchemeInfo deletedAdditionalSchemeInfo) {
+        List<AdditionalSchemeInfo> actualAdditionalSchemesInfo = RequestTestEndpoints.getAdditionalIdentifiers(primaryId);
+        Assert.assertTrue(!RequestTestEndpoints.isInCIIDataBase(deletedAdditionalSchemeInfo.getIdentifier().getId()), "Deleted additional identifier is in CII DB!!");
+
+        for (AdditionalSchemeInfo actualAdditionalSchemeInfo : actualAdditionalSchemesInfo) {
+            if (actualAdditionalSchemeInfo.getIdentifier().getId() == deletedAdditionalSchemeInfo.getIdentifier().getId()) {
+                Assert.fail("Deleted Scheme call failed!!");
+            }
+        }
+    }
+
     public static void verifyResponseCodeForUpdatedResource(Response response) {
         Assert.assertEquals(response.getStatusCode(), OK.getCode(), "Unexpected Status code returned for updated!!");
     }
@@ -194,6 +205,10 @@ public class VerifyResponses {
 
     public static void verifyResponseCodeForDuplicateResource(Response response) {
         Assert.assertEquals(response.getStatusCode(), DUPLICATE_RESOURCE.getCode(), "Unexpected Status code returned for Duplicate Resource!!");
+    }
+
+    public static void verifyResponseCodeForDeletedResource(Response response) {
+        Assert.assertEquals(response.getStatusCode(), OK.getCode(), "Unexpected Status code returned for deleted Resource!!");
     }
 
     public static String getCCSOrgId() {
