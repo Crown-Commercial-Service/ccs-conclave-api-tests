@@ -13,7 +13,12 @@
     </test>
     <test name="Post Scheme info tests">
         <classes>
-            <class name="com.ccs.conclave.api.cii.tests.PostSchemeIdTests"/>
+            <class name="com.ccs.conclave.api.cii.tests.PostSchemeInfoTests"/>
         </classes>
     </test>
+<!--    <test name="Update Scheme tests">-->
+<!--        <classes>-->
+<!--            <class name="com.ccs.conclave.api.cii.tests.UpdateSchemeTests"/>-->
+<!--        </classes>-->
+<!--    </test>-->
 </suite>

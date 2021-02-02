@@ -1,5 +1,6 @@
 package com.ccs.conclave.api.cii.requests;
 
+import com.ccs.conclave.api.cii.pojo.AdditionalSchemeInfo;
 import com.ccs.conclave.api.common.Endpoints;
 import com.ccs.conclave.api.cii.data.SchemeRegistry;
 import io.restassured.parsing.Parser;
@@ -37,6 +38,13 @@ public class RestRequests {
         return post(endpoint, requestPayload);
     }
 
+
+    public static Response updateScheme(String ccsOrgId, AdditionalSchemeInfo additionalSchemeInfo) {
+        String endpoint = baseURI + Endpoints.updateSchemeInfo;
+        additionalSchemeInfo.setCcsOrgId(ccsOrgId);
+        return put(endpoint, additionalSchemeInfo.toString());
+    }
+
     public static Response get(String baseURI) {
         logger.info(">>> RestRequests::get() >>>");
         Response res = given().header("Apikey", apiKey).expect().defaultParser(Parser.JSON).when().get(baseURI);
@@ -53,13 +61,19 @@ public class RestRequests {
     }
 
     public static Response delete(String baseURI) {
-        logger.info(">>> RestRequests::get() >>>");
+        logger.info(">>> RestRequests::delete() >>>");
         Response res = given().header("Apikey", apiKey).expect().defaultParser(Parser.JSON).when().delete(baseURI);
-        if (res.getStatusCode() == 200 && res.contentType().contains("application/json")) {
-            return res;
-        } else {
-            logger.info("RestRequests::get() call with status code: " + res.getStatusCode());
-            return res;
-        }
+        logger.info("RestRequests::delete() call with status code: " + res.getStatusCode());
+        return res;
     }
+
+    public static Response put(String baseURI, String requestPayload) {
+        logger.info(">>> RestRequests::put() >>>");
+        Response res = given().header("Apikey", apiKey).header("Content-Type", "application/json")
+                        .body(requestPayload).when().put(baseURI);
+        logger.info("RestRequests::put() call with status code: " + res.getStatusCode());
+        return res;
+    }
+
+
 }

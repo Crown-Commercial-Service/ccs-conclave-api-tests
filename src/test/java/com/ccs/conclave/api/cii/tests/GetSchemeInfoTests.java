@@ -11,6 +11,8 @@ import org.testng.annotations.Test;
 import static com.ccs.conclave.api.cii.verification.VerifyResponses.*;
 import static com.ccs.conclave.api.cii.data.SchemeRegistry.*;
 import static com.ccs.conclave.api.cii.verification.VerifyResponses.verifyGetSchemeInfoResponse;
+import static com.ccs.conclave.api.common.StatusCodes.BAD_REQUEST;
+import static com.ccs.conclave.api.common.StatusCodes.NOT_FOUND;
 
 public class GetSchemeInfoTests extends BaseClass {
 
@@ -99,15 +101,15 @@ public class GetSchemeInfoTests extends BaseClass {
     }
 
     @Test
-    public void getSchemeInfoErrorCode400() {
+    public void getSchemeInfoWithInvalidScheme() {
         String identifier = OrgDataProvider.getInfo(COMPANIES_HOUSE).getIdentifier().getId();
         Response response = RestRequests.getSchemeInfo(INVALID_SCHEME, identifier);
-        verifyInvalidGetSchemeResponse(400, response);
+        verifyInvalidGetSchemeResponse(BAD_REQUEST, response);
     }
 
     @Test // Bug: CON-450 -FIXED
-    public void getSchemeInfoErrorCode404() {
+    public void getSchemeInfoWithInvalidId() {
         Response response = RestRequests.getSchemeInfo(COMPANIES_HOUSE, "00000000");
-        verifyInvalidGetSchemeResponse(404, response);
+        verifyInvalidGetSchemeResponse(NOT_FOUND, response);
     }
 }

@@ -10,6 +10,7 @@ import static com.ccs.conclave.api.cii.data.SchemeRegistry.*;
 
 public class OrgDataProvider {
 
+
     public static SchemeInfo getInfo(SchemeRegistry schemeRegistry) {
         SchemeInfo schemeInfo = new SchemeInfo();
         Identifier identifier = new Identifier();
@@ -23,7 +24,6 @@ public class OrgDataProvider {
         List<Identifier> additionalIdentifiers = new ArrayList<>();
         Address address = new Address();
         ContactPoint contactPoint = new ContactPoint();
-
         switch (schemeRegistry) {
             case COMPANIES_HOUSE:
                 schemeInfo.setName("AI RECRUITMENT TECHNOLOGIES LIMITED");
@@ -435,5 +435,31 @@ public class OrgDataProvider {
         }
 
         return schemeInfo;
+    }
+
+    // remove additional identifiers from test data to perform Update scheme tests
+    public static SchemeInfo getInfoWithoutAddIdentifiers(SchemeRegistry schemeRegistry) {
+        SchemeInfo schemeInfo = getInfo(schemeRegistry);
+
+        SchemeInfo schemeInfoModified = new SchemeInfo();
+        schemeInfoModified.setName(schemeInfo.getName());
+        schemeInfoModified.setIdentifier(schemeInfo.getIdentifier());
+        schemeInfoModified.setContactPoint(schemeInfo.getContactPoint());
+        schemeInfoModified.setAddress(schemeInfo.getAddress());
+        return schemeInfoModified;
+    }
+
+    // This method returns only AdditionalSchemesInfo
+    public static List<AdditionalSchemeInfo> getAdditionalIdentifierInfo(SchemeRegistry schemeRegistry) {
+        List<AdditionalSchemeInfo> additionalSchemesInfo = new ArrayList<>();
+        SchemeInfo schemeInfo = new SchemeInfo();
+
+        schemeInfo = getInfo(schemeRegistry);
+        for (Identifier addIdentifier : schemeInfo.getAdditionalIdentifiers()) {
+            AdditionalSchemeInfo additionalSchemeInfo = new AdditionalSchemeInfo();
+            additionalSchemeInfo.setIdentifier(addIdentifier);
+            additionalSchemesInfo.add(additionalSchemeInfo);
+        }
+        return additionalSchemesInfo;
     }
 }
