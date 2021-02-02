@@ -24,7 +24,7 @@ public class RequestTestEndpoints {
     public static void deleteOrgIdentifiers(String id) {
         String ccsOrgId = getRegisteredOrgId(id);
         if(!ccsOrgId.isEmpty()) {
-            Response response = RestRequests.delete(RestRequests.getBaseURI() + deleteOrganisation + ccsOrgId);
+            Response response = RestRequests.deleteAll(RestRequests.getBaseURI() + deleteOrganisation + ccsOrgId);
             Assert.assertEquals(response.getStatusCode(), OK.getCode(), "Something went wrong while deleting existing organisation!");
             logger.info("Successfully deleted if Organisation already exists.");
         }
