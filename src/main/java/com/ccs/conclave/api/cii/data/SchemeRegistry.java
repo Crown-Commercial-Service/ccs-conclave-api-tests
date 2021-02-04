@@ -13,7 +13,7 @@ public enum SchemeRegistry {
     NORTHERN_CHARITY("GB-NIC", "Northern Ireland Charities Commission", "https://findthatcharity.uk", "Registered Charity Number", "GB"),
     SCOTLAND_CHARITY("GB-SC", "Scottish Charities Commission", "https://findthatcharity.uk", "Registered Charity Number", "GB"),
     SCOTLAND_CHARITY_WITH_COH_CHC("GB-SC", "Scottish Charities Commission", "https://findthatcharity.uk", "Registered Charity Number", "GB"),
-    INVALID_SCHEME("", "", "", "", "");
+    INVALID_SCHEME("GB-XX", "", "", "", "");
 
     private String schemeCode;
     private String schemeName;
@@ -48,4 +48,4 @@ public enum SchemeRegistry {
     public static String getSchemeIdentifier(SchemeRegistry registry) {
         return registry.schemeIdentifier;
     }
-};
+}

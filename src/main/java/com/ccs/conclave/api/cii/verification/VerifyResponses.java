@@ -172,6 +172,19 @@ public class VerifyResponses {
         }
     }
 
+    public static void verifyInvalidPostResponse(StatusCodes code, Response response) {
+        verifyStatusCode(response, code.getCode());
+        switch (code) {
+            case BAD_REQUEST:
+                Assert.assertEquals(response.getBody().asString(), "{\"identifier\":[{\"scheme\":[\"No such scheme registered\"]}]}");
+                break;
+
+            case NOT_FOUND:
+                break;
+        }
+    }
+
+
     public static void verifyUpdatedScheme(String primaryId, AdditionalSchemeInfo expectedAdditionalSchemeInfo) {
         List<AdditionalSchemeInfo> actualAdditionalSchemesInfo = RequestTestEndpoints.getAdditionalIdentifiers(primaryId);
         Assert.assertTrue(RequestTestEndpoints.isInCIIDataBase(expectedAdditionalSchemeInfo.getIdentifier().getId()), "Expected additional identifier is not in CII DB!!");
@@ -215,3 +228,4 @@ public class VerifyResponses {
         return ccsOrgId;
     }
 }
+
