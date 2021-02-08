@@ -1,9 +1,7 @@
 package com.ccs.conclave.api.cii.tests;
 
 import com.ccs.conclave.api.cii.data.OrgDataProvider;
-import com.ccs.conclave.api.cii.data.SchemeRegistry;
 import com.ccs.conclave.api.cii.pojo.AdditionalSchemeInfo;
-import com.ccs.conclave.api.cii.pojo.Identifier;
 import com.ccs.conclave.api.cii.pojo.SchemeInfo;
 import com.ccs.conclave.api.cii.requests.RequestTestEndpoints;
 import com.ccs.conclave.api.cii.requests.RestRequests;
@@ -12,12 +10,13 @@ import io.restassured.response.Response;
 import org.apache.log4j.Logger;
 import org.testng.annotations.Test;
 
+
 import java.util.List;
 
-import static com.ccs.conclave.api.cii.data.OrgDataProvider.getAdditionalIdentifierInfo;
+import static com.ccs.conclave.api.cii.data.OrgDataProvider.*;
 import static com.ccs.conclave.api.cii.data.SchemeRegistry.*;
 import static com.ccs.conclave.api.cii.verification.VerifyResponses.*;
-import static com.ccs.conclave.api.common.StatusCodes.BAD_REQUEST;
+import static com.ccs.conclave.api.common.StatusCodes.NOT_FOUND;
 
 public class PostSchemeInfoTests extends BaseClass {
 
@@ -156,37 +155,38 @@ public class PostSchemeInfoTests extends BaseClass {
         RequestTestEndpoints.deleteOrgIdentifiers(schemeInfo.getIdentifier().getId());
     }
 
-    @Test //Defect : CON-531
+    @Test
     public void postSchemeInfoWithInvalidPrimaryScheme() {
         SchemeInfo schemeInfo = OrgDataProvider.getInfo(COMPANIES_HOUSE);
 
-        //Modify the response to update Valid Scheme with Invalid Scheme
+        //Modify the response to update Valid Scheme of Primary Scheme with Invalid Scheme
         String responseStr = getSchemeInfoWithInvalidPrimaryScheme(schemeInfo, COMPANIES_HOUSE);
         Response response = RestRequests.postSchemeInfo(responseStr);
         //Verify the response with Invalid Primary Scheme
-        verifyInvalidPostResponse(BAD_REQUEST, response);
+        verifyInvalidPostResponse(NOT_FOUND, response);
     }
 
-    @Test //Defect : CON-531
+    @Test
     public void postSchemeInfoWithInvalidPrimaryID() {
         SchemeInfo schemeInfo = OrgDataProvider.getInfo(COMPANIES_HOUSE);
 
-        //Modify the response to update Valid Identifier with Invalid Identifier
+        //Modify the response to update Valid Identifier of Primary Scheme with Invalid Identifier
         String responseStr = getSchemeInfoWithInvalidPrimaryID(schemeInfo, COMPANIES_HOUSE);
         Response response = RestRequests.postSchemeInfo(responseStr);
         //Verify the response with Invalid Primary Identifier
-        verifyInvalidPostResponse(BAD_REQUEST, response);
+        verifyInvalidPostResponse(NOT_FOUND, response);
     }
 
     @Test // Defect : CON-543
-    public void postSchemeInfoWithNoAdditionalIdentifier() {
+    public void postSchemeInfoWithNoAdditionalIdentifierSection() {
         SchemeInfo schemeInfo = OrgDataProvider.getInfo(NORTHERN_CHARITY_WITH_COH);
 
-        //Modify the response to update Valid Identifier with Invalid Identifier
+        //Modify the response to Remove The Additional Identifier Section
         String responseStr = getSchemeInfoWithoutAddIdentifierSection(schemeInfo, NORTHERN_CHARITY_WITH_COH);
         Response response = RestRequests.postSchemeInfo(responseStr);
-        // Currently we get 405 but expected to register successfully an return ccs-org-id : CON-543
-        verifyPostSchemeInfoResponse(schemeInfo, response);
+        //CON-543: Currently we get 500 but expected to register successfully an return ccs-org-id
+        SchemeInfo expectedSchemeInfo = getInfoWithoutAddIdentifiers(NORTHERN_CHARITY_WITH_COH);
+        verifyPostSchemeInfoResponse(expectedSchemeInfo, response);
         RequestTestEndpoints.deleteOrgIdentifiers(schemeInfo.getIdentifier().getId());
     }
 
@@ -194,42 +194,25 @@ public class PostSchemeInfoTests extends BaseClass {
     public void postSchemeInfoWithInvalidAdditionalIdentifier() {
         SchemeInfo schemeInfo = OrgDataProvider.getInfo(DUN_AND_BRADSTREET_WITH_COH);
 
-        //Modify the response to update Valid Identifier with Invalid Identifier
+        //Modify the response to update Valid Additional Identifier with Invalid Additional Identifier
         String responseStr = getSchemeInfoWithInvalidAddIdentifier(schemeInfo, DUN_AND_BRADSTREET_WITH_COH);
         Response response = RestRequests.postSchemeInfo(responseStr);
-        verifyPostSchemeInfoResponse(schemeInfo, response);
+        SchemeInfo expectedSchemeInfo = getInfoWithoutAddIdentifiers(DUN_AND_BRADSTREET_WITH_COH);
+        verifyPostSchemeInfoResponse(expectedSchemeInfo, response);
         RequestTestEndpoints.deleteOrgIdentifiers(schemeInfo.getIdentifier().getId());
     }
 
-    private String getSchemeInfoWithInvalidAddIdentifier(SchemeInfo schemeInfo, SchemeRegistry scheme) {
-        Response response = RestRequests.getSchemeInfo(scheme, schemeInfo.getIdentifier().getId());
-        verifyGetSchemeInfoResponse(schemeInfo, response);
-        String responseWithInvalidAddIdentifier = response.asString().replaceAll(schemeInfo.getAdditionalIdentifiers().get(0).getScheme(),getSchemeCode(INVALID_SCHEME));
-        return responseWithInvalidAddIdentifier;
+    @Test
+    public void postSchemeInfoWithAddIdentifierOfAnotherScheme() {
+        SchemeInfo schemeInfo = OrgDataProvider.getInfo(DUN_AND_BRADSTREET_WITH_COH);
+
+        //Modify The Response to Update Additional Identifier With Valid Additional Identifier of Another Scheme
+        String responseStr = getSchemeInfoWithAddIdentifierofAnotherScheme(schemeInfo, DUN_AND_BRADSTREET_WITH_COH);
+        Response response = RestRequests.postSchemeInfo(responseStr);
+        SchemeInfo expectedSchemeInfo = getInfoWithoutAddIdentifiers(DUN_AND_BRADSTREET_WITH_COH);
+        verifyPostSchemeInfoResponse(expectedSchemeInfo, response);
+        RequestTestEndpoints.deleteOrgIdentifiers(schemeInfo.getIdentifier().getId());
     }
-
-
-    private String getSchemeInfoWithInvalidPrimaryScheme(SchemeInfo schemeInfo, SchemeRegistry scheme) {
-        Response response = RestRequests.getSchemeInfo(scheme, schemeInfo.getIdentifier().getId());
-        verifyGetSchemeInfoResponse(schemeInfo, response); // verify Get SchemeInfo response before using it
-        String responseWithInvalidPrimaryScheme = response.asString().replaceAll(getSchemeCode(scheme),getSchemeCode(INVALID_SCHEME));
-        return responseWithInvalidPrimaryScheme;
-    }
-
-    private String getSchemeInfoWithInvalidPrimaryID(SchemeInfo schemeInfo, SchemeRegistry scheme) {
-        Response response = RestRequests.getSchemeInfo(scheme, schemeInfo.getIdentifier().getId());
-        verifyGetSchemeInfoResponse(schemeInfo, response); // verify Get SchemeInfo response before using it
-        String responseWithInvalidPrimaryIdentifier = response.asString().replaceAll(schemeInfo.getIdentifier().getId(),"9988776655");
-        return responseWithInvalidPrimaryIdentifier;
-    }
-
-    public static  String getSchemeInfoWithoutAddIdentifierSection(SchemeInfo schemeInfo, SchemeRegistry scheme) {
-        Response response = RestRequests.getSchemeInfo(scheme, schemeInfo.getIdentifier().getId());
-        verifyGetSchemeInfoResponse(schemeInfo, response); // verify Get SchemeInfo response before using it
-        String responseWithoutAddIdentifierSection = response.asString().replaceAll("additionalIdentifiers\":\\[(.*?)\\]" + "\"\"","");
-        return responseWithoutAddIdentifierSection;
-    }
-
 }
 
 

@@ -22,7 +22,7 @@ public class UpdateSchemeTests extends BaseClass {
     public void updateScheme_COH_into_DUNS() {
         SchemeInfo schemeInfo = OrgDataProvider.getInfo(DUN_AND_BRADSTREET_WITH_COH);
         // GetScheme response without additional identifiers
-        String responseStr = getSchemeInfoWithoutAddIdentifiers(schemeInfo, DUN_AND_BRADSTREET_WITH_COH);
+        String responseStr = getSchemeInfoWithEmptyAddIdentifiers(schemeInfo, DUN_AND_BRADSTREET_WITH_COH);
         // Get expected SchemeInfo without additional identifiers
         SchemeInfo expectedSchemeInfo = getInfoWithoutAddIdentifiers(DUN_AND_BRADSTREET_WITH_COH);
 
@@ -49,7 +49,7 @@ public class UpdateSchemeTests extends BaseClass {
     public void updateScheme_COH_and_CHC_into_SC() {
         SchemeInfo schemeInfo = OrgDataProvider.getInfo(SCOTLAND_CHARITY_WITH_COH_CHC);
         // GetScheme response without additional identifiers
-        String responseStr = getSchemeInfoWithoutAddIdentifiers(schemeInfo, SCOTLAND_CHARITY_WITH_COH_CHC);
+        String responseStr = getSchemeInfoWithEmptyAddIdentifiers(schemeInfo, SCOTLAND_CHARITY_WITH_COH_CHC);
         // Get expected SchemeInfo without additional identifiers
         SchemeInfo expectedSchemeInfo = getInfoWithoutAddIdentifiers(SCOTLAND_CHARITY_WITH_COH_CHC);
 
@@ -86,15 +86,4 @@ public class UpdateSchemeTests extends BaseClass {
     public void updateScheme_InvalidOrgId() {
 
     }
-
-    private String getSchemeInfoWithoutAddIdentifiers(SchemeInfo schemeInfo, SchemeRegistry scheme) {
-        Response response = RestRequests.getSchemeInfo(scheme, schemeInfo.getIdentifier().getId());
-        verifyGetSchemeInfoResponse(schemeInfo, response); // verify Get SchemeInfo response before using it
-
-        String[] strings = response.asString().split("additionalIdentifiers\":\\[(.*?)\\]");
-        // Bug: CON-543 - Remove hardcoded string below when the issue is fixed
-        String responseWithoutAddIdentifiers = strings[0] + "additionalIdentifiers\":[]" + strings[1];
-        return responseWithoutAddIdentifiers;
-    }
-
 }
