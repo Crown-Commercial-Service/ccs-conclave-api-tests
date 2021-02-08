@@ -2,7 +2,6 @@ package com.ccs.conclave.api.cii.tests;
 
 import com.ccs.conclave.api.cii.data.OrgDataProvider;
 import com.ccs.conclave.api.cii.pojo.SchemeInfo;
-import com.ccs.conclave.api.cii.requests.RequestTestEndpoints;
 import com.ccs.conclave.api.cii.requests.RestRequests;
 import com.ccs.conclave.api.common.BaseClass;
 import io.restassured.response.Response;
@@ -11,8 +10,6 @@ import org.testng.annotations.Test;
 import static com.ccs.conclave.api.cii.verification.VerifyResponses.*;
 import static com.ccs.conclave.api.cii.data.SchemeRegistry.*;
 import static com.ccs.conclave.api.cii.verification.VerifyResponses.verifyGetSchemeInfoResponse;
-import static com.ccs.conclave.api.common.StatusCodes.BAD_REQUEST;
-import static com.ccs.conclave.api.common.StatusCodes.NOT_FOUND;
 
 public class GetSchemeInfoTests extends BaseClass {
 
@@ -51,21 +48,21 @@ public class GetSchemeInfoTests extends BaseClass {
         verifyGetSchemeInfoResponse(schemeInfo, response);
     }
 
-    @Test // Bug: CON-452
+    @Test // Bug: CON-452 -FIXED
     public void getGBCharitiesSchemeInfoWithTwoCOH() {
         SchemeInfo schemeInfo = OrgDataProvider.getInfo(CHARITIES_COMMISSION_WITH_TWO_COH);
         Response response = RestRequests.getSchemeInfo(CHARITIES_COMMISSION_WITH_TWO_COH, schemeInfo.getIdentifier().getId());
         verifyGetSchemeInfoResponse(schemeInfo, response);
     }
 
-    @Test // Bug: CON-452
+    @Test // Bug: CON-452 -FIXED
     public void getGBCharitiesSchemeInfoWithSC() {
         SchemeInfo schemeInfo = OrgDataProvider.getInfo(CHARITIES_COMMISSION_WITH_SC);
         Response response = RestRequests.getSchemeInfo(CHARITIES_COMMISSION_WITH_SC, schemeInfo.getIdentifier().getId());
         verifyGetSchemeInfoResponse(schemeInfo, response);
     }
 
-    @Test // Bug: CON-452
+    @Test // Bug: CON-452 -FIXED
     public void getGBCharitiesSchemeInfoWithKnownAndUnknownIdentifiers() {
         SchemeInfo schemeInfo = OrgDataProvider.getInfo(CHARITIES_COMMISSION_WITH_KNOWN_AND_UNKNOWN_IDENTIFIERS);
         Response response = RestRequests.getSchemeInfo(CHARITIES_COMMISSION_WITH_KNOWN_AND_UNKNOWN_IDENTIFIERS, schemeInfo.getIdentifier().getId());
@@ -93,7 +90,7 @@ public class GetSchemeInfoTests extends BaseClass {
         verifyGetSchemeInfoResponse(schemeInfo, response);
     }
 
-    @Test // Bug: CON-452
+    @Test // Bug: CON-452 -FIXED
     public void getScottishCharitySchemeInfoWithCOHAndCHC() {
         SchemeInfo schemeInfo = OrgDataProvider.getInfo(SCOTLAND_CHARITY_WITH_COH_CHC);
         Response response = RestRequests.getSchemeInfo(SCOTLAND_CHARITY_WITH_COH_CHC, schemeInfo.getIdentifier().getId());
@@ -104,12 +101,12 @@ public class GetSchemeInfoTests extends BaseClass {
     public void getSchemeInfoWithInvalidScheme() {
         String identifier = OrgDataProvider.getInfo(COMPANIES_HOUSE).getIdentifier().getId();
         Response response = RestRequests.getSchemeInfo(INVALID_SCHEME, identifier);
-        verifyInvalidGetSchemeResponse(BAD_REQUEST, response);
+        verifyInvalidSchemeResponse(response);
     }
 
     @Test // Bug: CON-450 -FIXED
-    public void getSchemeInfoWithInvalidId() {
+    public void getSchemeInfoWithInvalidIdentifier() {
         Response response = RestRequests.getSchemeInfo(COMPANIES_HOUSE, "00000000");
-        verifyInvalidGetSchemeResponse(NOT_FOUND, response);
+        verifyInvalidIdResponse(response);
     }
 }

@@ -142,25 +142,18 @@ public class OrgDataProvider {
                 break;
 
             case CHARITIES_COMMISSION:
-                schemeInfo.setName("THE NATIONAL COUNCIL FOR VOLUNTARY ORGANISATIONS");
-                identifier.setId("225922");
+                schemeInfo.setName("1 SIGNAL REGIMENT PRI FUND");
+                identifier.setId("1183905");
                 identifier.setScheme(SchemeRegistry.getSchemeCode(CHARITIES_COMMISSION));
-                identifier.setLegalName("THE NATIONAL COUNCIL FOR VOLUNTARY ORGANISATIONS");
-                identifier.setUri("http://www.ncvo.org.uk");
+                identifier.setLegalName("1 SIGNAL REGIMENT PRI FUND");
+                identifier.setUri("");
                 schemeInfo.setIdentifier(identifier);
 
-                additionalIdentifier1.setScheme(SchemeRegistry.getSchemeCode(COMPANIES_HOUSE));
-                additionalIdentifier1.setId("00198344");
-                additionalIdentifier1.setUri("");
-                additionalIdentifier1.setLegalName("NATIONAL COUNCIL FOR VOLUNTARY ORGANISATIONS(THE)");
-                additionalIdentifiers.add(additionalIdentifier1);
-                schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
-
-                address.setCountryName("All Saints Street");
-                address.setLocality("Society Building");
-                address.setPostalCode("N1 9RL");
-                address.setRegion("8 Regents Wharf");
-                address.setStreetAddress("National Council For Voluntary, Organisations");
+                address.setCountryName("");
+                address.setLocality("Beaconside");
+                address.setPostalCode("ST18 0AQ");
+                address.setRegion("Stafford");
+                address.setStreetAddress("Ministry of Defence, Beacon Barracks");
                 schemeInfo.setAddress(address);
 
                 contactPoint.setName("");
@@ -192,7 +185,7 @@ public class OrgDataProvider {
                 additionalIdentifiers.add(additionalIdentifier2);
                 schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
 
-                address.setCountryName("UK");
+                address.setCountryName("");
                 address.setLocality("17 Arden Crescent");
                 address.setPostalCode("E14 9WA");
                 address.setRegion("LONDON");
@@ -218,11 +211,11 @@ public class OrgDataProvider {
                 additionalIdentifier1.setScheme(SchemeRegistry.getSchemeCode(SCOTLAND_CHARITY));
                 additionalIdentifier1.setId("SC037536");
                 additionalIdentifier1.setUri("");
-                additionalIdentifier1.setLegalName("MOUNTAINS ANIMAL SANCTUARY");
+                additionalIdentifier1.setLegalName("Mountains Animal Sanctuary");
                 additionalIdentifiers.add(additionalIdentifier1);
                 schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
 
-                address.setCountryName("Scotland");
+                address.setCountryName("");
                 address.setLocality("");
                 address.setPostalCode("");
                 address.setRegion("");
@@ -245,31 +238,31 @@ public class OrgDataProvider {
                 identifier.setUri("http://www.actionforblindpeople.org.uk");
                 schemeInfo.setIdentifier(identifier);
 
-                additionalIdentifier1.setScheme(SchemeRegistry.getSchemeCode(CHARITIES_COMMISSION));
-                additionalIdentifier1.setId("1091458");
+                additionalIdentifier1.setScheme(SchemeRegistry.getSchemeCode(COMPANIES_HOUSE));
+                additionalIdentifier1.setId("00026688");
                 additionalIdentifier1.setUri("");
-                additionalIdentifier1.setLegalName("STAFFORDSHIRE BLIND");
+                additionalIdentifier1.setLegalName("ACTION FOR BLIND PEOPLE");
                 additionalIdentifiers.add(additionalIdentifier1);
                 schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
 
                 additionalIdentifier2.setScheme(SchemeRegistry.getSchemeCode(CHARITIES_COMMISSION));
-                additionalIdentifier2.setId("214330");
+                additionalIdentifier2.setId("1091458");
                 additionalIdentifier2.setUri("");
-                additionalIdentifier2.setLegalName("GLYNN VIVIAN");
+                additionalIdentifier2.setLegalName("STAFFORDSHIRE BLIND");
                 additionalIdentifiers.add(additionalIdentifier2);
                 schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
 
                 additionalIdentifier3.setScheme(SchemeRegistry.getSchemeCode(CHARITIES_COMMISSION));
-                additionalIdentifier3.setId("226227");
-                additionalIdentifier3.setUri("http://www.rnib.org.uk");
-                additionalIdentifier3.setLegalName("THE ROYAL NATIONAL INSTITUTE OF BLIND PEOPLE");
+                additionalIdentifier3.setId("214330");
+                additionalIdentifier3.setUri("");
+                additionalIdentifier3.setLegalName("GLYNN VIVIAN");
                 additionalIdentifiers.add(additionalIdentifier3);
                 schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
 
-                additionalIdentifier4.setScheme(SchemeRegistry.getSchemeCode(COMPANIES_HOUSE));
-                additionalIdentifier4.setId("00026688");
+                additionalIdentifier4.setScheme(SchemeRegistry.getSchemeCode(CHARITIES_COMMISSION));
+                additionalIdentifier4.setId("226227");
                 additionalIdentifier4.setUri("");
-                additionalIdentifier4.setLegalName("ACTION FOR BLIND PEOPLE");
+                additionalIdentifier4.setLegalName("THE ROYAL NATIONAL INSTITUTE OF BLIND PEOPLE");
                 additionalIdentifiers.add(additionalIdentifier4);
                 schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
 
@@ -282,29 +275,29 @@ public class OrgDataProvider {
 
                 additionalIdentifier6.setScheme(SchemeRegistry.getSchemeCode(SCOTLAND_CHARITY));
                 additionalIdentifier6.setId("SC039316");
-                additionalIdentifier6.setUri("http://www.rnib.org.uk");
+                additionalIdentifier6.setUri("");
                 additionalIdentifier6.setLegalName("Royal National Institute of Blind People");
                 additionalIdentifiers.add(additionalIdentifier6);
                 schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
 
                 additionalIdentifier7.setScheme(SchemeRegistry.getSchemeCode(SCOTLAND_CHARITY));
                 additionalIdentifier7.setId("SC040050");
-                additionalIdentifier7.setUri("http://www.rnib.org.uk/who-we-are/action-for-blind-people");
+                additionalIdentifier7.setUri("");
                 additionalIdentifier7.setLegalName("Action for Blind People");
                 additionalIdentifiers.add(additionalIdentifier7);
                 schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
 
                 address.setCountryName("");
-                address.setLocality("");
-                address.setPostalCode("");
-                address.setRegion("");
-                address.setStreetAddress("");
+                address.setLocality("105 JUDD STREET");
+                address.setPostalCode("WC1H 9NE");
+                address.setRegion("LONDON");
+                address.setStreetAddress("ROYAL NATIONAL INSTITUTE FOR THE, BLIND");
                 schemeInfo.setAddress(address);
 
                 contactPoint.setName("");
-                contactPoint.setEmail("");
+                contactPoint.setEmail("NotEmpty");
                 contactPoint.setFaxNumber("");
-                contactPoint.setTelephone("");
+                contactPoint.setTelephone("NotEmpty");
                 contactPoint.setUri("");
                 schemeInfo.setContactPoint(contactPoint);
                 break;
@@ -394,25 +387,25 @@ public class OrgDataProvider {
                 identifier.setUri("http://www.acormchristian.org");
                 schemeInfo.setIdentifier(identifier);
 
-                additionalIdentifier1.setScheme(SchemeRegistry.getSchemeCode(COMPANIES_HOUSE));
-                additionalIdentifier1.setId("03851139");
+                additionalIdentifier1.setScheme(SchemeRegistry.getSchemeCode(CHARITIES_COMMISSION));
+                additionalIdentifier1.setId("1080011");
                 additionalIdentifier1.setUri("");
-                additionalIdentifier1.setLegalName("Acorn Christian Foundation");
+                additionalIdentifier1.setLegalName("ACORN CHRISTIAN FOUNDATION");
                 additionalIdentifiers.add(additionalIdentifier1);
                 schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
 
-                additionalIdentifier2.setScheme(SchemeRegistry.getSchemeCode(CHARITIES_COMMISSION));
-                additionalIdentifier2.setId("1080011");
+                additionalIdentifier2.setScheme(SchemeRegistry.getSchemeCode(COMPANIES_HOUSE));
+                additionalIdentifier2.setId("03851139");
                 additionalIdentifier2.setUri("");
-                additionalIdentifier2.setLegalName("Acorn Christian Foundation");
+                additionalIdentifier2.setLegalName("ACORN CHRISTIAN FOUNDATION");
                 additionalIdentifiers.add(additionalIdentifier2);
                 schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
 
-                address.setCountryName("UK");
+                address.setCountryName("Scotland");
                 address.setLocality("Camberley");
                 address.setPostalCode("GU15 1EJ");
                 address.setRegion("Surrey");
-                address.setStreetAddress("124 Upper Chobham Road");
+                address.setStreetAddress("124 Upper Chobham Road Camberley Surrey");
                 schemeInfo.setAddress(address);
 
                 contactPoint.setName("");
