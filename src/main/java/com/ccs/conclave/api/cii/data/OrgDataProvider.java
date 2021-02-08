@@ -306,7 +306,7 @@ public class OrgDataProvider {
 
             case NORTHERN_CHARITY_WITH_COH:
                 schemeInfo.setName("Craigavon Christian Youth");
-                identifier.setId("107049");
+                identifier.setId("NIC107049");
                 identifier.setScheme(SchemeRegistry.getSchemeCode(NORTHERN_CHARITY_WITH_COH));
                 identifier.setLegalName("Craigavon Christian Youth");
                 identifier.setUri("");
@@ -490,10 +490,8 @@ public class OrgDataProvider {
     public static String getSchemeInfoWithoutAddIdentifierSection(SchemeInfo schemeInfo, SchemeRegistry scheme) {
         Response response = RestRequests.getSchemeInfo(scheme, schemeInfo.getIdentifier().getId());
         verifyGetSchemeInfoResponse(schemeInfo, response); // verify Get SchemeInfo response before using it
-        String[] strings = response.asString().split("additionalIdentifiers\":\\[(.*?)\\]");
-        String strings1 = strings[1].substring(2);
-        String responseWithoutAddIdentifierSection = strings[0] + strings1;
-
+        String[] strings = response.asString().split("additionalIdentifiers\":\\[(.*?)\\],");
+        String responseWithoutAddIdentifierSection = strings[0] + strings[1];
         return responseWithoutAddIdentifierSection;
     }
 

@@ -171,10 +171,10 @@ public class PostSchemeInfoTests extends BaseClass {
     public void postSchemeInfoWithInvalidPrimaryID() {
         SchemeInfo schemeInfo = OrgDataProvider.getInfo(COMPANIES_HOUSE);
 
-        //Modify the response to update Valid Identifier of Primary Scheme with Invalid Identifier
+        // Modify the response to update Valid Identifier of Primary Scheme with Invalid Identifier
         String responseStr = getSchemeInfoWithInvalidPrimaryID(schemeInfo, COMPANIES_HOUSE);
         Response response = RestRequests.postSchemeInfo(responseStr);
-        //Verify the response with Invalid Primary Identifier
+        // Verify the response with Invalid Primary Identifier
         verifyInvalidPostResponse(NOT_FOUND, response);
     }
 
@@ -194,24 +194,28 @@ public class PostSchemeInfoTests extends BaseClass {
     @Test
     public void postSchemeInfoWithInvalidAdditionalIdentifier() {
         SchemeInfo schemeInfo = OrgDataProvider.getInfo(DUN_AND_BRADSTREET_WITH_COH);
+        SchemeInfo expectedSchemeInfo = getInfoWithoutAddIdentifiers(DUN_AND_BRADSTREET_WITH_COH);
 
-        //Modify the response to update Valid Additional Identifier with Invalid Additional Identifier
+        // Modify the response to pass Invalid Additional Identifier
         String responseStr = getSchemeInfoWithInvalidAddIdentifier(schemeInfo, DUN_AND_BRADSTREET_WITH_COH);
         Response response = RestRequests.postSchemeInfo(responseStr);
-        SchemeInfo expectedSchemeInfo = getInfoWithoutAddIdentifiers(DUN_AND_BRADSTREET_WITH_COH);
         verifyPostSchemeInfoResponse(expectedSchemeInfo, response);
+
+        // Delete Database entry if the Org. is already registered
         RequestTestEndpoints.deleteOrgIdentifiers(schemeInfo.getIdentifier().getId());
     }
 
     @Test
     public void postSchemeInfoWithAddIdentifierOfAnotherScheme() {
         SchemeInfo schemeInfo = OrgDataProvider.getInfo(DUN_AND_BRADSTREET_WITH_COH);
+        SchemeInfo expectedSchemeInfo = getInfoWithoutAddIdentifiers(DUN_AND_BRADSTREET_WITH_COH);
 
-        //Modify The Response to Update Additional Identifier With Valid Additional Identifier of Another Scheme
+        // Modify The Response to Update Additional Identifier With Valid Additional Identifier of Another Scheme
         String responseStr = getSchemeInfoWithAddIdentifierofAnotherScheme(schemeInfo, DUN_AND_BRADSTREET_WITH_COH);
         Response response = RestRequests.postSchemeInfo(responseStr);
-        SchemeInfo expectedSchemeInfo = getInfoWithoutAddIdentifiers(DUN_AND_BRADSTREET_WITH_COH);
         verifyPostSchemeInfoResponse(expectedSchemeInfo, response);
+
+        // Delete Database entry if the Org. is already registered
         RequestTestEndpoints.deleteOrgIdentifiers(schemeInfo.getIdentifier().getId());
     }
 }
