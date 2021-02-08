@@ -68,36 +68,24 @@ public class VerifyResponses {
             Assert.assertTrue((actualSchemeInfo.getContactPoint().getName().isEmpty()), "Wrong contactPoint:name in response!");
 
         if (!expectedSchemeInfo.getContactPoint().getEmail().isEmpty())
-            Assert.assertTrue(!(actualSchemeInfo.getContactPoint().getEmail().isEmpty()), "Wrong contactPoint:name in response!");
+            Assert.assertTrue(!(actualSchemeInfo.getContactPoint().getEmail().isEmpty()), "Wrong contactPoint:email in response!");
         else
-            Assert.assertTrue((actualSchemeInfo.getContactPoint().getEmail().isEmpty()), "Wrong contactPoint:name in response!");
+            Assert.assertTrue((actualSchemeInfo.getContactPoint().getEmail().isEmpty()), "Wrong contactPoint:email in response!");
 
         if (!expectedSchemeInfo.getContactPoint().getFaxNumber().isEmpty())
-            Assert.assertTrue(!(actualSchemeInfo.getContactPoint().getFaxNumber().isEmpty()), "Wrong contactPoint:name in response!");
+            Assert.assertTrue(!(actualSchemeInfo.getContactPoint().getFaxNumber().isEmpty()), "Wrong contactPoint:faxNumber in response!");
         else
-            Assert.assertTrue((actualSchemeInfo.getContactPoint().getFaxNumber().isEmpty()), "Wrong contactPoint:name in response!");
+            Assert.assertTrue((actualSchemeInfo.getContactPoint().getFaxNumber().isEmpty()), "Wrong contactPoint:FaxNumber in response!");
 
         if (!expectedSchemeInfo.getContactPoint().getTelephone().isEmpty())
-            Assert.assertTrue(!(actualSchemeInfo.getContactPoint().getTelephone().isEmpty()), "Wrong contactPoint:name in response!");
+            Assert.assertTrue(!(actualSchemeInfo.getContactPoint().getTelephone().isEmpty()), "Wrong contactPoint:telephone in response!");
         else
-            Assert.assertTrue((actualSchemeInfo.getContactPoint().getTelephone().isEmpty()), "Wrong contactPoint:name in response!");
+            Assert.assertTrue((actualSchemeInfo.getContactPoint().getTelephone().isEmpty()), "Wrong contactPoint:telephone in response!");
 
         if (!expectedSchemeInfo.getContactPoint().getUri().isEmpty())
-            Assert.assertTrue(!(actualSchemeInfo.getContactPoint().getUri().isEmpty()), "Wrong contactPoint:name in response!");
+            Assert.assertTrue(!(actualSchemeInfo.getContactPoint().getUri().isEmpty()), "Wrong contactPoint:uri in response!");
         else
-            Assert.assertTrue((actualSchemeInfo.getContactPoint().getUri().isEmpty()), "Wrong contactPoint:name in response!");
-    }
-
-    public static void verifyInvalidGetSchemeResponse(StatusCodes code, Response response) {
-        verifyStatusCode(response, code.getCode());
-        switch (code) {
-            case BAD_REQUEST:
-                Assert.assertEquals(response.getBody().asString(), "{\"scheme\":[\"can't be blank\",\"No such scheme registered\"]}", "Wrong contactPoint:url in response!");
-                break;
-
-            case NOT_FOUND:
-                break;
-        }
+            Assert.assertTrue((actualSchemeInfo.getContactPoint().getUri().isEmpty()), "Wrong contactPoint:uri in response!");
     }
 
     public static void verifyGetSchemesResponse(Response response) throws IOException {
@@ -222,6 +210,14 @@ public class VerifyResponses {
 
     public static void verifyResponseCodeForDeletedResource(Response response) {
         Assert.assertEquals(response.getStatusCode(), OK.getCode(), "Unexpected Status code returned for deleted Resource!!");
+    }
+
+    public static void verifyInvalidSchemeResponse(Response response) {
+        Assert.assertEquals(response.getStatusCode(), BAD_REQUEST.getCode(), "Unexpected Status code returned for Invalid Scheme!!");
+    }
+
+    public static void verifyInvalidIdResponse(Response response) {
+        Assert.assertEquals(response.getStatusCode(), NOT_FOUND.getCode(), "Unexpected Status code returned for Invalid Id!!");
     }
 
     public static String getCCSOrgId() {

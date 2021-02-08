@@ -131,6 +131,7 @@ public class PostSchemeInfoTests extends BaseClass {
         // Delete Database entry if the Org. is already registered
         RequestTestEndpoints.deleteOrgIdentifiers(schemeInfo.getIdentifier().getId());
     }
+
     @Test
     public void postSchemeInfoNIC_With_OneAddIdentifiers() {
         SchemeInfo schemeInfo = OrgDataProvider.getInfo(NORTHERN_CHARITY_WITH_COH);
