@@ -48,4 +48,4 @@ public enum SchemeRegistry {
     public static String getSchemeIdentifier(SchemeRegistry registry) {
         return registry.schemeIdentifier;
     }
-};
+}
