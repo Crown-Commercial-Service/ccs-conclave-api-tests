@@ -12,7 +12,6 @@ import org.testng.annotations.Test;
 import static com.ccs.conclave.api.cii.data.OrgDataProvider.*;
 import static com.ccs.conclave.api.cii.data.SchemeRegistry.*;
 import static com.ccs.conclave.api.cii.verification.VerifyResponses.*;
-import static com.ccs.conclave.api.common.StatusCodes.NOT_FOUND;
 
 public class PostSchemeInfoTests extends BaseClass {
 

@@ -13,10 +13,8 @@ import static io.restassured.RestAssured.given;
 
 public class RestRequests {
     private final static Logger logger = Logger.getLogger(RestRequests.class);
-//    private static String baseURI = System.getProperty("base.url");
-//    private static String apiKey = System.getProperty("api.key");
-private static String baseURI = "https://conclave-cii-testing-talkative-oryx-hh.london.cloudapps.digital";
-    private static String apiKey = "08Tma9nspWXU40tgHLgA";
+    private static String baseURI = System.getProperty("base.url");
+    private static String apiKey = System.getProperty("api.key");
 
     public static String getBaseURI() {
         return baseURI;
@@ -42,13 +40,13 @@ private static String baseURI = "https://conclave-cii-testing-talkative-oryx-hh.
 
     public static Response updateScheme(String ccsOrgId, AdditionalSchemeInfo additionalSchemeInfo) {
         String endpoint = baseURI + Endpoints.updateScheme;
-        additionalSchemeInfo.setCcsOrgId(ccsOrgId);
-        return put(endpoint, additionalSchemeInfo.toString());
+        additionalSchemeInfo.setCcs_org_id(ccsOrgId);
+        return put(endpoint, additionalSchemeInfo);
     }
 
     public static Response deleteScheme(String ccsOrgId, AdditionalSchemeInfo additionalSchemeInfo) {
         String endpoint = baseURI + Endpoints.deleteScheme;
-        additionalSchemeInfo.setCcsOrgId(ccsOrgId);
+        additionalSchemeInfo.setCcs_org_id(ccsOrgId);
         return delete(endpoint, additionalSchemeInfo.toString());
     }
 
@@ -74,7 +72,7 @@ private static String baseURI = "https://conclave-cii-testing-talkative-oryx-hh.
         return res;
     }
 
-    public static Response put(String baseURI, String requestPayload) {
+    public static Response put(String baseURI, Object requestPayload) {
         logger.info(">>> RestRequests::put() >>>");
         Response res = given().header("Apikey", apiKey).header("Content-Type", "application/json")
                         .body(requestPayload).when().put(baseURI);
