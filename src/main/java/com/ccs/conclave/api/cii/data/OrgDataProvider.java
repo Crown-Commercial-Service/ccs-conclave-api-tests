@@ -4,7 +4,6 @@ import com.ccs.conclave.api.cii.pojo.*;
 import com.ccs.conclave.api.cii.requests.RequestTestEndpoints;
 import com.ccs.conclave.api.cii.requests.RestRequests;
 import io.restassured.response.Response;
-import org.testng.Assert;
 
 import java.util.ArrayList;
 import java.util.List;

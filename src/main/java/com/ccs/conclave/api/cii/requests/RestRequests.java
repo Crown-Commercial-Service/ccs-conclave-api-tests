@@ -40,13 +40,13 @@ public class RestRequests {
 
     public static Response updateScheme(String ccsOrgId, AdditionalSchemeInfo additionalSchemeInfo) {
         String endpoint = baseURI + Endpoints.updateScheme;
-        additionalSchemeInfo.setCcsOrgId(ccsOrgId);
-        return put(endpoint, additionalSchemeInfo.toString());
+        additionalSchemeInfo.setCcs_org_id(ccsOrgId);
+        return put(endpoint, additionalSchemeInfo);
     }
 
     public static Response deleteScheme(String ccsOrgId, AdditionalSchemeInfo additionalSchemeInfo) {
         String endpoint = baseURI + Endpoints.deleteScheme;
-        additionalSchemeInfo.setCcsOrgId(ccsOrgId);
+        additionalSchemeInfo.setCcs_org_id(ccsOrgId);
         return delete(endpoint, additionalSchemeInfo.toString());
     }
 
@@ -72,7 +72,7 @@ public class RestRequests {
         return res;
     }
 
-    public static Response put(String baseURI, String requestPayload) {
+    public static Response put(String baseURI, Object requestPayload) {
         logger.info(">>> RestRequests::put() >>>");
         Response res = given().header("Apikey", apiKey).header("Content-Type", "application/json")
                         .body(requestPayload).when().put(baseURI);
