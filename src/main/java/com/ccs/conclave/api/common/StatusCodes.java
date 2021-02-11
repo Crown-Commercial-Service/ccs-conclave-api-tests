@@ -6,7 +6,6 @@ public enum StatusCodes {
     DUPLICATE_RESOURCE("405"),
     BAD_REQUEST("400"),
     INTERNAL_SERVER_ERROR("500"),
-    UPDATED("200"),
     NOT_FOUND("404");
 
     private String code;

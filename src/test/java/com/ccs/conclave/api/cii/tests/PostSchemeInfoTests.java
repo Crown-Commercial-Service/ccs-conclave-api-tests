@@ -12,7 +12,6 @@ import org.testng.annotations.Test;
 import static com.ccs.conclave.api.cii.data.OrgDataProvider.*;
 import static com.ccs.conclave.api.cii.data.SchemeRegistry.*;
 import static com.ccs.conclave.api.cii.verification.VerifyResponses.*;
-import static com.ccs.conclave.api.common.StatusCodes.NOT_FOUND;
 
 public class PostSchemeInfoTests extends BaseClass {
 
@@ -160,7 +159,7 @@ public class PostSchemeInfoTests extends BaseClass {
         String responseStr = getSchemeInfoWithInvalidPrimaryScheme(schemeInfo, COMPANIES_HOUSE);
         Response response = RestRequests.postSchemeInfo(responseStr);
         //Verify the response with Invalid Primary Scheme
-        verifyInvalidPostResponse(NOT_FOUND, response);
+        verifyInvalidSchemeResponse(response);
     }
 
     @Test
@@ -171,7 +170,7 @@ public class PostSchemeInfoTests extends BaseClass {
         String responseStr = getSchemeInfoWithInvalidPrimaryID(schemeInfo, COMPANIES_HOUSE);
         Response response = RestRequests.postSchemeInfo(responseStr);
         // Verify the response with Invalid Primary Identifier
-        verifyInvalidPostResponse(NOT_FOUND, response);
+        verifyInvalidIdResponse(response);
     }
 
     @Test // Defect : CON-543

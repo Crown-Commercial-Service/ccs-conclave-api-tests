@@ -95,7 +95,7 @@ public class DeleteSchemeTests extends BaseClass {
 
         logger.info("Updating additional identifier1 to the existing organisation...");
         response = RestRequests.updateScheme(getCCSOrgId(), additionalSchemeInfo1);
-        verifyResponseCodeForUpdatedResource(response);
+        verifyResponseCodeForCreatedResource(response);
         verifyUpdatedScheme(schemeInfo.getIdentifier().getId(), additionalSchemeInfo1);
 
         logger.info("Deleting additional identifier2 to the existing organisation...");
@@ -106,7 +106,7 @@ public class DeleteSchemeTests extends BaseClass {
 
         logger.info("Updating additional identifier2 to the existing organisation...");
         response = RestRequests.updateScheme(getCCSOrgId(), additionalSchemeInfo2);
-        verifyResponseCodeForUpdatedResource(response);
+        verifyResponseCodeForCreatedResource(response);
         verifyUpdatedScheme(schemeInfo.getIdentifier().getId(), additionalSchemeInfo2);
     }
 

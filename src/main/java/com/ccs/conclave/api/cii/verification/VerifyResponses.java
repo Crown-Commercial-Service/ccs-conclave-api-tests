@@ -160,33 +160,28 @@ public class VerifyResponses {
         }
     }
 
-    public static void verifyInvalidPostResponse(StatusCodes code, Response response) {
-        verifyStatusCode(response, code.getCode());
-        switch (code) {
-            case BAD_REQUEST:
-                Assert.assertEquals(response.getBody().asString(), "{\"identifier\":[{\"scheme\":[\"No such scheme registered\"]}]}");
-                break;
-
-            case NOT_FOUND:
-                break;
-        }
-    }
-
-
     public static void verifyUpdatedScheme(String primaryId, AdditionalSchemeInfo expectedAdditionalSchemeInfo) {
-        List<AdditionalSchemeInfo> actualAdditionalSchemesInfo = RequestTestEndpoints.getAdditionalIdentifiers(primaryId);
-        Assert.assertTrue(RequestTestEndpoints.isInCIIDataBase(expectedAdditionalSchemeInfo.getIdentifier().getId()), "Expected additional identifier is not in CII DB!!");
+        Assert.assertTrue(isIdentifierRegisteredAlready(expectedAdditionalSchemeInfo.getIdentifier().getId()), "Expected additional identifier is not in CII DB!!");
+
+        // Get additional identifiers using the Primary Identifier from CII Database
+        List<AdditionalSchemeInfo> actualAdditionalSchemesInfo = RequestTestEndpoints.getAdditionalIdentifiersFromDB(primaryId);
+        Assert.assertTrue(actualAdditionalSchemesInfo.size() > 0, "Expected additional identifier as part of " + primaryId + "is not in CII DB!!");
 
         for (AdditionalSchemeInfo actualAdditionalSchemeInfo : actualAdditionalSchemesInfo) {
             if (actualAdditionalSchemeInfo.getIdentifier().getId() == expectedAdditionalSchemeInfo.getIdentifier().getId()) {
-                Assert.assertEquals(actualAdditionalSchemeInfo.getCcsOrgId(), expectedAdditionalSchemeInfo.getCcsOrgId(), "Wrong ccsOrgId in additional identifier!!");
+                Assert.assertEquals(actualAdditionalSchemeInfo.getCcs_org_id(), expectedAdditionalSchemeInfo.getCcs_org_id(), "Wrong ccsOrgId in additional identifier!!");
                 Assert.assertEquals(actualAdditionalSchemeInfo.getIdentifier().getScheme(), expectedAdditionalSchemeInfo.getIdentifier().getScheme(), "Wrong scheme in additional identifier!!");
             }
         }
     }
 
+    public static boolean isIdentifierRegisteredAlready(String id) {
+        return RequestTestEndpoints.isInCIIDataBase(id);
+    }
+
+
     public static void verifyDeletedScheme(String primaryId, AdditionalSchemeInfo deletedAdditionalSchemeInfo) {
-        List<AdditionalSchemeInfo> actualAdditionalSchemesInfo = RequestTestEndpoints.getAdditionalIdentifiers(primaryId);
+        List<AdditionalSchemeInfo> actualAdditionalSchemesInfo = RequestTestEndpoints.getAdditionalIdentifiersFromDB(primaryId);
         Assert.assertTrue(!RequestTestEndpoints.isInCIIDataBase(deletedAdditionalSchemeInfo.getIdentifier().getId()), "Deleted additional identifier is in CII DB!!");
 
         for (AdditionalSchemeInfo actualAdditionalSchemeInfo : actualAdditionalSchemesInfo) {
@@ -196,11 +191,11 @@ public class VerifyResponses {
         }
     }
 
-    public static void verifyResponseCodeForUpdatedResource(Response response) {
-        Assert.assertEquals(response.getStatusCode(), OK.getCode(), "Unexpected Status code returned for updated!!");
-    }
+//    public static void verifyResponseCodeForUpdatedResource(Response response) {
+//        Assert.assertEquals(response.getStatusCode(), OK.getCode(), "Unexpected Status code returned for updated!!");
+//    }
 
-    private static void verifyResponseCodeForCreatedResource(Response response) {
+    public static void verifyResponseCodeForCreatedResource(Response response) {
         Assert.assertEquals(response.getStatusCode(), CREATED.getCode(), "Unexpected Status code returned for created!!");
     }
 

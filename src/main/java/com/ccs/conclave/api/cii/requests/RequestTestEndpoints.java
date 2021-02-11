@@ -2,6 +2,7 @@ package com.ccs.conclave.api.cii.requests;
 
 import com.ccs.conclave.api.cii.pojo.AdditionalSchemeInfo;
 import com.ccs.conclave.api.cii.pojo.DBData;
+import com.ccs.conclave.api.cii.pojo.Identifier;
 import com.ccs.conclave.api.cii.response.GetCIIDBDataTestEndpointResponse;
 import io.restassured.response.Response;
 import org.apache.log4j.Logger;
@@ -50,16 +51,18 @@ public class RequestTestEndpoints {
         return dbInfo;
     }
 
-    public static List<AdditionalSchemeInfo> getAdditionalIdentifiers(String primaryId) {
+    public static List<AdditionalSchemeInfo> getAdditionalIdentifiersFromDB(String primaryId) {
         List<AdditionalSchemeInfo> additionalSchemesInfo = new ArrayList<>();
         GetCIIDBDataTestEndpointResponse dbInfo = RequestTestEndpoints.getRegisteredOrganisations(primaryId);
         if(dbInfo.getDbData().size() > 0) {
             for (DBData dbData : dbInfo.getDbData()) {
                 if(dbData.getPrimaryScheme().equals("false")) {
                     AdditionalSchemeInfo additionalSchemeInfo = new AdditionalSchemeInfo();
-                    additionalSchemeInfo.setCcsOrgId(dbData.getCcsOrgId());
-                    additionalSchemeInfo.getIdentifier().setId(dbData.getSchemeOrgRegNumber());
-                    additionalSchemeInfo.getIdentifier().setScheme(dbData.getScheme());
+                    Identifier identifier = new Identifier();
+                    additionalSchemeInfo.setCcs_org_id(dbData.getCcsOrgId());
+                    identifier.setId(dbData.getSchemeOrgRegNumber());
+                    identifier.setScheme(dbData.getScheme());
+                    additionalSchemeInfo.setIdentifier(identifier);
                     additionalSchemesInfo.add(additionalSchemeInfo);
                 }
             }
