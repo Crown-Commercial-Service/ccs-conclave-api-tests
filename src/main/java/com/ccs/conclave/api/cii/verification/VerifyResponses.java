@@ -191,10 +191,6 @@ public class VerifyResponses {
         }
     }
 
-//    public static void verifyResponseCodeForUpdatedResource(Response response) {
-//        Assert.assertEquals(response.getStatusCode(), OK.getCode(), "Unexpected Status code returned for updated!!");
-//    }
-
     public static void verifyResponseCodeForCreatedResource(Response response) {
         Assert.assertEquals(response.getStatusCode(), CREATED.getCode(), "Unexpected Status code returned for created!!");
     }

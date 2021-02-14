@@ -2,7 +2,6 @@ package com.ccs.conclave.api.cii.tests;
 
 import com.ccs.conclave.api.cii.data.OrgDataProvider;
 import com.ccs.conclave.api.cii.pojo.SchemeInfo;
-import com.ccs.conclave.api.cii.requests.RequestTestEndpoints;
 import com.ccs.conclave.api.cii.requests.RestRequests;
 import com.ccs.conclave.api.common.BaseClass;
 import io.restassured.response.Response;
@@ -11,6 +10,7 @@ import org.testng.annotations.Test;
 
 import static com.ccs.conclave.api.cii.data.OrgDataProvider.*;
 import static com.ccs.conclave.api.cii.data.SchemeRegistry.*;
+import static com.ccs.conclave.api.cii.requests.RestRequests.deleteOrganisation;
 import static com.ccs.conclave.api.cii.verification.VerifyResponses.*;
 
 public class PostSchemeInfoTests extends BaseClass {
@@ -44,7 +44,7 @@ public class PostSchemeInfoTests extends BaseClass {
         logger.info("deleting org. identifier after test..");
 
         // Delete Database entry if the Org. is already registered
-        RequestTestEndpoints.deleteOrgIdentifiers(schemeInfo.getIdentifier().getId());
+        deleteOrganisation(schemeInfo.getIdentifier().getId());
     }
 
     @Test // NOTE:- Duplicate check for additional identifiers are added in this test
@@ -76,7 +76,7 @@ public class PostSchemeInfoTests extends BaseClass {
         verifyResponseCodeForDuplicateResource(getSchemeRes);
 
         // Delete Database entry if the Org. is already registered
-        RequestTestEndpoints.deleteOrgIdentifiers(schemeInfo.getIdentifier().getId());
+        deleteOrganisation(schemeInfo.getIdentifier().getId());
     }
 
     @Test
@@ -100,7 +100,7 @@ public class PostSchemeInfoTests extends BaseClass {
          verifyResponseCodeForDuplicateResource(getSchemeRes);
 
         // Delete Database entry if the Org. is already registered
-        RequestTestEndpoints.deleteOrgIdentifiers(schemeInfo.getIdentifier().getId());
+        deleteOrganisation(schemeInfo.getIdentifier().getId());
     }
 
     @Test
@@ -124,7 +124,7 @@ public class PostSchemeInfoTests extends BaseClass {
         verifyResponseCodeForDuplicateResource(getSchemeRes);
 
         // Delete Database entry if the Org. is already registered
-        RequestTestEndpoints.deleteOrgIdentifiers(schemeInfo.getIdentifier().getId());
+        deleteOrganisation(schemeInfo.getIdentifier().getId());
     }
 
     @Test
@@ -148,7 +148,7 @@ public class PostSchemeInfoTests extends BaseClass {
          verifyResponseCodeForDuplicateResource(getSchemeRes);
 
         // Delete Database entry if the Org. is already registered
-        RequestTestEndpoints.deleteOrgIdentifiers(schemeInfo.getIdentifier().getId());
+        deleteOrganisation(schemeInfo.getIdentifier().getId());
     }
 
     @Test
@@ -183,7 +183,7 @@ public class PostSchemeInfoTests extends BaseClass {
         //CON-543: Currently we get 500 but expected to register successfully an return ccs-org-id
         SchemeInfo expectedSchemeInfo = getInfoWithoutAddIdentifiers(NORTHERN_CHARITY_WITH_COH);
         verifyPostSchemeInfoResponse(expectedSchemeInfo, response);
-        RequestTestEndpoints.deleteOrgIdentifiers(schemeInfo.getIdentifier().getId());
+        deleteOrganisation(schemeInfo.getIdentifier().getId());
     }
 
     @Test
@@ -197,7 +197,7 @@ public class PostSchemeInfoTests extends BaseClass {
         verifyPostSchemeInfoResponse(expectedSchemeInfo, response);
 
         // Delete Database entry if the Org. is already registered
-        RequestTestEndpoints.deleteOrgIdentifiers(schemeInfo.getIdentifier().getId());
+        deleteOrganisation(schemeInfo.getIdentifier().getId());
     }
 
     @Test
@@ -211,7 +211,7 @@ public class PostSchemeInfoTests extends BaseClass {
         verifyPostSchemeInfoResponse(expectedSchemeInfo, response);
 
         // Delete Database entry if the Org. is already registered
-        RequestTestEndpoints.deleteOrgIdentifiers(schemeInfo.getIdentifier().getId());
+        deleteOrganisation(schemeInfo.getIdentifier().getId());
     }
 }
 
