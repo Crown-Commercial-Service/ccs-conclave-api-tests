@@ -39,15 +39,13 @@ public class UpdateSchemeTests extends BaseClass {
         AdditionalSchemeInfo additionalSchemeInfo = additionalSchemesInfo.get(0);
         response = RestRequests.updateScheme(getCCSOrgId(), additionalSchemeInfo);
        // verifyResponseCodeForUpdatedResource(response);
-        verifyResponseCodeForCreatedResource(response);
+        verifyResponseCodeForUpdatedOrDeletedResource(response);
         verifyUpdatedScheme(schemeInfo.getIdentifier().getId(), additionalSchemeInfo);
     }
 
     @Test
     public void updateScheme_COH_and_CHC_into_SC() {
         SchemeInfo schemeInfo = OrgDataProvider.getInfo(SCOTLAND_CHARITY_WITH_COH_CHC);
-        // GetScheme response without additional identifiers
-        String responseStr = getSchemeInfoWithEmptyAddIdentifiers(schemeInfo, SCOTLAND_CHARITY_WITH_COH_CHC);
         // Get expected SchemeInfo without additional identifiers
         SchemeInfo expectedSchemeInfo = getInfoWithoutAddIdentifiers(SCOTLAND_CHARITY_WITH_COH_CHC);
 
@@ -55,6 +53,8 @@ public class UpdateSchemeTests extends BaseClass {
         List<AdditionalSchemeInfo> additionalSchemesInfo = getAdditionalIdentifierInfo(SCOTLAND_CHARITY_WITH_COH_CHC);
         Assert.assertTrue(additionalSchemesInfo.size() == 2, "Two additional identifier are expected, please check the test data!");
 
+        // GetScheme response without additional identifiers
+        String responseStr = getSchemeInfoWithEmptyAddIdentifiers(schemeInfo, SCOTLAND_CHARITY_WITH_COH_CHC);
         // Perform Post Operation/ register organisation with only Primary Identifier
         Response response = RestRequests.postSchemeInfo(responseStr);
 
@@ -64,13 +64,13 @@ public class UpdateSchemeTests extends BaseClass {
         logger.info("Adding additional identifier1 to the existing organisation...");
         AdditionalSchemeInfo additionalSchemeInfo1 = additionalSchemesInfo.get(0);
         response = RestRequests.updateScheme(getCCSOrgId(), additionalSchemeInfo1);
-        verifyResponseCodeForCreatedResource(response);
+        verifyResponseCodeForUpdatedOrDeletedResource(response);
         verifyUpdatedScheme(schemeInfo.getIdentifier().getId(), additionalSchemeInfo1);
 
         logger.info("Adding additional identifier2 to the existing organisation...");
         AdditionalSchemeInfo additionalSchemeInfo2 = additionalSchemesInfo.get(1);
         response = RestRequests.updateScheme(getCCSOrgId(), additionalSchemeInfo2);
-        verifyResponseCodeForCreatedResource(response);
+        verifyResponseCodeForUpdatedOrDeletedResource(response);
         verifyUpdatedScheme(schemeInfo.getIdentifier().getId(), additionalSchemeInfo2);
     }
 

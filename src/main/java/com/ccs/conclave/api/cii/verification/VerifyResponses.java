@@ -6,7 +6,6 @@ import com.ccs.conclave.api.cii.response.GetCIIDBDataTestEndpointResponse;
 import com.ccs.conclave.api.cii.response.GetSchemeInfoResponse;
 import com.ccs.conclave.api.cii.response.PostSchemeInfoResponse;
 import com.ccs.conclave.api.cii.response.GetSchemesResponse;
-import com.ccs.conclave.api.common.StatusCodes;
 import io.restassured.response.Response;
 import org.apache.log4j.Logger;
 import org.testng.Assert;
@@ -180,10 +179,11 @@ public class VerifyResponses {
     }
 
 
-    public static void verifyDeletedScheme(String primaryId, AdditionalSchemeInfo deletedAdditionalSchemeInfo) {
-        List<AdditionalSchemeInfo> actualAdditionalSchemesInfo = RequestTestEndpoints.getAdditionalIdentifiersFromDB(primaryId);
+    public static void verifyDeletedScheme(String identifier, AdditionalSchemeInfo deletedAdditionalSchemeInfo) {
+        List<AdditionalSchemeInfo> actualAdditionalSchemesInfo = RequestTestEndpoints.getAdditionalIdentifiersFromDB(identifier);
         Assert.assertTrue(!RequestTestEndpoints.isInCIIDataBase(deletedAdditionalSchemeInfo.getIdentifier().getId()), "Deleted additional identifier is in CII DB!!");
 
+        // verify deleted identifier exists in actualAdditionalSchemesInfo
         for (AdditionalSchemeInfo actualAdditionalSchemeInfo : actualAdditionalSchemesInfo) {
             if (actualAdditionalSchemeInfo.getIdentifier().getId() == deletedAdditionalSchemeInfo.getIdentifier().getId()) {
                 Assert.fail("Deleted Scheme call failed!!");
@@ -199,7 +199,7 @@ public class VerifyResponses {
         Assert.assertEquals(response.getStatusCode(), DUPLICATE_RESOURCE.getCode(), "Unexpected Status code returned for Duplicate Resource!!");
     }
 
-    public static void verifyResponseCodeForDeletedResource(Response response) {
+    public static void verifyResponseCodeForUpdatedOrDeletedResource(Response response) {
         Assert.assertEquals(response.getStatusCode(), OK.getCode(), "Unexpected Status code returned for deleted Resource!!");
     }
 

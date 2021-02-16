@@ -6,6 +6,8 @@ import com.ccs.conclave.api.cii.pojo.Identifier;
 import com.ccs.conclave.api.cii.response.GetCIIDBDataTestEndpointResponse;
 import io.restassured.response.Response;
 import org.apache.log4j.Logger;
+import org.testng.Assert;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -20,7 +22,8 @@ public class RequestTestEndpoints {
 
     public static String getRegisteredOrgId(String id) {
         String ccsOrgId = "";
-        if(getRegisteredOrganisations(id) != null) {
+        GetCIIDBDataTestEndpointResponse dbInfo = getRegisteredOrganisations(id);
+        if(dbInfo.getDbData().size() > 0) {
             ccsOrgId = getRegisteredOrganisations(id).getDbData().get(0).getCcsOrgId();
         }
         return ccsOrgId;
@@ -29,7 +32,7 @@ public class RequestTestEndpoints {
     public static GetCIIDBDataTestEndpointResponse getRegisteredOrganisations(String id) {
         String endpoint = RestRequests.getBaseURI() + getCCSOrgId + id;
         Response response = RestRequests.get(endpoint);
-        GetCIIDBDataTestEndpointResponse dbInfo = null;
+        GetCIIDBDataTestEndpointResponse dbInfo = new GetCIIDBDataTestEndpointResponse(Arrays.asList());
         if (response.getStatusCode() == OK.getCode()) {
             dbInfo = new GetCIIDBDataTestEndpointResponse(Arrays.asList(response.getBody().as(DBData[].class)));
         } else {

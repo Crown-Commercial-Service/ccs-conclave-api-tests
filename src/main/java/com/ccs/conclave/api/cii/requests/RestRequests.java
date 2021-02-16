@@ -48,7 +48,7 @@ public class RestRequests {
     public static Response deleteScheme(String ccsOrgId, AdditionalSchemeInfo additionalSchemeInfo) {
         String endpoint = baseURI + Endpoints.deleteScheme;
         additionalSchemeInfo.setCcs_org_id(ccsOrgId);
-        return delete(endpoint, additionalSchemeInfo.toString());
+        return delete(endpoint, additionalSchemeInfo);
     }
 
     public static void deleteOrganisation(String id) {
@@ -84,7 +84,7 @@ public class RestRequests {
         return res;
     }
 
-    public static Response delete(String baseURI, String requestPayload) {
+    public static Response delete(String baseURI, Object requestPayload) {
         logger.info(">>> RestRequests::delete() >>>");
         Response res = given().header("Apikey", apiKey).header("Content-Type", "application/json")
                 .body(requestPayload).when().delete(baseURI);
