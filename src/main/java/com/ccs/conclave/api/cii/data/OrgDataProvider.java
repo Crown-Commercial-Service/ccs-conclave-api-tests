@@ -506,9 +506,8 @@ public class OrgDataProvider {
     public static String getSchemeInfoWithoutAddIdentifierSection(SchemeInfo schemeInfo, SchemeRegistry scheme) {
         Response response = RestRequests.getSchemeInfo(scheme, schemeInfo.getIdentifier().getId());
         verifyGetSchemeInfoResponse(schemeInfo, response); // verify Get SchemeInfo response before using it
-        String[] strings = response.asString().split("additionalIdentifiers\":\\[(.*?)\\]");
-        String strings1 = strings[1].substring(2);
-        String responseWithoutAddIdentifierSection = strings[0] + strings1;
+        String[] strings = response.asString().split("additionalIdentifiers\":\\[(.*?)\\],\"");
+        String responseWithoutAddIdentifierSection = strings[0] + strings[1];
         return responseWithoutAddIdentifierSection;
     }
 

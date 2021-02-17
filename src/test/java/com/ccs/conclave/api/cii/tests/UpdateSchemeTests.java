@@ -108,7 +108,7 @@ public class UpdateSchemeTests extends BaseClass {
         // Get expected SchemeInfo without additional identifiers
         SchemeInfo expectedSchemeInfo = getInfoWithoutAddIdentifiers(CHARITIES_COMMISSION_WITH_SC);
         // get only AdditionalIdentifiers from the given Scheme
-        List<AdditionalSchemeInfo> additionalSchemesInfo = getAdditionalIdentifierInfo(INVALID_SCHEME);
+        List<AdditionalSchemeInfo> additionalSchemesInfo = getAdditionalIdentifierInfo(CHARITIES_COMMISSION_WITH_SC);
         Assert.assertTrue(additionalSchemesInfo.size() == 1, "Only one additional identifier is expected, please check the test data!");
 
         logger.info("Performing Post Operation/register organisation with only Primary Identifier");
@@ -124,6 +124,7 @@ public class UpdateSchemeTests extends BaseClass {
         verifyInvalidIdResponse(response);
     }
 
+    //
     @Test
     public void updateScheme_validIdentifierOfAnotherScheme() {
         SchemeInfo schemeInfo = OrgDataProvider.getInfo(DUN_AND_BRADSTREET_WITH_COH);
