@@ -417,6 +417,23 @@ public class OrgDataProvider {
                 schemeInfo.setContactPoint(contactPoint);
                 break;
 
+            case INVALID_SCHEME:
+                schemeInfo.setName("Invalid Scheme Name");
+                identifier.setId("NI603366");
+                identifier.setScheme(SchemeRegistry.getSchemeCode(CHARITIES_COMMISSION));
+                identifier.setLegalName("Invalid Scheme Name");
+                identifier.setUri("http://www.acormchristian.org");
+                schemeInfo.setIdentifier(identifier);
+
+                additionalIdentifier1.setScheme(SchemeRegistry.getSchemeCode(CHARITIES_COMMISSION));
+                additionalIdentifier1.setId("NI603366");
+                additionalIdentifier1.setUri("");
+                additionalIdentifier1.setLegalName("ACORN CHRISTIAN FOUNDATION");
+                additionalIdentifiers.add(additionalIdentifier1);
+                schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
+                break;
+
+
             default:
                 throw new IllegalStateException("Unexpected value: " + schemeRegistry);
         }
@@ -489,7 +506,7 @@ public class OrgDataProvider {
     public static String getSchemeInfoWithoutAddIdentifierSection(SchemeInfo schemeInfo, SchemeRegistry scheme) {
         Response response = RestRequests.getSchemeInfo(scheme, schemeInfo.getIdentifier().getId());
         verifyGetSchemeInfoResponse(schemeInfo, response); // verify Get SchemeInfo response before using it
-        String[] strings = response.asString().split("additionalIdentifiers\":\\[(.*?)\\],");
+        String[] strings = response.asString().split("additionalIdentifiers\":\\[(.*?)\\],\"");
         String responseWithoutAddIdentifierSection = strings[0] + strings[1];
         return responseWithoutAddIdentifierSection;
     }

@@ -10,6 +10,7 @@ import com.ccs.conclave.api.common.StatusCodes;
 import io.restassured.response.Response;
 import org.apache.log4j.Logger;
 import org.testng.Assert;
+
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
@@ -53,7 +54,7 @@ public class VerifyResponses {
         Assert.assertEquals(actualSchemeInfo.getAddress().getStreetAddress(), expectedSchemeInfo.getAddress().getStreetAddress(), "Wrong address:streetAddress in response!");
         Assert.assertEquals(actualSchemeInfo.getAddress().getLocality(), expectedSchemeInfo.getAddress().getLocality(), "Wrong address:locality in response!");
         logger.info("Address:region " + actualSchemeInfo.getAddress().getRegion());
-        Assert.assertEquals(actualSchemeInfo.getAddress().getRegion(), expectedSchemeInfo.getAddress().getRegion(), "Wrong address:region in response!" );
+        Assert.assertEquals(actualSchemeInfo.getAddress().getRegion(), expectedSchemeInfo.getAddress().getRegion(), "Wrong address:region in response!");
         Assert.assertEquals(actualSchemeInfo.getAddress().getPostalCode(), expectedSchemeInfo.getAddress().getPostalCode(), "Wrong address:postalCode in response!");
         Assert.assertEquals(actualSchemeInfo.getAddress().getCountryName(), expectedSchemeInfo.getAddress().getCountryName(), "Wrong address:countryName in response!");
 
@@ -191,9 +192,9 @@ public class VerifyResponses {
         }
     }
 
-//    public static void verifyResponseCodeForUpdatedResource(Response response) {
-//        Assert.assertEquals(response.getStatusCode(), OK.getCode(), "Unexpected Status code returned for updated!!");
-//    }
+    public static void verifyResponseCodeForUpdatedResource(Response response) {
+        Assert.assertEquals(response.getStatusCode(), OK.getCode(), "Unexpected Status code returned for updated!!");
+    }
 
     public static void verifyResponseCodeForCreatedResource(Response response) {
         Assert.assertEquals(response.getStatusCode(), CREATED.getCode(), "Unexpected Status code returned for created!!");

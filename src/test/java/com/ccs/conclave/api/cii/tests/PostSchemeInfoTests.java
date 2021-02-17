@@ -96,8 +96,8 @@ public class PostSchemeInfoTests extends BaseClass {
         verifyResponseCodeForDuplicateResource(postSchemeRes);
 
         // verify duplicate check for Get call
-         getSchemeRes = RestRequests.getSchemeInfo(CHARITIES_COMMISSION_WITH_TWO_COH, schemeInfo.getIdentifier().getId());
-         verifyResponseCodeForDuplicateResource(getSchemeRes);
+        getSchemeRes = RestRequests.getSchemeInfo(CHARITIES_COMMISSION_WITH_TWO_COH, schemeInfo.getIdentifier().getId());
+        verifyResponseCodeForDuplicateResource(getSchemeRes);
 
         // Delete Database entry if the Org. is already registered
         RequestTestEndpoints.deleteOrgIdentifiers(schemeInfo.getIdentifier().getId());
@@ -144,8 +144,8 @@ public class PostSchemeInfoTests extends BaseClass {
         verifyResponseCodeForDuplicateResource(postSchemeRes);
 
         // verify duplicate check for Get call
-         getSchemeRes = RestRequests.getSchemeInfo(NORTHERN_CHARITY_WITH_COH, schemeInfo.getIdentifier().getId());
-         verifyResponseCodeForDuplicateResource(getSchemeRes);
+        getSchemeRes = RestRequests.getSchemeInfo(NORTHERN_CHARITY_WITH_COH, schemeInfo.getIdentifier().getId());
+        verifyResponseCodeForDuplicateResource(getSchemeRes);
 
         // Delete Database entry if the Org. is already registered
         RequestTestEndpoints.deleteOrgIdentifiers(schemeInfo.getIdentifier().getId());
@@ -173,16 +173,17 @@ public class PostSchemeInfoTests extends BaseClass {
         verifyInvalidIdResponse(response);
     }
 
-    @Test // Defect : CON-543
+    @Test //CON-543 - Fixed
     public void postSchemeInfoWithNoAdditionalIdentifierSection() {
         SchemeInfo schemeInfo = OrgDataProvider.getInfo(NORTHERN_CHARITY_WITH_COH);
+        String responseStr = getSchemeInfoWithoutAddIdentifierSection(schemeInfo, NORTHERN_CHARITY_WITH_COH);
 
         //Modify the response to Remove The Additional Identifier Section
-        String responseStr = getSchemeInfoWithoutAddIdentifierSection(schemeInfo, NORTHERN_CHARITY_WITH_COH);
-        Response response = RestRequests.postSchemeInfo(responseStr);
-        //CON-543: Currently we get 500 but expected to register successfully an return ccs-org-id
         SchemeInfo expectedSchemeInfo = getInfoWithoutAddIdentifiers(NORTHERN_CHARITY_WITH_COH);
+        Response response = RestRequests.postSchemeInfo(responseStr);
         verifyPostSchemeInfoResponse(expectedSchemeInfo, response);
+
+        // Delete Database entry if the Org. is already registered
         RequestTestEndpoints.deleteOrgIdentifiers(schemeInfo.getIdentifier().getId());
     }
 
