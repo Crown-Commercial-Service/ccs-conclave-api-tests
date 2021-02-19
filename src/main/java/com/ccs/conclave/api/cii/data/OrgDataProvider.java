@@ -1,7 +1,6 @@
 package com.ccs.conclave.api.cii.data;
 
 import com.ccs.conclave.api.cii.pojo.*;
-import com.ccs.conclave.api.cii.requests.RequestTestEndpoints;
 import com.ccs.conclave.api.cii.requests.RestRequests;
 import io.restassured.response.Response;
 
@@ -9,10 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.ccs.conclave.api.cii.data.SchemeRegistry.*;
+import static com.ccs.conclave.api.cii.requests.RestRequests.deleteOrganisation;
 import static com.ccs.conclave.api.cii.verification.VerifyResponses.verifyGetSchemeInfoResponse;
 
 public class OrgDataProvider {
-
 
     public static SchemeInfo getInfo(SchemeRegistry schemeRegistry) {
         SchemeInfo schemeInfo = new SchemeInfo();
@@ -440,9 +439,9 @@ public class OrgDataProvider {
 
 
         // Delete Database entry if the Org. is already registered
-        RequestTestEndpoints.deleteOrgIdentifiers(schemeInfo.getIdentifier().getId());
+        deleteOrganisation(schemeInfo.getIdentifier().getId());
         for (Identifier id : schemeInfo.getAdditionalIdentifiers()) {
-            RequestTestEndpoints.deleteOrgIdentifiers(id.getId());
+            deleteOrganisation(id.getId());
         }
 
         return schemeInfo;

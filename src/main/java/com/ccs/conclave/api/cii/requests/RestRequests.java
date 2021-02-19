@@ -6,8 +6,10 @@ import com.ccs.conclave.api.cii.data.SchemeRegistry;
 import io.restassured.parsing.Parser;
 import io.restassured.response.Response;
 import org.apache.log4j.Logger;
+import org.testng.Assert;
 
 import static com.ccs.conclave.api.cii.data.SchemeRegistry.*;
+import static com.ccs.conclave.api.common.StatusCodes.OK;
 import static io.restassured.RestAssured.given;
 
 
@@ -37,7 +39,6 @@ public class RestRequests {
         return post(endpoint, requestPayload);
     }
 
-
     public static Response updateScheme(String ccsOrgId, AdditionalSchemeInfo additionalSchemeInfo) {
         String endpoint = baseURI + Endpoints.updateScheme;
         additionalSchemeInfo.setCcs_org_id(ccsOrgId);
@@ -47,7 +48,17 @@ public class RestRequests {
     public static Response deleteScheme(String ccsOrgId, AdditionalSchemeInfo additionalSchemeInfo) {
         String endpoint = baseURI + Endpoints.deleteScheme;
         additionalSchemeInfo.setCcs_org_id(ccsOrgId);
-        return delete(endpoint, additionalSchemeInfo.toString());
+        return delete(endpoint, additionalSchemeInfo);
+    }
+
+    public static void deleteOrganisation(String id) {
+        String ccsOrgId = RequestTestEndpoints.getRegisteredOrgId(id);
+        if (!ccsOrgId.isEmpty()) {
+            Response response = RestRequests.deleteAll(RestRequests.getBaseURI() + Endpoints.deleteOrganisation +
+                    "ccs_org_id=" + ccsOrgId);
+            Assert.assertEquals(response.getStatusCode(), OK.getCode(), "Something went wrong while deleting existing organisation!");
+            logger.info("Successfully deleted if Organisation already exists.");
+        }
     }
 
     public static Response get(String baseURI) {
@@ -65,13 +76,6 @@ public class RestRequests {
         return res;
     }
 
-    public static Response deleteAll(String baseURI) {
-        logger.info(">>> RestRequests::deleteAll() >>>");
-        Response res = given().header("Apikey", apiKey).expect().defaultParser(Parser.JSON).when().delete(baseURI);
-        logger.info("RestRequests::deleteAll() call with status code: " + res.getStatusCode());
-        return res;
-    }
-
     public static Response put(String baseURI, Object requestPayload) {
         logger.info(">>> RestRequests::put() >>>");
         Response res = given().header("Apikey", apiKey).header("Content-Type", "application/json")
@@ -80,7 +84,7 @@ public class RestRequests {
         return res;
     }
 
-    public static Response delete(String baseURI, String requestPayload) {
+    public static Response delete(String baseURI, Object requestPayload) {
         logger.info(">>> RestRequests::delete() >>>");
         Response res = given().header("Apikey", apiKey).header("Content-Type", "application/json")
                 .body(requestPayload).when().delete(baseURI);
@@ -88,5 +92,10 @@ public class RestRequests {
         return res;
     }
 
-
+    public static Response deleteAll(String baseURI) {
+        logger.info(">>> RestRequests::deleteAll() >>>");
+        Response res = given().header("Apikey", apiKey).expect().defaultParser(Parser.JSON).when().delete(baseURI);
+        logger.info("RestRequests::deleteAll() call with status code: " + res.getStatusCode());
+        return res;
+    }
 }

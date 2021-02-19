@@ -9,9 +9,7 @@ import io.restassured.response.Response;
 import org.apache.log4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-
 import java.util.List;
-
 import static com.ccs.conclave.api.cii.data.OrgDataProvider.getAdditionalIdentifierInfo;
 import static com.ccs.conclave.api.cii.data.SchemeRegistry.*;
 import static com.ccs.conclave.api.cii.verification.VerifyResponses.*;
@@ -22,8 +20,12 @@ public class DeleteSchemeTests extends BaseClass {
     @Test
     public void deleteScheme_COH_from_DUN() {
         SchemeInfo schemeInfo = OrgDataProvider.getInfo(DUN_AND_BRADSTREET_WITH_COH);
+        // get only AdditionalIdentifiers from the given Scheme
+        List<AdditionalSchemeInfo> additionalSchemesInfo = getAdditionalIdentifierInfo(DUN_AND_BRADSTREET_WITH_COH);
+        Assert.assertTrue(additionalSchemesInfo.size() == 1, "Only one additional identifier is expected, please check the test data!");
+
         // Perform Get call to form the request payload for POST call
-        Response response = RestRequests.getSchemeInfo(CHARITIES_COMMISSION_WITH_TWO_COH, schemeInfo.getIdentifier().getId());
+        Response response = RestRequests.getSchemeInfo(DUN_AND_BRADSTREET_WITH_COH, schemeInfo.getIdentifier().getId());
         verifyGetSchemeInfoResponse(schemeInfo, response); // verify Get SchemeInfo response before passing to Post
 
         // Perform Post Operation
@@ -31,20 +33,24 @@ public class DeleteSchemeTests extends BaseClass {
         verifyPostSchemeInfoResponse(schemeInfo, response);
         logger.info("Successful post operation...");
 
-        // get only AdditionalIdentifiers from the given Scheme
-        List<AdditionalSchemeInfo> additionalSchemesInfo = getAdditionalIdentifierInfo(DUN_AND_BRADSTREET_WITH_COH);
-        Assert.assertTrue(additionalSchemesInfo.size() == 1, "Only one additional identifier is expected, please check the test data!");
-
         logger.info("Deleting additional identifier to the existing organisation...");
         AdditionalSchemeInfo additionalSchemeInfo = additionalSchemesInfo.get(0);
         response = RestRequests.deleteScheme(getCCSOrgId(), additionalSchemeInfo);
-        verifyResponseCodeForDeletedResource(response);
+        verifyResponseCodeForUpdatedOrDeletedResource(response);
         verifyDeletedScheme(schemeInfo.getIdentifier().getId(), additionalSchemeInfo);
+
+        logger.info("Deleting identifier deleted already");
+        response = RestRequests.deleteScheme(getCCSOrgId(), additionalSchemeInfo);
+        verifyInvalidIdResponse(response);
     }
 
     @Test
     public void deleteScheme_COH_and_CHC_from_SC() {
         SchemeInfo schemeInfo = OrgDataProvider.getInfo(SCOTLAND_CHARITY_WITH_COH_CHC);
+        // get only AdditionalIdentifiers from the given Scheme
+        List<AdditionalSchemeInfo> additionalSchemesInfo = getAdditionalIdentifierInfo(SCOTLAND_CHARITY_WITH_COH_CHC);
+        Assert.assertTrue(additionalSchemesInfo.size() == 2, "Two additional identifiers are expected, please check the test data!");
+
         // Perform Get call to form the request payload for POST call
         Response response = RestRequests.getSchemeInfo(SCOTLAND_CHARITY_WITH_COH_CHC, schemeInfo.getIdentifier().getId());
         verifyGetSchemeInfoResponse(schemeInfo, response); // verify Get SchemeInfo response before passing to Post
@@ -54,26 +60,26 @@ public class DeleteSchemeTests extends BaseClass {
         verifyPostSchemeInfoResponse(schemeInfo, response);
         logger.info("Successful post operation...");
 
-        // get only AdditionalIdentifiers from the given Scheme
-        List<AdditionalSchemeInfo> additionalSchemesInfo = getAdditionalIdentifierInfo(SCOTLAND_CHARITY_WITH_COH_CHC);
-        Assert.assertTrue(additionalSchemesInfo.size() == 2, "Two additional identifiers are expected, please check the test data!");
-
         logger.info("Deleting additional identifier1 to the existing organisation...");
         AdditionalSchemeInfo additionalSchemeInfo1 = additionalSchemesInfo.get(0);
         response = RestRequests.deleteScheme(getCCSOrgId(), additionalSchemeInfo1);
-        verifyResponseCodeForDeletedResource(response);
+        verifyResponseCodeForUpdatedOrDeletedResource(response);
         verifyDeletedScheme(schemeInfo.getIdentifier().getId(), additionalSchemeInfo1);
 
         logger.info("Deleting additional identifier2 to the existing organisation...");
-        AdditionalSchemeInfo additionalSchemeInfo2 = additionalSchemesInfo.get(0);
+        AdditionalSchemeInfo additionalSchemeInfo2 = additionalSchemesInfo.get(1);
         response = RestRequests.deleteScheme(getCCSOrgId(), additionalSchemeInfo2);
-        verifyResponseCodeForDeletedResource(response);
+        verifyResponseCodeForUpdatedOrDeletedResource(response);
         verifyDeletedScheme(schemeInfo.getIdentifier().getId(), additionalSchemeInfo2);
     }
 
     @Test
     public void deleteScheme_and_updateScheme() {
         SchemeInfo schemeInfo = OrgDataProvider.getInfo(CHARITIES_COMMISSION_WITH_TWO_COH);
+        // get only AdditionalIdentifiers from the given Scheme
+        List<AdditionalSchemeInfo> additionalSchemesInfo = getAdditionalIdentifierInfo(CHARITIES_COMMISSION_WITH_TWO_COH);
+        Assert.assertTrue(additionalSchemesInfo.size() == 2, "Two additional identifiers are expected, please check the test data!");
+
         // Perform Get call to form the request payload for POST call
         Response response = RestRequests.getSchemeInfo(CHARITIES_COMMISSION_WITH_TWO_COH, schemeInfo.getIdentifier().getId());
         verifyGetSchemeInfoResponse(schemeInfo, response); // verify Get SchemeInfo response before passing to Post
@@ -83,31 +89,37 @@ public class DeleteSchemeTests extends BaseClass {
         verifyPostSchemeInfoResponse(schemeInfo, response);
         logger.info("Successful post operation...");
 
-        // get only AdditionalIdentifiers from the given Scheme
-        List<AdditionalSchemeInfo> additionalSchemesInfo = getAdditionalIdentifierInfo(CHARITIES_COMMISSION_WITH_TWO_COH);
-        Assert.assertTrue(additionalSchemesInfo.size() == 2, "Two additional identifiers are expected, please check the test data!");
-
         logger.info("Deleting additional identifier1 to the existing organisation...");
         AdditionalSchemeInfo additionalSchemeInfo1 = additionalSchemesInfo.get(0);
         response = RestRequests.deleteScheme(getCCSOrgId(), additionalSchemeInfo1);
-        verifyResponseCodeForDeletedResource(response);
+        verifyResponseCodeForUpdatedOrDeletedResource(response);
         verifyDeletedScheme(schemeInfo.getIdentifier().getId(), additionalSchemeInfo1);
 
         logger.info("Updating additional identifier1 to the existing organisation...");
         response = RestRequests.updateScheme(getCCSOrgId(), additionalSchemeInfo1);
-        verifyResponseCodeForCreatedResource(response);
+        verifyResponseCodeForUpdatedOrDeletedResource(response);
         verifyUpdatedScheme(schemeInfo.getIdentifier().getId(), additionalSchemeInfo1);
 
+        logger.info("Deleting additional identifier1 to the existing organisation...");
+        response = RestRequests.deleteScheme(getCCSOrgId(), additionalSchemeInfo1);
+        verifyResponseCodeForUpdatedOrDeletedResource(response);
+        verifyDeletedScheme(schemeInfo.getIdentifier().getId(), additionalSchemeInfo1);
+
         logger.info("Deleting additional identifier2 to the existing organisation...");
-        AdditionalSchemeInfo additionalSchemeInfo2 = additionalSchemesInfo.get(0);
+        AdditionalSchemeInfo additionalSchemeInfo2 = additionalSchemesInfo.get(1);
         response = RestRequests.deleteScheme(getCCSOrgId(), additionalSchemeInfo2);
-        verifyResponseCodeForDeletedResource(response);
+        verifyResponseCodeForUpdatedOrDeletedResource(response);
         verifyDeletedScheme(schemeInfo.getIdentifier().getId(), additionalSchemeInfo2);
 
         logger.info("Updating additional identifier2 to the existing organisation...");
         response = RestRequests.updateScheme(getCCSOrgId(), additionalSchemeInfo2);
-        verifyResponseCodeForCreatedResource(response);
+        verifyResponseCodeForUpdatedOrDeletedResource(response);
         verifyUpdatedScheme(schemeInfo.getIdentifier().getId(), additionalSchemeInfo2);
+
+        logger.info("Deleting additional identifier2 to the existing organisation...");
+        response = RestRequests.deleteScheme(getCCSOrgId(), additionalSchemeInfo2);
+        verifyResponseCodeForUpdatedOrDeletedResource(response);
+        verifyDeletedScheme(schemeInfo.getIdentifier().getId(), additionalSchemeInfo2);
     }
 
     // Todo @Test

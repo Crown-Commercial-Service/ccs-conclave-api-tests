@@ -14,26 +14,16 @@ import java.util.List;
 
 import static com.ccs.conclave.api.common.StatusCodes.*;
 
-
 // Endpoints used in this class are for testing  purpose only and won't be deployed in Production. Therefore the tests
 // which are depending on these endpoints cannot be executed in Production.
 public class RequestTestEndpoints {
     private final static Logger logger = Logger.getLogger(RequestTestEndpoints.class);
     private static String getCCSOrgId = "/api/v1/testing/search/identities/schemes/organisation?id=";
-    private static String deleteOrganisation = "/api/v1/testing/identities/schemes/organisation?org_ccs_id=";
 
-    public static void deleteOrgIdentifiers(String id) {
-        String ccsOrgId = getRegisteredOrgId(id);
-        if(!ccsOrgId.isEmpty()) {
-            Response response = RestRequests.deleteAll(RestRequests.getBaseURI() + deleteOrganisation + ccsOrgId);
-            Assert.assertEquals(response.getStatusCode(), OK.getCode(), "Something went wrong while deleting existing organisation!");
-            logger.info("Successfully deleted if Organisation already exists.");
-        }
-    }
-
-    private static String getRegisteredOrgId(String id) {
+    public static String getRegisteredOrgId(String id) {
         String ccsOrgId = "";
-        if(getRegisteredOrganisations(id) != null) {
+        GetCIIDBDataTestEndpointResponse dbInfo = getRegisteredOrganisations(id);
+        if(dbInfo.getDbData().size() > 0) {
             ccsOrgId = getRegisteredOrganisations(id).getDbData().get(0).getCcsOrgId();
         }
         return ccsOrgId;
@@ -42,7 +32,7 @@ public class RequestTestEndpoints {
     public static GetCIIDBDataTestEndpointResponse getRegisteredOrganisations(String id) {
         String endpoint = RestRequests.getBaseURI() + getCCSOrgId + id;
         Response response = RestRequests.get(endpoint);
-        GetCIIDBDataTestEndpointResponse dbInfo = null;
+        GetCIIDBDataTestEndpointResponse dbInfo = new GetCIIDBDataTestEndpointResponse(Arrays.asList());
         if (response.getStatusCode() == OK.getCode()) {
             dbInfo = new GetCIIDBDataTestEndpointResponse(Arrays.asList(response.getBody().as(DBData[].class)));
         } else {
