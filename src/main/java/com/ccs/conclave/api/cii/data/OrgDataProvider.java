@@ -145,7 +145,7 @@ public class OrgDataProvider {
 
             case CHARITIES_COMMISSION:
                 schemeInfo.setName("1 SIGNAL REGIMENT PRI FUND");
-                identifier.setId("1183905");
+                identifier.setId("11839051183905");
                 identifier.setScheme(SchemeRegistry.getSchemeCode(CHARITIES_COMMISSION));
                 identifier.setLegalName("1 SIGNAL REGIMENT PRI FUND");
                 identifier.setUri("https://register-of-charities.charitycommission.gov.uk/charity-details/?regId=1183905&subId=0");

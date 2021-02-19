@@ -1,4 +1,5 @@
 language: java
+install: true
 key: DISPLAY value:0:0
 before_install:
   - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
@@ -8,12 +9,15 @@ env:
     - APIKEY=$API_KEY
     - GITHUBTOKEN=$GITHUB_TOKEN
     - BUILDNUMBER=$TRAVIS_BUILD_NUMBER
+    - GHREF=$GH_REF
+    - GITNAME=$GIT_NAME
+    - GITEMAIL=$GIT_EMAIL
 script:
   - mvn clean test -Dbase.url=$BASEURL -Dapi.key=$APIKEY
 before_deploy:
   - mv target/report/conclave_api_test_report.html target/report/conclave_api_test_report_$BUILDNUMBER.html
   - cp target/report/conclave_api_test_report_$BUILDNUMBER.html target/report/index.html
-deploy:
+after_failure:
   local_dir: target/report
   provider: pages
   skip_cleanup: true
@@ -22,10 +26,11 @@ deploy:
   verbose: true
   target-branch: gh-pages
   on:
-    branch: feature/deleteTests
+    branch: feature/travisNotification
+
+#after_script:
+#  - ./deploy-gh-pages.sh
 notifications:
   email:
     recipients:
       - amrutha.sireesh@crowncommercial.gov.uk
-    on_success: never
-    on_failure: always

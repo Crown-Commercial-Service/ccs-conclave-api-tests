@@ -1,29 +1,29 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
 
 <suite name="cii.api.tests" verbose="1">
-    <test name="Get Scheme Names tests">
-        <classes>
-            <class name="com.ccs.conclave.api.cii.tests.GetSchemesTests"/>
-        </classes>
-    </test>
+<!--    <test name="Get Scheme Names tests">-->
+<!--        <classes>-->
+<!--            <class name="com.ccs.conclave.api.cii.tests.GetSchemesTests"/>-->
+<!--        </classes>-->
+<!--    </test>-->
     <test name="Get Scheme info tests">
         <classes>
             <class name="com.ccs.conclave.api.cii.tests.GetSchemeInfoTests"/>
         </classes>
     </test>
-    <test name="Post Scheme info tests">
-        <classes>
-            <class name="com.ccs.conclave.api.cii.tests.PostSchemeInfoTests"/>
-        </classes>
-    </test>
-    <test name="Update Scheme tests">
-        <classes>
-            <class name="com.ccs.conclave.api.cii.tests.UpdateSchemeTests"/>
-        </classes>
-    </test>
-    <test name="Delete Scheme tests">
-        <classes>
-            <class name="com.ccs.conclave.api.cii.tests.DeleteSchemeTests"/>
-        </classes>
-    </test>
+<!--    <test name="Post Scheme info tests">-->
+<!--        <classes>-->
+<!--            <class name="com.ccs.conclave.api.cii.tests.PostSchemeInfoTests"/>-->
+<!--        </classes>-->
+<!--    </test>-->
+<!--    <test name="Update Scheme tests">-->
+<!--        <classes>-->
+<!--            <class name="com.ccs.conclave.api.cii.tests.UpdateSchemeTests"/>-->
+<!--        </classes>-->
+<!--    </test>-->
+<!--    <test name="Delete Scheme tests">-->
+<!--        <classes>-->
+<!--            <class name="com.ccs.conclave.api.cii.tests.DeleteSchemeTests"/>-->
+<!--        </classes>-->
+<!--    </test>-->
 </suite>
