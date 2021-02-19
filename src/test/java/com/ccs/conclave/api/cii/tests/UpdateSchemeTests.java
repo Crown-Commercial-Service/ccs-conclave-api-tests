@@ -66,13 +66,13 @@ public class UpdateSchemeTests extends BaseClass {
         logger.info("Adding additional identifier1 to the existing organisation...");
         AdditionalSchemeInfo additionalSchemeInfo1 = additionalSchemesInfo.get(0);
         response = RestRequests.updateScheme(getCCSOrgId(), additionalSchemeInfo1);
-        verifyResponseCodeForCreatedResource(response);
+        verifyResponseCodeForUpdatedResource(response);
         verifyUpdatedScheme(schemeInfo.getIdentifier().getId(), additionalSchemeInfo1);
 
         logger.info("Adding additional identifier2 to the existing organisation...");
         AdditionalSchemeInfo additionalSchemeInfo2 = additionalSchemesInfo.get(1);
         response = RestRequests.updateScheme(getCCSOrgId(), additionalSchemeInfo2);
-        verifyResponseCodeForCreatedResource(response);
+        verifyResponseCodeForUpdatedResource(response);
         verifyUpdatedScheme(schemeInfo.getIdentifier().getId(), additionalSchemeInfo2);
     }
 

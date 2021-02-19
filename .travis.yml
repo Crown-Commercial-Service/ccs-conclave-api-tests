@@ -23,3 +23,6 @@ deploy:
   target-branch: gh-pages
   on:
     branch: main
+notifications:
+  email:
+    - amrutha.sireesh@crowncommercial.gov.uk

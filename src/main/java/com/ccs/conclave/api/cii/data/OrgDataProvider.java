@@ -149,7 +149,7 @@ public class OrgDataProvider {
                 identifier.setId("1183905");
                 identifier.setScheme(SchemeRegistry.getSchemeCode(CHARITIES_COMMISSION));
                 identifier.setLegalName("1 SIGNAL REGIMENT PRI FUND");
-                identifier.setUri("");
+                identifier.setUri("https://register-of-charities.charitycommission.gov.uk/charity-details/?regId=1183905&subId=0");
                 schemeInfo.setIdentifier(identifier);
 
                 address.setCountryName("");
@@ -172,7 +172,7 @@ public class OrgDataProvider {
                 identifier.setId("802955");
                 identifier.setScheme(SchemeRegistry.getSchemeCode(CHARITIES_COMMISSION_WITH_TWO_COH));
                 identifier.setLegalName("THE CEDAR CENTRE");
-                identifier.setUri("");
+                identifier.setUri("https://register-of-charities.charitycommission.gov.uk/charity-details/?regId=802955&subId=0");
                 schemeInfo.setIdentifier(identifier);
 
                 additionalIdentifier1.setScheme(SchemeRegistry.getSchemeCode(COMPANIES_HOUSE));
@@ -207,7 +207,7 @@ public class OrgDataProvider {
                 identifier.setId("290356");
                 identifier.setScheme(SchemeRegistry.getSchemeCode(CHARITIES_COMMISSION_WITH_SC));
                 identifier.setLegalName("MOUNTAINS ANIMAL SANCTUARY");
-                identifier.setUri("");
+                identifier.setUri("https://register-of-charities.charitycommission.gov.uk/charity-details/?regId=290356&subId=0");
                 schemeInfo.setIdentifier(identifier);
 
                 additionalIdentifier1.setScheme(SchemeRegistry.getSchemeCode(SCOTLAND_CHARITY));
@@ -236,34 +236,34 @@ public class OrgDataProvider {
                 identifier.setId("205913");
                 identifier.setScheme(SchemeRegistry.getSchemeCode(CHARITIES_COMMISSION_WITH_KNOWN_AND_UNKNOWN_IDENTIFIERS));
                 identifier.setLegalName("ACTION FOR BLIND PEOPLE");
-                identifier.setUri("http://www.actionforblindpeople.org.uk");
+                identifier.setUri("https://register-of-charities.charitycommission.gov.uk/charity-details/?regId=205913&subId=0");
                 schemeInfo.setIdentifier(identifier);
 
-                additionalIdentifier1.setScheme(SchemeRegistry.getSchemeCode(COMPANIES_HOUSE));
-                additionalIdentifier1.setId("00026688");
+                additionalIdentifier1.setScheme(SchemeRegistry.getSchemeCode(CHARITIES_COMMISSION));
+                additionalIdentifier1.setId("1091458");
                 additionalIdentifier1.setUri("");
-                additionalIdentifier1.setLegalName("ACTION FOR BLIND PEOPLE");
+                additionalIdentifier1.setLegalName("STAFFORDSHIRE BLIND");
                 additionalIdentifiers.add(additionalIdentifier1);
                 schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
 
                 additionalIdentifier2.setScheme(SchemeRegistry.getSchemeCode(CHARITIES_COMMISSION));
-                additionalIdentifier2.setId("1091458");
+                additionalIdentifier2.setId("214330");
                 additionalIdentifier2.setUri("");
-                additionalIdentifier2.setLegalName("STAFFORDSHIRE BLIND");
+                additionalIdentifier2.setLegalName("GLYNN VIVIAN");
                 additionalIdentifiers.add(additionalIdentifier2);
                 schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
 
                 additionalIdentifier3.setScheme(SchemeRegistry.getSchemeCode(CHARITIES_COMMISSION));
-                additionalIdentifier3.setId("214330");
+                additionalIdentifier3.setId("226227");
                 additionalIdentifier3.setUri("");
-                additionalIdentifier3.setLegalName("GLYNN VIVIAN");
+                additionalIdentifier3.setLegalName("THE ROYAL NATIONAL INSTITUTE OF BLIND PEOPLE");
                 additionalIdentifiers.add(additionalIdentifier3);
                 schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
 
-                additionalIdentifier4.setScheme(SchemeRegistry.getSchemeCode(CHARITIES_COMMISSION));
-                additionalIdentifier4.setId("226227");
+                additionalIdentifier4.setScheme(SchemeRegistry.getSchemeCode(COMPANIES_HOUSE));
+                additionalIdentifier4.setId("00026688");
                 additionalIdentifier4.setUri("");
-                additionalIdentifier4.setLegalName("THE ROYAL NATIONAL INSTITUTE OF BLIND PEOPLE");
+                additionalIdentifier4.setLegalName("ACTION FOR BLIND PEOPLE");
                 additionalIdentifiers.add(additionalIdentifier4);
                 schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
 
@@ -308,7 +308,7 @@ public class OrgDataProvider {
                 identifier.setId("NIC107049");
                 identifier.setScheme(SchemeRegistry.getSchemeCode(NORTHERN_CHARITY_WITH_COH));
                 identifier.setLegalName("Craigavon Christian Youth");
-                identifier.setUri("");
+                identifier.setUri("http://www.charitycommissionni.org.uk/charity-details/?regid=107049&subid=0");
                 schemeInfo.setIdentifier(identifier);
 
                 additionalIdentifier1.setScheme(SchemeRegistry.getSchemeCode(COMPANIES_HOUSE));
@@ -338,7 +338,7 @@ public class OrgDataProvider {
                 identifier.setId("103185");
                 identifier.setScheme(SchemeRegistry.getSchemeCode(NORTHERN_CHARITY));
                 identifier.setLegalName("Lifereach Ni");
-                identifier.setUri("http://www.lifereachni.com");
+                identifier.setUri("http://www.charitycommissionni.org.uk/charity-details/?regid=103185&subid=0");
                 schemeInfo.setIdentifier(identifier);
 
                 address.setCountryName("Northern Ireland");
@@ -361,7 +361,7 @@ public class OrgDataProvider {
                 identifier.setId("SC045754");
                 identifier.setScheme(SchemeRegistry.getSchemeCode(SCOTLAND_CHARITY));
                 identifier.setLegalName("11th Edinburgh North East Scout Group");
-                identifier.setUri("http://www.11thbroughton.scoutsites.org.uk");
+                identifier.setUri("https://www.oscr.org.uk/about-charities/search-the-register/charity-details?number=SC045754");
                 schemeInfo.setIdentifier(identifier);
 
                 address.setCountryName("Scotland");
@@ -385,7 +385,7 @@ public class OrgDataProvider {
                 identifier.setId("SC042491");
                 identifier.setScheme(SchemeRegistry.getSchemeCode(SCOTLAND_CHARITY_WITH_COH_CHC));
                 identifier.setLegalName("Acorn Christian Foundation");
-                identifier.setUri("http://www.acormchristian.org");
+                identifier.setUri("https://www.oscr.org.uk/about-charities/search-the-register/charity-details?number=SC042491");
                 schemeInfo.setIdentifier(identifier);
 
                 additionalIdentifier1.setScheme(SchemeRegistry.getSchemeCode(CHARITIES_COMMISSION));
