@@ -16,9 +16,14 @@
             <class name="com.ccs.conclave.api.cii.tests.PostSchemeInfoTests"/>
         </classes>
     </test>
-<!--    <test name="Update Scheme tests">-->
-<!--        <classes>-->
-<!--            <class name="com.ccs.conclave.api.cii.tests.UpdateSchemeTests"/>-->
-<!--        </classes>-->
-<!--    </test>-->
+    <test name="Update Scheme tests">
+        <classes>
+            <class name="com.ccs.conclave.api.cii.tests.UpdateSchemeTests"/>
+        </classes>
+    </test>
+    <test name="Delete Scheme tests">
+        <classes>
+            <class name="com.ccs.conclave.api.cii.tests.DeleteSchemeTests"/>
+        </classes>
+    </test>
 </suite>
