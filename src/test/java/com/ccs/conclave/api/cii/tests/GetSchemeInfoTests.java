@@ -112,7 +112,8 @@ public class GetSchemeInfoTests extends BaseClass {
     }
 
     @Test // Bug: CON-533 - FIXED
-    public void getDulipcateWithAdditionalIdentifier() {
+    //Note : Duplicate check for already registered additional identifier
+    public void getDuplicateWithAdditionalIdentifier() {
         SchemeInfo schemeInfo = OrgDataProvider.getInfo(DUN_AND_BRADSTREET_WITH_COH);
 
         Response response = RestRequests.getSchemeInfo(COMPANIES_HOUSE, schemeInfo.getAdditionalIdentifiers().get(0).getId());
