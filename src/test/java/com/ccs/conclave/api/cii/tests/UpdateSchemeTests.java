@@ -14,7 +14,9 @@ import java.util.List;
 
 import static com.ccs.conclave.api.cii.data.OrgDataProvider.*;
 import static com.ccs.conclave.api.cii.data.SchemeRegistry.*;
+import static com.ccs.conclave.api.cii.requests.RestRequests.deleteOrganisation;
 import static com.ccs.conclave.api.cii.verification.VerifyResponses.*;
+import static com.ccs.conclave.api.cii.verification.VerifyResponses.getCCSOrgId;
 
 public class UpdateSchemeTests extends BaseClass {
     private final static Logger logger = Logger.getLogger(UpdateSchemeTests.class);
@@ -39,9 +41,13 @@ public class UpdateSchemeTests extends BaseClass {
 
         logger.info("Adding additional identifier to the existing organisation...");
         AdditionalSchemeInfo additionalSchemeInfo = additionalSchemesInfo.get(0);
-        response = RestRequests.updateScheme(getCCSOrgId(), additionalSchemeInfo);
+        additionalSchemeInfo.setCcs_org_id(getCCSOrgId());
+        response = RestRequests.updateScheme(additionalSchemeInfo);
         verifyResponseCodeForUpdatedOrDeletedResource(response);
         verifyUpdatedScheme(schemeInfo.getIdentifier().getId(), additionalSchemeInfo);
+
+        // Delete Database entry if the Org. is already registered
+        deleteOrganisation(schemeInfo.getIdentifier().getId());
     }
 
     @Test
@@ -64,15 +70,20 @@ public class UpdateSchemeTests extends BaseClass {
 
         logger.info("Adding additional identifier1 to the existing organisation...");
         AdditionalSchemeInfo additionalSchemeInfo1 = additionalSchemesInfo.get(0);
-        response = RestRequests.updateScheme(getCCSOrgId(), additionalSchemeInfo1);
+        additionalSchemeInfo1.setCcs_org_id(getCCSOrgId());
+        response = RestRequests.updateScheme(additionalSchemeInfo1);
         verifyResponseCodeForUpdatedOrDeletedResource(response);
         verifyUpdatedScheme(schemeInfo.getIdentifier().getId(), additionalSchemeInfo1);
 
         logger.info("Adding additional identifier2 to the existing organisation...");
         AdditionalSchemeInfo additionalSchemeInfo2 = additionalSchemesInfo.get(1);
-        response = RestRequests.updateScheme(getCCSOrgId(), additionalSchemeInfo2);
+        additionalSchemeInfo2.setCcs_org_id(getCCSOrgId());
+        response = RestRequests.updateScheme(additionalSchemeInfo2);
         verifyResponseCodeForUpdatedOrDeletedResource(response);
         verifyUpdatedScheme(schemeInfo.getIdentifier().getId(), additionalSchemeInfo2);
+
+        // Delete Database entry if the Org. is already registered
+        deleteOrganisation(schemeInfo.getIdentifier().getId());
     }
 
     @Test
@@ -95,8 +106,12 @@ public class UpdateSchemeTests extends BaseClass {
 
         logger.info("Adding additional identifier to the existing organisation...");
         AdditionalSchemeInfo additionalSchemeInfo = additionalSchemesInfo.get(0);
-        response = RestRequests.updateScheme(getCCSOrgId(), additionalSchemeInfo);
+        additionalSchemeInfo.setCcs_org_id(getCCSOrgId());
+        response = RestRequests.updateScheme(additionalSchemeInfo);
         verifyInvalidIdResponse(response);
+
+        // Delete Database entry if the Org. is already registered
+        deleteOrganisation(schemeInfo.getIdentifier().getId());
     }
 
     @Test
@@ -119,11 +134,17 @@ public class UpdateSchemeTests extends BaseClass {
 
         logger.info("Adding additional identifier to the existing organisation...");
         AdditionalSchemeInfo additionalSchemeInfo = additionalSchemesInfo.get(0);
-        response = RestRequests.updateScheme("7310710000000", additionalSchemeInfo);
+        additionalSchemeInfo.setCcs_org_id("7310710000000");
+        response = RestRequests.updateScheme(additionalSchemeInfo);
         verifyInvalidIdResponse(response);
+
+        // Delete Database entry if the Org. is already registered
+        deleteOrganisation(schemeInfo.getIdentifier().getId());
     }
 
-    //
+    // Org admin can add any additional identifier as part of his organisation with his own risk.
+    // CII is not checking whether the additional identifier admin choose is as part of his organisation or not.
+    // So this test expects a success response.
     @Test
     public void updateScheme_validIdentifierOfAnotherScheme() {
         SchemeInfo schemeInfo = OrgDataProvider.getInfo(DUN_AND_BRADSTREET_WITH_COH);
@@ -144,9 +165,12 @@ public class UpdateSchemeTests extends BaseClass {
 
         logger.info("Adding additional identifier1 to the existing organisation...");
         AdditionalSchemeInfo additionalSchemeInfo1 = additionalSchemesInfo.get(0);
-        response = RestRequests.updateScheme(getCCSOrgId(), additionalSchemeInfo1);
+        additionalSchemeInfo1.setCcs_org_id(getCCSOrgId());
+        response = RestRequests.updateScheme(additionalSchemeInfo1);
         verifyResponseCodeForUpdatedOrDeletedResource(response);
         verifyUpdatedScheme(schemeInfo.getIdentifier().getId(), additionalSchemeInfo1);
 
+        // Delete Database entry if the Org. is already registered
+        deleteOrganisation(schemeInfo.getIdentifier().getId());
     }
 }
