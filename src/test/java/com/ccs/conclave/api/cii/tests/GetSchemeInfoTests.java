@@ -7,6 +7,7 @@ import com.ccs.conclave.api.common.BaseClass;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
 
+import static com.ccs.conclave.api.cii.data.OrgDataProvider.*;
 import static com.ccs.conclave.api.cii.verification.VerifyResponses.*;
 import static com.ccs.conclave.api.cii.data.SchemeRegistry.*;
 import static com.ccs.conclave.api.cii.verification.VerifyResponses.verifyGetSchemeInfoResponse;
@@ -109,4 +110,17 @@ public class GetSchemeInfoTests extends BaseClass {
         Response response = RestRequests.getSchemeInfo(COMPANIES_HOUSE, "00000000");
         verifyInvalidIdResponse(response);
     }
+
+    @Test // Bug: CON-533 - FIXED
+    //Note : Duplicate check for already registered additional identifier
+    public void getDuplicateWithAdditionalIdentifier() {
+        SchemeInfo schemeInfo = OrgDataProvider.getInfo(DUN_AND_BRADSTREET_WITH_COH);
+
+        Response response = RestRequests.getSchemeInfo(COMPANIES_HOUSE, schemeInfo.getAdditionalIdentifiers().get(0).getId());
+        RestRequests.postSchemeInfo(response.asString());
+
+        response = RestRequests.getSchemeInfo(DUN_AND_BRADSTREET_WITH_COH, schemeInfo.getIdentifier().getId());
+        verifyResponseCodeForDuplicateResource(response);
+    }
+
 }
