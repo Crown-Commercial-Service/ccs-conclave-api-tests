@@ -41,7 +41,7 @@ public class UpdateSchemeTests extends BaseClass {
 
         logger.info("Adding additional identifier to the existing organisation...");
         AdditionalSchemeInfo additionalSchemeInfo = additionalSchemesInfo.get(0);
-        additionalSchemeInfo.setCcs_org_id(getCCSOrgId());
+        additionalSchemeInfo.setCcsOrgId(getCCSOrgId());
         response = RestRequests.updateScheme(additionalSchemeInfo);
         verifyResponseCodeForUpdatedOrDeletedResource(response);
         verifyUpdatedScheme(schemeInfo.getIdentifier().getId(), additionalSchemeInfo);
@@ -70,14 +70,14 @@ public class UpdateSchemeTests extends BaseClass {
 
         logger.info("Adding additional identifier1 to the existing organisation...");
         AdditionalSchemeInfo additionalSchemeInfo1 = additionalSchemesInfo.get(0);
-        additionalSchemeInfo1.setCcs_org_id(getCCSOrgId());
+        additionalSchemeInfo1.setCcsOrgId(getCCSOrgId());
         response = RestRequests.updateScheme(additionalSchemeInfo1);
         verifyResponseCodeForUpdatedOrDeletedResource(response);
         verifyUpdatedScheme(schemeInfo.getIdentifier().getId(), additionalSchemeInfo1);
 
         logger.info("Adding additional identifier2 to the existing organisation...");
         AdditionalSchemeInfo additionalSchemeInfo2 = additionalSchemesInfo.get(1);
-        additionalSchemeInfo2.setCcs_org_id(getCCSOrgId());
+        additionalSchemeInfo2.setCcsOrgId(getCCSOrgId());
         response = RestRequests.updateScheme(additionalSchemeInfo2);
         verifyResponseCodeForUpdatedOrDeletedResource(response);
         verifyUpdatedScheme(schemeInfo.getIdentifier().getId(), additionalSchemeInfo2);
@@ -106,7 +106,7 @@ public class UpdateSchemeTests extends BaseClass {
 
         logger.info("Adding additional identifier to the existing organisation...");
         AdditionalSchemeInfo additionalSchemeInfo = additionalSchemesInfo.get(0);
-        additionalSchemeInfo.setCcs_org_id(getCCSOrgId());
+        additionalSchemeInfo.setCcsOrgId(getCCSOrgId());
         response = RestRequests.updateScheme(additionalSchemeInfo);
         verifyInvalidIdResponse(response);
 
@@ -134,7 +134,7 @@ public class UpdateSchemeTests extends BaseClass {
 
         logger.info("Adding additional identifier to the existing organisation...");
         AdditionalSchemeInfo additionalSchemeInfo = additionalSchemesInfo.get(0);
-        additionalSchemeInfo.setCcs_org_id("7310710000000");
+        additionalSchemeInfo.setCcsOrgId("7310710000000");
         response = RestRequests.updateScheme(additionalSchemeInfo);
         verifyInvalidIdResponse(response);
 
@@ -165,7 +165,7 @@ public class UpdateSchemeTests extends BaseClass {
 
         logger.info("Adding additional identifier1 to the existing organisation...");
         AdditionalSchemeInfo additionalSchemeInfo1 = additionalSchemesInfo.get(0);
-        additionalSchemeInfo1.setCcs_org_id(getCCSOrgId());
+        additionalSchemeInfo1.setCcsOrgId(getCCSOrgId());
         response = RestRequests.updateScheme(additionalSchemeInfo1);
         verifyResponseCodeForUpdatedOrDeletedResource(response);
         verifyUpdatedScheme(schemeInfo.getIdentifier().getId(), additionalSchemeInfo1);

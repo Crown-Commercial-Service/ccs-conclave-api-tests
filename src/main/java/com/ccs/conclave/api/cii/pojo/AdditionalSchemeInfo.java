@@ -6,6 +6,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class AdditionalSchemeInfo {
-    private String ccs_org_id;
+    private String ccsOrgId;
     private Identifier identifier;
 }

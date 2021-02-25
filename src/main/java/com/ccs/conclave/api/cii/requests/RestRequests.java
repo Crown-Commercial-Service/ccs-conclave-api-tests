@@ -15,10 +15,8 @@ import static io.restassured.RestAssured.given;
 
 public class RestRequests {
     private final static Logger logger = Logger.getLogger(RestRequests.class);
-//    private static String baseURI = System.getProperty("base.url");
-//    private static String apiKey = System.getProperty("api.key");
-    private static String baseURI = "https://conclave-cii-testing-talkative-oryx-hh.london.cloudapps.digital";
-    private static String apiKey = "6B9EbGdKgNjQnTqVsYv2";
+    private static String baseURI = System.getProperty("base.url");
+    private static String apiKey = System.getProperty("api.key");
 
     public static String getBaseURI() {
         return baseURI;
@@ -52,13 +50,15 @@ public class RestRequests {
     }
 
     public static void deleteOrganisation(String id) {
+        logger.info(">>> RestRequests::deleteOrganisation() >>>");
         String ccsOrgId = RequestTestEndpoints.getRegisteredOrgId(id);
         if (!ccsOrgId.isEmpty()) {
             Response response = RestRequests.deleteAll(RestRequests.getBaseURI() + Endpoints.deleteOrganisation +
                     "ccs_org_id=" + ccsOrgId);
             Assert.assertEquals(response.getStatusCode(), OK.getCode(), "Something went wrong while deleting existing organisation!");
-            logger.info("Successfully deleted if Organisation already exists.");
+            logger.info("Successfully deleted registered organisation.");
         }
+        logger.info("Id " + id + "is not registered with CII!!");
     }
 
     public static Response get(String baseURI) {

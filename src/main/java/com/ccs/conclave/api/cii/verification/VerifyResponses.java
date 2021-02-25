@@ -169,7 +169,7 @@ public class VerifyResponses {
 
         for (AdditionalSchemeInfo actualAdditionalSchemeInfo : actualAdditionalSchemesInfo) {
             if (actualAdditionalSchemeInfo.getIdentifier().getId() == expectedAdditionalSchemeInfo.getIdentifier().getId()) {
-                Assert.assertEquals(actualAdditionalSchemeInfo.getCcs_org_id(), expectedAdditionalSchemeInfo.getCcs_org_id(), "Wrong ccsOrgId in additional identifier!!");
+                Assert.assertEquals(actualAdditionalSchemeInfo.getCcsOrgId(), expectedAdditionalSchemeInfo.getCcsOrgId(), "Wrong ccsOrgId in additional identifier!!");
                 Assert.assertEquals(actualAdditionalSchemeInfo.getIdentifier().getScheme(), expectedAdditionalSchemeInfo.getIdentifier().getScheme(), "Wrong scheme in additional identifier!!");
             }
         }
