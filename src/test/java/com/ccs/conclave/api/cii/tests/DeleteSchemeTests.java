@@ -35,12 +35,13 @@ public class DeleteSchemeTests extends BaseClass {
 
         logger.info("Deleting additional identifier to the existing organisation...");
         AdditionalSchemeInfo additionalSchemeInfo = additionalSchemesInfo.get(0);
-        response = RestRequests.deleteScheme(getCCSOrgId(), additionalSchemeInfo);
+        additionalSchemeInfo.setCcsOrgId(getCCSOrgId());
+        response = RestRequests.deleteScheme(additionalSchemeInfo);
         verifyResponseCodeForUpdatedOrDeletedResource(response);
         verifyDeletedScheme(schemeInfo.getIdentifier().getId(), additionalSchemeInfo);
 
         logger.info("Deleting identifier deleted already");
-        response = RestRequests.deleteScheme(getCCSOrgId(), additionalSchemeInfo);
+        response = RestRequests.deleteScheme(additionalSchemeInfo);
         verifyInvalidIdResponse(response);
     }
 
@@ -62,13 +63,15 @@ public class DeleteSchemeTests extends BaseClass {
 
         logger.info("Deleting additional identifier1 to the existing organisation...");
         AdditionalSchemeInfo additionalSchemeInfo1 = additionalSchemesInfo.get(0);
-        response = RestRequests.deleteScheme(getCCSOrgId(), additionalSchemeInfo1);
+        additionalSchemeInfo1.setCcsOrgId(getCCSOrgId());
+        response = RestRequests.deleteScheme(additionalSchemeInfo1);
         verifyResponseCodeForUpdatedOrDeletedResource(response);
         verifyDeletedScheme(schemeInfo.getIdentifier().getId(), additionalSchemeInfo1);
 
         logger.info("Deleting additional identifier2 to the existing organisation...");
         AdditionalSchemeInfo additionalSchemeInfo2 = additionalSchemesInfo.get(1);
-        response = RestRequests.deleteScheme(getCCSOrgId(), additionalSchemeInfo2);
+        additionalSchemeInfo2.setCcsOrgId(getCCSOrgId());
+        response = RestRequests.deleteScheme(additionalSchemeInfo2);
         verifyResponseCodeForUpdatedOrDeletedResource(response);
         verifyDeletedScheme(schemeInfo.getIdentifier().getId(), additionalSchemeInfo2);
     }
@@ -91,38 +94,40 @@ public class DeleteSchemeTests extends BaseClass {
 
         logger.info("Deleting additional identifier1 to the existing organisation...");
         AdditionalSchemeInfo additionalSchemeInfo1 = additionalSchemesInfo.get(0);
-        response = RestRequests.deleteScheme(getCCSOrgId(), additionalSchemeInfo1);
+        additionalSchemeInfo1.setCcsOrgId(getCCSOrgId());
+        response = RestRequests.deleteScheme(additionalSchemeInfo1);
         verifyResponseCodeForUpdatedOrDeletedResource(response);
         verifyDeletedScheme(schemeInfo.getIdentifier().getId(), additionalSchemeInfo1);
 
         logger.info("Updating additional identifier1 to the existing organisation...");
-        response = RestRequests.updateScheme(getCCSOrgId(), additionalSchemeInfo1);
+        response = RestRequests.updateScheme(additionalSchemeInfo1);
         verifyResponseCodeForUpdatedOrDeletedResource(response);
         verifyUpdatedScheme(schemeInfo.getIdentifier().getId(), additionalSchemeInfo1);
 
         logger.info("Deleting additional identifier1 to the existing organisation...");
-        response = RestRequests.deleteScheme(getCCSOrgId(), additionalSchemeInfo1);
+        response = RestRequests.deleteScheme(additionalSchemeInfo1);
         verifyResponseCodeForUpdatedOrDeletedResource(response);
         verifyDeletedScheme(schemeInfo.getIdentifier().getId(), additionalSchemeInfo1);
 
         logger.info("Deleting additional identifier2 to the existing organisation...");
         AdditionalSchemeInfo additionalSchemeInfo2 = additionalSchemesInfo.get(1);
-        response = RestRequests.deleteScheme(getCCSOrgId(), additionalSchemeInfo2);
+        additionalSchemeInfo2.setCcsOrgId(getCCSOrgId());
+        response = RestRequests.deleteScheme(additionalSchemeInfo2);
         verifyResponseCodeForUpdatedOrDeletedResource(response);
         verifyDeletedScheme(schemeInfo.getIdentifier().getId(), additionalSchemeInfo2);
 
         logger.info("Updating additional identifier2 to the existing organisation...");
-        response = RestRequests.updateScheme(getCCSOrgId(), additionalSchemeInfo2);
+        response = RestRequests.updateScheme(additionalSchemeInfo2);
         verifyResponseCodeForUpdatedOrDeletedResource(response);
         verifyUpdatedScheme(schemeInfo.getIdentifier().getId(), additionalSchemeInfo2);
 
         logger.info("Deleting additional identifier2 to the existing organisation...");
-        response = RestRequests.deleteScheme(getCCSOrgId(), additionalSchemeInfo2);
+        response = RestRequests.deleteScheme(additionalSchemeInfo2);
         verifyResponseCodeForUpdatedOrDeletedResource(response);
         verifyDeletedScheme(schemeInfo.getIdentifier().getId(), additionalSchemeInfo2);
     }
 
-    // Todo @Test
+    @Test
     public void deleteScheme_InvalidScheme() {
     }
 

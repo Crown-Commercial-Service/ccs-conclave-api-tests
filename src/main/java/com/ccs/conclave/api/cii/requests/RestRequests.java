@@ -39,26 +39,26 @@ public class RestRequests {
         return post(endpoint, requestPayload);
     }
 
-    public static Response updateScheme(String ccsOrgId, AdditionalSchemeInfo additionalSchemeInfo) {
+    public static Response updateScheme(AdditionalSchemeInfo additionalSchemeInfo) {
         String endpoint = baseURI + Endpoints.updateScheme;
-        additionalSchemeInfo.setCcs_org_id(ccsOrgId);
         return put(endpoint, additionalSchemeInfo);
     }
 
-    public static Response deleteScheme(String ccsOrgId, AdditionalSchemeInfo additionalSchemeInfo) {
+    public static Response deleteScheme(AdditionalSchemeInfo additionalSchemeInfo) {
         String endpoint = baseURI + Endpoints.deleteScheme;
-        additionalSchemeInfo.setCcs_org_id(ccsOrgId);
         return delete(endpoint, additionalSchemeInfo);
     }
 
     public static void deleteOrganisation(String id) {
+        logger.info(">>> RestRequests::deleteOrganisation() >>>");
         String ccsOrgId = RequestTestEndpoints.getRegisteredOrgId(id);
         if (!ccsOrgId.isEmpty()) {
             Response response = RestRequests.deleteAll(RestRequests.getBaseURI() + Endpoints.deleteOrganisation +
                     "ccs_org_id=" + ccsOrgId);
             Assert.assertEquals(response.getStatusCode(), OK.getCode(), "Something went wrong while deleting existing organisation!");
-            logger.info("Successfully deleted if Organisation already exists.");
+            logger.info("Successfully deleted registered organisation.");
         }
+        logger.info("Id " + id + "is not registered with CII!!");
     }
 
     public static Response get(String baseURI) {

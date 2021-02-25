@@ -49,7 +49,7 @@ public class RequestTestEndpoints {
                 if(dbData.getPrimaryScheme().equals("false")) {
                     AdditionalSchemeInfo additionalSchemeInfo = new AdditionalSchemeInfo();
                     Identifier identifier = new Identifier();
-                    additionalSchemeInfo.setCcs_org_id(dbData.getCcsOrgId());
+                    additionalSchemeInfo.setCcsOrgId(dbData.getCcsOrgId());
                     identifier.setId(dbData.getSchemeOrgRegNumber());
                     identifier.setScheme(dbData.getScheme());
                     additionalSchemeInfo.setIdentifier(identifier);
