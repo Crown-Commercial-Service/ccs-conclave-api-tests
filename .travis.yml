@@ -22,10 +22,9 @@ deploy:
   verbose: true
   target-branch: gh-pages
   on:
-    branch: feature/deleteTests
+    branch: main
 notifications:
   email:
     recipients:
       - amrutha.sireesh@crowncommercial.gov.uk
-    on_success: never
-    on_failure: always
+      - himani.nare@crowncommercial.gov.uk

@@ -462,9 +462,7 @@ public class OrgDataProvider {
     // This method returns only AdditionalSchemesInfo
     public static List<AdditionalSchemeInfo> getAdditionalIdentifierInfo(SchemeRegistry schemeRegistry) {
         List<AdditionalSchemeInfo> additionalSchemesInfo = new ArrayList<>();
-        SchemeInfo schemeInfo = new SchemeInfo();
-
-        schemeInfo = getInfo(schemeRegistry);
+        SchemeInfo schemeInfo = getInfo(schemeRegistry);
         for (Identifier addIdentifier : schemeInfo.getAdditionalIdentifiers()) {
             AdditionalSchemeInfo additionalSchemeInfo = new AdditionalSchemeInfo();
             additionalSchemeInfo.setIdentifier(addIdentifier);
