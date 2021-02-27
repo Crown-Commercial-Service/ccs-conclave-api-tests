@@ -18,6 +18,8 @@ public class RestRequests {
     private static String baseURI = System.getProperty("base.url");
     private static String apiKey = System.getProperty("api.key");
 
+
+
     public static String getBaseURI() {
         return baseURI;
     }
@@ -42,17 +44,17 @@ public class RestRequests {
     }
 
     public static Response postSchemeInfo(String requestPayload) {
-        String endpoint = baseURI + Endpoints.postSchemeInfo;
+        String endpoint = baseURI + Endpoints.postSchemeInfoURI;
         return post(endpoint, requestPayload);
     }
 
     public static Response updateScheme(AdditionalSchemeInfo additionalSchemeInfo) {
-        String endpoint = baseURI + Endpoints.updateScheme;
+        String endpoint = baseURI + Endpoints.updateSchemeURI;
         return put(endpoint, additionalSchemeInfo);
     }
 
     public static Response deleteScheme(AdditionalSchemeInfo additionalSchemeInfo) {
-        String endpoint = baseURI + Endpoints.deleteScheme;
+        String endpoint = baseURI + Endpoints.deleteSchemeURI;
         return delete(endpoint, additionalSchemeInfo);
     }
 
@@ -60,7 +62,7 @@ public class RestRequests {
         logger.info(">>> RestRequests::deleteOrganisation() >>>");
         String ccsOrgId = RequestTestEndpoints.getRegisteredOrgId(id);
         if (!ccsOrgId.isEmpty()) {
-            Response response = RestRequests.deleteAll(RestRequests.getBaseURI() + Endpoints.deleteOrganisation +
+            Response response = RestRequests.deleteAll(RestRequests.getBaseURI() + Endpoints.deleteOrganisationURI +
                     "ccs_org_id=" + ccsOrgId);
             Assert.assertEquals(response.getStatusCode(), OK.getCode(), "Something went wrong while deleting existing organisation!");
             logger.info("Successfully deleted registered organisation.");

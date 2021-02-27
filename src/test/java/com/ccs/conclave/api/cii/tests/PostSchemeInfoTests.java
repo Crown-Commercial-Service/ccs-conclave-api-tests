@@ -9,6 +9,7 @@ import org.apache.log4j.Logger;
 import org.testng.annotations.Test;
 
 import static com.ccs.conclave.api.cii.data.OrgDataProvider.*;
+import static com.ccs.conclave.api.cii.data.RequestPayloads.*;
 import static com.ccs.conclave.api.cii.data.SchemeRegistry.*;
 import static com.ccs.conclave.api.cii.requests.RestRequests.deleteOrganisation;
 import static com.ccs.conclave.api.cii.verification.VerifyEndpointResponses.*;
