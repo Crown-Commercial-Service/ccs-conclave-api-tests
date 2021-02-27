@@ -17,10 +17,10 @@ public class ManageIdentifiersTests extends BaseClass {
     @Test
     public void getAdminSchemeInfoForAdditionalIdUnawareOfPrimaryId() {
         // Register Charity Commission Identifier without COH
-        SchemeInfo schemeInfo = getInfo(CHARITIES_COMMISSION_WITH_COH);
-        SchemeInfo expectedSchemeInfo = getInfoWithoutAddIdentifiers(CHARITIES_COMMISSION_WITH_COH);
+        SchemeInfo schemeInfo = getInfo(DUN_AND_BRADSTREET_WITH_COH);
+        SchemeInfo expectedSchemeInfo = getInfoWithoutAddIdentifiers(DUN_AND_BRADSTREET_WITH_COH);
 
-        String getSchemeInfoRes = getSchemeInfoWithoutAddIdentifierSection(schemeInfo, CHARITIES_COMMISSION_WITH_COH);
+        String getSchemeInfoRes = getSchemeInfoWithoutAddIdentifierSection(schemeInfo, DUN_AND_BRADSTREET_WITH_COH);
         Response postSchemeRes = RestRequests.postSchemeInfo(getSchemeInfoRes);
         verifyPostSchemeInfoResponse(expectedSchemeInfo, postSchemeRes);
         logger.info("Successfully registered organisation...");
@@ -50,10 +50,10 @@ public class ManageIdentifiersTests extends BaseClass {
 
         // Search for additional identifier knows about Primary Id
         String additionalIdentifierId = schemeInfo.getAdditionalIdentifiers().get(0).getId();
-        Response response = RestRequests.adminGetSchemeInfo(CHARITIES_COMMISSION_IN_DUN_AND_BRADSTREET_AS_ADDITIONAL_ID, additionalIdentifierId, getCCSOrgId());
+        Response response = RestRequests.adminGetSchemeInfo(DUN_AND_BRADSTREET_WITH_COH_AND_CHC, additionalIdentifierId, getCCSOrgId());
 
         // Verify search response with expected response
-        SchemeInfo expectedSchemeInfo = getInfo(COMPANIES_HOUSE_IN_CHARITIES_COMMISSION_AS_ADDITIONAL_ID);
+        SchemeInfo expectedSchemeInfo = getInfo(DUN_AND_BRADSTREET_WITH_COH_AND_CHC);
         verifyGetSchemeInfoResponse(expectedSchemeInfo, response);
     }
 

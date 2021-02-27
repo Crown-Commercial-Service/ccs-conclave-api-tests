@@ -15,10 +15,8 @@ import static io.restassured.RestAssured.given;
 
 public class RestRequests {
     private final static Logger logger = Logger.getLogger(RestRequests.class);
-//    private static String baseURI = System.getProperty("base.url");
-//    private static String apiKey = System.getProperty("api.key");
-private static String baseURI = "https://conclave-cii-testing-talkative-oryx-hh.london.cloudapps.digital";
-    private static String apiKey = "08Tma9nspWXU40tgHLgA";
+    private static String baseURI = System.getProperty("base.url");
+    private static String apiKey = System.getProperty("api.key");
 
     public static String getBaseURI() {
         return baseURI;

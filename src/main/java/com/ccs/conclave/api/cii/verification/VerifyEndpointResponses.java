@@ -215,5 +215,9 @@ public class VerifyEndpointResponses {
     public static String getCCSOrgId() {
         return ccsOrgId;
     }
+
+
+    public static void verifyManageIdentifiersResponse(Response expectedRes, Response response) {
+    }
 }
 
