@@ -200,7 +200,7 @@ public class VerifyEndpointResponses {
         Assert.assertEquals(response.getStatusCode(), DUPLICATE_RESOURCE.getCode(), "Unexpected Status code returned for Duplicate Resource!!");
     }
 
-    public static void verifyResponseCodeForUpdatedOrDeletedResource(Response response) {
+    public static void verifyResponseCodeForSuccess(Response response) {
         Assert.assertEquals(response.getStatusCode(), OK.getCode(), "Unexpected Status code returned for deleted Resource!!");
     }
 
