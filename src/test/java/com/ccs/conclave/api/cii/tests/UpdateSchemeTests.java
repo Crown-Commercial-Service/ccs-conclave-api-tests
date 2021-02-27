@@ -15,8 +15,8 @@ import java.util.List;
 import static com.ccs.conclave.api.cii.data.OrgDataProvider.*;
 import static com.ccs.conclave.api.cii.data.SchemeRegistry.*;
 import static com.ccs.conclave.api.cii.requests.RestRequests.deleteOrganisation;
-import static com.ccs.conclave.api.cii.verification.VerifyResponses.*;
-import static com.ccs.conclave.api.cii.verification.VerifyResponses.getCCSOrgId;
+import static com.ccs.conclave.api.cii.verification.VerifyEndpointResponses.*;
+import static com.ccs.conclave.api.cii.verification.VerifyEndpointResponses.getCCSOrgId;
 
 public class UpdateSchemeTests extends BaseClass {
     private final static Logger logger = Logger.getLogger(UpdateSchemeTests.class);

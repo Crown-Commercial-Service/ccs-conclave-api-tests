@@ -12,7 +12,7 @@ import org.testng.annotations.Test;
 import java.util.List;
 import static com.ccs.conclave.api.cii.data.OrgDataProvider.getAdditionalIdentifierInfo;
 import static com.ccs.conclave.api.cii.data.SchemeRegistry.*;
-import static com.ccs.conclave.api.cii.verification.VerifyResponses.*;
+import static com.ccs.conclave.api.cii.verification.VerifyEndpointResponses.*;
 
 public class DeleteSchemeTests extends BaseClass {
     private final static Logger logger = Logger.getLogger(DeleteSchemeTests.class);

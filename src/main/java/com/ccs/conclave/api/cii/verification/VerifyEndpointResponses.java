@@ -17,8 +17,8 @@ import java.util.List;
 import static com.ccs.conclave.api.cii.data.SchemeRegistry.*;
 import static com.ccs.conclave.api.common.StatusCodes.*;
 
-public class VerifyResponses {
-    private final static Logger logger = Logger.getLogger(VerifyResponses.class);
+public class VerifyEndpointResponses {
+    private final static Logger logger = Logger.getLogger(VerifyEndpointResponses.class);
     private static String ccsOrgId;
 
     public static void verifyGetSchemeInfoResponse(SchemeInfo expectedSchemeInfo, Response response) {
