@@ -1,15 +1,11 @@
 package com.ccs.conclave.api.cii.data;
 
 import com.ccs.conclave.api.cii.pojo.*;
-import com.ccs.conclave.api.cii.requests.RestRequests;
-import io.restassured.response.Response;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.ccs.conclave.api.cii.data.SchemeRegistry.*;
 import static com.ccs.conclave.api.cii.requests.RestRequests.deleteOrganisation;
-import static com.ccs.conclave.api.cii.verification.VerifyEndpointResponses.verifyGetSchemeInfoResponse;
 
 public class OrgDataProvider {
 
