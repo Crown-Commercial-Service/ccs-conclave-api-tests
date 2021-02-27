@@ -207,7 +207,7 @@ public class OrgDataProvider {
 
                 additionalIdentifier1.setScheme(SchemeRegistry.getSchemeCode(SCOTLAND_CHARITY));
                 additionalIdentifier1.setId("SC037536");
-                additionalIdentifier1.setUri("");
+                additionalIdentifier1.setUri("https://www.oscr.org.uk/about-charities/search-the-register/charity-details?number=SC037536");
                 additionalIdentifier1.setLegalName("Mountains Animal Sanctuary");
                 additionalIdentifiers.add(additionalIdentifier1);
                 schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);

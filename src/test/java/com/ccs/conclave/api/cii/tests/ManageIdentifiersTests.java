@@ -5,6 +5,7 @@ import com.ccs.conclave.api.cii.requests.RestRequests;
 import com.ccs.conclave.api.common.BaseClass;
 import io.restassured.response.Response;
 import org.apache.log4j.Logger;
+import org.json.JSONException;
 import org.testng.annotations.Test;
 import static com.ccs.conclave.api.cii.data.OrgDataProvider.*;
 import static com.ccs.conclave.api.cii.data.RequestPayloads.*;
@@ -14,13 +15,14 @@ import static com.ccs.conclave.api.cii.verification.VerifyEndpointResponses.*;
 public class ManageIdentifiersTests extends BaseClass {
     private final static Logger logger = Logger.getLogger(ManageIdentifiersTests.class);
 
-    // This test case covers the scenario where the additional identifier doesn't know about primary identifier
+    // NOTE:- the response of manageIdentifiers endpoint is verified using GetSchemeInfo(Get call brings registry info)
+
+    // This test covers the scenario where the additional identifier doesn't know about primary identifier
     @Test
-    public void getAdminSchemeInfoForAdditionalIdUnawareOfPrimaryId() {
-        // Register Charity Commission Identifier without COH
+    public void manageIdsGetSchemeInfoForAdditionalIdUnawareOfPrimaryId() throws JSONException {
+        // Register Primary Identifier without additional
         SchemeInfo schemeInfo = getInfo(DUN_AND_BRADSTREET_WITH_COH);
         SchemeInfo expectedSchemeInfo = getInfoWithoutAddIdentifiers(DUN_AND_BRADSTREET_WITH_COH);
-
         String getSchemeInfoRes = getSchemeInfoWithoutAddIdentifierSection(schemeInfo, DUN_AND_BRADSTREET_WITH_COH);
         Response postSchemeRes = RestRequests.postSchemeInfo(getSchemeInfoRes);
         verifyPostSchemeInfoResponse(expectedSchemeInfo, postSchemeRes);
@@ -28,34 +30,37 @@ public class ManageIdentifiersTests extends BaseClass {
 
         // Search for additional identifier
         String additionalIdentifierId = schemeInfo.getAdditionalIdentifiers().get(0).getId();
-        Response response = RestRequests.adminGetSchemeInfo(COMPANIES_HOUSE, additionalIdentifierId, getCCSOrgId());
+        Response response = RestRequests.manageIdentifiers(COMPANIES_HOUSE, additionalIdentifierId, getCCSOrgId());
 
         // Verify search response with expected response
-        //SchemeInfo expectedSchemeInfo = getInfo(COMPANIES_HOUSE_IN_CHARITIES_COMMISSION_AS_ADDITIONAL_ID);
         Response expectedRes = RestRequests.getSchemeInfo(COMPANIES_HOUSE, schemeInfo.getAdditionalIdentifiers().get(0).getId());
         verifyResponseCodeForSuccess(expectedRes);
 
         verifyManageIdentifiersResponse(expectedRes, response);
     }
 
-    // This test case covers the scenario where the additional identifier knows about primary identifier
-    // but admin get call is not expected to bring Primary identifier
-    // @Test
-    public void getAdminSchemeInfoForAdditionalIdKnowsPrimaryId() {
-        // Register Charity Commission Identifier without COH
-        SchemeInfo schemeInfo = getInfo(DUN_AND_BRADSTREET_WITH_COH_AND_CHC);
-        String getSchemeInfoRes = getSchemeInfoWithoutAddIdentifierSection(schemeInfo, DUN_AND_BRADSTREET_WITH_COH_AND_CHC);
+    // This test covers the scenario where the additional identifier knows about primary identifier
+    // manageIdentifiers get call is expected to bring Primary identifier if it is part of same organisation
+     @Test
+    public void manageIdsGetSchemeInfoForAdditionalIdKnowsPrimaryId() throws JSONException {
+        // Register Primary Identifier without additional
+        SchemeInfo schemeInfo = getInfo(CHARITIES_COMMISSION_WITH_SC);
+        SchemeInfo expectedSchemeInfo = getInfoWithoutAddIdentifiers(CHARITIES_COMMISSION_WITH_SC);
+        String getSchemeInfoRes = getSchemeInfoWithoutAddIdentifierSection(schemeInfo, CHARITIES_COMMISSION_WITH_SC);
+
+         // Verify search response with expected response
+         Response expectedRes = RestRequests.getSchemeInfo(SCOTLAND_CHARITY, schemeInfo.getAdditionalIdentifiers().get(0).getId());
+         verifyResponseCodeForSuccess(expectedRes);
+
         Response postSchemeRes = RestRequests.postSchemeInfo(getSchemeInfoRes);
-        verifyPostSchemeInfoResponse(schemeInfo, postSchemeRes);
+        verifyPostSchemeInfoResponse(expectedSchemeInfo, postSchemeRes);
         logger.info("Successfully registered organisation...");
 
-        // Search for additional identifier knows about Primary Id
+        // Search for additional identifier
         String additionalIdentifierId = schemeInfo.getAdditionalIdentifiers().get(0).getId();
-        Response response = RestRequests.adminGetSchemeInfo(DUN_AND_BRADSTREET_WITH_COH_AND_CHC, additionalIdentifierId, getCCSOrgId());
+        Response response = RestRequests.manageIdentifiers(SCOTLAND_CHARITY, additionalIdentifierId, getCCSOrgId());
 
-        // Verify search response with expected response
-        SchemeInfo expectedSchemeInfo = getInfo(DUN_AND_BRADSTREET_WITH_COH_AND_CHC);
-        verifyGetSchemeInfoResponse(expectedSchemeInfo, response);
+        verifyManageIdentifiersResponse(expectedRes, response);
     }
 
     //@Test

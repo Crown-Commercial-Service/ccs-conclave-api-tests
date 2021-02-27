@@ -8,6 +8,9 @@ import com.ccs.conclave.api.cii.response.PostSchemeInfoResponse;
 import com.ccs.conclave.api.cii.response.GetSchemesResponse;
 import io.restassured.response.Response;
 import org.apache.log4j.Logger;
+import org.json.JSONException;
+import org.skyscreamer.jsonassert.JSONAssert;
+import org.skyscreamer.jsonassert.JSONCompareMode;
 import org.testng.Assert;
 
 import java.io.IOException;
@@ -216,8 +219,11 @@ public class VerifyEndpointResponses {
         return ccsOrgId;
     }
 
-
-    public static void verifyManageIdentifiersResponse(Response expectedRes, Response response) {
+    public static void verifyManageIdentifiersResponse(Response expectedRes, Response actualRes) throws JSONException {
+        // Todo: Address, ContactPoint and name will be verified as part of CON-683
+        String actualResIdentifiers = actualRes.asString().split("address")[0].split("identifier")[1];
+        String expectedResIdentifiers = expectedRes.asString().split("address")[0].split("identifier")[1];
+        JSONAssert.assertEquals(expectedResIdentifiers, actualResIdentifiers, JSONCompareMode.STRICT);
     }
 }
 

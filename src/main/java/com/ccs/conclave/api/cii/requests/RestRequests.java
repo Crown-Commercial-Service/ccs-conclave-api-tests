@@ -18,8 +18,6 @@ public class RestRequests {
     private static String baseURI = System.getProperty("base.url");
     private static String apiKey = System.getProperty("api.key");
 
-
-
     public static String getBaseURI() {
         return baseURI;
     }
@@ -30,7 +28,7 @@ public class RestRequests {
         return get(endpoint);
     }
 
-    public static Response adminGetSchemeInfo(SchemeRegistry scheme, String identifier, String ccsOrgId) {
+    public static Response manageIdentifiers(SchemeRegistry scheme, String identifier, String ccsOrgId) {
         String endpoint = baseURI + Endpoints.adminGetSchemeInfoURI + "scheme=" + getSchemeCode(scheme) + "&id=" + identifier
                 + "&ccs_org_id=" + ccsOrgId;
         logger.info("admin GetSchemeInfo Endpoint: " + endpoint);
