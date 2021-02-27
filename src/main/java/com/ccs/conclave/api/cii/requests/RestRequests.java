@@ -30,6 +30,13 @@ private static String baseURI = "https://conclave-cii-testing-talkative-oryx-hh.
         return get(endpoint);
     }
 
+    public static Response adminGetSchemeInfo(SchemeRegistry scheme, String identifier, String ccsOrgId) {
+        String endpoint = baseURI + Endpoints.adminGetSchemeInfoURI + "scheme=" + getSchemeCode(scheme) + "&id=" + identifier
+                + "&ccs_org_id=" + ccsOrgId;
+        logger.info("admin GetSchemeInfo Endpoint: " + endpoint);
+        return get(endpoint);
+    }
+
     public static Response getSchemes() {
         String endpoint = baseURI + Endpoints.getSchemesURI;
         logger.info("getSchemes Endpoint: " + endpoint);
