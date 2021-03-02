@@ -13,10 +13,11 @@ import org.testng.annotations.Test;
 import java.util.List;
 
 import static com.ccs.conclave.api.cii.data.OrgDataProvider.*;
+import static com.ccs.conclave.api.cii.data.RequestPayloads.*;
 import static com.ccs.conclave.api.cii.data.SchemeRegistry.*;
 import static com.ccs.conclave.api.cii.requests.RestRequests.deleteOrganisation;
-import static com.ccs.conclave.api.cii.verification.VerifyResponses.*;
-import static com.ccs.conclave.api.cii.verification.VerifyResponses.getCCSOrgId;
+import static com.ccs.conclave.api.cii.verification.VerifyEndpointResponses.*;
+import static com.ccs.conclave.api.cii.verification.VerifyEndpointResponses.getCCSOrgId;
 
 public class UpdateSchemeTests extends BaseClass {
     private final static Logger logger = Logger.getLogger(UpdateSchemeTests.class);
@@ -43,7 +44,7 @@ public class UpdateSchemeTests extends BaseClass {
         AdditionalSchemeInfo additionalSchemeInfo = additionalSchemesInfo.get(0);
         additionalSchemeInfo.setCcsOrgId(getCCSOrgId());
         response = RestRequests.updateScheme(additionalSchemeInfo);
-        verifyResponseCodeForUpdatedOrDeletedResource(response);
+        verifyResponseCodeForSuccess(response);
         verifyUpdatedScheme(schemeInfo.getIdentifier().getId(), additionalSchemeInfo);
 
         // Delete Database entry if the Org. is already registered
@@ -72,14 +73,14 @@ public class UpdateSchemeTests extends BaseClass {
         AdditionalSchemeInfo additionalSchemeInfo1 = additionalSchemesInfo.get(0);
         additionalSchemeInfo1.setCcsOrgId(getCCSOrgId());
         response = RestRequests.updateScheme(additionalSchemeInfo1);
-        verifyResponseCodeForUpdatedOrDeletedResource(response);
+        verifyResponseCodeForSuccess(response);
         verifyUpdatedScheme(schemeInfo.getIdentifier().getId(), additionalSchemeInfo1);
 
         logger.info("Adding additional identifier2 to the existing organisation...");
         AdditionalSchemeInfo additionalSchemeInfo2 = additionalSchemesInfo.get(1);
         additionalSchemeInfo2.setCcsOrgId(getCCSOrgId());
         response = RestRequests.updateScheme(additionalSchemeInfo2);
-        verifyResponseCodeForUpdatedOrDeletedResource(response);
+        verifyResponseCodeForSuccess(response);
         verifyUpdatedScheme(schemeInfo.getIdentifier().getId(), additionalSchemeInfo2);
 
         // Delete Database entry if the Org. is already registered
@@ -167,7 +168,7 @@ public class UpdateSchemeTests extends BaseClass {
         AdditionalSchemeInfo additionalSchemeInfo1 = additionalSchemesInfo.get(0);
         additionalSchemeInfo1.setCcsOrgId(getCCSOrgId());
         response = RestRequests.updateScheme(additionalSchemeInfo1);
-        verifyResponseCodeForUpdatedOrDeletedResource(response);
+        verifyResponseCodeForSuccess(response);
         verifyUpdatedScheme(schemeInfo.getIdentifier().getId(), additionalSchemeInfo1);
 
         // Delete Database entry if the Org. is already registered

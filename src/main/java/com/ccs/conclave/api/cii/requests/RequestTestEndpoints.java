@@ -6,7 +6,6 @@ import com.ccs.conclave.api.cii.pojo.Identifier;
 import com.ccs.conclave.api.cii.response.GetCIIDBDataTestEndpointResponse;
 import io.restassured.response.Response;
 import org.apache.log4j.Logger;
-import org.testng.Assert;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,7 +17,7 @@ import static com.ccs.conclave.api.common.StatusCodes.*;
 // which are depending on these endpoints cannot be executed in Production.
 public class RequestTestEndpoints {
     private final static Logger logger = Logger.getLogger(RequestTestEndpoints.class);
-    private static String getCCSOrgId = "/api/v1/testing/search/identities/schemes/organisation?id=";
+    private static final String getRegisteredOrgIdsURI = "/api/v1/testing/search/identities/schemes/organisation?id=";
 
     public static String getRegisteredOrgId(String id) {
         String ccsOrgId = "";
@@ -30,7 +29,7 @@ public class RequestTestEndpoints {
     }
 
     public static GetCIIDBDataTestEndpointResponse getRegisteredOrganisations(String id) {
-        String endpoint = RestRequests.getBaseURI() + getCCSOrgId + id;
+        String endpoint = RestRequests.getBaseURI() + getRegisteredOrgIdsURI + id;
         Response response = RestRequests.get(endpoint);
         GetCIIDBDataTestEndpointResponse dbInfo = new GetCIIDBDataTestEndpointResponse(Arrays.asList());
         if (response.getStatusCode() == OK.getCode()) {

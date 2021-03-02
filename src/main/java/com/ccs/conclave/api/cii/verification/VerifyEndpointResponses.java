@@ -8,6 +8,9 @@ import com.ccs.conclave.api.cii.response.PostSchemeInfoResponse;
 import com.ccs.conclave.api.cii.response.GetSchemesResponse;
 import io.restassured.response.Response;
 import org.apache.log4j.Logger;
+import org.json.JSONException;
+import org.skyscreamer.jsonassert.JSONAssert;
+import org.skyscreamer.jsonassert.JSONCompareMode;
 import org.testng.Assert;
 
 import java.io.IOException;
@@ -17,8 +20,8 @@ import java.util.List;
 import static com.ccs.conclave.api.cii.data.SchemeRegistry.*;
 import static com.ccs.conclave.api.common.StatusCodes.*;
 
-public class VerifyResponses {
-    private final static Logger logger = Logger.getLogger(VerifyResponses.class);
+public class VerifyEndpointResponses {
+    private final static Logger logger = Logger.getLogger(VerifyEndpointResponses.class);
     private static String ccsOrgId;
 
     public static void verifyGetSchemeInfoResponse(SchemeInfo expectedSchemeInfo, Response response) {
@@ -200,7 +203,7 @@ public class VerifyResponses {
         Assert.assertEquals(response.getStatusCode(), DUPLICATE_RESOURCE.getCode(), "Unexpected Status code returned for Duplicate Resource!!");
     }
 
-    public static void verifyResponseCodeForUpdatedOrDeletedResource(Response response) {
+    public static void verifyResponseCodeForSuccess(Response response) {
         Assert.assertEquals(response.getStatusCode(), OK.getCode(), "Unexpected Status code returned for deleted Resource!!");
     }
 
@@ -214,6 +217,13 @@ public class VerifyResponses {
 
     public static String getCCSOrgId() {
         return ccsOrgId;
+    }
+
+    public static void verifyManageIdentifiersResponse(Response expectedRes, Response actualRes) throws JSONException {
+        // Todo: Address, ContactPoint and name will be verified as part of CON-683
+        String actualResIdentifiers = actualRes.asString().split("address")[0].split("identifier")[1];
+        String expectedResIdentifiers = expectedRes.asString().split("address")[0].split("identifier")[1];
+        JSONAssert.assertEquals(expectedResIdentifiers, actualResIdentifiers, JSONCompareMode.STRICT);
     }
 }
 

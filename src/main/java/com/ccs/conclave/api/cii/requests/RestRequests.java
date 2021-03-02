@@ -15,8 +15,10 @@ import static io.restassured.RestAssured.given;
 
 public class RestRequests {
     private final static Logger logger = Logger.getLogger(RestRequests.class);
-    private static String baseURI = System.getProperty("base.url");
-    private static String apiKey = System.getProperty("api.key");
+//    private static String baseURI = System.getProperty("base.url");
+//    private static String apiKey = System.getProperty("api.key");
+    private static String baseURI = "https://test.conclavecii.api.crowncommercial.gov.uk";
+    private static String apiKey = "6B9EbGdKgNjQnTqVsYv2";
 
     public static String getBaseURI() {
         return baseURI;
@@ -28,6 +30,13 @@ public class RestRequests {
         return get(endpoint);
     }
 
+    public static Response manageIdentifiers(SchemeRegistry scheme, String identifier, String ccsOrgId) {
+        String endpoint = baseURI + Endpoints.adminGetSchemeInfoURI + "scheme=" + getSchemeCode(scheme) + "&id=" + identifier
+                + "&ccs_org_id=" + ccsOrgId;
+        logger.info("admin GetSchemeInfo Endpoint: " + endpoint);
+        return get(endpoint);
+    }
+
     public static Response getSchemes() {
         String endpoint = baseURI + Endpoints.getSchemesURI;
         logger.info("getSchemes Endpoint: " + endpoint);
@@ -35,17 +44,17 @@ public class RestRequests {
     }
 
     public static Response postSchemeInfo(String requestPayload) {
-        String endpoint = baseURI + Endpoints.postSchemeInfo;
+        String endpoint = baseURI + Endpoints.postSchemeInfoURI;
         return post(endpoint, requestPayload);
     }
 
     public static Response updateScheme(AdditionalSchemeInfo additionalSchemeInfo) {
-        String endpoint = baseURI + Endpoints.updateScheme;
+        String endpoint = baseURI + Endpoints.updateSchemeURI;
         return put(endpoint, additionalSchemeInfo);
     }
 
     public static Response deleteScheme(AdditionalSchemeInfo additionalSchemeInfo) {
-        String endpoint = baseURI + Endpoints.deleteScheme;
+        String endpoint = baseURI + Endpoints.deleteSchemeURI;
         return delete(endpoint, additionalSchemeInfo);
     }
 
@@ -53,7 +62,7 @@ public class RestRequests {
         logger.info(">>> RestRequests::deleteOrganisation() >>>");
         String ccsOrgId = RequestTestEndpoints.getRegisteredOrgId(id);
         if (!ccsOrgId.isEmpty()) {
-            Response response = RestRequests.deleteAll(RestRequests.getBaseURI() + Endpoints.deleteOrganisation +
+            Response response = RestRequests.deleteAll(RestRequests.getBaseURI() + Endpoints.deleteOrganisationURI +
                     "ccs_org_id=" + ccsOrgId);
             Assert.assertEquals(response.getStatusCode(), OK.getCode(), "Something went wrong while deleting existing organisation!");
             logger.info("Successfully deleted registered organisation.");

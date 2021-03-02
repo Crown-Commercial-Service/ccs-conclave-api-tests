@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 
 import java.io.IOException;
 
-import static com.ccs.conclave.api.cii.verification.VerifyResponses.*;
+import static com.ccs.conclave.api.cii.verification.VerifyEndpointResponses.*;
 
 public class GetSchemesTests extends BaseClass {
 
