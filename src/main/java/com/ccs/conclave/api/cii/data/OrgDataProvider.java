@@ -73,6 +73,107 @@ public class OrgDataProvider {
                 schemeInfo.setContactPoint(contactPoint);
                 break;
 
+            case DUN_AND_BRADSTREET_WALES:
+                schemeInfo.setName("HMPS SHARED SERVICES");
+                identifier.setId("210019203");
+                identifier.setScheme(SchemeRegistry.getSchemeCode(DUN_AND_BRADSTREET));
+                identifier.setLegalName("HMPS SHARED SERVICES");
+                identifier.setUri("");
+                schemeInfo.setIdentifier(identifier);
+
+                // No additionalIdentifier
+
+                address.setCountryName("United Kingdom");
+                address.setLocality("NEWPORT");
+                address.setPostalCode("NP10 8FZ");
+                address.setRegion("");
+                address.setStreetAddress("M.o.j Shared Service Centre, Phoenix House, Celtic Springs Business Park");
+                schemeInfo.setAddress(address);
+
+                contactPoint.setName("");
+                contactPoint.setEmail("");
+                contactPoint.setFaxNumber("");
+                contactPoint.setTelephone("");
+                contactPoint.setUri("");
+                schemeInfo.setContactPoint(contactPoint);
+                break;
+
+            case DUN_AND_BRADSTREET_NI:
+                schemeInfo.setName("Northern Ireland Housing Executive");
+                identifier.setId("218124716");
+                identifier.setScheme(SchemeRegistry.getSchemeCode(DUN_AND_BRADSTREET));
+                identifier.setLegalName("Northern Ireland Housing Executive");
+                identifier.setUri("");
+                schemeInfo.setIdentifier(identifier);
+
+                // No additionalIdentifier
+
+                address.setCountryName("United Kingdom");
+                address.setLocality("BELFAST");
+                address.setPostalCode("BT1 1FE");
+                address.setRegion("");
+                address.setStreetAddress("Spencer House, 71 Royal Avenue");
+                schemeInfo.setAddress(address);
+
+                contactPoint.setName("");
+                contactPoint.setEmail("");
+                contactPoint.setFaxNumber("");
+                contactPoint.setTelephone("");
+                contactPoint.setUri("");
+                schemeInfo.setContactPoint(contactPoint);
+                break;
+
+            case DUN_AND_BRADSTREET_SCOTLAND:
+                schemeInfo.setName("Glasgow City Council");
+                identifier.setId("214926136");
+                identifier.setScheme(SchemeRegistry.getSchemeCode(DUN_AND_BRADSTREET));
+                identifier.setLegalName("Glasgow City Council");
+                identifier.setUri("");
+                schemeInfo.setIdentifier(identifier);
+
+                // No additionalIdentifier
+
+                address.setCountryName("United Kingdom");
+                address.setLocality("GLASGOW");
+                address.setPostalCode("G31 5LP");
+                address.setRegion("");
+                address.setStreetAddress("Caroline Street");
+                schemeInfo.setAddress(address);
+
+                contactPoint.setName("");
+                contactPoint.setEmail("");
+                contactPoint.setFaxNumber("");
+                contactPoint.setTelephone("");
+                contactPoint.setUri("");
+                schemeInfo.setContactPoint(contactPoint);
+                break;
+
+            case DUN_AND_BRADSTREET_IRELAND:
+                schemeInfo.setName("First Data International");
+                identifier.setId("218082698");
+                identifier.setScheme(SchemeRegistry.getSchemeCode(DUN_AND_BRADSTREET));
+                identifier.setLegalName("First Data International");
+                identifier.setUri("");
+                schemeInfo.setIdentifier(identifier);
+
+                // No additionalIdentifier
+
+                address.setCountryName("United Kingdom");
+                address.setLocality("ROTHERHAM");
+                address.setPostalCode("S66 8RY");
+                address.setRegion("");
+                address.setStreetAddress("Lowton Way");
+                schemeInfo.setAddress(address);
+
+                contactPoint.setName("");
+                contactPoint.setEmail("");
+                contactPoint.setFaxNumber("");
+                contactPoint.setTelephone("");
+                contactPoint.setUri("");
+                schemeInfo.setContactPoint(contactPoint);
+                break;
+
+
             case DUN_AND_BRADSTREET_WITH_COH:
                 schemeInfo.setName("CHAIN GANG LIMITED");
                 identifier.setId("297663445");

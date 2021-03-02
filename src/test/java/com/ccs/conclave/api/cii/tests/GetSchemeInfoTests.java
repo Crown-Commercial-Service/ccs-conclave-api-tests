@@ -28,6 +28,34 @@ public class GetSchemeInfoTests extends BaseClass {
     }
 
     @Test
+    public void getDunsWalesSchemeInfo() {
+        SchemeInfo schemeInfo = OrgDataProvider.getInfo(DUN_AND_BRADSTREET_WALES);
+        Response response = RestRequests.getSchemeInfo(DUN_AND_BRADSTREET_WALES, schemeInfo.getIdentifier().getId());
+        verifyGetSchemeInfoResponse(schemeInfo, response);
+    }
+
+    @Test
+    public void getDunsNISchemeInfo() {
+        SchemeInfo schemeInfo = OrgDataProvider.getInfo(DUN_AND_BRADSTREET_NI);
+        Response response = RestRequests.getSchemeInfo(DUN_AND_BRADSTREET_NI, schemeInfo.getIdentifier().getId());
+        verifyGetSchemeInfoResponse(schemeInfo, response);
+    }
+
+    @Test
+    public void getDunsScotlandSchemeInfo() {
+        SchemeInfo schemeInfo = OrgDataProvider.getInfo(DUN_AND_BRADSTREET_SCOTLAND);
+        Response response = RestRequests.getSchemeInfo(DUN_AND_BRADSTREET_SCOTLAND, schemeInfo.getIdentifier().getId());
+        verifyGetSchemeInfoResponse(schemeInfo, response);
+    }
+
+    @Test
+    public void getDunsIrelandSchemeInfo() {
+        SchemeInfo schemeInfo = OrgDataProvider.getInfo(DUN_AND_BRADSTREET_IRELAND);
+        Response response = RestRequests.getSchemeInfo(DUN_AND_BRADSTREET_IRELAND, schemeInfo.getIdentifier().getId());
+        verifyGetSchemeInfoResponse(schemeInfo, response);
+    }
+
+    @Test
     public void getDunsSchemeInfoWithCOH() {
         SchemeInfo schemeInfo = OrgDataProvider.getInfo(DUN_AND_BRADSTREET_WITH_COH);
         Response response = RestRequests.getSchemeInfo(DUN_AND_BRADSTREET_WITH_COH, schemeInfo.getIdentifier().getId());
