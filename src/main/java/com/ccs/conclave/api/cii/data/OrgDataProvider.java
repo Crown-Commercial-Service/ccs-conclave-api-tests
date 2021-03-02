@@ -113,7 +113,7 @@ public class OrgDataProvider {
 
                 additionalIdentifier1.setScheme(SchemeRegistry.getSchemeCode(CHARITIES_COMMISSION));
                 additionalIdentifier1.setId("1060403");
-                additionalIdentifier1.setUri("");
+                additionalIdentifier1.setUri("https://register-of-charities.charitycommission.gov.uk/charity-details/?regId=1060403&subId=0");
                 additionalIdentifier1.setLegalName("CHAIGELEY EDUCATIONAL FOUNDATION");
                 additionalIdentifiers.add(additionalIdentifier1);
 
@@ -236,21 +236,21 @@ public class OrgDataProvider {
 
                 additionalIdentifier1.setScheme(SchemeRegistry.getSchemeCode(CHARITIES_COMMISSION));
                 additionalIdentifier1.setId("1091458");
-                additionalIdentifier1.setUri("");
+                additionalIdentifier1.setUri("https://register-of-charities.charitycommission.gov.uk/charity-details/?regId=1091458&subId=0");
                 additionalIdentifier1.setLegalName("STAFFORDSHIRE BLIND");
                 additionalIdentifiers.add(additionalIdentifier1);
                 schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
 
                 additionalIdentifier2.setScheme(SchemeRegistry.getSchemeCode(CHARITIES_COMMISSION));
                 additionalIdentifier2.setId("214330");
-                additionalIdentifier2.setUri("");
+                additionalIdentifier2.setUri("https://register-of-charities.charitycommission.gov.uk/charity-details/?regId=214330&subId=0");
                 additionalIdentifier2.setLegalName("GLYNN VIVIAN");
                 additionalIdentifiers.add(additionalIdentifier2);
                 schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
 
                 additionalIdentifier3.setScheme(SchemeRegistry.getSchemeCode(CHARITIES_COMMISSION));
                 additionalIdentifier3.setId("226227");
-                additionalIdentifier3.setUri("");
+                additionalIdentifier3.setUri("https://register-of-charities.charitycommission.gov.uk/charity-details/?regId=226227&subId=0");
                 additionalIdentifier3.setLegalName("THE ROYAL NATIONAL INSTITUTE OF BLIND PEOPLE");
                 additionalIdentifiers.add(additionalIdentifier3);
                 schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
@@ -271,14 +271,14 @@ public class OrgDataProvider {
 
                 additionalIdentifier6.setScheme(SchemeRegistry.getSchemeCode(SCOTLAND_CHARITY));
                 additionalIdentifier6.setId("SC039316");
-                additionalIdentifier6.setUri("");
+                additionalIdentifier6.setUri("https://www.oscr.org.uk/about-charities/search-the-register/charity-details?number=SC039316");
                 additionalIdentifier6.setLegalName("Royal National Institute of Blind People");
                 additionalIdentifiers.add(additionalIdentifier6);
                 schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
 
                 additionalIdentifier7.setScheme(SchemeRegistry.getSchemeCode(SCOTLAND_CHARITY));
                 additionalIdentifier7.setId("SC040050");
-                additionalIdentifier7.setUri("");
+                additionalIdentifier7.setUri("https://www.oscr.org.uk/about-charities/search-the-register/charity-details?number=SC040050");
                 additionalIdentifier7.setLegalName("Action for Blind People");
                 additionalIdentifiers.add(additionalIdentifier7);
                 schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
@@ -385,7 +385,7 @@ public class OrgDataProvider {
 
                 additionalIdentifier1.setScheme(SchemeRegistry.getSchemeCode(CHARITIES_COMMISSION));
                 additionalIdentifier1.setId("1080011");
-                additionalIdentifier1.setUri("");
+                additionalIdentifier1.setUri("https://register-of-charities.charitycommission.gov.uk/charity-details/?regId=1080011&subId=0");
                 additionalIdentifier1.setLegalName("ACORN CHRISTIAN FOUNDATION");
                 additionalIdentifiers.add(additionalIdentifier1);
                 schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
