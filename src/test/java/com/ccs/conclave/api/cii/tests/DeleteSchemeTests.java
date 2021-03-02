@@ -2,6 +2,7 @@ package com.ccs.conclave.api.cii.tests;
 
 import com.ccs.conclave.api.cii.data.OrgDataProvider;
 import com.ccs.conclave.api.cii.pojo.AdditionalSchemeInfo;
+import com.ccs.conclave.api.cii.pojo.Identifier;
 import com.ccs.conclave.api.cii.pojo.SchemeInfo;
 import com.ccs.conclave.api.cii.requests.RestRequests;
 import com.ccs.conclave.api.common.BaseClass;
@@ -12,7 +13,6 @@ import org.testng.annotations.Test;
 
 import java.util.List;
 
-import static com.ccs.conclave.api.cii.data.OrgDataProvider.getAdditionalIdentifierInfo;
 import static com.ccs.conclave.api.cii.data.OrgDataProvider.*;
 import static com.ccs.conclave.api.cii.data.SchemeRegistry.*;
 import static com.ccs.conclave.api.cii.verification.VerifyResponses.*;
@@ -174,14 +174,13 @@ public class DeleteSchemeTests extends BaseClass {
         logger.info("Successful post operation...");
 
 
-        logger.info("Deleting additional identifier to the existing organisation...");
+        logger.info("Deleting additional identifier of the existing organisation with invalid Id...");
         AdditionalSchemeInfo additionalSchemeInfo = additionalSchemesInfo.get(0);
         additionalSchemeInfo.setCcsOrgId(getCCSOrgId());
         additionalSchemeInfo.getIdentifier().setId("RC000500");
         response = RestRequests.deleteScheme(additionalSchemeInfo);
         verifyInvalidIdResponse(response);
     }
-
 
     @Test
     public void deleteScheme_InvalidOrgId() {
@@ -199,7 +198,7 @@ public class DeleteSchemeTests extends BaseClass {
         verifyPostSchemeInfoResponse(schemeInfo, response);
         logger.info("Successful post operation...");
 
-        logger.info("Deleting additional identifier to the existing organisation...");
+        logger.info("Deleting additional identifier of the existing organisation with invalid orgId...");
         AdditionalSchemeInfo additionalSchemeInfo = additionalSchemesInfo.get(0);
         additionalSchemeInfo.setCcsOrgId("12345643435");
         response = RestRequests.deleteScheme(additionalSchemeInfo);
@@ -208,14 +207,10 @@ public class DeleteSchemeTests extends BaseClass {
 
     @Test
     public void deleteScheme_PrimaryIdentifier() {
-        SchemeInfo schemeInfo = OrgDataProvider.getInfo(DUN_AND_BRADSTREET_WITH_COH);
-
-        // get only AdditionalIdentifiers from the given Scheme
-        List<AdditionalSchemeInfo> additionalSchemesInfo = getAdditionalIdentifierInfo(DUN_AND_BRADSTREET_WITH_COH);
-        Assert.assertTrue(additionalSchemesInfo.size() == 1, "Only one additional identifier is expected, please check the test data!");
+        SchemeInfo schemeInfo = OrgDataProvider.getInfo(SCOTLAND_CHARITY_WITH_COH_CHC);
 
         // Perform Get call to form the request payload for POST call
-        Response response = RestRequests.getSchemeInfo(DUN_AND_BRADSTREET_WITH_COH, schemeInfo.getIdentifier().getId());
+        Response response = RestRequests.getSchemeInfo(SCOTLAND_CHARITY_WITH_COH_CHC, schemeInfo.getIdentifier().getId());
         verifyGetSchemeInfoResponse(schemeInfo, response); // verify Get SchemeInfo response before passing to Post
 
         // Perform Post Operation
@@ -223,25 +218,22 @@ public class DeleteSchemeTests extends BaseClass {
         verifyPostSchemeInfoResponse(schemeInfo, response);
         logger.info("Successful post operation...");
 
-        logger.info("Deleting primary identifier of the existing organisation...");
-        AdditionalSchemeInfo additionalSchemeInfo = additionalSchemesInfo.get(0);
-        additionalSchemeInfo.setCcsOrgId(getCCSOrgId());
-        additionalSchemeInfo.getIdentifier().setScheme(getSchemeCode(DUN_AND_BRADSTREET_WITH_COH));
-        additionalSchemeInfo.getIdentifier().setId(schemeInfo.getIdentifier().getId());
-        response = RestRequests.deleteScheme(additionalSchemeInfo);
+        logger.info("Deleting Primary identifier of the existing organisation...");
+        AdditionalSchemeInfo deleteSchemeInfo = new AdditionalSchemeInfo();
+        deleteSchemeInfo.setCcsOrgId(getCCSOrgId());
+        Identifier identifier = new Identifier();
+        identifier.setScheme(getSchemeCode(SCOTLAND_CHARITY));
+        identifier.setId(schemeInfo.getIdentifier().getId());
+        deleteSchemeInfo.setIdentifier(identifier);
+        response = RestRequests.deleteScheme(deleteSchemeInfo);
         verifyInvalidSchemeResponse(response);
     }
 
     @Test
     public void deleteScheme_addIdentifier_Of_Another_scheme() {
-        SchemeInfo schemeInfo = OrgDataProvider.getInfo(DUN_AND_BRADSTREET_WITH_COH);
-
-        // get only AdditionalIdentifiers from the given Scheme
-        List<AdditionalSchemeInfo> additionalSchemesInfo = getAdditionalIdentifierInfo(DUN_AND_BRADSTREET_WITH_COH);
-        Assert.assertTrue(additionalSchemesInfo.size() == 1, "Only one additional identifier is expected, please check the test data!");
-
+        SchemeInfo schemeInfo = OrgDataProvider.getInfo(NORTHERN_CHARITY_WITH_COH);
         // Perform Get call to form the request payload for POST call
-        Response response = RestRequests.getSchemeInfo(DUN_AND_BRADSTREET_WITH_COH, schemeInfo.getIdentifier().getId());
+        Response response = RestRequests.getSchemeInfo(NORTHERN_CHARITY_WITH_COH, schemeInfo.getIdentifier().getId());
         verifyGetSchemeInfoResponse(schemeInfo, response); // verify Get SchemeInfo response before passing to Post
 
         // Perform Post Operation
@@ -250,18 +242,12 @@ public class DeleteSchemeTests extends BaseClass {
         logger.info("Successful post operation...");
 
         logger.info("Deleting valid additional identifier of another scheme");
+        // get only AdditionalIdentifiers from another Scheme
+        List<AdditionalSchemeInfo> additionalSchemesInfo = getAdditionalIdentifierInfo(CHARITIES_COMMISSION_WITH_SC);
         AdditionalSchemeInfo additionalSchemeInfo = additionalSchemesInfo.get(0);
         additionalSchemeInfo.setCcsOrgId(getCCSOrgId());
-
-        // get only AdditionalIdentifiers from another Scheme
-        List<AdditionalSchemeInfo> additionalSchemesInfo1 = getAdditionalIdentifierInfo(CHARITIES_COMMISSION_WITH_SC);
-        AdditionalSchemeInfo additionalSchemeInfo1 = additionalSchemesInfo1.get(0);
-
-        //Perform deletion of valid additional Identifier of another scheme with valid OrgID
-        additionalSchemeInfo.getIdentifier().setScheme(getSchemeCode(CHARITIES_COMMISSION_WITH_SC));
-        additionalSchemeInfo.getIdentifier().setId(additionalSchemeInfo1.getIdentifier().getId());
+        // Perform deletion of valid additional Identifier of another scheme with valid OrgID
         response = RestRequests.deleteScheme(additionalSchemeInfo);
         verifyInvalidIdResponse(response);
     }
-
 }
