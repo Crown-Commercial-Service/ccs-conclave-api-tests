@@ -327,6 +327,36 @@ public class OrgDataProvider {
                 schemeInfo.setContactPoint(contactPoint);
                 break;
 
+            case CHARITIES_COMMISSION_WITH_COH_CE:
+                schemeInfo.setName("47 CHARITY");
+                identifier.setId("1168304");
+                identifier.setScheme(SchemeRegistry.getSchemeCode(CHARITIES_COMMISSION_WITH_COH_CE));
+                identifier.setLegalName("47 CHARITY");
+                identifier.setUri("https://register-of-charities.charitycommission.gov.uk/charity-details/?regId=1168304&subId=0");
+                schemeInfo.setIdentifier(identifier);
+
+                additionalIdentifier1.setScheme(SchemeRegistry.getSchemeCode(COMPANIES_HOUSE));
+                additionalIdentifier1.setId("CE007062");
+                additionalIdentifier1.setUri("");
+                additionalIdentifier1.setLegalName("47 CHARITY");
+                additionalIdentifiers.add(additionalIdentifier1);
+                schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
+
+                address.setCountryName("");
+                address.setLocality("READING");
+                address.setPostalCode("RG5 4QS");
+                address.setRegion("");
+                address.setStreetAddress("63 WELFORD ROAD, WOODLEY");
+                schemeInfo.setAddress(address);
+
+                contactPoint.setName("");
+                contactPoint.setEmail("secretary@47charity.org");
+                contactPoint.setFaxNumber("");
+                contactPoint.setTelephone("0118 944 2554");
+                contactPoint.setUri("");
+                schemeInfo.setContactPoint(contactPoint);
+                break;
+
             case CHARITIES_COMMISSION_WITH_KNOWN_AND_UNKNOWN_IDENTIFIERS:
                 schemeInfo.setName("ACTION FOR BLIND PEOPLE");
                 identifier.setId("205913");

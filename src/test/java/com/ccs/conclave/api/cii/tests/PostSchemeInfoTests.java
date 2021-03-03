@@ -202,11 +202,11 @@ public class PostSchemeInfoTests extends BaseClass {
 
     @Test
     public void postSchemeInfoWithAddIdentifierOfAnotherScheme() {
-        SchemeInfo schemeInfo = OrgDataProvider.getInfo(DUN_AND_BRADSTREET_WITH_COH);
-        SchemeInfo expectedSchemeInfo = getInfoWithoutAddIdentifiers(DUN_AND_BRADSTREET_WITH_COH);
+        SchemeInfo schemeInfo = OrgDataProvider.getInfo(CHARITIES_COMMISSION_WITH_COH_CE);
+        SchemeInfo expectedSchemeInfo = getInfoWithoutAddIdentifiers(CHARITIES_COMMISSION_WITH_COH_CE);
 
         // Modify The Response to Update Additional Identifier With Valid Additional Identifier of Another Scheme
-        String responseStr = getSchemeInfoWithAddIdentifierofAnotherScheme(DUN_AND_BRADSTREET_WITH_COH);
+        String responseStr = getSchemeInfoWithAddIdentifierofAnotherScheme(CHARITIES_COMMISSION_WITH_COH_CE);
         Response response = RestRequests.postSchemeInfo(responseStr);
         verifyPostSchemeInfoResponse(expectedSchemeInfo, response);
 
