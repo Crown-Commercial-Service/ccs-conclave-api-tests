@@ -506,10 +506,10 @@ public class OrgDataProvider {
                 break;
 
 
-            case SCOTLAND_CHARITY_WITH_COH_CHC:
+            case SCOTLAND_CHARITY_WITH_CHC_COH:
                 schemeInfo.setName("Acorn Christian Foundation");
                 identifier.setId("SC042491");
-                identifier.setScheme(SchemeRegistry.getSchemeCode(SCOTLAND_CHARITY_WITH_COH_CHC));
+                identifier.setScheme(SchemeRegistry.getSchemeCode(SCOTLAND_CHARITY_WITH_CHC_COH));
                 identifier.setLegalName("Acorn Christian Foundation");
                 identifier.setUri("https://www.oscr.org.uk/about-charities/search-the-register/charity-details?number=SC042491");
                 schemeInfo.setIdentifier(identifier);

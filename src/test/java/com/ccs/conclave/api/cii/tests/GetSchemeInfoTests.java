@@ -92,8 +92,8 @@ public class GetSchemeInfoTests extends BaseClass {
 
     @Test // Bug: CON-452 -FIXED
     public void getScottishCharitySchemeInfoWithCOHAndCHC() {
-        SchemeInfo schemeInfo = OrgDataProvider.getInfo(SCOTLAND_CHARITY_WITH_COH_CHC);
-        Response response = RestRequests.getSchemeInfo(SCOTLAND_CHARITY_WITH_COH_CHC, schemeInfo.getIdentifier().getId());
+        SchemeInfo schemeInfo = OrgDataProvider.getInfo(SCOTLAND_CHARITY_WITH_CHC_COH);
+        Response response = RestRequests.getSchemeInfo(SCOTLAND_CHARITY_WITH_CHC_COH, schemeInfo.getIdentifier().getId());
         verifyGetSchemeInfoResponse(schemeInfo, response);
     }
 

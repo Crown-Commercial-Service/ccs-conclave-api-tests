@@ -50,13 +50,13 @@ public class DeleteSchemeTests extends BaseClass {
 
     @Test
     public void deleteScheme_COH_and_CHC_from_SC() {
-        SchemeInfo schemeInfo = OrgDataProvider.getInfo(SCOTLAND_CHARITY_WITH_COH_CHC);
+        SchemeInfo schemeInfo = OrgDataProvider.getInfo(SCOTLAND_CHARITY_WITH_CHC_COH);
         // get only AdditionalIdentifiers from the given Scheme
-        List<AdditionalSchemeInfo> additionalSchemesInfo = getAdditionalIdentifierInfo(SCOTLAND_CHARITY_WITH_COH_CHC);
+        List<AdditionalSchemeInfo> additionalSchemesInfo = getAdditionalIdentifierInfo(SCOTLAND_CHARITY_WITH_CHC_COH);
         Assert.assertTrue(additionalSchemesInfo.size() == 2, "Two additional identifiers are expected, please check the test data!");
 
         // Perform Get call to form the request payload for POST call
-        Response response = RestRequests.getSchemeInfo(SCOTLAND_CHARITY_WITH_COH_CHC, schemeInfo.getIdentifier().getId());
+        Response response = RestRequests.getSchemeInfo(SCOTLAND_CHARITY_WITH_CHC_COH, schemeInfo.getIdentifier().getId());
         verifyGetSchemeInfoResponse(schemeInfo, response); // verify Get SchemeInfo response before passing to Post
 
         // Perform Post Operation
@@ -207,10 +207,10 @@ public class DeleteSchemeTests extends BaseClass {
 
     @Test
     public void deleteScheme_PrimaryIdentifier() {
-        SchemeInfo schemeInfo = OrgDataProvider.getInfo(SCOTLAND_CHARITY_WITH_COH_CHC);
+        SchemeInfo schemeInfo = OrgDataProvider.getInfo(SCOTLAND_CHARITY_WITH_CHC_COH);
 
         // Perform Get call to form the request payload for POST call
-        Response response = RestRequests.getSchemeInfo(SCOTLAND_CHARITY_WITH_COH_CHC, schemeInfo.getIdentifier().getId());
+        Response response = RestRequests.getSchemeInfo(SCOTLAND_CHARITY_WITH_CHC_COH, schemeInfo.getIdentifier().getId());
         verifyGetSchemeInfoResponse(schemeInfo, response); // verify Get SchemeInfo response before passing to Post
 
         // Perform Post Operation

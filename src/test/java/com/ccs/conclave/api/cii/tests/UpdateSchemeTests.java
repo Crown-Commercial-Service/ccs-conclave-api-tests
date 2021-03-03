@@ -53,16 +53,16 @@ public class UpdateSchemeTests extends BaseClass {
 
     @Test
     public void updateScheme_COH_and_CHC_into_SC() {
-        SchemeInfo schemeInfo = OrgDataProvider.getInfo(SCOTLAND_CHARITY_WITH_COH_CHC);
+        SchemeInfo schemeInfo = OrgDataProvider.getInfo(SCOTLAND_CHARITY_WITH_CHC_COH);
         // Get expected SchemeInfo without additional identifiers
-        SchemeInfo expectedSchemeInfo = getInfoWithoutAddIdentifiers(SCOTLAND_CHARITY_WITH_COH_CHC);
+        SchemeInfo expectedSchemeInfo = getInfoWithoutAddIdentifiers(SCOTLAND_CHARITY_WITH_CHC_COH);
 
         // get only AdditionalIdentifiers from the given Scheme
-        List<AdditionalSchemeInfo> additionalSchemesInfo = getAdditionalIdentifierInfo(SCOTLAND_CHARITY_WITH_COH_CHC);
+        List<AdditionalSchemeInfo> additionalSchemesInfo = getAdditionalIdentifierInfo(SCOTLAND_CHARITY_WITH_CHC_COH);
         Assert.assertTrue(additionalSchemesInfo.size() == 2, "Two additional identifier are expected, please check the test data!");
 
         // GetScheme response without additional identifiers
-        String responseStr = getSchemeInfoWithEmptyAddIdentifiers(schemeInfo, SCOTLAND_CHARITY_WITH_COH_CHC);
+        String responseStr = getSchemeInfoWithEmptyAddIdentifiers(schemeInfo, SCOTLAND_CHARITY_WITH_CHC_COH);
         // Perform Post Operation/ register organisation with only Primary Identifier
         Response response = RestRequests.postSchemeInfo(responseStr);
 
