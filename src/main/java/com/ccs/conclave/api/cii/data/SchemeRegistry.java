@@ -3,6 +3,10 @@ package com.ccs.conclave.api.cii.data;
 public enum SchemeRegistry {
     COMPANIES_HOUSE("GB-COH", "Companies House", "https://api.company-information.service.gov.uk", "Company Registration Number", "GB"),
     DUN_AND_BRADSTREET("US-DUN", "Dun & Bradstreet", "https://plus.dnb.com", "DUNS Number", "US"),
+    DUN_AND_BRADSTREET_WALES("US-DUN", "Dun & Bradstreet", "https://plus.dnb.com", "DUNS Number", "US"),
+    DUN_AND_BRADSTREET_NI("US-DUN", "Dun & Bradstreet", "https://plus.dnb.com", "DUNS Number", "US"),
+    DUN_AND_BRADSTREET_SCOTLAND("US-DUN", "Dun & Bradstreet", "https://plus.dnb.com", "DUNS Number", "US"),
+    DUN_AND_BRADSTREET_IRELAND("US-DUN", "Dun & Bradstreet", "https://plus.dnb.com", "DUNS Number", "US"),
     DUN_AND_BRADSTREET_WITH_COH("US-DUN", "Dun & Bradstreet", "https://plus.dnb.com", "DUNS Number", "US"),
     DUN_AND_BRADSTREET_WITH_COH_AND_CHC("US-DUN", "Dun & Bradstreet", "https://plus.dnb.com", "DUNS Number", "US"),
     CHARITIES_COMMISSION("GB-CHC", "Charity Commission for England and Wales", "https://findthatcharity.uk", "Registered Charity Number", "GB"),

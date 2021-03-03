@@ -165,10 +165,10 @@ public class PostSchemeInfoTests extends BaseClass {
 
     @Test
     public void postSchemeInfoWithInvalidPrimaryID() {
-        SchemeInfo schemeInfo = OrgDataProvider.getInfo(COMPANIES_HOUSE);
+        SchemeInfo schemeInfo = OrgDataProvider.getInfo(DUN_AND_BRADSTREET_WALES);
 
         // Modify the response to update Valid Identifier of Primary Scheme with Invalid Identifier
-        String responseStr = getSchemeInfoWithInvalidPrimaryID(COMPANIES_HOUSE);
+        String responseStr = getSchemeInfoWithInvalidPrimaryID(DUN_AND_BRADSTREET_WALES);
         Response response = RestRequests.postSchemeInfo(responseStr);
         // Verify the response with Invalid Primary Identifier
         verifyInvalidIdResponse(response);
