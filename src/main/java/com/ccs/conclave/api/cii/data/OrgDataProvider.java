@@ -327,10 +327,10 @@ public class OrgDataProvider {
                 schemeInfo.setContactPoint(contactPoint);
                 break;
 
-            case CHARITIES_COMMISSION_WITH_COH_CE:
+            case CHARITIES_COMMISSION_WITH_COH:
                 schemeInfo.setName("47 CHARITY");
                 identifier.setId("1168304");
-                identifier.setScheme(SchemeRegistry.getSchemeCode(CHARITIES_COMMISSION_WITH_COH_CE));
+                identifier.setScheme(SchemeRegistry.getSchemeCode(CHARITIES_COMMISSION_WITH_COH));
                 identifier.setLegalName("47 CHARITY");
                 identifier.setUri("https://register-of-charities.charitycommission.gov.uk/charity-details/?regId=1168304&subId=0");
                 schemeInfo.setIdentifier(identifier);
