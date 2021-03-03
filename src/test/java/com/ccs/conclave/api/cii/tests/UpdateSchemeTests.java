@@ -117,13 +117,13 @@ public class UpdateSchemeTests extends BaseClass {
 
     @Test
     public void updateScheme_InvalidOrgId() {
-        SchemeInfo schemeInfo = OrgDataProvider.getInfo(CHARITIES_COMMISSION_WITH_SC);
+        SchemeInfo schemeInfo = OrgDataProvider.getInfo(CHARITIES_COMMISSION_WITH_COH);
         // GetScheme response without additional identifiers
-        String responseStr = getSchemeInfoWithEmptyAddIdentifiers(schemeInfo, CHARITIES_COMMISSION_WITH_SC);
+        String responseStr = getSchemeInfoWithEmptyAddIdentifiers(schemeInfo, CHARITIES_COMMISSION_WITH_COH);
         // Get expected SchemeInfo without additional identifiers
-        SchemeInfo expectedSchemeInfo = getInfoWithoutAddIdentifiers(CHARITIES_COMMISSION_WITH_SC);
+        SchemeInfo expectedSchemeInfo = getInfoWithoutAddIdentifiers(CHARITIES_COMMISSION_WITH_COH);
         // get only AdditionalIdentifiers from the given Scheme
-        List<AdditionalSchemeInfo> additionalSchemesInfo = getAdditionalIdentifierInfo(CHARITIES_COMMISSION_WITH_SC);
+        List<AdditionalSchemeInfo> additionalSchemesInfo = getAdditionalIdentifierInfo(CHARITIES_COMMISSION_WITH_COH);
         Assert.assertTrue(additionalSchemesInfo.size() == 1, "Only one additional identifier is expected, please check the test data!");
 
         logger.info("Performing Post Operation/register organisation with only Primary Identifier");
