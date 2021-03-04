@@ -544,17 +544,17 @@ public class OrgDataProvider {
                 break;
 
             case INVALID_SCHEME:
-                schemeInfo.setName("Invalid Scheme Name");
-                identifier.setId("NI603366");
-                identifier.setScheme(SchemeRegistry.getSchemeCode(CHARITIES_COMMISSION));
-                identifier.setLegalName("Invalid Scheme Name");
+                schemeInfo.setName("Invalid Name");
+                identifier.setId("XYZ603366");
+                identifier.setScheme(SchemeRegistry.getSchemeCode(INVALID_SCHEME));
+                identifier.setLegalName("Invalid Name");
                 identifier.setUri("http://www.acormchristian.org");
                 schemeInfo.setIdentifier(identifier);
 
-                additionalIdentifier1.setScheme(SchemeRegistry.getSchemeCode(CHARITIES_COMMISSION));
-                additionalIdentifier1.setId("NI603366");
+                additionalIdentifier1.setScheme(SchemeRegistry.getSchemeCode(INVALID_SCHEME));
+                additionalIdentifier1.setId("XYZ603355");
                 additionalIdentifier1.setUri("");
-                additionalIdentifier1.setLegalName("ACORN CHRISTIAN FOUNDATION");
+                additionalIdentifier1.setLegalName("Invalid Name");
                 additionalIdentifiers.add(additionalIdentifier1);
                 schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
                 break;

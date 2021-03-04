@@ -98,15 +98,13 @@ public class GetSchemeInfoTests extends BaseClass {
     }
 
     @Test
-    public void getSchemeInfoWithInvalidScheme() {
+    public void getSchemeInfoWithInvalidSchemeOrID() {
         String identifier = OrgDataProvider.getInfo(COMPANIES_HOUSE).getIdentifier().getId();
         Response response = RestRequests.getSchemeInfo(INVALID_SCHEME, identifier);
-        verifyInvalidSchemeResponse(response);
-    }
+        verifyInvalidIdResponse(response);
 
-    @Test // Bug: CON-450 -FIXED
-    public void getSchemeInfoWithInvalidIdentifier() {
-        Response response = RestRequests.getSchemeInfo(COMPANIES_HOUSE, "00000000");
+        // with invalid identifier Bug: CON-450 -FIXED
+        response = RestRequests.getSchemeInfo(COMPANIES_HOUSE, "00000000");
         verifyInvalidIdResponse(response);
     }
 

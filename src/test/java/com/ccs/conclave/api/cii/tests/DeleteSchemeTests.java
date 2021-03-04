@@ -132,59 +132,7 @@ public class DeleteSchemeTests extends BaseClass {
     }
 
     @Test
-    public void deleteScheme_InvalidScheme() {
-        SchemeInfo schemeInfo = OrgDataProvider.getInfo(DUN_AND_BRADSTREET_WITH_COH);
-
-        // get only AdditionalIdentifiers from the given Scheme
-        List<AdditionalSchemeInfo> additionalSchemesInfo = getAdditionalIdentifierInfo(DUN_AND_BRADSTREET_WITH_COH);
-        Assert.assertTrue(additionalSchemesInfo.size() == 1, "Only one additional identifier is expected, please check the test data!");
-
-        // Perform Get call to form the request payload for POST call
-        Response response = RestRequests.getSchemeInfo(DUN_AND_BRADSTREET_WITH_COH, schemeInfo.getIdentifier().getId());
-        verifyGetSchemeInfoResponse(schemeInfo, response); // verify Get SchemeInfo response before passing to Post
-
-        // Perform Post Operation
-        response = RestRequests.postSchemeInfo(response.asString());
-        verifyPostSchemeInfoResponse(schemeInfo, response);
-        logger.info("Successful post operation...");
-
-
-        logger.info("Deleting additional identifier to the existing organisation...");
-        AdditionalSchemeInfo additionalSchemeInfo = additionalSchemesInfo.get(0);
-        additionalSchemeInfo.setCcsOrgId(getCCSOrgId());
-        additionalSchemeInfo.getIdentifier().setScheme(getSchemeCode(INVALID_SCHEME));
-        response = RestRequests.deleteScheme(additionalSchemeInfo);
-        verifyInvalidIdResponse(response);
-    }
-
-    @Test
-    public void deleteScheme_InvalidSchemeID() {
-        SchemeInfo schemeInfo = OrgDataProvider.getInfo(DUN_AND_BRADSTREET_WITH_COH);
-
-        // get only AdditionalIdentifiers from the given Scheme
-        List<AdditionalSchemeInfo> additionalSchemesInfo = getAdditionalIdentifierInfo(DUN_AND_BRADSTREET_WITH_COH);
-        Assert.assertTrue(additionalSchemesInfo.size() == 1, "Only one additional identifier is expected, please check the test data!");
-
-        // Perform Get call to form the request payload for POST call
-        Response response = RestRequests.getSchemeInfo(DUN_AND_BRADSTREET_WITH_COH, schemeInfo.getIdentifier().getId());
-        verifyGetSchemeInfoResponse(schemeInfo, response); // verify Get SchemeInfo response before passing to Post
-
-        // Perform Post Operation
-        response = RestRequests.postSchemeInfo(response.asString());
-        verifyPostSchemeInfoResponse(schemeInfo, response);
-        logger.info("Successful post operation...");
-
-
-        logger.info("Deleting additional identifier of the existing organisation with invalid Id...");
-        AdditionalSchemeInfo additionalSchemeInfo = additionalSchemesInfo.get(0);
-        additionalSchemeInfo.setCcsOrgId(getCCSOrgId());
-        additionalSchemeInfo.getIdentifier().setId("RC000500");
-        response = RestRequests.deleteScheme(additionalSchemeInfo);
-        verifyInvalidIdResponse(response);
-    }
-
-    @Test
-    public void deleteScheme_InvalidOrgId() {
+    public void deleteSchemeInvalidOrgIdOrIdentifierOrScheme() {
         SchemeInfo schemeInfo = OrgDataProvider.getInfo(DUN_AND_BRADSTREET_WITH_COH);
         // get only AdditionalIdentifiers from the given Scheme
         List<AdditionalSchemeInfo> additionalSchemesInfo = getAdditionalIdentifierInfo(DUN_AND_BRADSTREET_WITH_COH);
@@ -204,6 +152,17 @@ public class DeleteSchemeTests extends BaseClass {
         additionalSchemeInfo.setCcsOrgId("12345643435");
         response = RestRequests.deleteScheme(additionalSchemeInfo);
         verifyInvalidIdResponse(response);
+
+        logger.info("Deleting additional identifier of the existing organisation with invalid Id...");
+        additionalSchemeInfo.setCcsOrgId(getCCSOrgId());
+        additionalSchemeInfo.getIdentifier().setId("RC000000");
+        response = RestRequests.deleteScheme(additionalSchemeInfo);
+        verifyInvalidIdResponse(response);
+
+        logger.info("Deleting additional identifier of the existing organisation with invalid scheme...");
+         additionalSchemeInfo.getIdentifier().setScheme(getSchemeCode(INVALID_SCHEME));
+         response = RestRequests.deleteScheme(additionalSchemeInfo);
+         verifyInvalidIdResponse(response);
     }
 
     @Test
@@ -227,7 +186,7 @@ public class DeleteSchemeTests extends BaseClass {
         identifier.setId(schemeInfo.getIdentifier().getId());
         deleteSchemeInfo.setIdentifier(identifier);
         response = RestRequests.deleteScheme(deleteSchemeInfo);
-        verifyInvalidSchemeResponse(response);
+        verifyBadRequestResponse(response);
     }
 
     @Test

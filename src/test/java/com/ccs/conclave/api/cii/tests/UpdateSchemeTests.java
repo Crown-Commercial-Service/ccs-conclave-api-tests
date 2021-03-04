@@ -88,7 +88,7 @@ public class UpdateSchemeTests extends BaseClass {
     }
 
     @Test
-    public void updateScheme_InvalidScheme_into_CHC() {
+    public void updateSchemeInvalidSchemeOrID() {
         SchemeInfo schemeInfo = OrgDataProvider.getInfo(CHARITIES_COMMISSION_WITH_SC);
         // GetScheme response without additional identifiers
         String responseStr = getSchemeInfoWithEmptyAddIdentifiers(schemeInfo, CHARITIES_COMMISSION_WITH_SC);
@@ -105,37 +105,15 @@ public class UpdateSchemeTests extends BaseClass {
         verifyPostSchemeInfoResponse(expectedSchemeInfo, response);
         logger.info("Successful post operation...");
 
-        logger.info("Adding additional identifier to the existing organisation...");
-        AdditionalSchemeInfo additionalSchemeInfo = additionalSchemesInfo.get(0);
-        additionalSchemeInfo.setCcsOrgId(getCCSOrgId());
-        response = RestRequests.updateScheme(additionalSchemeInfo);
+        logger.info("Adding additional identifier with invalid scheme to the existing organisation...");
+        AdditionalSchemeInfo invalidSchemeInfo = additionalSchemesInfo.get(0);
+        invalidSchemeInfo.setCcsOrgId(getCCSOrgId());
+        response = RestRequests.updateScheme(invalidSchemeInfo);
         verifyInvalidIdResponse(response);
 
-        // Delete Database entry if the Org. is already registered
-        deleteOrganisation(schemeInfo.getIdentifier().getId());
-    }
-
-    @Test
-    public void updateScheme_InvalidOrgId() {
-        SchemeInfo schemeInfo = OrgDataProvider.getInfo(CHARITIES_COMMISSION_WITH_COH);
-        // GetScheme response without additional identifiers
-        String responseStr = getSchemeInfoWithEmptyAddIdentifiers(schemeInfo, CHARITIES_COMMISSION_WITH_COH);
-        // Get expected SchemeInfo without additional identifiers
-        SchemeInfo expectedSchemeInfo = getInfoWithoutAddIdentifiers(CHARITIES_COMMISSION_WITH_COH);
-        // get only AdditionalIdentifiers from the given Scheme
-        List<AdditionalSchemeInfo> additionalSchemesInfo = getAdditionalIdentifierInfo(CHARITIES_COMMISSION_WITH_COH);
-        Assert.assertTrue(additionalSchemesInfo.size() == 1, "Only one additional identifier is expected, please check the test data!");
-
-        logger.info("Performing Post Operation/register organisation with only Primary Identifier");
-        Response response = RestRequests.postSchemeInfo(responseStr);
-
-        // verify the post response and ensure only Primary identifier is used for organisation registration
-        verifyPostSchemeInfoResponse(expectedSchemeInfo, response);
-        logger.info("Successful post operation...");
-
-        logger.info("Adding additional identifier to the existing organisation...");
+        logger.info("Adding valid additional identifier to the invalid organisation...");
         AdditionalSchemeInfo additionalSchemeInfo = additionalSchemesInfo.get(0);
-        additionalSchemeInfo.setCcsOrgId("7310710000000");
+        additionalSchemeInfo.setCcsOrgId("0101001010100");
         response = RestRequests.updateScheme(additionalSchemeInfo);
         verifyInvalidIdResponse(response);
 

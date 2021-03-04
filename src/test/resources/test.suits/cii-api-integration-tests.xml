@@ -19,4 +19,13 @@
             </class>
         </classes>
     </test>
+    <test name="Integration Test - ManageIdentifiers Delete and Update endpoints">
+        <classes>
+            <class name="com.ccs.conclave.api.cii.tests.DeleteSchemeTests">
+                <methods>
+                    <include name="deleteScheme_and_updateScheme" />
+                </methods>
+            </class>
+        </classes>
+    </test>
 </suite>

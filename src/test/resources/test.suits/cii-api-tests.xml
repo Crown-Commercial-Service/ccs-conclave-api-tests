@@ -26,7 +26,7 @@
             <class name="com.ccs.conclave.api.cii.tests.DeleteSchemeTests"/>
         </classes>
     </test>
-    <test name="Delete Scheme tests">
+    <test name="Manage Identifiers Get call tests">
         <classes>
             <class name="com.ccs.conclave.api.cii.tests.ManageIdentifiersTests"/>
         </classes>
