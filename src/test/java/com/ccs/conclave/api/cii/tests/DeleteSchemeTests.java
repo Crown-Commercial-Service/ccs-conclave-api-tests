@@ -79,6 +79,7 @@ public class DeleteSchemeTests extends BaseClass {
         verifyDeletedScheme(schemeInfo.getIdentifier().getId(), additionalSchemeInfo2);
     }
 
+    // Integration Scenario:-  User can delete an additional identifier and update again
     @Test
     public void deleteScheme_and_updateScheme() {
         SchemeInfo schemeInfo = OrgDataProvider.getInfo(CHARITIES_COMMISSION_WITH_TWO_COH);

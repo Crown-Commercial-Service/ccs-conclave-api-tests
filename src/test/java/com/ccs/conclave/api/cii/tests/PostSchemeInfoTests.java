@@ -48,7 +48,9 @@ public class PostSchemeInfoTests extends BaseClass {
         deleteOrganisation(schemeInfo.getIdentifier().getId());
     }
 
-    @Test // NOTE:- Duplicate check for additional identifiers are added in this test
+    // Integration Scenario:- Duplicate check in Get call is verified here after successful Post operation.
+    // Verified both registered primary and additional identifiers get call duplicate check
+    @Test
     public void postSchemeInfoDUNS_With_MultipleAddIdentifiers() {
         SchemeInfo schemeInfo = OrgDataProvider.getInfo(DUN_AND_BRADSTREET_WITH_COH_AND_CHC);
 
