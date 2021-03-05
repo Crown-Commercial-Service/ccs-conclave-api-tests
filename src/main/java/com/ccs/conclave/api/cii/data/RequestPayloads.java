@@ -22,13 +22,15 @@ public class RequestPayloads {
         return response.asString().replaceAll(schemeInfo.getAdditionalIdentifiers().get(0).getScheme(), getSchemeCode(SCOTLAND_CHARITY)).replaceAll(schemeInfo.getAdditionalIdentifiers().get(0).getId(), "SC037536");
     }
 
-    public static String getSchemeInfoWithInvalidPrimaryScheme(SchemeRegistry scheme) {
-        SchemeInfo schemeInfo = OrgDataProvider.getInfo(scheme);
-        Response response = RestRequests.getSchemeInfo(scheme, schemeInfo.getIdentifier().getId());
+    // Modify the response to update Valid Scheme of Primary Scheme with Invalid Scheme
+    public static String getSchemeInfoWithInvalidPrimaryScheme() {
+        SchemeInfo schemeInfo = OrgDataProvider.getInfo(COMPANIES_HOUSE);
+        Response response = RestRequests.getSchemeInfo(COMPANIES_HOUSE, schemeInfo.getIdentifier().getId());
         verifyGetSchemeInfoResponse(schemeInfo, response); // verify Get SchemeInfo response before using it
-        return response.asString().replaceAll(getSchemeCode(scheme), getSchemeCode(INVALID_SCHEME));
+        return response.asString().replaceAll(getSchemeCode(COMPANIES_HOUSE), getSchemeCode(INVALID_SCHEME));
     }
 
+    // Modify the response to update Valid Identifier of Primary Scheme with Invalid Identifier
     public static String getSchemeInfoWithInvalidPrimaryID(SchemeRegistry scheme) {
         SchemeInfo schemeInfo = OrgDataProvider.getInfo(scheme);
         Response response = RestRequests.getSchemeInfo(scheme, schemeInfo.getIdentifier().getId());

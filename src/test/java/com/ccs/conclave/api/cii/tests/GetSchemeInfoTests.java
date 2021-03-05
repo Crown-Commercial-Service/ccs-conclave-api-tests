@@ -92,21 +92,19 @@ public class GetSchemeInfoTests extends BaseClass {
 
     @Test // Bug: CON-452 -FIXED
     public void getScottishCharitySchemeInfoWithCOHAndCHC() {
-        SchemeInfo schemeInfo = OrgDataProvider.getInfo(SCOTLAND_CHARITY_WITH_COH_CHC);
-        Response response = RestRequests.getSchemeInfo(SCOTLAND_CHARITY_WITH_COH_CHC, schemeInfo.getIdentifier().getId());
+        SchemeInfo schemeInfo = OrgDataProvider.getInfo(SCOTLAND_CHARITY_WITH_CHC_COH);
+        Response response = RestRequests.getSchemeInfo(SCOTLAND_CHARITY_WITH_CHC_COH, schemeInfo.getIdentifier().getId());
         verifyGetSchemeInfoResponse(schemeInfo, response);
     }
 
     @Test
-    public void getSchemeInfoWithInvalidScheme() {
+    public void getSchemeInfoWithInvalidSchemeOrID() {
         String identifier = OrgDataProvider.getInfo(COMPANIES_HOUSE).getIdentifier().getId();
         Response response = RestRequests.getSchemeInfo(INVALID_SCHEME, identifier);
-        verifyInvalidSchemeResponse(response);
-    }
+        verifyInvalidIdResponse(response);
 
-    @Test // Bug: CON-450 -FIXED
-    public void getSchemeInfoWithInvalidIdentifier() {
-        Response response = RestRequests.getSchemeInfo(COMPANIES_HOUSE, "00000000");
+        // with invalid identifier Bug: CON-450 -FIXED
+        response = RestRequests.getSchemeInfo(COMPANIES_HOUSE, "00000000");
         verifyInvalidIdResponse(response);
     }
 

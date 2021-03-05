@@ -26,7 +26,7 @@ public class VerifyEndpointResponses {
 
     public static void verifyGetSchemeInfoResponse(SchemeInfo expectedSchemeInfo, Response response) {
         GetSchemeInfoResponse actualRes = new GetSchemeInfoResponse();
-        verifyStatusCode(response, OK.getCode());
+        verifyResponseCodeForSuccess(response);
         actualRes.setSchemeInfo(response.as(SchemeInfo.class));
         verifySchemeInfo(actualRes.getSchemeInfo(), expectedSchemeInfo);
     }
@@ -92,7 +92,7 @@ public class VerifyEndpointResponses {
     }
 
     public static void verifyGetSchemesResponse(Response response) throws IOException {
-        verifyStatusCode(response, OK.getCode());
+        verifyResponseCodeForSuccess(response);
         logger.info("GetSchemesResponse" + response.asString());
 
         GetSchemesResponse schemesResponse = new GetSchemesResponse(Arrays.asList(response.getBody().as(Scheme[].class)));
@@ -122,10 +122,6 @@ public class VerifyEndpointResponses {
         Assert.assertEquals(scheme.getScheme(), getSchemeCode(NORTHERN_CHARITY), "Invalid SchemeCode!");
         Assert.assertEquals(scheme.getSchemeName(), getSchemeName(NORTHERN_CHARITY), "Invalid SchemeName!");
         Assert.assertEquals(scheme.getSchemeCountryCode(), getSchemeCountryCode(NORTHERN_CHARITY), "Invalid CountryCode!");
-    }
-
-    private static void verifyStatusCode(Response response, int code) {
-        Assert.assertEquals(response.getStatusCode(), code, "Unexpected Status code returned!!");
     }
 
     public static void verifyPostSchemeInfoResponse(SchemeInfo expectedSchemeInfo, Response response) {
@@ -207,7 +203,7 @@ public class VerifyEndpointResponses {
         Assert.assertEquals(response.getStatusCode(), OK.getCode(), "Unexpected Status code returned for deleted Resource!!");
     }
 
-    public static void verifyInvalidSchemeResponse(Response response) {
+    public static void verifyBadRequestResponse(Response response) {
         Assert.assertEquals(response.getStatusCode(), BAD_REQUEST.getCode(), "Unexpected Status code returned for Invalid Scheme!!");
     }
 

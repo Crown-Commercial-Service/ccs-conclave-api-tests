@@ -8,5 +8,6 @@ public class DBData {
     private String ccsOrgId;
     private String schemeOrgRegNumber;
     private String primaryScheme;
+    private String active;
     private String scheme;
 }
