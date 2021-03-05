@@ -26,7 +26,7 @@ public class UpdateSchemeTests extends BaseClass {
     public void updateScheme_COH_into_DUNS() {
         SchemeInfo schemeInfo = OrgDataProvider.getInfo(DUN_AND_BRADSTREET_WITH_COH);
         // GetScheme response without additional identifiers
-        String responseStr = getSchemeInfoWithEmptyAddIdentifiers(schemeInfo, DUN_AND_BRADSTREET_WITH_COH);
+        String responseStr = getSchemeInfoWithEmptyAddIdentifiers(DUN_AND_BRADSTREET_WITH_COH);
         // Get expected SchemeInfo without additional identifiers
         SchemeInfo expectedSchemeInfo = getInfoWithoutAddIdentifiers(DUN_AND_BRADSTREET_WITH_COH);
         // get only AdditionalIdentifiers from the given Scheme
@@ -62,7 +62,7 @@ public class UpdateSchemeTests extends BaseClass {
         Assert.assertTrue(additionalSchemesInfo.size() == 2, "Two additional identifier are expected, please check the test data!");
 
         // GetScheme response without additional identifiers
-        String responseStr = getSchemeInfoWithEmptyAddIdentifiers(schemeInfo, SCOTLAND_CHARITY_WITH_CHC_COH);
+        String responseStr = getSchemeInfoWithEmptyAddIdentifiers(SCOTLAND_CHARITY_WITH_CHC_COH);
         // Perform Post Operation/ register organisation with only Primary Identifier
         Response response = RestRequests.postSchemeInfo(responseStr);
 
@@ -91,7 +91,7 @@ public class UpdateSchemeTests extends BaseClass {
     public void updateSchemeInvalidSchemeOrID() {
         SchemeInfo schemeInfo = OrgDataProvider.getInfo(CHARITIES_COMMISSION_WITH_SC);
         // GetScheme response without additional identifiers
-        String responseStr = getSchemeInfoWithEmptyAddIdentifiers(schemeInfo, CHARITIES_COMMISSION_WITH_SC);
+        String responseStr = getSchemeInfoWithEmptyAddIdentifiers(CHARITIES_COMMISSION_WITH_SC);
         // Get expected SchemeInfo without additional identifiers
         SchemeInfo expectedSchemeInfo = getInfoWithoutAddIdentifiers(CHARITIES_COMMISSION_WITH_SC);
         // get only AdditionalIdentifiers from the given Scheme
@@ -128,7 +128,7 @@ public class UpdateSchemeTests extends BaseClass {
     public void updateScheme_validIdentifierOfAnotherScheme() {
         SchemeInfo schemeInfo = OrgDataProvider.getInfo(DUN_AND_BRADSTREET_WITH_COH);
         // GetScheme response without additional identifiers
-        String responseStr = getSchemeInfoWithEmptyAddIdentifiers(schemeInfo, DUN_AND_BRADSTREET_WITH_COH);
+        String responseStr = getSchemeInfoWithEmptyAddIdentifiers(DUN_AND_BRADSTREET_WITH_COH);
         // Get expected SchemeInfo without additional identifiers
         SchemeInfo expectedSchemeInfo = getInfoWithoutAddIdentifiers(DUN_AND_BRADSTREET_WITH_COH);
 

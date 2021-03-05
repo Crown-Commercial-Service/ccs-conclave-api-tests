@@ -27,19 +27,21 @@ public class ManageIdentifiersTests extends BaseClass {
         // Register Primary Identifier without additional
         SchemeInfo schemeInfo = getInfo(SCOTLAND_CHARITY_WITH_CHC_COH);
         SchemeInfo schemeInfoWithoutAddIds = getInfoWithoutAddIdentifiers(SCOTLAND_CHARITY_WITH_CHC_COH);
-        String getSchemeInfoWithoutAddIdsRes = getSchemeInfoWithoutAddIdentifierSection(SCOTLAND_CHARITY_WITH_CHC_COH);
+        String getSchemeInfoWithoutAddIdsRes = getSchemeInfoWithEmptyAddIdentifiers(SCOTLAND_CHARITY_WITH_CHC_COH);
+
+        // Get call using additional identifier
+        String additionalIdentifierId = schemeInfo.getAdditionalIdentifiers().get(1).getId();
+        Response expectedRes = getSchemeInfo(COMPANIES_HOUSE, additionalIdentifierId);
+        verifyResponseCodeForSuccess(expectedRes);
+
         Response postSchemeRes = RestRequests.postSchemeInfo(getSchemeInfoWithoutAddIdsRes);
         verifyPostSchemeInfoResponse(schemeInfoWithoutAddIds, postSchemeRes);
         logger.info("Successfully registered organisation...");
 
         // Search for additional identifier, COH doesn't know about other identifiers
-        String additionalIdentifierId = schemeInfo.getAdditionalIdentifiers().get(1).getId();
         Response response = RestRequests.manageIdentifiers(COMPANIES_HOUSE, additionalIdentifierId, getCCSOrgId());
         verifyResponseCodeForSuccess(response);
 
-        // Get call using additional identifier
-        Response expectedRes = getSchemeInfo(COMPANIES_HOUSE, additionalIdentifierId);
-        verifyResponseCodeForSuccess(expectedRes);
         // Verify search response with response of get call
         verifyManageIdentifiersResponse(expectedRes, response);
     }
@@ -51,9 +53,10 @@ public class ManageIdentifiersTests extends BaseClass {
         // Register Primary Identifier without additional
         SchemeInfo schemeInfo = getInfo(SCOTLAND_CHARITY_WITH_CHC_COH);
         SchemeInfo schemeInfoWithoutAddIds = getInfoWithoutAddIdentifiers(SCOTLAND_CHARITY_WITH_CHC_COH);
-        String getSchemeInfoWithoutAddIdsRes = getSchemeInfoWithoutAddIdentifierSection(SCOTLAND_CHARITY_WITH_CHC_COH);
+        String getSchemeInfoWithoutAddIdsRes = getSchemeInfoWithEmptyAddIdentifiers(SCOTLAND_CHARITY_WITH_CHC_COH);
 
-        Response getSchemeForCHC = getSchemeInfo(CHARITIES_COMMISSION, schemeInfo.getAdditionalIdentifiers().get(0).getId());
+        String additionalIdentifierId = schemeInfo.getAdditionalIdentifiers().get(0).getId();
+        Response getSchemeForCHC = getSchemeInfo(CHARITIES_COMMISSION, additionalIdentifierId);
         verifyResponseCodeForSuccess(getSchemeForCHC);
 
         Response postSchemeInfoRes = RestRequests.postSchemeInfo(getSchemeInfoWithoutAddIdsRes);
@@ -61,7 +64,6 @@ public class ManageIdentifiersTests extends BaseClass {
         logger.info("Successfully registered organisation...");
 
         // Search for additional identifier, CHC knows about the Primary Id in data SCOTLAND_CHARITY_WITH_CHC_COH
-        String additionalIdentifierId = schemeInfo.getAdditionalIdentifiers().get(0).getId();
         Response response = RestRequests.manageIdentifiers(CHARITIES_COMMISSION, additionalIdentifierId, getCCSOrgId());
         verifyResponseCodeForSuccess(response);
 
@@ -137,7 +139,7 @@ public class ManageIdentifiersTests extends BaseClass {
 
     // Negative Scenarios to verify status code
     @Test
-    public void getSchemeInfoWithInvalidIdentifierOrSchemeOrOrgId() {
+    public void manageIdsGetSchemeInfoWithInvalidIdentifierOrSchemeOrOrgId() {
         SchemeInfo schemeInfo = getInfo(DUN_AND_BRADSTREET_IRELAND);
         Response getSchemeRes = getSchemeInfo(DUN_AND_BRADSTREET_IRELAND, schemeInfo.getIdentifier().getId());
         verifyResponseCodeForSuccess(getSchemeRes);

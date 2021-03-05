@@ -46,7 +46,8 @@ public class RequestPayloads {
         return strings[0] + strings[1];
     }
 
-    public static String getSchemeInfoWithEmptyAddIdentifiers(SchemeInfo schemeInfo, SchemeRegistry scheme) {
+    public static String getSchemeInfoWithEmptyAddIdentifiers(SchemeRegistry scheme) {
+        SchemeInfo schemeInfo = OrgDataProvider.getInfo(scheme);
         Response response = RestRequests.getSchemeInfo(scheme, schemeInfo.getIdentifier().getId());
         verifyGetSchemeInfoResponse(schemeInfo, response); // verify Get SchemeInfo response before using it
 
