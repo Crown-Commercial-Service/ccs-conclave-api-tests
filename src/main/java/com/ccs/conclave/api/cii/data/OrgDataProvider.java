@@ -1,13 +1,15 @@
 package com.ccs.conclave.api.cii.data;
 
 import com.ccs.conclave.api.cii.pojo.*;
+import com.ccs.conclave.api.common.BaseClass;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.ccs.conclave.api.cii.data.SchemeRegistry.*;
-import static com.ccs.conclave.api.cii.requests.RestRequests.deleteOrganisation;
+import static com.ccs.conclave.api.cii.requests.RestRequests.*;
 
-public class OrgDataProvider {
+public class OrgDataProvider extends BaseClass {
 
     public static SchemeInfo getInfo(SchemeRegistry schemeRegistry) {
         SchemeInfo schemeInfo = new SchemeInfo();
@@ -559,16 +561,15 @@ public class OrgDataProvider {
                 schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
                 break;
 
-
             default:
                 throw new IllegalStateException("Unexpected value: " + schemeRegistry);
         }
 
 
         // Delete Database entry if the Org. is already registered
-        deleteOrganisation(schemeInfo.getIdentifier().getId());
+        deleteOrganisationWithIdTestEndPt(schemeInfo.getIdentifier().getId());
         for (Identifier id : schemeInfo.getAdditionalIdentifiers()) {
-            deleteOrganisation(id.getId());
+            deleteOrganisationWithIdTestEndPt(id.getId());
         }
 
         return schemeInfo;

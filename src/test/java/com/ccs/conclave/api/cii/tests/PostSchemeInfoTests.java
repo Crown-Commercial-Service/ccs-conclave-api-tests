@@ -1,6 +1,7 @@
 package com.ccs.conclave.api.cii.tests;
 
 import com.ccs.conclave.api.cii.data.OrgDataProvider;
+import com.ccs.conclave.api.cii.data.RequestPayloads;
 import com.ccs.conclave.api.cii.pojo.SchemeInfo;
 import com.ccs.conclave.api.cii.requests.RestRequests;
 import com.ccs.conclave.api.common.BaseClass;
@@ -12,6 +13,7 @@ import static com.ccs.conclave.api.cii.data.OrgDataProvider.*;
 import static com.ccs.conclave.api.cii.data.RequestPayloads.*;
 import static com.ccs.conclave.api.cii.data.SchemeRegistry.*;
 import static com.ccs.conclave.api.cii.requests.RestRequests.deleteOrganisation;
+import static com.ccs.conclave.api.cii.requests.RestRequests.getSchemeInfo;
 import static com.ccs.conclave.api.cii.verification.VerifyEndpointResponses.*;
 
 public class PostSchemeInfoTests extends BaseClass {
@@ -23,7 +25,7 @@ public class PostSchemeInfoTests extends BaseClass {
         SchemeInfo schemeInfo = OrgDataProvider.getInfo(COMPANIES_HOUSE);
 
         // Perform Get call to form the request payload for POST call
-        Response getSchemeRes = RestRequests.getSchemeInfo(COMPANIES_HOUSE, schemeInfo.getIdentifier().getId());
+        Response getSchemeRes = getSchemeInfo(COMPANIES_HOUSE, schemeInfo.getIdentifier().getId());
         verifyGetSchemeInfoResponse(schemeInfo, getSchemeRes); // verify Get SchemeInfo response before passing to Post
 
         // Perform Post Operation
@@ -39,23 +41,21 @@ public class PostSchemeInfoTests extends BaseClass {
         logger.info("verifying duplicate organisation registration in Get Scheme info.....");
 
         // verify duplicate check for Get call
-        getSchemeRes = RestRequests.getSchemeInfo(COMPANIES_HOUSE, schemeInfo.getIdentifier().getId());
+        getSchemeRes = getSchemeInfo(COMPANIES_HOUSE, schemeInfo.getIdentifier().getId());
         verifyResponseCodeForDuplicateResource(getSchemeRes);
 
         logger.info("deleting org. identifier after test..");
 
         // Delete Database entry if the Org. is already registered
-        deleteOrganisation(schemeInfo.getIdentifier().getId());
+        deleteOrganisation(getCCSOrgId());
     }
 
-    // Integration Scenario:- Duplicate check in Get call is verified here after successful Post operation.
-    // Verified both registered primary and additional identifiers get call duplicate check
     @Test
     public void postSchemeInfoDUNS_With_MultipleAddIdentifiers() {
         SchemeInfo schemeInfo = OrgDataProvider.getInfo(DUN_AND_BRADSTREET_WITH_COH_AND_CHC);
 
         // Perform Get call to form the request payload for POST call
-        Response getSchemeRes = RestRequests.getSchemeInfo(DUN_AND_BRADSTREET_WITH_COH_AND_CHC, schemeInfo.getIdentifier().getId());
+        Response getSchemeRes = getSchemeInfo(DUN_AND_BRADSTREET_WITH_COH_AND_CHC, schemeInfo.getIdentifier().getId());
         verifyGetSchemeInfoResponse(schemeInfo, getSchemeRes); // verify Get SchemeInfo response before passing to Post
 
         // Perform Post Operation
@@ -67,19 +67,19 @@ public class PostSchemeInfoTests extends BaseClass {
         verifyResponseCodeForDuplicateResource(postSchemeRes);
 
         // verify duplicate check for additional identifier (COH in DUNS)
-        getSchemeRes = RestRequests.getSchemeInfo(COMPANIES_HOUSE, schemeInfo.getAdditionalIdentifiers().get(0).getId());
+        getSchemeRes = getSchemeInfo(COMPANIES_HOUSE, schemeInfo.getAdditionalIdentifiers().get(0).getId());
         verifyResponseCodeForDuplicateResource(getSchemeRes);
 
         // verify duplicate check for additional identifier (CHC in DUNS)
-        getSchemeRes = RestRequests.getSchemeInfo(CHARITIES_COMMISSION, schemeInfo.getAdditionalIdentifiers().get(1).getId());
+        getSchemeRes = getSchemeInfo(CHARITIES_COMMISSION, schemeInfo.getAdditionalIdentifiers().get(1).getId());
         verifyResponseCodeForDuplicateResource(getSchemeRes);
 
         // verify duplicate check for Get call
-        getSchemeRes = RestRequests.getSchemeInfo(DUN_AND_BRADSTREET_WITH_COH_AND_CHC, schemeInfo.getIdentifier().getId());
+        getSchemeRes = getSchemeInfo(DUN_AND_BRADSTREET_WITH_COH_AND_CHC, schemeInfo.getIdentifier().getId());
         verifyResponseCodeForDuplicateResource(getSchemeRes);
 
         // Delete Database entry if the Org. is already registered
-        deleteOrganisation(schemeInfo.getIdentifier().getId());
+        deleteOrganisation(getCCSOrgId());
     }
 
     @Test
@@ -87,7 +87,7 @@ public class PostSchemeInfoTests extends BaseClass {
         SchemeInfo schemeInfo = OrgDataProvider.getInfo(CHARITIES_COMMISSION_WITH_TWO_COH);
 
         // Perform Get call to form the request payload for POST call
-        Response getSchemeRes = RestRequests.getSchemeInfo(CHARITIES_COMMISSION_WITH_TWO_COH, schemeInfo.getIdentifier().getId());
+        Response getSchemeRes = getSchemeInfo(CHARITIES_COMMISSION_WITH_TWO_COH, schemeInfo.getIdentifier().getId());
         verifyGetSchemeInfoResponse(schemeInfo, getSchemeRes); // verify Get SchemeInfo response before passing to Post
 
         // Perform Post Operation
@@ -99,11 +99,11 @@ public class PostSchemeInfoTests extends BaseClass {
         verifyResponseCodeForDuplicateResource(postSchemeRes);
 
         // verify duplicate check for Get call
-        getSchemeRes = RestRequests.getSchemeInfo(CHARITIES_COMMISSION_WITH_TWO_COH, schemeInfo.getIdentifier().getId());
+        getSchemeRes = getSchemeInfo(CHARITIES_COMMISSION_WITH_TWO_COH, schemeInfo.getIdentifier().getId());
         verifyResponseCodeForDuplicateResource(getSchemeRes);
 
         // Delete Database entry if the Org. is already registered
-        deleteOrganisation(schemeInfo.getIdentifier().getId());
+        deleteOrganisation(getCCSOrgId());
     }
 
     @Test
@@ -111,7 +111,7 @@ public class PostSchemeInfoTests extends BaseClass {
         SchemeInfo schemeInfo = OrgDataProvider.getInfo(SCOTLAND_CHARITY);
 
         // Perform Get call to form the request payload for POST call
-        Response getSchemeRes = RestRequests.getSchemeInfo(SCOTLAND_CHARITY, schemeInfo.getIdentifier().getId());
+        Response getSchemeRes = getSchemeInfo(SCOTLAND_CHARITY, schemeInfo.getIdentifier().getId());
         verifyGetSchemeInfoResponse(schemeInfo, getSchemeRes); // verify Get SchemeInfo response before passing to Post
 
         // Perform Post Operation
@@ -123,11 +123,11 @@ public class PostSchemeInfoTests extends BaseClass {
         verifyResponseCodeForDuplicateResource(postSchemeRes);
 
         // verify duplicate check for Get call
-        getSchemeRes = RestRequests.getSchemeInfo(SCOTLAND_CHARITY, schemeInfo.getIdentifier().getId());
+        getSchemeRes = getSchemeInfo(SCOTLAND_CHARITY, schemeInfo.getIdentifier().getId());
         verifyResponseCodeForDuplicateResource(getSchemeRes);
 
         // Delete Database entry if the Org. is already registered
-        deleteOrganisation(schemeInfo.getIdentifier().getId());
+        deleteOrganisation(getCCSOrgId());
     }
 
     @Test
@@ -135,7 +135,7 @@ public class PostSchemeInfoTests extends BaseClass {
         SchemeInfo schemeInfo = OrgDataProvider.getInfo(NORTHERN_CHARITY_WITH_COH);
 
         // Perform Get call to form the request payload for POST call
-        Response getSchemeRes = RestRequests.getSchemeInfo(NORTHERN_CHARITY_WITH_COH, schemeInfo.getIdentifier().getId());
+        Response getSchemeRes = getSchemeInfo(NORTHERN_CHARITY_WITH_COH, schemeInfo.getIdentifier().getId());
         verifyGetSchemeInfoResponse(schemeInfo, getSchemeRes); // verify Get SchemeInfo response before passing to Post
 
         // Perform Post Operation
@@ -147,11 +147,11 @@ public class PostSchemeInfoTests extends BaseClass {
         verifyResponseCodeForDuplicateResource(postSchemeRes);
 
         // verify duplicate check for Get call
-        getSchemeRes = RestRequests.getSchemeInfo(NORTHERN_CHARITY_WITH_COH, schemeInfo.getIdentifier().getId());
+        getSchemeRes = getSchemeInfo(NORTHERN_CHARITY_WITH_COH, schemeInfo.getIdentifier().getId());
         verifyResponseCodeForDuplicateResource(getSchemeRes);
 
         // Delete Database entry if the Org. is already registered
-        deleteOrganisation(schemeInfo.getIdentifier().getId());
+        deleteOrganisation(getCCSOrgId());
     }
 
     @Test
@@ -161,7 +161,7 @@ public class PostSchemeInfoTests extends BaseClass {
         verifyInvalidIdResponse(response);
 
         // Modify the response to update Valid Identifier of Primary Scheme with Invalid Identifier
-        responseStr = getSchemeInfoWithInvalidPrimaryID(DUN_AND_BRADSTREET_WALES);
+        responseStr = getSchemeInfoWithInvalidPrimaryID();
         response = RestRequests.postSchemeInfo(responseStr);
         verifyInvalidIdResponse(response);
     }
@@ -175,7 +175,7 @@ public class PostSchemeInfoTests extends BaseClass {
         SchemeInfo expectedSchemeInfo = getInfoWithoutAddIdentifiers(NORTHERN_CHARITY_WITH_COH);
         Response response = RestRequests.postSchemeInfo(responseStr);
         verifyPostSchemeInfoResponse(expectedSchemeInfo, response);
-        deleteOrganisation(schemeInfo.getIdentifier().getId());
+        deleteOrganisation(getCCSOrgId());
     }
 
     @Test
@@ -189,7 +189,7 @@ public class PostSchemeInfoTests extends BaseClass {
         verifyPostSchemeInfoResponse(expectedSchemeInfo, response);
 
         // Delete Database entry if the Org. is already registered
-        deleteOrganisation(schemeInfo.getIdentifier().getId());
+        deleteOrganisation(getCCSOrgId());
     }
 
     @Test
@@ -203,7 +203,7 @@ public class PostSchemeInfoTests extends BaseClass {
         verifyPostSchemeInfoResponse(expectedSchemeInfo, response);
 
         // Delete Database entry if the Org. is already registered
-        deleteOrganisation(schemeInfo.getIdentifier().getId());
+        deleteOrganisation(getCCSOrgId());
     }
 }
 

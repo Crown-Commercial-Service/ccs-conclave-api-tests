@@ -14,7 +14,10 @@ import org.testng.annotations.Test;
 import java.util.List;
 
 import static com.ccs.conclave.api.cii.data.OrgDataProvider.*;
+import static com.ccs.conclave.api.cii.data.RequestPayloads.getSchemeInfoWithEmptyAddIdentifiers;
 import static com.ccs.conclave.api.cii.data.SchemeRegistry.*;
+import static com.ccs.conclave.api.cii.requests.RestRequests.deleteOrganisation;
+import static com.ccs.conclave.api.cii.requests.RestRequests.getSchemeInfo;
 import static com.ccs.conclave.api.cii.verification.VerifyEndpointResponses.*;
 
 public class DeleteSchemeTests extends BaseClass {
@@ -46,6 +49,9 @@ public class DeleteSchemeTests extends BaseClass {
         logger.info("Deleting identifier deleted already");
         response = RestRequests.deleteScheme(additionalSchemeInfo);
         verifyInvalidIdResponse(response);
+
+        // Delete Database entry if the Org. is already registered
+        deleteOrganisation(getCCSOrgId());
     }
 
     @Test
@@ -77,9 +83,12 @@ public class DeleteSchemeTests extends BaseClass {
         response = RestRequests.deleteScheme(additionalSchemeInfo2);
         verifyResponseCodeForSuccess(response);
         verifyDeletedScheme(schemeInfo.getIdentifier().getId(), additionalSchemeInfo2);
+
+        // Delete Database entry if the Org. is already registered
+        deleteOrganisation(getCCSOrgId());
     }
 
-    // Integration Scenario:-  User can delete an additional identifier and update again
+    // User can delete an additional identifier and update again
     @Test
     public void deleteScheme_and_updateScheme() {
         SchemeInfo schemeInfo = OrgDataProvider.getInfo(CHARITIES_COMMISSION_WITH_TWO_COH);
@@ -129,6 +138,9 @@ public class DeleteSchemeTests extends BaseClass {
         response = RestRequests.deleteScheme(additionalSchemeInfo2);
         verifyResponseCodeForSuccess(response);
         verifyDeletedScheme(schemeInfo.getIdentifier().getId(), additionalSchemeInfo2);
+
+        // Delete Database entry if the Org. is already registered
+        deleteOrganisation(getCCSOrgId());
     }
 
     @Test
@@ -163,6 +175,9 @@ public class DeleteSchemeTests extends BaseClass {
          additionalSchemeInfo.getIdentifier().setScheme(getSchemeCode(INVALID_SCHEME));
          response = RestRequests.deleteScheme(additionalSchemeInfo);
          verifyInvalidIdResponse(response);
+
+        // Delete Database entry if the Org. is already registered
+        deleteOrganisation(getCCSOrgId());
     }
 
     @Test
@@ -187,6 +202,9 @@ public class DeleteSchemeTests extends BaseClass {
         deleteSchemeInfo.setIdentifier(identifier);
         response = RestRequests.deleteScheme(deleteSchemeInfo);
         verifyBadRequestResponse(response);
+
+        // Delete Database entry if the Org. is already registered
+        deleteOrganisation(getCCSOrgId());
     }
 
     @Test
@@ -209,5 +227,32 @@ public class DeleteSchemeTests extends BaseClass {
         // Perform deletion of valid additional Identifier of another scheme with valid OrgID
         response = RestRequests.deleteScheme(additionalSchemeInfo);
         verifyInvalidIdResponse(response);
+
+        // Delete Database entry if the Org. is already registered
+        deleteOrganisation(getCCSOrgId());
+    }
+
+    // Integration Scenario:- Verify admin users can delete hidden additional identifiers
+    @Test
+    public void deleteSchemeInfoForHiddenAddIdentifiers() {
+        SchemeInfo schemeInfo = OrgDataProvider.getInfo(DUN_AND_BRADSTREET_WITH_COH_AND_CHC);
+
+        // Perform Get call to form the request payload for POST call
+        String getSchemeInfo = getSchemeInfoWithEmptyAddIdentifiers(DUN_AND_BRADSTREET_WITH_COH_AND_CHC);
+
+        // Perform Post Operation without Additional Identifiers
+        Response postSchemeRes = RestRequests.postSchemeInfo(getSchemeInfo);
+        verifyPostSchemeInfoResponse(schemeInfo, postSchemeRes);
+
+        // verify duplicate check for additional identifier (COH in DUNS) even if not registered
+        Response getSchemeRes = getSchemeInfo(COMPANIES_HOUSE, schemeInfo.getAdditionalIdentifiers().get(0).getId());
+        verifyResponseCodeForDuplicateResource(getSchemeRes);
+
+        // verify duplicate check for additional identifier (CHC in DUNS) even if not registered
+        getSchemeRes = getSchemeInfo(CHARITIES_COMMISSION, schemeInfo.getAdditionalIdentifiers().get(1).getId());
+        verifyResponseCodeForDuplicateResource(getSchemeRes);
+
+        // Delete Database entry if the Org. is already registered
+        deleteOrganisation(getCCSOrgId());
     }
 }

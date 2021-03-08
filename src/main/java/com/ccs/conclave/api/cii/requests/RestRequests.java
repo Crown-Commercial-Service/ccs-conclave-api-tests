@@ -56,9 +56,20 @@ public class RestRequests {
         return delete(endpoint, additionalSchemeInfo);
     }
 
-    public static void deleteOrganisation(String id) {
+    public static void deleteOrganisation(String ccsOrgId) {
         logger.info(">>> RestRequests::deleteOrganisation() >>>");
-        String ccsOrgId = RequestTestEndpoints.getRegisteredOrgId(id);
+        if (!ccsOrgId.isEmpty()) {
+            Response response = RestRequests.deleteAll(RestRequests.getBaseURI() + Endpoints.deleteOrganisationURI +
+                    "ccs_org_id=" + ccsOrgId);
+            Assert.assertEquals(response.getStatusCode(), OK.getCode(), "Something went wrong while deleting existing organisation!");
+            logger.info("Successfully deleted registered organisation.");
+        }
+        logger.info("Id " + ccsOrgId + "is not registered with CII!!");
+    }
+
+    public static void deleteOrganisationWithIdTestEndPt(String id) {
+        logger.info(">>> RestRequests::deleteOrganisation() >>>");
+        String ccsOrgId = RequestTestEndpoints.getRegisteredOrgId(id); // This is a test endpoint call
         if (!ccsOrgId.isEmpty()) {
             Response response = RestRequests.deleteAll(RestRequests.getBaseURI() + Endpoints.deleteOrganisationURI +
                     "ccs_org_id=" + ccsOrgId);
