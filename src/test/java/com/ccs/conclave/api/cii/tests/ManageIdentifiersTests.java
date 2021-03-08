@@ -93,50 +93,6 @@ public class ManageIdentifiersTests extends BaseClass {
         verifyManageIdentifiersResponse(expectedRes, response);
     }
 
-    // Integration Scenario: the identifier is already registered and admin search the same
-    // and expect a response with 200 OK and then try to add as part of organisation again, which result in
-    // failure with status code 405
-    @Test
-    public void manageIdsGetSchemeInfoForIdAlreadyRegisteredAndUpdateTheSame() throws JSONException {
-        // Register Primary Identifier with additional identifiers
-        SchemeInfo schemeInfo = getInfo(SCOTLAND_CHARITY_WITH_CHC_COH);
-        Response getSchemeRes = getSchemeInfo(SCOTLAND_CHARITY_WITH_CHC_COH, schemeInfo.getIdentifier().getId());
-        Response getSchemeResForCHC = getSchemeInfo(CHARITIES_COMMISSION, schemeInfo.getAdditionalIdentifiers().get(0).getId());
-
-        verifyResponseCodeForSuccess(getSchemeRes);
-        Response postSchemeInfoRes = RestRequests.postSchemeInfo(getSchemeRes.asString());
-        verifyPostSchemeInfoResponse(schemeInfo, postSchemeInfoRes);
-        logger.info("Successfully registered organisation...");
-
-        // Search for additional identifier, CHC knows about the Primary Id in data SCOTLAND_CHARITY_WITH_CHC_COH
-        String identifierRegistered = schemeInfo.getAdditionalIdentifiers().get(0).getId();
-        Response response = RestRequests.manageIdentifiers(CHARITIES_COMMISSION, identifierRegistered, getCCSOrgId());
-        verifyResponseCodeForSuccess(response);
-
-        // Try to update(PUT call) without deleting, which result in duplicate resource status code
-        AdditionalSchemeInfo updateSchemeInfo = new AdditionalSchemeInfo();
-        updateSchemeInfo.setCcsOrgId(getCCSOrgId());
-        Identifier identifier = new Identifier();
-        identifier.setId(identifierRegistered);
-        identifier.setScheme(getSchemeCode(CHARITIES_COMMISSION));
-        updateSchemeInfo.setIdentifier(identifier);
-        response = RestRequests.updateScheme(updateSchemeInfo);
-        verifyResponseCodeForDuplicateResource(response);
-
-        // Delete Scheme and get scheme again and successfully Update it
-        response = RestRequests.deleteScheme(updateSchemeInfo);
-        verifyResponseCodeForSuccess(response);
-        verifyDeletedScheme(identifierRegistered, updateSchemeInfo);
-
-        response = RestRequests.manageIdentifiers(CHARITIES_COMMISSION, identifierRegistered, getCCSOrgId());
-        verifyResponseCodeForSuccess(response);
-        verifyManageIdentifiersResponse(getSchemeResForCHC, response);
-
-        response = RestRequests.updateScheme(updateSchemeInfo);
-        verifyResponseCodeForSuccess(response);
-        verifyUpdatedScheme(identifierRegistered, updateSchemeInfo);
-    }
-
     // Negative Scenarios to verify status code
     @Test
     public void manageIdsGetSchemeInfoWithInvalidIdentifierOrSchemeOrOrgId() {

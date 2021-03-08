@@ -1,31 +1,9 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
 
 <suite name="cii.api.tests" verbose="1">
-    <test name="Integration Test - Post and Get">
+    <test name="Integration Test - Integration scenarios">
         <classes>
-            <class name="com.ccs.conclave.api.cii.tests.PostSchemeInfoTests">
-                <methods>
-                    <include name="postSchemeInfoDUNS_With_MultipleAddIdentifiers" />
-                </methods>
-            </class>
-        </classes>
-    </test>
-    <test name="Integration Test - ManageIdentifiers Get, Update and Delete endpoints">
-        <classes>
-            <class name="com.ccs.conclave.api.cii.tests.ManageIdentifiersTests">
-                <methods>
-                    <include name="manageIdsGetSchemeInfoForIdAlreadyRegisteredAndUpdateTheSame" />
-                </methods>
-            </class>
-        </classes>
-    </test>
-    <test name="Integration Test - ManageIdentifiers Delete and Update endpoints">
-        <classes>
-            <class name="com.ccs.conclave.api.cii.tests.DeleteSchemeTests">
-                <methods>
-                    <include name="deleteScheme_and_updateScheme" />
-                </methods>
-            </class>
+            <class name="com.ccs.conclave.api.cii.tests.IntegrationTests"/>
         </classes>
     </test>
 </suite>

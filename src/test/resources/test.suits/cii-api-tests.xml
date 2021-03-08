@@ -31,4 +31,9 @@
             <class name="com.ccs.conclave.api.cii.tests.ManageIdentifiersTests"/>
         </classes>
     </test>
+    <test name="Integration scenarios">
+        <classes>
+            <class name="com.ccs.conclave.api.cii.tests.IntegrationTests"/>
+        </classes>
+    </test>
 </suite>
