@@ -32,9 +32,9 @@ public class RequestPayloads {
     }
 
     // Modify the response to update Valid Identifier of Primary Scheme with Invalid Identifier
-    public static String getSchemeInfoWithInvalidPrimaryID(SchemeRegistry scheme) {
-        SchemeInfo schemeInfo = OrgDataProvider.getInfo(scheme);
-        Response response = RestRequests.getSchemeInfo(scheme, schemeInfo.getIdentifier().getId());
+    public static String getSchemeInfoWithInvalidPrimaryID() {
+        SchemeInfo schemeInfo = OrgDataProvider.getInfo(DUN_AND_BRADSTREET_WALES);
+        Response response = RestRequests.getSchemeInfo(DUN_AND_BRADSTREET_WALES, schemeInfo.getIdentifier().getId());
         verifyGetSchemeInfoResponse(schemeInfo, response); // verify Get SchemeInfo response before using it
         return response.asString().replaceAll(schemeInfo.getIdentifier().getId(), "9988776655");
     }

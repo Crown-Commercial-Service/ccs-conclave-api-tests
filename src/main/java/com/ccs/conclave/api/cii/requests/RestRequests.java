@@ -15,10 +15,9 @@ import static io.restassured.RestAssured.given;
 
 public class RestRequests {
     private final static Logger logger = Logger.getLogger(RestRequests.class);
-//    private static String baseURI = System.getProperty("base.url");
-//    private static String apiKey = System.getProperty("api.key");
-    private static String baseURI = "https://test.conclavecii.api.crowncommercial.gov.uk";
-    private static String apiKey = "6B9EbGdKgNjQnTqVsYv2";
+    private static String baseURI = System.getProperty("base.url");
+    private static String apiKey = System.getProperty("api.key");
+
     public static String getBaseURI() {
         return baseURI;
     }
@@ -57,9 +56,20 @@ public class RestRequests {
         return delete(endpoint, additionalSchemeInfo);
     }
 
-    public static void deleteOrganisation(String id) {
+    public static void deleteOrganisation(String ccsOrgId) {
         logger.info(">>> RestRequests::deleteOrganisation() >>>");
-        String ccsOrgId = RequestTestEndpoints.getRegisteredOrgId(id);
+        if (!ccsOrgId.isEmpty()) {
+            Response response = RestRequests.deleteAll(RestRequests.getBaseURI() + Endpoints.deleteOrganisationURI +
+                    "ccs_org_id=" + ccsOrgId);
+            Assert.assertEquals(response.getStatusCode(), OK.getCode(), "Something went wrong while deleting existing organisation!");
+            logger.info("Successfully deleted registered organisation.");
+        }
+        logger.info("Id " + ccsOrgId + "is not registered with CII!!");
+    }
+
+    public static void deleteOrganisationWithIdTestEndPt(String id) {
+        logger.info(">>> RestRequests::deleteOrganisation() >>>");
+        String ccsOrgId = RequestTestEndpoints.getRegisteredOrgId(id); // This is a test endpoint call
         if (!ccsOrgId.isEmpty()) {
             Response response = RestRequests.deleteAll(RestRequests.getBaseURI() + Endpoints.deleteOrganisationURI +
                     "ccs_org_id=" + ccsOrgId);

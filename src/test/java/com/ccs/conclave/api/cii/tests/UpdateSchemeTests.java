@@ -48,7 +48,7 @@ public class UpdateSchemeTests extends BaseClass {
         verifyUpdatedScheme(schemeInfo.getIdentifier().getId(), additionalSchemeInfo);
 
         // Delete Database entry if the Org. is already registered
-        deleteOrganisation(schemeInfo.getIdentifier().getId());
+        deleteOrganisation(getCCSOrgId());
     }
 
     @Test
@@ -84,7 +84,7 @@ public class UpdateSchemeTests extends BaseClass {
         verifyUpdatedScheme(schemeInfo.getIdentifier().getId(), additionalSchemeInfo2);
 
         // Delete Database entry if the Org. is already registered
-        deleteOrganisation(schemeInfo.getIdentifier().getId());
+        deleteOrganisation(getCCSOrgId());
     }
 
     @Test
@@ -118,7 +118,7 @@ public class UpdateSchemeTests extends BaseClass {
         verifyInvalidIdResponse(response);
 
         // Delete Database entry if the Org. is already registered
-        deleteOrganisation(schemeInfo.getIdentifier().getId());
+        deleteOrganisation(getCCSOrgId());
     }
 
     // Org admin can add any additional identifier as part of his organisation with his own risk.
@@ -150,6 +150,6 @@ public class UpdateSchemeTests extends BaseClass {
         verifyUpdatedScheme(schemeInfo.getIdentifier().getId(), additionalSchemeInfo1);
 
         // Delete Database entry if the Org. is already registered
-        deleteOrganisation(schemeInfo.getIdentifier().getId());
+        deleteOrganisation(getCCSOrgId());
     }
 }

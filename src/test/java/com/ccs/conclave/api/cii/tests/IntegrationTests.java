@@ -57,7 +57,7 @@ public class IntegrationTests extends BaseClass {
         verifyResponseCodeForDuplicateResource(getSchemeRes);
 
         // Delete Database entry if the Org. is already registered
-        deleteOrganisation(schemeInfo.getIdentifier().getId());
+        deleteOrganisation(getCCSOrgId());
     }
 
     // Duplicate check in Get call is verified here after successful Post operation without additional identifiers.
@@ -82,7 +82,7 @@ public class IntegrationTests extends BaseClass {
         verifyResponseCodeForDuplicateResource(getSchemeRes);
 
         // Delete Database entry if the Org. is already registered
-        deleteOrganisation(schemeInfo.getIdentifier().getId());
+        deleteOrganisation(getCCSOrgId());
     }
 
     @Test
@@ -111,6 +111,8 @@ public class IntegrationTests extends BaseClass {
         verifyResponseCodeForSuccess(response);
 
         // Todo: get registered schemes
+        // Delete Database entry if the Org. is already registered
+        deleteOrganisation(getCCSOrgId());
     }
 
     // Integration Scenario: the identifier is already registered and admin search the same
@@ -156,6 +158,9 @@ public class IntegrationTests extends BaseClass {
         response = RestRequests.updateScheme(updateSchemeInfo);
         verifyResponseCodeForSuccess(response);
         verifyUpdatedScheme(identifierRegistered, updateSchemeInfo);
+
+        // Delete Database entry if the Org. is already registered
+        deleteOrganisation(getCCSOrgId());
     }
 
     // Verify admin users can delete hidden additional identifiers
@@ -180,7 +185,7 @@ public class IntegrationTests extends BaseClass {
         verifyResponseCodeForDuplicateResource(getSchemeRes);
 
         // Delete Database entry if the Org. is already registered
-        deleteOrganisation(schemeInfo.getIdentifier().getId());
+        deleteOrganisation(getCCSOrgId());
     }
 
     // When admin receives a claim form about conflict, admin delete organisation registration so that right user

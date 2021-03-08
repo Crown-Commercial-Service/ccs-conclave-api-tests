@@ -47,7 +47,7 @@ public class PostSchemeInfoTests extends BaseClass {
         logger.info("deleting org. identifier after test..");
 
         // Delete Database entry if the Org. is already registered
-        deleteOrganisation(schemeInfo.getIdentifier().getId());
+        deleteOrganisation(getCCSOrgId());
     }
 
     @Test
@@ -79,7 +79,7 @@ public class PostSchemeInfoTests extends BaseClass {
         verifyResponseCodeForDuplicateResource(getSchemeRes);
 
         // Delete Database entry if the Org. is already registered
-        deleteOrganisation(schemeInfo.getIdentifier().getId());
+        deleteOrganisation(getCCSOrgId());
     }
 
     @Test
@@ -103,7 +103,7 @@ public class PostSchemeInfoTests extends BaseClass {
         verifyResponseCodeForDuplicateResource(getSchemeRes);
 
         // Delete Database entry if the Org. is already registered
-        deleteOrganisation(schemeInfo.getIdentifier().getId());
+        deleteOrganisation(getCCSOrgId());
     }
 
     @Test
@@ -127,7 +127,7 @@ public class PostSchemeInfoTests extends BaseClass {
         verifyResponseCodeForDuplicateResource(getSchemeRes);
 
         // Delete Database entry if the Org. is already registered
-        deleteOrganisation(schemeInfo.getIdentifier().getId());
+        deleteOrganisation(getCCSOrgId());
     }
 
     @Test
@@ -151,7 +151,7 @@ public class PostSchemeInfoTests extends BaseClass {
         verifyResponseCodeForDuplicateResource(getSchemeRes);
 
         // Delete Database entry if the Org. is already registered
-        deleteOrganisation(schemeInfo.getIdentifier().getId());
+        deleteOrganisation(getCCSOrgId());
     }
 
     @Test
@@ -161,7 +161,7 @@ public class PostSchemeInfoTests extends BaseClass {
         verifyInvalidIdResponse(response);
 
         // Modify the response to update Valid Identifier of Primary Scheme with Invalid Identifier
-        responseStr = getSchemeInfoWithInvalidPrimaryID(DUN_AND_BRADSTREET_WALES);
+        responseStr = getSchemeInfoWithInvalidPrimaryID();
         response = RestRequests.postSchemeInfo(responseStr);
         verifyInvalidIdResponse(response);
     }
@@ -175,7 +175,7 @@ public class PostSchemeInfoTests extends BaseClass {
         SchemeInfo expectedSchemeInfo = getInfoWithoutAddIdentifiers(NORTHERN_CHARITY_WITH_COH);
         Response response = RestRequests.postSchemeInfo(responseStr);
         verifyPostSchemeInfoResponse(expectedSchemeInfo, response);
-        deleteOrganisation(schemeInfo.getIdentifier().getId());
+        deleteOrganisation(getCCSOrgId());
     }
 
     @Test
@@ -189,7 +189,7 @@ public class PostSchemeInfoTests extends BaseClass {
         verifyPostSchemeInfoResponse(expectedSchemeInfo, response);
 
         // Delete Database entry if the Org. is already registered
-        deleteOrganisation(schemeInfo.getIdentifier().getId());
+        deleteOrganisation(getCCSOrgId());
     }
 
     @Test
@@ -203,7 +203,7 @@ public class PostSchemeInfoTests extends BaseClass {
         verifyPostSchemeInfoResponse(expectedSchemeInfo, response);
 
         // Delete Database entry if the Org. is already registered
-        deleteOrganisation(schemeInfo.getIdentifier().getId());
+        deleteOrganisation(getCCSOrgId());
     }
 }
 
