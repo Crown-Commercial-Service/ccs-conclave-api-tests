@@ -143,7 +143,7 @@ public class GetSchemeInfoTests extends BaseClass {
     }
 
     @Test
-    public void getInactieDunsSchemeInfo() {
+    public void getInactiveDunsSchemeInfo() {
         Response response = RestRequests.getSchemeInfo(DUN_AND_BRADSTREET, "238637735");
         verifyInvalidIdResponse(response);
     }
