@@ -120,4 +120,16 @@ public class GetSchemeInfoTests extends BaseClass {
         verifyResponseCodeForDuplicateResource(response);
     }
 
+    @Test // Bug: CON-662
+    public void getSchemeInfoWithAlreadyRegIDAndInvalidScheme() {
+        SchemeInfo schemeInfo = OrgDataProvider.getInfo(COMPANIES_HOUSE);
+
+        Response response = RestRequests.getSchemeInfo(COMPANIES_HOUSE, schemeInfo.getIdentifier().getId());
+        RestRequests.postSchemeInfo(response.asString());
+
+        String identifierWithSpace = schemeInfo.getIdentifier().getId() + " ";
+        response = RestRequests.getSchemeInfo(NORTHERN_CHARITY, identifierWithSpace);
+        verifyInvalidIdResponse(response);
+    }
+
 }
