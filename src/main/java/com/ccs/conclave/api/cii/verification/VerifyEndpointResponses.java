@@ -2,10 +2,7 @@ package com.ccs.conclave.api.cii.verification;
 
 import com.ccs.conclave.api.cii.pojo.*;
 import com.ccs.conclave.api.cii.requests.RequestTestEndpoints;
-import com.ccs.conclave.api.cii.response.GetCIIDBDataTestEndpointResponse;
-import com.ccs.conclave.api.cii.response.GetSchemeInfoResponse;
-import com.ccs.conclave.api.cii.response.PostSchemeInfoResponse;
-import com.ccs.conclave.api.cii.response.GetSchemesResponse;
+import com.ccs.conclave.api.cii.response.*;
 import io.restassured.response.Response;
 import org.apache.log4j.Logger;
 import org.json.JSONException;
@@ -28,10 +25,10 @@ public class VerifyEndpointResponses {
         GetSchemeInfoResponse actualRes = new GetSchemeInfoResponse();
         verifyResponseCodeForSuccess(response);
         actualRes.setSchemeInfo(response.as(SchemeInfo.class));
-        verifySchemeInfo(actualRes.getSchemeInfo(), expectedSchemeInfo);
+        verifySchemeInfo(expectedSchemeInfo, actualRes.getSchemeInfo());
     }
 
-    private static void verifySchemeInfo(SchemeInfo actualSchemeInfo, SchemeInfo expectedSchemeInfo) {
+    private static void verifySchemeInfo(SchemeInfo expectedSchemeInfo, SchemeInfo actualSchemeInfo) {
         logger.info("SchemeInfo:Name " + actualSchemeInfo.getName());
         Assert.assertEquals(actualSchemeInfo.getName(), expectedSchemeInfo.getName(), "Wrong SchemeInfo:Name in response!");
 
@@ -145,7 +142,7 @@ public class VerifyEndpointResponses {
 
         if (expectedSchemeInfo.getAdditionalIdentifiers().size() > 0) {
             Assert.assertEquals(dbInfo.getDbData().size() - 1, expectedSchemeInfo.getAdditionalIdentifiers().size(),
-                    "Additional identifier/s is not registered for id" + expectedSchemeInfo.getIdentifier().getId());
+                    "Additional identifier/s is not registered for id " + expectedSchemeInfo.getIdentifier().getId());
 
             for (int i = 1; i < dbInfo.getDbData().size(); i++) {
                 // verify ccsOrgId
@@ -220,6 +217,23 @@ public class VerifyEndpointResponses {
         String actualResIdentifiers = actualRes.asString().split("address")[0].split("identifier")[1];
         String expectedResIdentifiers = expectedRes.asString().split("address")[0].split("identifier")[1];
         JSONAssert.assertEquals(expectedResIdentifiers, actualResIdentifiers, JSONCompareMode.STRICT);
+    }
+
+    public static void verifyRegisteredSchemes(RegisteredSchemeInfo expectedIdentifiers, Response actualRes) {
+        verifyResponseCodeForSuccess(actualRes);
+        GetRegisteredSchemesResponse registeredSchemeInfoRes = new GetRegisteredSchemesResponse(actualRes.getBody().as(RegisteredSchemeInfo.class));
+        RegisteredSchemeInfo actualSchemeInfo = registeredSchemeInfoRes.getRegisteredSchemesInfo();
+        Assert.assertEquals(actualSchemeInfo.getIdentifier().getId(), expectedIdentifiers.getIdentifier().getId(), "Unexpected Status code returned for Invalid Id!!");
+        Assert.assertEquals(actualSchemeInfo.getIdentifier().getScheme(), expectedIdentifiers.getIdentifier().getScheme(), "Unexpected Status code returned for Invalid Id!!");
+        Assert.assertEquals(actualSchemeInfo.getIdentifier().getUri(), expectedIdentifiers.getIdentifier().getUri(), "Unexpected Status code returned for Invalid Id!!");
+        Assert.assertEquals(actualSchemeInfo.getIdentifier().getLegalName(), expectedIdentifiers.getIdentifier().getLegalName(), "Unexpected Status code returned for Invalid Id!!");
+
+        for(Identifier identifier : expectedIdentifiers.getAdditionalIdentifiers()) {
+            Assert.assertEquals(actualSchemeInfo.getIdentifier().getId(), identifier.getId(), "Unexpected Status code returned for Invalid Id!!");
+            Assert.assertEquals(actualSchemeInfo.getIdentifier().getScheme(), identifier.getScheme(), "Unexpected Status code returned for Invalid Id!!");
+            Assert.assertEquals(actualSchemeInfo.getIdentifier().getUri(), identifier.getUri(), "Unexpected Status code returned for Invalid Id!!");
+            Assert.assertEquals(actualSchemeInfo.getIdentifier().getLegalName(), identifier.getLegalName(), "Unexpected Status code returned for Invalid Id!!");
+        }
     }
 }
 
