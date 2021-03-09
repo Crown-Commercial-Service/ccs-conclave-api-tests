@@ -51,20 +51,20 @@ public class OrgDataProvider extends BaseClass {
                 break;
 
             case DUN_AND_BRADSTREET:
-                schemeInfo.setName("Thus Group Holdings Ltd");
-                identifier.setId("211221260");
+                schemeInfo.setName("West Suffolk College");
+                identifier.setId("229841838");
                 identifier.setScheme(SchemeRegistry.getSchemeCode(DUN_AND_BRADSTREET));
-                identifier.setLegalName("Thus Group Holdings Ltd");
+                identifier.setLegalName("West Suffolk College");
                 identifier.setUri("");
                 schemeInfo.setIdentifier(identifier);
 
                 // No additionalIdentifier
 
                 address.setCountryName("United Kingdom");
-                address.setLocality("LONDON");
-                address.setPostalCode("EC1Y 8LZ");
+                address.setLocality("BURY ST. EDMUNDS");
+                address.setPostalCode("IP33 3RL");
                 address.setRegion("");
-                address.setStreetAddress("Finsbury Tower, 103-105 Bunhill Row");
+                address.setStreetAddress("Out Risbygate");
                 schemeInfo.setAddress(address);
 
                 contactPoint.setName("");
@@ -177,25 +177,25 @@ public class OrgDataProvider extends BaseClass {
 
 
             case DUN_AND_BRADSTREET_WITH_COH:
-                schemeInfo.setName("CHAIN GANG LIMITED");
-                identifier.setId("297663445");
+                schemeInfo.setName("BIOS HEALTH LTD");
+                identifier.setId("220857124");
                 identifier.setScheme(SchemeRegistry.getSchemeCode(DUN_AND_BRADSTREET_WITH_COH));
-                identifier.setLegalName("CHAIN GANG LIMITED");
+                identifier.setLegalName("BIOS HEALTH LTD");
                 identifier.setUri("");
                 schemeInfo.setIdentifier(identifier);
 
                 additionalIdentifier1.setScheme(SchemeRegistry.getSchemeCode(COMPANIES_HOUSE));
-                additionalIdentifier1.setId("02029405");
+                additionalIdentifier1.setId("09575301");
                 additionalIdentifier1.setUri("");
-                additionalIdentifier1.setLegalName("CHAIN GANG LIMITED");
+                additionalIdentifier1.setLegalName("BIOS HEALTH LTD");
                 additionalIdentifiers.add(additionalIdentifier1);
                 schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
 
                 address.setCountryName("United Kingdom");
-                address.setLocality("LONDON");
-                address.setPostalCode("SW11 3SX");
+                address.setLocality("CAMBRIDGE");
+                address.setPostalCode("CB2 1NN");
                 address.setRegion("");
-                address.setStreetAddress("Unit 4, River Reach Business Park, 1 Gartons Way");
+                address.setStreetAddress("8 Bateman Mews");
                 schemeInfo.setAddress(address);
 
                 contactPoint.setName("");
@@ -368,52 +368,38 @@ public class OrgDataProvider extends BaseClass {
                 schemeInfo.setIdentifier(identifier);
 
                 additionalIdentifier1.setScheme(SchemeRegistry.getSchemeCode(CHARITIES_COMMISSION));
-                additionalIdentifier1.setId("1091458");
-                additionalIdentifier1.setUri("https://register-of-charities.charitycommission.gov.uk/charity-details/?regId=1091458&subId=0");
-                additionalIdentifier1.setLegalName("STAFFORDSHIRE BLIND");
+                additionalIdentifier1.setId("226227");
+                additionalIdentifier1.setUri("https://register-of-charities.charitycommission.gov.uk/charity-details/?regId=226227&subId=0");
+                additionalIdentifier1.setLegalName("THE ROYAL NATIONAL INSTITUTE OF BLIND PEOPLE");
                 additionalIdentifiers.add(additionalIdentifier1);
                 schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
 
-                additionalIdentifier2.setScheme(SchemeRegistry.getSchemeCode(CHARITIES_COMMISSION));
-                additionalIdentifier2.setId("214330");
-                additionalIdentifier2.setUri("https://register-of-charities.charitycommission.gov.uk/charity-details/?regId=214330&subId=0");
-                additionalIdentifier2.setLegalName("GLYNN VIVIAN");
+                additionalIdentifier2.setScheme(SchemeRegistry.getSchemeCode(COMPANIES_HOUSE));
+                additionalIdentifier2.setId("00026688");
+                additionalIdentifier2.setUri("");
+                additionalIdentifier2.setLegalName("ACTION FOR BLIND PEOPLE");
                 additionalIdentifiers.add(additionalIdentifier2);
                 schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
 
-                additionalIdentifier3.setScheme(SchemeRegistry.getSchemeCode(CHARITIES_COMMISSION));
-                additionalIdentifier3.setId("226227");
-                additionalIdentifier3.setUri("https://register-of-charities.charitycommission.gov.uk/charity-details/?regId=226227&subId=0");
-                additionalIdentifier3.setLegalName("THE ROYAL NATIONAL INSTITUTE OF BLIND PEOPLE");
+                additionalIdentifier3.setScheme(SchemeRegistry.getSchemeCode(COMPANIES_HOUSE));
+                additionalIdentifier3.setId("RC000500");
+                additionalIdentifier3.setUri("");
+                additionalIdentifier3.setLegalName("ROYAL NATIONAL INSTITUTE OF BLIND PEOPLE");
                 additionalIdentifiers.add(additionalIdentifier3);
                 schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
 
-                additionalIdentifier4.setScheme(SchemeRegistry.getSchemeCode(COMPANIES_HOUSE));
-                additionalIdentifier4.setId("00026688");
-                additionalIdentifier4.setUri("");
-                additionalIdentifier4.setLegalName("ACTION FOR BLIND PEOPLE");
+                additionalIdentifier4.setScheme(SchemeRegistry.getSchemeCode(SCOTLAND_CHARITY));
+                additionalIdentifier4.setId("SC039316");
+                additionalIdentifier4.setUri("https://www.oscr.org.uk/about-charities/search-the-register/charity-details?number=SC039316");
+                additionalIdentifier4.setLegalName("Royal National Institute of Blind People");
                 additionalIdentifiers.add(additionalIdentifier4);
                 schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
 
-                additionalIdentifier5.setScheme(SchemeRegistry.getSchemeCode(COMPANIES_HOUSE));
-                additionalIdentifier5.setId("RC000500");
-                additionalIdentifier5.setUri("");
-                additionalIdentifier5.setLegalName("ROYAL NATIONAL INSTITUTE OF BLIND PEOPLE");
+                additionalIdentifier5.setScheme(SchemeRegistry.getSchemeCode(SCOTLAND_CHARITY));
+                additionalIdentifier5.setId("SC040050");
+                additionalIdentifier5.setUri("https://www.oscr.org.uk/about-charities/search-the-register/charity-details?number=SC040050");
+                additionalIdentifier5.setLegalName("Action for Blind People");
                 additionalIdentifiers.add(additionalIdentifier5);
-                schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
-
-                additionalIdentifier6.setScheme(SchemeRegistry.getSchemeCode(SCOTLAND_CHARITY));
-                additionalIdentifier6.setId("SC039316");
-                additionalIdentifier6.setUri("https://www.oscr.org.uk/about-charities/search-the-register/charity-details?number=SC039316");
-                additionalIdentifier6.setLegalName("Royal National Institute of Blind People");
-                additionalIdentifiers.add(additionalIdentifier6);
-                schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
-
-                additionalIdentifier7.setScheme(SchemeRegistry.getSchemeCode(SCOTLAND_CHARITY));
-                additionalIdentifier7.setId("SC040050");
-                additionalIdentifier7.setUri("https://www.oscr.org.uk/about-charities/search-the-register/charity-details?number=SC040050");
-                additionalIdentifier7.setLegalName("Action for Blind People");
-                additionalIdentifiers.add(additionalIdentifier7);
                 schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
 
                 address.setCountryName("");

@@ -1,7 +1,6 @@
 package com.ccs.conclave.api.cii.tests;
 
 import com.ccs.conclave.api.cii.data.OrgDataProvider;
-import com.ccs.conclave.api.cii.data.RequestPayloads;
 import com.ccs.conclave.api.cii.pojo.SchemeInfo;
 import com.ccs.conclave.api.cii.requests.RestRequests;
 import com.ccs.conclave.api.common.BaseClass;
@@ -9,7 +8,7 @@ import io.restassured.response.Response;
 import org.apache.log4j.Logger;
 import org.testng.annotations.Test;
 
-import static com.ccs.conclave.api.cii.data.OrgDataProvider.*;
+import static com.ccs.conclave.api.cii.data.OrgDataProvider.getInfoWithoutAddIdentifiers;
 import static com.ccs.conclave.api.cii.data.RequestPayloads.*;
 import static com.ccs.conclave.api.cii.data.SchemeRegistry.*;
 import static com.ccs.conclave.api.cii.requests.RestRequests.deleteOrganisation;
@@ -136,6 +135,33 @@ public class PostSchemeInfoTests extends BaseClass {
 
         // Perform Get call to form the request payload for POST call
         Response getSchemeRes = getSchemeInfo(NORTHERN_CHARITY_WITH_COH, schemeInfo.getIdentifier().getId());
+        verifyGetSchemeInfoResponse(schemeInfo, getSchemeRes); // verify Get SchemeInfo response before passing to Post
+
+        // Perform Post Operation
+        Response postSchemeRes = RestRequests.postSchemeInfo(getSchemeRes.asString());
+        verifyPostSchemeInfoResponse(schemeInfo, postSchemeRes);
+
+        // verify duplicate check for POST call
+        postSchemeRes = RestRequests.postSchemeInfo(getSchemeRes.asString());
+        verifyResponseCodeForDuplicateResource(postSchemeRes);
+
+        // verify duplicate check for Get call
+        getSchemeRes = getSchemeInfo(NORTHERN_CHARITY_WITH_COH, schemeInfo.getIdentifier().getId());
+        verifyResponseCodeForDuplicateResource(getSchemeRes);
+
+        // Delete Database entry if the Org. is already registered
+        deleteOrganisation(getCCSOrgId());
+    }
+
+    @Test
+    public void postSchemeInfoNIC_Without_Prefix() {
+        SchemeInfo schemeInfo = OrgDataProvider.getInfo(NORTHERN_CHARITY_WITH_COH);
+
+        // Perform Get call to form the request payload for POST call
+        String IdWithPrefix = schemeInfo.getIdentifier().getId();
+        Integer len = IdWithPrefix.length();
+        String IdWithoutPrefix = IdWithPrefix.substring(3,len);
+        Response getSchemeRes = getSchemeInfo(NORTHERN_CHARITY_WITH_COH, IdWithoutPrefix);
         verifyGetSchemeInfoResponse(schemeInfo, getSchemeRes); // verify Get SchemeInfo response before passing to Post
 
         // Perform Post Operation

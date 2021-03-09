@@ -7,9 +7,8 @@ import com.ccs.conclave.api.common.BaseClass;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
 
-import static com.ccs.conclave.api.cii.verification.VerifyEndpointResponses.*;
 import static com.ccs.conclave.api.cii.data.SchemeRegistry.*;
-import static com.ccs.conclave.api.cii.verification.VerifyEndpointResponses.verifyGetSchemeInfoResponse;
+import static com.ccs.conclave.api.cii.verification.VerifyEndpointResponses.*;
 
 public class GetSchemeInfoTests extends BaseClass {
 
@@ -120,16 +119,34 @@ public class GetSchemeInfoTests extends BaseClass {
         verifyResponseCodeForDuplicateResource(response);
     }
 
-    @Test // Bug: CON-662
+    @Test // Bug: CON-662 - Fixed
     public void getSchemeInfoWithAlreadyRegIDAndInvalidScheme() {
         SchemeInfo schemeInfo = OrgDataProvider.getInfo(COMPANIES_HOUSE);
 
         Response response = RestRequests.getSchemeInfo(COMPANIES_HOUSE, schemeInfo.getIdentifier().getId());
         RestRequests.postSchemeInfo(response.asString());
 
-        String identifierWithSpace = schemeInfo.getIdentifier().getId() + " ";
-        response = RestRequests.getSchemeInfo(NORTHERN_CHARITY, identifierWithSpace);
+        response = RestRequests.getSchemeInfo(NORTHERN_CHARITY, schemeInfo.getIdentifier().getId());
         verifyInvalidIdResponse(response);
     }
+
+    @Test // Bug: CON-662 - Fixed
+    public void getSchemeInfoWithSpaceInSchemeID() {
+        SchemeInfo schemeInfo = OrgDataProvider.getInfo(COMPANIES_HOUSE);
+
+        Response response = RestRequests.getSchemeInfo(COMPANIES_HOUSE, schemeInfo.getIdentifier().getId());
+        RestRequests.postSchemeInfo(response.asString());
+
+        String IdWithSpace = schemeInfo.getIdentifier().getId() + " ";
+        response = RestRequests.getSchemeInfo(COMPANIES_HOUSE, IdWithSpace);
+        verifyResponseCodeForSuccess(response);
+    }
+
+    @Test
+    public void getInactieDunsSchemeInfo() {
+        Response response = RestRequests.getSchemeInfo(DUN_AND_BRADSTREET, "238637735");
+        verifyInvalidIdResponse(response);
+    }
+
 
 }
