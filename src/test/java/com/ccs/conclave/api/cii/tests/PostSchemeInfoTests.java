@@ -83,10 +83,10 @@ public class PostSchemeInfoTests extends BaseClass {
 
     @Test
     public void postSchemeInfoCHC_With_MultipleAddIdentifiers() {
-        SchemeInfo schemeInfo = OrgDataProvider.getInfo(CHARITIES_COMMISSION_WITH_TWO_COH);
+        SchemeInfo schemeInfo = OrgDataProvider.getInfo(DUN_AND_BRADSTREET_WITH_COH_AND_CHC);
 
         // Perform Get call to form the request payload for POST call
-        Response getSchemeRes = getSchemeInfo(CHARITIES_COMMISSION_WITH_TWO_COH, schemeInfo.getIdentifier().getId());
+        Response getSchemeRes = getSchemeInfo(DUN_AND_BRADSTREET_WITH_COH_AND_CHC, schemeInfo.getIdentifier().getId());
         verifyGetSchemeInfoResponse(schemeInfo, getSchemeRes); // verify Get SchemeInfo response before passing to Post
 
         // Perform Post Operation
@@ -98,7 +98,7 @@ public class PostSchemeInfoTests extends BaseClass {
         verifyResponseCodeForDuplicateResource(postSchemeRes);
 
         // verify duplicate check for Get call
-        getSchemeRes = getSchemeInfo(CHARITIES_COMMISSION_WITH_TWO_COH, schemeInfo.getIdentifier().getId());
+        getSchemeRes = getSchemeInfo(DUN_AND_BRADSTREET_WITH_COH_AND_CHC, schemeInfo.getIdentifier().getId());
         verifyResponseCodeForDuplicateResource(getSchemeRes);
 
         // Delete Database entry if the Org. is already registered
@@ -154,13 +154,38 @@ public class PostSchemeInfoTests extends BaseClass {
     }
 
     @Test
+    public void postSchemeInfoSC_Without_Prefix() {
+        SchemeInfo schemeInfo = OrgDataProvider.getInfo(SCOTLAND_CHARITY);
+
+        // Perform Get call to form the request payload for POST call
+        String IdWithPrefix = schemeInfo.getIdentifier().getId();
+        String IdWithoutPrefix = IdWithPrefix.substring(2);
+        Response getSchemeRes = getSchemeInfo(SCOTLAND_CHARITY, IdWithoutPrefix);
+        verifyGetSchemeInfoResponse(schemeInfo, getSchemeRes); // verify Get SchemeInfo response before passing to Post
+
+        // Perform Post Operation
+        Response postSchemeRes = RestRequests.postSchemeInfo(getSchemeRes.asString());
+        verifyPostSchemeInfoResponse(schemeInfo, postSchemeRes);
+
+        // verify duplicate check for POST call
+        postSchemeRes = RestRequests.postSchemeInfo(getSchemeRes.asString());
+        verifyResponseCodeForDuplicateResource(postSchemeRes);
+
+        // verify duplicate check for Get call
+        getSchemeRes = getSchemeInfo(SCOTLAND_CHARITY, schemeInfo.getIdentifier().getId());
+        verifyResponseCodeForDuplicateResource(getSchemeRes);
+
+        // Delete Database entry if the Org. is already registered
+        deleteOrganisation(getCCSOrgId());
+    }
+
+    @Test
     public void postSchemeInfoNIC_Without_Prefix() {
         SchemeInfo schemeInfo = OrgDataProvider.getInfo(NORTHERN_CHARITY_WITH_COH);
 
         // Perform Get call to form the request payload for POST call
         String IdWithPrefix = schemeInfo.getIdentifier().getId();
-        Integer len = IdWithPrefix.length();
-        String IdWithoutPrefix = IdWithPrefix.substring(3,len);
+        String IdWithoutPrefix = IdWithPrefix.substring(3);
         Response getSchemeRes = getSchemeInfo(NORTHERN_CHARITY_WITH_COH, IdWithoutPrefix);
         verifyGetSchemeInfoResponse(schemeInfo, getSchemeRes); // verify Get SchemeInfo response before passing to Post
 
@@ -179,6 +204,7 @@ public class PostSchemeInfoTests extends BaseClass {
         // Delete Database entry if the Org. is already registered
         deleteOrganisation(getCCSOrgId());
     }
+
 
     @Test
     public void postSchemeInfoWithInvalidPrimarySchemeOrID() {
@@ -224,7 +250,7 @@ public class PostSchemeInfoTests extends BaseClass {
         SchemeInfo expectedSchemeInfo = getInfoWithoutAddIdentifiers(CHARITIES_COMMISSION_WITH_COH);
 
         // Modify The Response to Update Additional Identifier With Valid Additional Identifier of Another Scheme
-        String responseStr = getSchemeInfoWithAddIdentifierofAnotherScheme(CHARITIES_COMMISSION_WITH_COH);
+        String responseStr = getSchemeInfoWithAddIdentifierofAnotherScheme(DUN_AND_BRADSTREET_WITH_COH);
         Response response = RestRequests.postSchemeInfo(responseStr);
         verifyPostSchemeInfoResponse(expectedSchemeInfo, response);
 

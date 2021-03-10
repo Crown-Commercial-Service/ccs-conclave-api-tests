@@ -299,7 +299,7 @@ public class OrgDataProvider extends BaseClass {
                 contactPoint.setUri("");
                 schemeInfo.setContactPoint(contactPoint);
                 break;
-
+//TO BE REMOVED
             case CHARITIES_COMMISSION_WITH_SC:
                 schemeInfo.setName("MOUNTAINS ANIMAL SANCTUARY");
                 identifier.setId("290356");
@@ -329,35 +329,75 @@ public class OrgDataProvider extends BaseClass {
                 schemeInfo.setContactPoint(contactPoint);
                 break;
 
-            case CHARITIES_COMMISSION_WITH_COH:
-                schemeInfo.setName("47 CHARITY");
-                identifier.setId("1168304");
-                identifier.setScheme(SchemeRegistry.getSchemeCode(CHARITIES_COMMISSION_WITH_COH));
-                identifier.setLegalName("47 CHARITY");
-                identifier.setUri("https://register-of-charities.charitycommission.gov.uk/charity-details/?regId=1168304&subId=0");
+            case CHARITIES_COMMISSION_WITH_COH_AND_SC:
+                schemeInfo.setName("3SPACE");
+                identifier.setId("1136377");
+                identifier.setScheme(SchemeRegistry.getSchemeCode(CHARITIES_COMMISSION_WITH_COH_AND_SC));
+                identifier.setLegalName("3SPACE");
+                identifier.setUri("https://register-of-charities.charitycommission.gov.uk/charity-details/?regId=1136377&subId=0");
                 schemeInfo.setIdentifier(identifier);
 
                 additionalIdentifier1.setScheme(SchemeRegistry.getSchemeCode(COMPANIES_HOUSE));
-                additionalIdentifier1.setId("CE007062");
+                additionalIdentifier1.setId("07221470");
                 additionalIdentifier1.setUri("");
-                additionalIdentifier1.setLegalName("47 CHARITY");
+                additionalIdentifier1.setLegalName("3SPACE");
+                additionalIdentifiers.add(additionalIdentifier1);
+                schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
+
+                additionalIdentifier2.setScheme(SchemeRegistry.getSchemeCode(SCOTLAND_CHARITY));
+                additionalIdentifier2.setId("SC042130");
+                additionalIdentifier2.setUri("https://www.oscr.org.uk/about-charities/search-the-register/charity-details?number=SC042130");
+                additionalIdentifier2.setLegalName("3Space");
+                additionalIdentifiers.add(additionalIdentifier2);
+                schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
+
+                address.setCountryName("WOODFORD GREEN");
+                address.setLocality("19-20 BOURNE COURT");
+                address.setPostalCode("IG8 8HD");
+                address.setRegion("SOUTHEND ROAD");
+                address.setStreetAddress("3SPACE, C/O RAFFINGER STUART LTD");
+                schemeInfo.setAddress(address);
+
+                contactPoint.setName("");
+                contactPoint.setEmail("info@3space.org");
+                contactPoint.setFaxNumber("");
+                contactPoint.setTelephone("07780903180");
+                contactPoint.setUri("");
+                schemeInfo.setContactPoint(contactPoint);
+                break;
+
+
+            case CHARITIES_COMMISSION_WITH_COH:
+                schemeInfo.setName("9 Lives Furniture");
+                identifier.setId("1096086");
+                identifier.setScheme(SchemeRegistry.getSchemeCode(CHARITIES_COMMISSION_WITH_COH));
+                identifier.setLegalName("9 Lives Furniture");
+                identifier.setUri("https://register-of-charities.charitycommission.gov.uk/charity-details/?regId=1096086&subId=0");
+                schemeInfo.setIdentifier(identifier);
+
+                additionalIdentifier1.setScheme(SchemeRegistry.getSchemeCode(COMPANIES_HOUSE));
+                additionalIdentifier1.setId("04375649");
+                additionalIdentifier1.setUri("");
+                additionalIdentifier1.setLegalName("9 LIVES FURNITURE");
                 additionalIdentifiers.add(additionalIdentifier1);
                 schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
 
                 address.setCountryName("");
-                address.setLocality("READING");
-                address.setPostalCode("RG5 4QS");
+                address.setLocality("HERTFORDSHIRE");
+                address.setPostalCode("WD3 1HA");
                 address.setRegion("");
-                address.setStreetAddress("63 WELFORD ROAD, WOODLEY");
+                address.setStreetAddress("25 WHARF LANE, RICKMANSWORTH");
                 schemeInfo.setAddress(address);
 
                 contactPoint.setName("");
-                contactPoint.setEmail("secretary@47charity.org");
+                contactPoint.setEmail("marie@9livesfurniture.org.uk");
                 contactPoint.setFaxNumber("");
-                contactPoint.setTelephone("0118 944 2554");
+                contactPoint.setTelephone("01923 718666");
                 contactPoint.setUri("");
                 schemeInfo.setContactPoint(contactPoint);
                 break;
+
+
 
             case CHARITIES_COMMISSION_WITH_KNOWN_AND_UNKNOWN_IDENTIFIERS:
                 schemeInfo.setName("ACTION FOR BLIND PEOPLE");
