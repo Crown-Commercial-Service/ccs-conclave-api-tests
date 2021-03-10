@@ -118,7 +118,7 @@ public class IntegrationTests extends BaseClass {
     // Integration Scenario: the identifier is already registered and admin search the same
     // and expect a response with 200 OK and then try to add as part of organisation again, which result in
     // failure with status code 405
-    @Test
+   // @Test
     public void userSearchOrgIdentifierViaAddRegistryAndUpdateTheSameAfterDelete() throws JSONException {
         // Register Primary Identifier with additional identifiers
         SchemeInfo schemeInfo = getInfo(SCOTLAND_CHARITY_WITH_CHC_COH);

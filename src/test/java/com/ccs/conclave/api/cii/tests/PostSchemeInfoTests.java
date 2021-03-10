@@ -83,10 +83,10 @@ public class PostSchemeInfoTests extends BaseClass {
 
     @Test
     public void postSchemeInfoCHC_With_MultipleAddIdentifiers() {
-        SchemeInfo schemeInfo = OrgDataProvider.getInfo(DUN_AND_BRADSTREET_WITH_COH_AND_CHC);
+        SchemeInfo schemeInfo = OrgDataProvider.getInfo(CHARITIES_COMMISSION_WITH_COH_AND_SC);
 
         // Perform Get call to form the request payload for POST call
-        Response getSchemeRes = getSchemeInfo(DUN_AND_BRADSTREET_WITH_COH_AND_CHC, schemeInfo.getIdentifier().getId());
+        Response getSchemeRes = getSchemeInfo(CHARITIES_COMMISSION_WITH_COH_AND_SC, schemeInfo.getIdentifier().getId());
         verifyGetSchemeInfoResponse(schemeInfo, getSchemeRes); // verify Get SchemeInfo response before passing to Post
 
         // Perform Post Operation
@@ -98,7 +98,7 @@ public class PostSchemeInfoTests extends BaseClass {
         verifyResponseCodeForDuplicateResource(postSchemeRes);
 
         // verify duplicate check for Get call
-        getSchemeRes = getSchemeInfo(DUN_AND_BRADSTREET_WITH_COH_AND_CHC, schemeInfo.getIdentifier().getId());
+        getSchemeRes = getSchemeInfo(CHARITIES_COMMISSION_WITH_COH_AND_SC, schemeInfo.getIdentifier().getId());
         verifyResponseCodeForDuplicateResource(getSchemeRes);
 
         // Delete Database entry if the Org. is already registered
@@ -246,11 +246,10 @@ public class PostSchemeInfoTests extends BaseClass {
 
     @Test
     public void postSchemeInfoWithAddIdentifierOfAnotherScheme() {
-        SchemeInfo schemeInfo = OrgDataProvider.getInfo(CHARITIES_COMMISSION_WITH_COH);
         SchemeInfo expectedSchemeInfo = getInfoWithoutAddIdentifiers(CHARITIES_COMMISSION_WITH_COH);
 
         // Modify The Response to Update Additional Identifier With Valid Additional Identifier of Another Scheme
-        String responseStr = getSchemeInfoWithAddIdentifierofAnotherScheme(DUN_AND_BRADSTREET_WITH_COH);
+        String responseStr = getSchemeInfoWithAddIdentifierofAnotherScheme(CHARITIES_COMMISSION_WITH_COH);
         Response response = RestRequests.postSchemeInfo(responseStr);
         verifyPostSchemeInfoResponse(expectedSchemeInfo, response);
 
