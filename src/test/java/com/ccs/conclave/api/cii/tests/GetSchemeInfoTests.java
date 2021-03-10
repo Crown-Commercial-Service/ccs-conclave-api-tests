@@ -7,9 +7,8 @@ import com.ccs.conclave.api.common.BaseClass;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
 
-import static com.ccs.conclave.api.cii.verification.VerifyEndpointResponses.*;
 import static com.ccs.conclave.api.cii.data.SchemeRegistry.*;
-import static com.ccs.conclave.api.cii.verification.VerifyEndpointResponses.verifyGetSchemeInfoResponse;
+import static com.ccs.conclave.api.cii.verification.VerifyEndpointResponses.*;
 
 public class GetSchemeInfoTests extends BaseClass {
 
@@ -48,17 +47,17 @@ public class GetSchemeInfoTests extends BaseClass {
         verifyGetSchemeInfoResponse(schemeInfo, response);
     }
 
-    @Test // Bug: CON-452 -FIXED
-    public void getGBCharitiesSchemeInfoWithTwoCOH() {
-        SchemeInfo schemeInfo = OrgDataProvider.getInfo(CHARITIES_COMMISSION_WITH_TWO_COH);
-        Response response = RestRequests.getSchemeInfo(CHARITIES_COMMISSION_WITH_TWO_COH, schemeInfo.getIdentifier().getId());
-        verifyGetSchemeInfoResponse(schemeInfo, response);
-    }
+//    @Test // Bug: CON-452 -FIXED
+//    public void getGBCharitiesSchemeInfoWithTwoCOH() {
+//        SchemeInfo schemeInfo = OrgDataProvider.getInfo(CHARITIES_COMMISSION_WITH_TWO_COH);
+//        Response response = RestRequests.getSchemeInfo(CHARITIES_COMMISSION_WITH_TWO_COH, schemeInfo.getIdentifier().getId());
+//        verifyGetSchemeInfoResponse(schemeInfo, response);
+//    }
 
     @Test // Bug: CON-452 -FIXED
-    public void getGBCharitiesSchemeInfoWithSC() {
-        SchemeInfo schemeInfo = OrgDataProvider.getInfo(CHARITIES_COMMISSION_WITH_SC);
-        Response response = RestRequests.getSchemeInfo(CHARITIES_COMMISSION_WITH_SC, schemeInfo.getIdentifier().getId());
+    public void getGBCharitiesSchemeInfoWithCOHAndSC() {
+        SchemeInfo schemeInfo = OrgDataProvider.getInfo(CHARITIES_COMMISSION_WITH_COH_AND_SC);
+        Response response = RestRequests.getSchemeInfo(CHARITIES_COMMISSION_WITH_COH_AND_SC, schemeInfo.getIdentifier().getId());
         verifyGetSchemeInfoResponse(schemeInfo, response);
     }
 
@@ -119,5 +118,35 @@ public class GetSchemeInfoTests extends BaseClass {
         response = RestRequests.getSchemeInfo(DUN_AND_BRADSTREET_WITH_COH, schemeInfo.getIdentifier().getId());
         verifyResponseCodeForDuplicateResource(response);
     }
+
+    @Test // Bug: CON-662 - Fixed
+    public void getSchemeInfoWithAlreadyRegIDAndInvalidScheme() {
+        SchemeInfo schemeInfo = OrgDataProvider.getInfo(COMPANIES_HOUSE);
+
+        Response response = RestRequests.getSchemeInfo(COMPANIES_HOUSE, schemeInfo.getIdentifier().getId());
+        RestRequests.postSchemeInfo(response.asString());
+
+        response = RestRequests.getSchemeInfo(NORTHERN_CHARITY, schemeInfo.getIdentifier().getId());
+        verifyInvalidIdResponse(response);
+    }
+
+    @Test // Bug: CON-662 - Fixed
+    public void getSchemeInfoWithSpaceInSchemeID() {
+        SchemeInfo schemeInfo = OrgDataProvider.getInfo(COMPANIES_HOUSE);
+
+        Response response = RestRequests.getSchemeInfo(COMPANIES_HOUSE, schemeInfo.getIdentifier().getId());
+        RestRequests.postSchemeInfo(response.asString());
+
+        String IdWithSpace = schemeInfo.getIdentifier().getId() + " ";
+        response = RestRequests.getSchemeInfo(COMPANIES_HOUSE, IdWithSpace);
+        verifyResponseCodeForSuccess(response);
+    }
+
+    @Test
+    public void getInactiveDunsSchemeInfo() {
+        Response response = RestRequests.getSchemeInfo(DUN_AND_BRADSTREET, "238637735");
+        verifyInvalidIdResponse(response);
+    }
+
 
 }

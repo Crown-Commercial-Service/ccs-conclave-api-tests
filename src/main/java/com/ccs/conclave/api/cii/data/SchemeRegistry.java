@@ -13,6 +13,7 @@ public enum SchemeRegistry {
     CHARITIES_COMMISSION_WITH_TWO_COH("GB-CHC", "Charity Commission for England and Wales", "https://findthatcharity.uk", "Registered Charity Number", "GB"),
     CHARITIES_COMMISSION_WITH_COH("GB-CHC", "Charity Commission for England and Wales", "https://findthatcharity.uk", "Registered Charity Number", "GB"),
     CHARITIES_COMMISSION_WITH_SC("GB-CHC", "Charity Commission for England and Wales", "https://findthatcharity.uk", "Registered Charity Number", "GB"),
+    CHARITIES_COMMISSION_WITH_COH_AND_SC("GB-CHC", "Charity Commission for England and Wales", "https://findthatcharity.uk", "Registered Charity Number", "GB"),
     CHARITIES_COMMISSION_WITH_KNOWN_AND_UNKNOWN_IDENTIFIERS("GB-CHC", "Charity Commission for England and Wales", "https://findthatcharity.uk", "Registered Charity Number", "GB"),
     NORTHERN_CHARITY_WITH_COH("GB-NIC", "The Charity Commission for Northern Ireland", "https://findthatcharity.uk", "Registered Charity Number", "GB"),
     NORTHERN_CHARITY("GB-NIC", "The Charity Commission for Northern Ireland", "https://findthatcharity.uk", "Registered Charity Number", "GB"),
