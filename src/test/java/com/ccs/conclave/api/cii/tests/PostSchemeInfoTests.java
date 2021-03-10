@@ -159,7 +159,7 @@ public class PostSchemeInfoTests extends BaseClass {
 
         // Perform Get call to form the request payload for POST call
         String IdWithPrefix = schemeInfo.getIdentifier().getId();
-        String IdWithoutPrefix = IdWithPrefix.substring(2);
+        String IdWithoutPrefix = IdWithPrefix.replaceAll("[^0-9]", "");
         Response getSchemeRes = getSchemeInfo(SCOTLAND_CHARITY, IdWithoutPrefix);
         verifyGetSchemeInfoResponse(schemeInfo, getSchemeRes); // verify Get SchemeInfo response before passing to Post
 
@@ -185,7 +185,7 @@ public class PostSchemeInfoTests extends BaseClass {
 
         // Perform Get call to form the request payload for POST call
         String IdWithPrefix = schemeInfo.getIdentifier().getId();
-        String IdWithoutPrefix = IdWithPrefix.substring(3);
+        String IdWithoutPrefix = IdWithPrefix.replaceAll("[^0-9]", "");
         Response getSchemeRes = getSchemeInfo(NORTHERN_CHARITY_WITH_COH, IdWithoutPrefix);
         verifyGetSchemeInfoResponse(schemeInfo, getSchemeRes); // verify Get SchemeInfo response before passing to Post
 
