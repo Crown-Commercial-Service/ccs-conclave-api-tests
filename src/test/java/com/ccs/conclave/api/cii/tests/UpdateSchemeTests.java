@@ -83,13 +83,17 @@ public class UpdateSchemeTests extends BaseClass {
         verifyResponseCodeForSuccess(response);
         verifyUpdatedScheme(schemeInfo.getIdentifier().getId(), additionalSchemeInfo2);
 
+        logger.info("Try Update again without deleting...");
+        response = RestRequests.updateScheme(additionalSchemeInfo2);
+        verifyResponseCodeForSuccess(response);
+        verifyUpdatedScheme(schemeInfo.getIdentifier().getId(), additionalSchemeInfo2);
+
         // Delete Database entry if the Org. is already registered
         deleteOrganisation(getCCSOrgId());
     }
 
     @Test
     public void updateSchemeInvalidSchemeOrID() {
-        SchemeInfo schemeInfo = OrgDataProvider.getInfo(CHARITIES_COMMISSION_WITH_SC);
         // GetScheme response without additional identifiers
         String responseStr = getSchemeInfoWithEmptyAddIdentifiers(CHARITIES_COMMISSION_WITH_SC);
         // Get expected SchemeInfo without additional identifiers
