@@ -25,28 +25,15 @@ public class GetRegisteredSchemesTests extends BaseClass {
 
     @Test
     public void getRegisteredSchemes() {
-        SchemeInfo schemeInfo = OrgDataProvider.getInfo(CHARITIES_COMMISSION_WITH_SC);
-        Response getSchemeInfo = getSchemeInfo(CHARITIES_COMMISSION_WITH_SC, schemeInfo.getIdentifier().getId());
+        SchemeInfo schemeInfo = OrgDataProvider.getInfo(NORTHERN_CHARITY_WITH_COH);
+        Response getSchemeInfo = getSchemeInfo(NORTHERN_CHARITY_WITH_COH, schemeInfo.getIdentifier().getId());
         Response postSchemeRes = RestRequests.postSchemeInfo(getSchemeInfo.asString());
         verifyPostSchemeInfoResponse(schemeInfo, postSchemeRes);
         logger.info("Successfully registered organisation...");
 
-        RegisteredSchemeInfo expectedIdentifiers = new RegisteredSchemeInfo();
-        Identifier identifier = new Identifier();
-        identifier.setId(schemeInfo.getIdentifier().getId());
-        identifier.setScheme(schemeInfo.getIdentifier().getScheme());
-        identifier.setUri(schemeInfo.getIdentifier().getUri());
-        identifier.setUri(schemeInfo.getIdentifier().getLegalName());
-        expectedIdentifiers.setIdentifier(identifier);
-        identifier.setId(schemeInfo.getAdditionalIdentifiers().get(0).getId());
-        identifier.setScheme(schemeInfo.getAdditionalIdentifiers().get(0).getScheme());
-        identifier.setUri(schemeInfo.getAdditionalIdentifiers().get(0).getUri());
-        identifier.setLegalName(schemeInfo.getAdditionalIdentifiers().get(0).getLegalName());
-        expectedIdentifiers.getAdditionalIdentifiers().add(identifier);
-
         logger.info("Get registered schemes...");
-        Response getRegisteredSchemesRes = getRegisteredSchemesInfo(getCCSOrgId());
-        verifyRegisteredSchemes(expectedIdentifiers, getRegisteredSchemesRes);
+        Response registeredSchemesRes = getRegisteredSchemesInfo(getCCSOrgId());
+        verifyRegisteredSchemes(registeredSchemesRes, schemeInfo, 1);
 
         // Delete Database entry if the Org. is already registered
         deleteOrganisation(getCCSOrgId());
@@ -62,17 +49,9 @@ public class GetRegisteredSchemesTests extends BaseClass {
         verifyPostSchemeInfoResponse(expectedSchemeInfo, postSchemeRes);
         logger.info("Successfully registered organisation without additional identifiers...");
 
-        RegisteredSchemeInfo expectedIdentifiers = new RegisteredSchemeInfo();
-        Identifier identifier = new Identifier();
-        identifier.setId(schemeInfo.getIdentifier().getId());
-        identifier.setScheme(schemeInfo.getIdentifier().getScheme());
-        identifier.setUri(schemeInfo.getIdentifier().getUri());
-        identifier.setUri(schemeInfo.getIdentifier().getLegalName());
-        expectedIdentifiers.setIdentifier(identifier);
-
         logger.info("Get registered schemes...");
-        Response getRegisteredSchemesRes = getRegisteredSchemesInfo(getCCSOrgId());
-        verifyRegisteredSchemes(expectedIdentifiers, getRegisteredSchemesRes);
+        Response registeredSchemesRes = getRegisteredSchemesInfo(getCCSOrgId());
+        verifyRegisteredSchemes(registeredSchemesRes, schemeInfo, 0);
 
         // Delete Database entry if the Org. is already registered
         deleteOrganisation(getCCSOrgId());
@@ -85,24 +64,16 @@ public class GetRegisteredSchemesTests extends BaseClass {
         SchemeInfo expectedSchemeInfo = OrgDataProvider.getInfoWithoutAddIdentifiers(SCOTLAND_CHARITY_WITH_CHC_COH);
 
         // get only AdditionalIdentifiers from the given Scheme
-        List<AdditionalSchemeInfo> additionalSchemesInfo = getAdditionalIdentifierInfo(CHARITIES_COMMISSION_WITH_SC);
-        Assert.assertTrue(additionalSchemesInfo.size() == 1, "Two additional identifier are expected, please check the test data!");
+        List<AdditionalSchemeInfo> additionalSchemesInfo = getAdditionalIdentifierInfo(SCOTLAND_CHARITY_WITH_CHC_COH);
+        Assert.assertTrue(additionalSchemesInfo.size() == 2, "Two additional identifier are expected, please check the test data!");
 
         Response postSchemeRes = RestRequests.postSchemeInfo(getSchemeInfo);
         verifyPostSchemeInfoResponse(expectedSchemeInfo, postSchemeRes);
         logger.info("Successfully registered organisation without additional identifiers...");
 
-        RegisteredSchemeInfo expectedIdentifiers = new RegisteredSchemeInfo();
-        Identifier identifier = new Identifier();
-        identifier.setId(schemeInfo.getIdentifier().getId());
-        identifier.setScheme(schemeInfo.getIdentifier().getScheme());
-        identifier.setUri(schemeInfo.getIdentifier().getUri());
-        identifier.setUri(schemeInfo.getIdentifier().getLegalName());
-        expectedIdentifiers.setIdentifier(identifier);
-
         logger.info("Get registered schemes...");
-        Response getRegisteredSchemesRes = getRegisteredSchemesInfo(getCCSOrgId());
-        verifyRegisteredSchemes(expectedIdentifiers, getRegisteredSchemesRes);
+        Response registeredSchemesRes = getRegisteredSchemesInfo(getCCSOrgId());
+        verifyRegisteredSchemes(registeredSchemesRes, schemeInfo, 0);
 
         logger.info("Adding additional identifier1 to the existing organisation...");
         AdditionalSchemeInfo additionalSchemeInfo1 = additionalSchemesInfo.get(0);
@@ -110,33 +81,25 @@ public class GetRegisteredSchemesTests extends BaseClass {
         Response response = RestRequests.updateScheme(additionalSchemeInfo1);
         verifyResponseCodeForSuccess(response);
 
-        // setting additional identifier for expected result
-        identifier.setId(additionalSchemeInfo1.getIdentifier().getId());
-        identifier.setScheme(additionalSchemeInfo1.getIdentifier().getScheme());
-        identifier.setUri(additionalSchemeInfo1.getIdentifier().getUri());
-        identifier.setLegalName(additionalSchemeInfo1.getIdentifier().getLegalName());
-        expectedIdentifiers.getAdditionalIdentifiers().add(identifier);
-
         logger.info("Get registered schemes after updating additional identifier...");
-        getRegisteredSchemesRes = getRegisteredSchemesInfo(getCCSOrgId());
-        verifyRegisteredSchemes(expectedIdentifiers, getRegisteredSchemesRes);
+        registeredSchemesRes = getRegisteredSchemesInfo(getCCSOrgId());
+        verifyRegisteredSchemes(registeredSchemesRes, schemeInfo, 1);
 
         logger.info("Adding additional identifier2 to the existing organisation...");
         AdditionalSchemeInfo additionalSchemeInfo2 = additionalSchemesInfo.get(1);
-        additionalSchemeInfo1.setCcsOrgId(getCCSOrgId());
-        response = RestRequests.updateScheme(additionalSchemeInfo1);
+        additionalSchemeInfo2.setCcsOrgId(getCCSOrgId());
+        response = RestRequests.updateScheme(additionalSchemeInfo2);
         verifyResponseCodeForSuccess(response);
 
-        // setting additional identifier for expected result
-        identifier.setId(additionalSchemeInfo2.getIdentifier().getId());
-        identifier.setScheme(additionalSchemeInfo2.getIdentifier().getScheme());
-        identifier.setUri(additionalSchemeInfo2.getIdentifier().getUri());
-        identifier.setLegalName(additionalSchemeInfo2.getIdentifier().getLegalName());
-        expectedIdentifiers.getAdditionalIdentifiers().add(identifier);
-
         logger.info("Get registered schemes after updating additional identifier...");
-        getRegisteredSchemesRes = getRegisteredSchemesInfo(getCCSOrgId());
-        verifyRegisteredSchemes(expectedIdentifiers, getRegisteredSchemesRes);
+        registeredSchemesRes = getRegisteredSchemesInfo(getCCSOrgId());
+        verifyRegisteredSchemes(registeredSchemesRes, schemeInfo, 2);
+
+        logger.info("update again and verify resitered schemes...");
+        response = RestRequests.updateScheme(additionalSchemeInfo2);
+        verifyResponseCodeForSuccess(response);
+        registeredSchemesRes = getRegisteredSchemesInfo(getCCSOrgId());
+        verifyRegisteredSchemes(registeredSchemesRes, schemeInfo, 2);
 
         // Delete Database entry if the Org. is already registered
         deleteOrganisation(getCCSOrgId());
@@ -155,13 +118,9 @@ public class GetRegisteredSchemesTests extends BaseClass {
         verifyPostSchemeInfoResponse(schemeInfo, postSchemeRes);
         logger.info("Successfully registered organisation without additional identifiers...");
 
-        RegisteredSchemeInfo expectedIdentifiers = new RegisteredSchemeInfo();
-        Identifier identifier = new Identifier();
-        identifier.setId(schemeInfo.getIdentifier().getId());
-        identifier.setScheme(schemeInfo.getIdentifier().getScheme());
-        identifier.setUri(schemeInfo.getIdentifier().getUri());
-        identifier.setUri(schemeInfo.getIdentifier().getLegalName());
-        expectedIdentifiers.setIdentifier(identifier);
+        logger.info("Get registered schemes...");
+        Response registeredSchemesRes = getRegisteredSchemesInfo(getCCSOrgId());
+        verifyRegisteredSchemes(registeredSchemesRes, schemeInfo, 1);
 
         logger.info("Deleting additional identifier from the existing organisation...");
         AdditionalSchemeInfo additionalSchemeInfo1 = additionalSchemesInfo.get(0);
@@ -169,16 +128,9 @@ public class GetRegisteredSchemesTests extends BaseClass {
         Response response = RestRequests.deleteScheme(additionalSchemeInfo1);
         verifyResponseCodeForSuccess(response);
 
-        // setting additional identifier for expected result
-        identifier.setId(additionalSchemeInfo1.getIdentifier().getId());
-        identifier.setScheme(additionalSchemeInfo1.getIdentifier().getScheme());
-        identifier.setUri(additionalSchemeInfo1.getIdentifier().getUri());
-        identifier.setLegalName(additionalSchemeInfo1.getIdentifier().getLegalName());
-        expectedIdentifiers.getAdditionalIdentifiers().add(identifier);
-
         logger.info("Get registered schemes after deleting additional identifier...");
-        Response getRegisteredSchemesRes = getRegisteredSchemesInfo(getCCSOrgId());
-        verifyRegisteredSchemes(expectedIdentifiers, getRegisteredSchemesRes);
+        registeredSchemesRes = getRegisteredSchemesInfo(getCCSOrgId());
+        verifyRegisteredSchemes(registeredSchemesRes, schemeInfo, 0);
 
         // Delete Database entry if the Org. is already registered
         deleteOrganisation(getCCSOrgId());

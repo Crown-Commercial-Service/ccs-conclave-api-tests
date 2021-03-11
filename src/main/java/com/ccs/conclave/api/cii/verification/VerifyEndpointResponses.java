@@ -219,20 +219,20 @@ public class VerifyEndpointResponses {
         JSONAssert.assertEquals(expectedResIdentifiers, actualResIdentifiers, JSONCompareMode.STRICT);
     }
 
-    public static void verifyRegisteredSchemes(RegisteredSchemeInfo expectedIdentifiers, Response actualRes) {
+    public static void verifyRegisteredSchemes(Response actualRes, SchemeInfo expectedIdentifiers, int selectedAddIds) {
         verifyResponseCodeForSuccess(actualRes);
-        GetRegisteredSchemesResponse registeredSchemeInfoRes = new GetRegisteredSchemesResponse(actualRes.getBody().as(RegisteredSchemeInfo.class));
-        RegisteredSchemeInfo actualSchemeInfo = registeredSchemeInfoRes.getRegisteredSchemesInfo();
+        GetRegisteredSchemesResponse registeredSchemeInfoRes = new GetRegisteredSchemesResponse(Arrays.asList(actualRes.getBody().as(RegisteredSchemeInfo[].class)));
+        RegisteredSchemeInfo actualSchemeInfo = registeredSchemeInfoRes.getRegisteredSchemesInfo().get(0);
         Assert.assertEquals(actualSchemeInfo.getIdentifier().getId(), expectedIdentifiers.getIdentifier().getId(), "Unexpected Status code returned for Invalid Id!!");
         Assert.assertEquals(actualSchemeInfo.getIdentifier().getScheme(), expectedIdentifiers.getIdentifier().getScheme(), "Unexpected Status code returned for Invalid Id!!");
         Assert.assertEquals(actualSchemeInfo.getIdentifier().getUri(), expectedIdentifiers.getIdentifier().getUri(), "Unexpected Status code returned for Invalid Id!!");
         Assert.assertEquals(actualSchemeInfo.getIdentifier().getLegalName(), expectedIdentifiers.getIdentifier().getLegalName(), "Unexpected Status code returned for Invalid Id!!");
 
-        for(Identifier identifier : expectedIdentifiers.getAdditionalIdentifiers()) {
-            Assert.assertEquals(actualSchemeInfo.getIdentifier().getId(), identifier.getId(), "Unexpected Status code returned for Invalid Id!!");
-            Assert.assertEquals(actualSchemeInfo.getIdentifier().getScheme(), identifier.getScheme(), "Unexpected Status code returned for Invalid Id!!");
-            Assert.assertEquals(actualSchemeInfo.getIdentifier().getUri(), identifier.getUri(), "Unexpected Status code returned for Invalid Id!!");
-            Assert.assertEquals(actualSchemeInfo.getIdentifier().getLegalName(), identifier.getLegalName(), "Unexpected Status code returned for Invalid Id!!");
+        for (int i = 0; i < selectedAddIds; i++) {
+            Assert.assertEquals(actualSchemeInfo.getAdditionalIdentifiers().get(i).getId(), expectedIdentifiers.getAdditionalIdentifiers().get(i).getId(), "Unexpected Status code returned for Invalid Id!!");
+            Assert.assertEquals(actualSchemeInfo.getAdditionalIdentifiers().get(i).getScheme(), expectedIdentifiers.getAdditionalIdentifiers().get(i).getScheme(), "Unexpected Status code returned for Invalid Id!!");
+            Assert.assertEquals(actualSchemeInfo.getAdditionalIdentifiers().get(i).getUri(), expectedIdentifiers.getAdditionalIdentifiers().get(i).getUri(), "Unexpected Status code returned for Invalid Id!!");
+            Assert.assertEquals(actualSchemeInfo.getAdditionalIdentifiers().get(i).getLegalName(), expectedIdentifiers.getAdditionalIdentifiers().get(i).getLegalName(), "Unexpected Status code returned for Invalid Id!!");
         }
     }
 }
