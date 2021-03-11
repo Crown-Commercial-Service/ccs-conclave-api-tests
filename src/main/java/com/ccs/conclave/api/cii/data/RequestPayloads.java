@@ -20,7 +20,9 @@ public class RequestPayloads {
         SchemeInfo schemeInfo = OrgDataProvider.getInfo(scheme);
         Response response = RestRequests.getSchemeInfo(scheme, schemeInfo.getIdentifier().getId());
         verifyGetSchemeInfoResponse(schemeInfo, response);
-        return response.asString().replaceAll(schemeInfo.getAdditionalIdentifiers().get(0).getScheme(), getSchemeCode(SCOTLAND_CHARITY)).replaceAll(schemeInfo.getAdditionalIdentifiers().get(0).getId(), "SC037536");
+        String schemeName = getSchemeCode(SCOTLAND_CHARITY);
+        String additionalIdentifier = OrgDataProvider.getInfo(CHARITIES_COMMISSION_WITH_SC).getAdditionalIdentifiers().get(0).getId();
+        return response.asString().replaceAll(schemeInfo.getAdditionalIdentifiers().get(0).getScheme(), schemeName).replaceAll(schemeInfo.getAdditionalIdentifiers().get(0).getId(), additionalIdentifier);
     }
 
     // Modify the response to update Valid Scheme of Primary Scheme with Invalid Scheme
