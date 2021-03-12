@@ -2,8 +2,6 @@ package com.ccs.conclave.api.cii.tests;
 
 import com.ccs.conclave.api.cii.data.OrgDataProvider;
 import com.ccs.conclave.api.cii.pojo.AdditionalSchemeInfo;
-import com.ccs.conclave.api.cii.pojo.Identifier;
-import com.ccs.conclave.api.cii.pojo.RegisteredSchemeInfo;
 import com.ccs.conclave.api.cii.pojo.SchemeInfo;
 import com.ccs.conclave.api.cii.requests.RestRequests;
 import com.ccs.conclave.api.common.BaseClass;
@@ -65,7 +63,7 @@ public class GetRegisteredSchemesTests extends BaseClass {
 
         // get only AdditionalIdentifiers from the given Scheme
         List<AdditionalSchemeInfo> additionalSchemesInfo = getAdditionalIdentifierInfo(SCOTLAND_CHARITY_WITH_CHC_COH);
-        Assert.assertTrue(additionalSchemesInfo.size() == 2, "Two additional identifier are expected, please check the test data!");
+        Assert.assertEquals(additionalSchemesInfo.size(), 2, "Two additional identifier are expected, please check the test data!");
 
         Response postSchemeRes = RestRequests.postSchemeInfo(getSchemeInfo);
         verifyPostSchemeInfoResponse(expectedSchemeInfo, postSchemeRes);
@@ -95,7 +93,7 @@ public class GetRegisteredSchemesTests extends BaseClass {
         registeredSchemesRes = getRegisteredSchemesInfo(getCCSOrgId());
         verifyRegisteredSchemes(registeredSchemesRes, schemeInfo, 2);
 
-        logger.info("update again and verify resitered schemes...");
+        logger.info("update again and verify registered schemes...");
         response = RestRequests.updateScheme(additionalSchemeInfo2);
         verifyResponseCodeForSuccess(response);
         registeredSchemesRes = getRegisteredSchemesInfo(getCCSOrgId());
@@ -112,7 +110,7 @@ public class GetRegisteredSchemesTests extends BaseClass {
 
         // get only AdditionalIdentifiers from the given Scheme
         List<AdditionalSchemeInfo> additionalSchemesInfo = getAdditionalIdentifierInfo(DUN_AND_BRADSTREET_WITH_COH);
-        Assert.assertTrue(additionalSchemesInfo.size() == 1, "Two additional identifier are expected, please check the test data!");
+        Assert.assertEquals(additionalSchemesInfo.size(), 1, "Two additional identifier are expected, please check the test data!");
 
         Response postSchemeRes = RestRequests.postSchemeInfo(getSchemeInfoRes.asString());
         verifyPostSchemeInfoResponse(schemeInfo, postSchemeRes);

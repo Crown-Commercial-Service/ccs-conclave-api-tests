@@ -1,7 +1,5 @@
 package com.ccs.conclave.api.cii.tests;
 
-import com.ccs.conclave.api.cii.pojo.AdditionalSchemeInfo;
-import com.ccs.conclave.api.cii.pojo.Identifier;
 import com.ccs.conclave.api.cii.pojo.SchemeInfo;
 import com.ccs.conclave.api.cii.requests.RestRequests;
 import com.ccs.conclave.api.common.BaseClass;
@@ -71,6 +69,7 @@ public class ManageIdentifiersTests extends BaseClass {
         verifyManageIdentifiersResponse(getSchemeForCHC, response);
     }
 
+    // organisation admin searching valid identifier which is not as part of his org
     @Test
     public void manageIdsGetSchemeInfoWithValidIdentifierNotPartOfOrg() throws JSONException {
         // Register Primary Identifier without additional
