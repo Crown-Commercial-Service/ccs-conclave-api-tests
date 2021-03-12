@@ -233,5 +233,22 @@ public class VerifyEndpointResponses {
             Assert.assertEquals(actualSchemeInfo.getAdditionalIdentifiers().get(i).getLegalName(), expectedIdentifiers.getAdditionalIdentifiers().get(i).getLegalName(), "Invalid legal name for add identifier returned via get registered schemes!!");
         }
     }
+
+    public static void verifyAllRegisteredSchemes(Response actualRes, SchemeInfo expectedIdentifiers) {
+        verifyResponseCodeForSuccess(actualRes);
+        GetRegisteredSchemesResponse registeredSchemeInfoRes = new GetRegisteredSchemesResponse(Arrays.asList(actualRes.getBody().as(RegisteredSchemeInfo[].class)));
+        RegisteredSchemeInfo actualSchemeInfo = registeredSchemeInfoRes.getRegisteredSchemesInfo().get(0);
+        Assert.assertEquals(actualSchemeInfo.getIdentifier().getId(), expectedIdentifiers.getIdentifier().getId(), "Invalid Id returned via get registered schemes!!");
+        Assert.assertEquals(actualSchemeInfo.getIdentifier().getScheme(), expectedIdentifiers.getIdentifier().getScheme(), "Invalid scheme returned via get registered schemes!!!!");
+        Assert.assertEquals(actualSchemeInfo.getIdentifier().getUri(), expectedIdentifiers.getIdentifier().getUri(), "Invalid uri returned via get registered schemes!!!!");
+        Assert.assertEquals(actualSchemeInfo.getIdentifier().getLegalName(), expectedIdentifiers.getIdentifier().getLegalName(), "Invalid Legal name returned via get registered schemes!!!!");
+
+        for (int i = 0; i < selectedAddIds; i++) {
+            Assert.assertEquals(actualSchemeInfo.getAdditionalIdentifiers().get(i).getId(), expectedIdentifiers.getAdditionalIdentifiers().get(i).getId(), "Invalid Id for add identifier returned via get registered schemes!!!!");
+            Assert.assertEquals(actualSchemeInfo.getAdditionalIdentifiers().get(i).getScheme(), expectedIdentifiers.getAdditionalIdentifiers().get(i).getScheme(), "Invalid scheme for add identifier returned via get registered schemes!!");
+            Assert.assertEquals(actualSchemeInfo.getAdditionalIdentifiers().get(i).getUri(), expectedIdentifiers.getAdditionalIdentifiers().get(i).getUri(), "Invalid uri for add identifier returned via get registered schemes!!");
+            Assert.assertEquals(actualSchemeInfo.getAdditionalIdentifiers().get(i).getLegalName(), expectedIdentifiers.getAdditionalIdentifiers().get(i).getLegalName(), "Invalid legal name for add identifier returned via get registered schemes!!");
+        }
+    }
 }
 

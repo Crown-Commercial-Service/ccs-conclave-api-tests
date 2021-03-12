@@ -9,4 +9,6 @@ public class Endpoints {
     public static String deleteOrganisationURI = "/identities/organisation?";
     public static String adminGetSchemeInfoURI = "/identities/schemes/manageidentifiers?";
     public static String getRegisteredSchemesURI ="/identities/schemes/organisations?";
+    public static String getAllRegisteredSchemesURI ="/identities/schemes/organisations/all?";
+
 }
