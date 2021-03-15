@@ -126,7 +126,7 @@ public class VerifyEndpointResponses {
         Assert.assertTrue(actualResponse.getOrgIdentifier().size() == 1, "Not expected Post response!");
         ccsOrgId = actualResponse.getOrgIdentifier().get(0).getCcsOrgId();
         Assert.assertTrue(!actualResponse.getOrgIdentifier().get(0).getCcsOrgId().isEmpty()); // CcsOrgId is not empty
-        logger.info("CcsOrgId: " + actualResponse.getOrgIdentifier());
+        logger.info("CcsOrgId: " + actualResponse.getOrgIdentifier().get(0).getCcsOrgId());
 
         GetCIIDBDataTestEndpointResponse dbInfo = RequestTestEndpoints.getRegisteredOrganisations(expectedSchemeInfo.getIdentifier().getId());
         Assert.assertTrue(dbInfo.getDbData().size() >= 1, "No CII Database entry for the org registration for id :" + expectedSchemeInfo.getIdentifier().getId());
