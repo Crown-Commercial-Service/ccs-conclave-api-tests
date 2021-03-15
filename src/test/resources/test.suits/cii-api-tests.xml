@@ -36,6 +36,11 @@
             <class name="com.ccs.conclave.api.cii.tests.GetRegisteredSchemesTests"/>
         </classes>
     </test>
+    <test name="Get All Registered Schemes scenarios">
+        <classes>
+            <class name="com.ccs.conclave.api.cii.tests.GetAllRegisteredSchemesTests"/>
+        </classes>
+    </test>
     <test name="Integration scenarios">
         <classes>
             <class name="com.ccs.conclave.api.cii.tests.IntegrationTests"/>

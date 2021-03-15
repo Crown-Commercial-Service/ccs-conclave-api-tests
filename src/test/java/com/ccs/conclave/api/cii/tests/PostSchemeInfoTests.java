@@ -218,17 +218,6 @@ public class PostSchemeInfoTests extends BaseClass {
         verifyInvalidIdResponse(response);
     }
 
-    @Test //CON-543 - Fixed
-    public void postSchemeInfoWithNoAdditionalIdentifierSection() {
-        String responseStr = getSchemeInfoWithoutAddIdentifierSection(NORTHERN_CHARITY_WITH_COH);
-
-        //Modify the response to Remove The Additional Identifier Section
-        SchemeInfo expectedSchemeInfo = getInfoWithoutAddIdentifiers(NORTHERN_CHARITY_WITH_COH);
-        Response response = RestRequests.postSchemeInfo(responseStr);
-        verifyPostSchemeInfoResponse(expectedSchemeInfo, response);
-        deleteOrganisation(getCCSOrgId());
-    }
-
     @Test
     public void postSchemeInfoWithInvalidAdditionalIdentifier() {
         SchemeInfo expectedSchemeInfo = getInfoWithoutAddIdentifiers(DUN_AND_BRADSTREET_WITH_COH);
@@ -252,6 +241,17 @@ public class PostSchemeInfoTests extends BaseClass {
         verifyPostSchemeInfoResponse(expectedSchemeInfo, response);
 
         // Delete Database entry if the Org. is already registered
+        deleteOrganisation(getCCSOrgId());
+    }
+
+    @Test //CON-543 - Fixed
+    public void postSchemeInfoWithNoAdditionalIdentifierSection() {
+        String responseStr = getSchemeInfoWithoutAddIdentifierSection(NORTHERN_CHARITY_WITH_COH);
+
+        //Modify the response to Remove The Additional Identifier Section
+        SchemeInfo expectedSchemeInfo = getInfoWithoutAddIdentifiers(NORTHERN_CHARITY_WITH_COH);
+        Response response = RestRequests.postSchemeInfo(responseStr);
+        verifyPostSchemeInfoResponse(expectedSchemeInfo, response);
         deleteOrganisation(getCCSOrgId());
     }
 }

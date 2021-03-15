@@ -19,8 +19,6 @@ public class OrgDataProvider extends BaseClass {
         Identifier additionalIdentifier3 = new Identifier();
         Identifier additionalIdentifier4 = new Identifier();
         Identifier additionalIdentifier5 = new Identifier();
-        Identifier additionalIdentifier6 = new Identifier();
-        Identifier additionalIdentifier7 = new Identifier();
         List<Identifier> additionalIdentifiers = new ArrayList<>();
         Address address = new Address();
         ContactPoint contactPoint = new ContactPoint();
@@ -299,26 +297,27 @@ public class OrgDataProvider extends BaseClass {
                 contactPoint.setUri("");
                 schemeInfo.setContactPoint(contactPoint);
                 break;
-//TO BE REMOVED
+
             case CHARITIES_COMMISSION_WITH_SC:
-                schemeInfo.setName("MOUNTAINS ANIMAL SANCTUARY");
-                identifier.setId("290356");
-                identifier.setScheme(SchemeRegistry.getSchemeCode(CHARITIES_COMMISSION_WITH_SC));
-                identifier.setLegalName("MOUNTAINS ANIMAL SANCTUARY");
-                identifier.setUri("https://register-of-charities.charitycommission.gov.uk/charity-details/?regId=290356&subId=0");
+                schemeInfo.setName("ADVENTIST DEVELOPMENT AND RELIEF AGENCY - UK");
+                identifier.setId("1074937");
+                identifier.setScheme(SchemeRegistry.getSchemeCode(CHARITIES_COMMISSION));
+                identifier.setLegalName("ADVENTIST DEVELOPMENT AND RELIEF AGENCY - UK");
+                identifier.setUri("https://register-of-charities.charitycommission.gov.uk/charity-details/?regId=1074937&subId=0");
                 schemeInfo.setIdentifier(identifier);
 
                 additionalIdentifier1.setScheme(SchemeRegistry.getSchemeCode(SCOTLAND_CHARITY));
-                additionalIdentifier1.setId("SC037536");
-                additionalIdentifier1.setUri("https://www.oscr.org.uk/about-charities/search-the-register/charity-details?number=SC037536");
-                additionalIdentifier1.setLegalName("Mountains Animal Sanctuary");
+                additionalIdentifier1.setId("SC037726");
+                additionalIdentifier1.setUri("https://www.oscr.org.uk/about-charities/search-the-register/charity-details?number=SC037726");
+                additionalIdentifier1.setLegalName("Adventist Development and Relief Agency – UK");
                 additionalIdentifiers.add(additionalIdentifier1);
                 schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
-                address.setCountryName("");
-                address.setLocality("");
-                address.setPostalCode("");
-                address.setRegion("");
-                address.setStreetAddress("");
+
+                address.setCountryName("Scotland");
+                address.setLocality("Garston");
+                address.setPostalCode("WD25 9JZ");
+                address.setRegion("Watford, Herts");
+                address.setStreetAddress("Stanborough Park");
                 schemeInfo.setAddress(address);
 
                 contactPoint.setName("");

@@ -22,7 +22,7 @@ public class GetAllRegisteredSchemesTests extends BaseClass {
     private final static Logger logger = Logger.getLogger(GetAllRegisteredSchemesTests.class);
 
     @Test
-    public void getRegisteredSchemes() {
+        public void getRegisteredSchemes() {
         SchemeInfo schemeInfo = OrgDataProvider.getInfo(NORTHERN_CHARITY_WITH_COH);
         Response getSchemeInfo = getSchemeInfo(NORTHERN_CHARITY_WITH_COH, schemeInfo.getIdentifier().getId());
         Response postSchemeRes = RestRequests.postSchemeInfo(getSchemeInfo.asString());
