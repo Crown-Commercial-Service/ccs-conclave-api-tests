@@ -2,18 +2,13 @@ package com.ccs.conclave.api.cii.verification;
 
 import com.ccs.conclave.api.cii.pojo.*;
 import com.ccs.conclave.api.cii.requests.RequestTestEndpoints;
-import com.ccs.conclave.api.cii.response.GetCIIDBDataTestEndpointResponse;
-import com.ccs.conclave.api.cii.response.GetSchemeInfoResponse;
-import com.ccs.conclave.api.cii.response.PostSchemeInfoResponse;
-import com.ccs.conclave.api.cii.response.GetSchemesResponse;
+import com.ccs.conclave.api.cii.response.*;
 import io.restassured.response.Response;
 import org.apache.log4j.Logger;
 import org.json.JSONException;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
 import org.testng.Assert;
-
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -91,7 +86,7 @@ public class VerifyEndpointResponses {
             Assert.assertTrue((actualSchemeInfo.getContactPoint().getUri().isEmpty()), "Wrong contactPoint:uri in response!");
     }
 
-    public static void verifyGetSchemesResponse(Response response) throws IOException {
+    public static void verifyGetSchemesResponse(Response response) {
         verifyResponseCodeForSuccess(response);
         logger.info("GetSchemesResponse" + response.asString());
 
@@ -145,7 +140,7 @@ public class VerifyEndpointResponses {
 
         if (expectedSchemeInfo.getAdditionalIdentifiers().size() > 0) {
             Assert.assertEquals(dbInfo.getDbData().size() - 1, expectedSchemeInfo.getAdditionalIdentifiers().size(),
-                    "Additional identifier/s is not registered for id" + expectedSchemeInfo.getIdentifier().getId());
+                    "Additional identifier/s is not registered for id " + expectedSchemeInfo.getIdentifier().getId());
 
             for (int i = 1; i < dbInfo.getDbData().size(); i++) {
                 // verify ccsOrgId
@@ -167,7 +162,7 @@ public class VerifyEndpointResponses {
         Assert.assertTrue(actualAdditionalSchemesInfo.size() > 0, "Expected additional identifier as part of " + primaryId + "is not in CII DB!!");
 
         for (AdditionalSchemeInfo actualAdditionalSchemeInfo : actualAdditionalSchemesInfo) {
-            if (actualAdditionalSchemeInfo.getIdentifier().getId() == expectedAdditionalSchemeInfo.getIdentifier().getId()) {
+            if (actualAdditionalSchemeInfo.getIdentifier().getId().equals(expectedAdditionalSchemeInfo.getIdentifier().getId())) {
                 Assert.assertEquals(actualAdditionalSchemeInfo.getCcsOrgId(), expectedAdditionalSchemeInfo.getCcsOrgId(), "Wrong ccsOrgId in additional identifier!!");
                 Assert.assertEquals(actualAdditionalSchemeInfo.getIdentifier().getScheme(), expectedAdditionalSchemeInfo.getIdentifier().getScheme(), "Wrong scheme in additional identifier!!");
             }
@@ -185,7 +180,7 @@ public class VerifyEndpointResponses {
 
         // verify deleted identifier exists in actualAdditionalSchemesInfo
         for (AdditionalSchemeInfo actualAdditionalSchemeInfo : actualAdditionalSchemesInfo) {
-            if (actualAdditionalSchemeInfo.getIdentifier().getId() == deletedAdditionalSchemeInfo.getIdentifier().getId()) {
+            if (actualAdditionalSchemeInfo.getIdentifier().getId().equals(deletedAdditionalSchemeInfo.getIdentifier().getId())) {
                 Assert.fail("Deleted Scheme call failed!!");
             }
         }
@@ -216,10 +211,27 @@ public class VerifyEndpointResponses {
     }
 
     public static void verifyManageIdentifiersResponse(Response expectedRes, Response actualRes) throws JSONException {
-        // Todo: Address, ContactPoint and name will be verified as part of CON-683
+        // Address, ContactPoint and name are not part of ManageIdentifiers get call response
         String actualResIdentifiers = actualRes.asString().split("address")[0].split("identifier")[1];
         String expectedResIdentifiers = expectedRes.asString().split("address")[0].split("identifier")[1];
         JSONAssert.assertEquals(expectedResIdentifiers, actualResIdentifiers, JSONCompareMode.STRICT);
+    }
+
+    public static void verifyRegisteredSchemes(Response actualRes, SchemeInfo expectedIdentifiers, int selectedAddIds) {
+        verifyResponseCodeForSuccess(actualRes);
+        GetRegisteredSchemesResponse registeredSchemeInfoRes = new GetRegisteredSchemesResponse(Arrays.asList(actualRes.getBody().as(RegisteredSchemeInfo[].class)));
+        RegisteredSchemeInfo actualSchemeInfo = registeredSchemeInfoRes.getRegisteredSchemesInfo().get(0);
+        Assert.assertEquals(actualSchemeInfo.getIdentifier().getId(), expectedIdentifiers.getIdentifier().getId(), "Invalid Id returned via get registered schemes!!");
+        Assert.assertEquals(actualSchemeInfo.getIdentifier().getScheme(), expectedIdentifiers.getIdentifier().getScheme(), "Invalid scheme returned via get registered schemes!!!!");
+        Assert.assertEquals(actualSchemeInfo.getIdentifier().getUri(), expectedIdentifiers.getIdentifier().getUri(), "Invalid uri returned via get registered schemes!!!!");
+        Assert.assertEquals(actualSchemeInfo.getIdentifier().getLegalName(), expectedIdentifiers.getIdentifier().getLegalName(), "Invalid Legal name returned via get registered schemes!!!!");
+
+        for (int i = 0; i < selectedAddIds; i++) {
+            Assert.assertEquals(actualSchemeInfo.getAdditionalIdentifiers().get(i).getId(), expectedIdentifiers.getAdditionalIdentifiers().get(i).getId(), "Invalid Id for add identifier returned via get registered schemes!!!!");
+            Assert.assertEquals(actualSchemeInfo.getAdditionalIdentifiers().get(i).getScheme(), expectedIdentifiers.getAdditionalIdentifiers().get(i).getScheme(), "Invalid scheme for add identifier returned via get registered schemes!!");
+            Assert.assertEquals(actualSchemeInfo.getAdditionalIdentifiers().get(i).getUri(), expectedIdentifiers.getAdditionalIdentifiers().get(i).getUri(), "Invalid uri for add identifier returned via get registered schemes!!");
+            Assert.assertEquals(actualSchemeInfo.getAdditionalIdentifiers().get(i).getLegalName(), expectedIdentifiers.getAdditionalIdentifiers().get(i).getLegalName(), "Invalid legal name for add identifier returned via get registered schemes!!");
+        }
     }
 }
 

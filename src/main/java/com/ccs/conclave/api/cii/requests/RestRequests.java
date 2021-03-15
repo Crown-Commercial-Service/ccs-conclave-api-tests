@@ -35,6 +35,12 @@ public class RestRequests {
         return get(endpoint);
     }
 
+    public static Response getRegisteredSchemesInfo(String ccsOrgId) {
+        String endpoint = baseURI + Endpoints.getRegisteredSchemesURI + "ccs_org_id=" + ccsOrgId;
+        logger.info("get RegisteredSchemeInfo Endpoint: " + endpoint);
+        return get(endpoint);
+    }
+
     public static Response getSchemes() {
         String endpoint = baseURI + Endpoints.getSchemesURI;
         logger.info("getSchemes Endpoint: " + endpoint);

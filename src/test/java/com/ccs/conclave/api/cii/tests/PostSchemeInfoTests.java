@@ -220,7 +220,6 @@ public class PostSchemeInfoTests extends BaseClass {
 
     @Test //CON-543 - Fixed
     public void postSchemeInfoWithNoAdditionalIdentifierSection() {
-        SchemeInfo schemeInfo = OrgDataProvider.getInfo(NORTHERN_CHARITY_WITH_COH);
         String responseStr = getSchemeInfoWithoutAddIdentifierSection(NORTHERN_CHARITY_WITH_COH);
 
         //Modify the response to Remove The Additional Identifier Section
@@ -232,7 +231,6 @@ public class PostSchemeInfoTests extends BaseClass {
 
     @Test
     public void postSchemeInfoWithInvalidAdditionalIdentifier() {
-        SchemeInfo schemeInfo = OrgDataProvider.getInfo(DUN_AND_BRADSTREET_WITH_COH);
         SchemeInfo expectedSchemeInfo = getInfoWithoutAddIdentifiers(DUN_AND_BRADSTREET_WITH_COH);
 
         // Modify the response to pass Invalid Additional Identifier
