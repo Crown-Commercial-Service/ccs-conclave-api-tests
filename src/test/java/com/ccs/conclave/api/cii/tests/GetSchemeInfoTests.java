@@ -148,5 +148,26 @@ public class GetSchemeInfoTests extends BaseClass {
         verifyInvalidIdResponse(response);
     }
 
+    @Test
+    public void getInactiveNICCharitiesSchemeInfo() {
+        Response response = RestRequests.getSchemeInfo(NORTHERN_CHARITY, "100203");
+        verifyInvalidIdResponse(response);
+    }
+
+    @Test
+    public void getActiveSCCharitiesWithInactiveAndActiveAdditionalIDInfo() {
+        SchemeInfo schemeInfo = OrgDataProvider.getInfo(SCOTLAND_CHARITY_WITH_KNOWN_AND_UNKNOWN_IDENTIFIERS);
+        Response response = RestRequests.getSchemeInfo(SCOTLAND_CHARITY_WITH_KNOWN_AND_UNKNOWN_IDENTIFIERS, schemeInfo.getIdentifier().getId());
+        verifyGetSchemeInfoResponse(schemeInfo, response);
+    }
+
+    @Test
+    public void getInactiveCompaniesHouseSchemeInfo() {
+        Response response = RestRequests.getSchemeInfo(COMPANIES_HOUSE, "7773187");
+        verifyInvalidIdResponse(response);
+    }
 
 }
+
+
+

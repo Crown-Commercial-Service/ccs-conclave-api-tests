@@ -46,10 +46,10 @@
             <version>1.2.17</version>
         </dependency>
         <dependency>
-            <groupId>org.skyscreamer</groupId>
-            <artifactId>jsonassert</artifactId>
-            <version>1.5.0</version>
-            <scope>compile</scope>
+            <groupId>uk.co.datumedge</groupId>
+            <artifactId>hamcrest-json</artifactId>
+            <version>0.2</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
     <build>
