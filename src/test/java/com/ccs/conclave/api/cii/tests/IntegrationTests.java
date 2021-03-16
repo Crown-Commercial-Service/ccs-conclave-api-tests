@@ -124,7 +124,7 @@ public class IntegrationTests extends BaseClass {
 
     // Integration Scenario: user can update registered scheme in cii after updating source
     @Test
-    public void userUpdatesAdditionalIdentifierAfterModifiedTheSource() throws JSONException {
+    public void userUpdatesAdditionalIdentifierAfterModifiedTheSource() {
         // Register Primary Identifier with additional identifiers
         SchemeInfo schemeInfo = getInfo(CHARITIES_COMMISSION_WITH_SC);
         Response getSchemeRes = getSchemeInfo(CHARITIES_COMMISSION_WITH_SC, schemeInfo.getIdentifier().getId());
@@ -226,7 +226,35 @@ public class IntegrationTests extends BaseClass {
         verifyPostSchemeInfoResponse(schemeInfo, postSchemeRes);
     }
 
-    // Todo @Test
+    // Defect CON-764
+    // @Test
     public void userUpdatesPrimaryIdentifierAfterModifiedTheSource() {
+        // Register Primary Identifier with additional identifiers
+        SchemeInfo schemeInfo = getInfo(CHARITIES_COMMISSION_WITH_SC);
+        Response getSchemeRes = getSchemeInfo(CHARITIES_COMMISSION_WITH_SC, schemeInfo.getIdentifier().getId());
+
+        Response postSchemeInfoRes = RestRequests.postSchemeInfo(getSchemeRes.asString());
+        verifyPostSchemeInfoResponse(schemeInfo, postSchemeInfoRes);
+        logger.info("Successfully registered organisation...");
+
+        // Search for Primary identifier
+        Identifier identifierRegistered = schemeInfo.getIdentifier();
+        Response response = RestRequests.manageIdentifiers(CHARITIES_COMMISSION_WITH_SC, identifierRegistered.getId(), getCCSOrgId());
+        verifyResponseCodeForSuccess(response);
+
+        // Try to update(PUT call) without deleting, user can update
+        AdditionalSchemeInfo updateSchemeInfo = new AdditionalSchemeInfo();
+        updateSchemeInfo.setCcsOrgId(getCCSOrgId());
+        updateSchemeInfo.setIdentifier(identifierRegistered);
+        response = RestRequests.updateScheme(updateSchemeInfo);
+        verifyResponseCodeForSuccess(response);
+
+        // verify Primary Identifier after update
+        response = RestRequests.getRegisteredSchemesInfo(getCCSOrgId());
+        verifyResponseCodeForSuccess(response);
+        verifyRegisteredSchemes(response, schemeInfo, 1);
+
+        // Delete Database entry if the Org. is already registered
+        deleteOrganisation(getCCSOrgId());
     }
 }
