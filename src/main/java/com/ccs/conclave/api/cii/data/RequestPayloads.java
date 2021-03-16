@@ -54,7 +54,7 @@ public class RequestPayloads {
         Response response = RestRequests.getSchemeInfo(scheme, id);
         //verifyGetSchemeInfoResponse(schemeInfo, response); // verify Get SchemeInfo response before using it
         verifyResponseCodeForSuccess(response);
-        String[] strings = response.asString().split("additionalIdentifiers\":\\[(.*?)\\],\"");
+        String[] strings = response.asString().split("additionalIdentifiers\":\\[(.*?)],\"");
         return strings[0] + strings[1];
     }
 
@@ -63,7 +63,7 @@ public class RequestPayloads {
         Response response = RestRequests.getSchemeInfo(scheme, schemeInfo.getIdentifier().getId());
         verifyGetSchemeInfoResponse(schemeInfo, response); // verify Get SchemeInfo response before using it
 
-        String[] strings = response.asString().split("additionalIdentifiers\":\\[(.*?)\\]");
+        String[] strings = response.asString().split("additionalIdentifiers\":\\[(.*?)]");
         return strings[0] + "additionalIdentifiers\":[]" + strings[1];
     }
 

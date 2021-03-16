@@ -151,7 +151,7 @@ public class IntegrationTests extends BaseClass {
         // Delete Scheme and get scheme again and successfully Update it
         response = RestRequests.deleteScheme(updateSchemeInfo);
         verifyResponseCodeForSuccess(response);
-        verifyDeletedScheme(identifierRegistered.getId(), updateSchemeInfo);
+        verifyDeletedScheme(getCCSOrgId(), updateSchemeInfo);
 
         logger.info("Get registered schemes...");
         Response registeredSchemesRes = getRegisteredSchemesInfo(getCCSOrgId());
@@ -199,7 +199,7 @@ public class IntegrationTests extends BaseClass {
         // Delete Scheme hidden identifier
         Response response = RestRequests.deleteScheme(deleteSchemeInfo);
         verifyResponseCodeForSuccess(response);
-        verifyDeletedScheme(schemeInfo.getIdentifier().getId(), deleteSchemeInfo);
+        verifyDeletedScheme(getCCSOrgId(), deleteSchemeInfo);
 
         logger.info("Get all registered schemes ensure the additional identifier is deleted from cii database...");
         registeredAllSchemesRes = getAllRegisteredSchemesInfo(getCCSOrgId());

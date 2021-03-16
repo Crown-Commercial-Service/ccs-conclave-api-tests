@@ -157,7 +157,7 @@ public class UpdateSchemeTests extends BaseClass {
 
 
     // Defect: CON-764
-    @Test
+    //@Test
     public void updatePrimaryIdentifier() {
         SchemeInfo schemeInfo = OrgDataProvider.getInfo(COMPANIES_HOUSE);
         Response schemeInfoRes = getSchemeInfo(COMPANIES_HOUSE, schemeInfo.getIdentifier().getId());

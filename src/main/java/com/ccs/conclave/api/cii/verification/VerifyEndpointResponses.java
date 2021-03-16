@@ -159,14 +159,18 @@ public class VerifyEndpointResponses {
         Assert.assertEquals(addIdentifierPresent, 1, "Additional identifier is updated as part of Update call!!!!");
     }
 
-    public static void verifyDeletedScheme(String identifier, AdditionalSchemeInfo deletedAdditionalSchemeInfo) {
-        List<AdditionalSchemeInfo> actualAdditionalSchemesInfo = RequestTestEndpoints.getAdditionalIdentifiersFromDB(identifier);
-        Assert.assertTrue(!RequestTestEndpoints.isInCIIDataBase(deletedAdditionalSchemeInfo.getIdentifier().getId()), "Deleted additional identifier is in CII DB!!");
+    public static void verifyDeletedScheme(String ccsOrgId, AdditionalSchemeInfo deletedAdditionalSchemeInfo) {
+        Response actualRes = RestRequests.getAllRegisteredSchemesInfo(ccsOrgId);
+        GetRegisteredSchemesResponse registeredSchemeInfoRes = new GetRegisteredSchemesResponse(Arrays.asList(actualRes.getBody().as(RegisteredSchemeInfo[].class)));
+        RegisteredSchemeInfo actualSchemeInfo = registeredSchemeInfoRes.getRegisteredSchemesInfo().get(0);
 
-        // verify deleted identifier exists in actualAdditionalSchemesInfo
-        for (AdditionalSchemeInfo actualAdditionalSchemeInfo : actualAdditionalSchemesInfo) {
-            if (actualAdditionalSchemeInfo.getIdentifier().getId().equals(deletedAdditionalSchemeInfo.getIdentifier().getId())) {
-                Assert.fail("Deleted Scheme call failed!!");
+        if (actualSchemeInfo.getIdentifier().getId().equals(deletedAdditionalSchemeInfo.getIdentifier().getId())) {
+            Assert.fail("Deleted Scheme call failed!!");
+        }  else {
+            for (Identifier addIdentifier : actualSchemeInfo.getAdditionalIdentifiers()) {
+                if (addIdentifier.getId().equals(deletedAdditionalSchemeInfo.getIdentifier().getId())) {
+                    Assert.fail("Deleted Scheme call failed!!");
+                }
             }
         }
     }
