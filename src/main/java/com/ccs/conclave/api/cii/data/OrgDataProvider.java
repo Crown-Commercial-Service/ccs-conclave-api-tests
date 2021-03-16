@@ -457,6 +457,64 @@ public class OrgDataProvider extends BaseClass {
                 schemeInfo.setContactPoint(contactPoint);
                 break;
 
+            case SCOTLAND_CHARITY_WITH_KNOWN_AND_UNKNOWN_IDENTIFIERS:
+                schemeInfo.setName("Action for Blind People");
+                identifier.setId("SC040050");
+                identifier.setScheme(SchemeRegistry.getSchemeCode(SCOTLAND_CHARITY_WITH_KNOWN_AND_UNKNOWN_IDENTIFIERS));
+                identifier.setLegalName("Action for Blind People");
+                identifier.setUri("https://www.oscr.org.uk/about-charities/search-the-register/charity-details?number=SC040050");
+                schemeInfo.setIdentifier(identifier);
+
+                additionalIdentifier1.setScheme(SchemeRegistry.getSchemeCode(CHARITIES_COMMISSION));
+                additionalIdentifier1.setId("205913");
+                additionalIdentifier1.setUri("https://register-of-charities.charitycommission.gov.uk/charity-details/?regId=205913&subId=0");
+                additionalIdentifier1.setLegalName("ACTION FOR BLIND PEOPLE");
+                additionalIdentifiers.add(additionalIdentifier1);
+                schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
+
+                additionalIdentifier2.setScheme(SchemeRegistry.getSchemeCode(CHARITIES_COMMISSION));
+                additionalIdentifier2.setId("226227");
+                additionalIdentifier2.setUri("https://register-of-charities.charitycommission.gov.uk/charity-details/?regId=226227&subId=0");
+                additionalIdentifier2.setLegalName("THE ROYAL NATIONAL INSTITUTE OF BLIND PEOPLE");
+                additionalIdentifiers.add(additionalIdentifier2);
+                schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
+
+                additionalIdentifier3.setScheme(SchemeRegistry.getSchemeCode(COMPANIES_HOUSE));
+                additionalIdentifier3.setId("00026688");
+                additionalIdentifier3.setUri("");
+                additionalIdentifier3.setLegalName("ACTION FOR BLIND PEOPLE");
+                additionalIdentifiers.add(additionalIdentifier3);
+                schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
+
+                additionalIdentifier4.setScheme(SchemeRegistry.getSchemeCode(COMPANIES_HOUSE));
+                additionalIdentifier4.setId("RC000500");
+                additionalIdentifier4.setUri("");
+                additionalIdentifier4.setLegalName("ROYAL NATIONAL INSTITUTE OF BLIND PEOPLE");
+                additionalIdentifiers.add(additionalIdentifier4);
+                schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
+
+                additionalIdentifier5.setScheme(SchemeRegistry.getSchemeCode(SCOTLAND_CHARITY));
+                additionalIdentifier5.setId("SC039316");
+                additionalIdentifier5.setUri("https://www.oscr.org.uk/about-charities/search-the-register/charity-details?number=SC039316");
+                additionalIdentifier5.setLegalName("Royal National Institute of Blind People");
+                additionalIdentifiers.add(additionalIdentifier5);
+                schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
+
+                address.setCountryName("Scotland");
+                address.setLocality("105 Judd Street");
+                address.setPostalCode("WC1H 9NE");
+                address.setRegion("London");
+                address.setStreetAddress("Action for Blind People");
+                schemeInfo.setAddress(address);
+
+                contactPoint.setName("");
+                contactPoint.setEmail("");
+                contactPoint.setFaxNumber("");
+                contactPoint.setTelephone("");
+                contactPoint.setUri("");
+                schemeInfo.setContactPoint(contactPoint);
+                break;
+
             case NORTHERN_CHARITY_WITH_COH:
                 schemeInfo.setName("Craigavon Christian Youth");
                 identifier.setId("NIC107049");

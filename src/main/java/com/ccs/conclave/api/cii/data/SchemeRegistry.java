@@ -19,6 +19,7 @@ public enum SchemeRegistry {
     NORTHERN_CHARITY("GB-NIC", "The Charity Commission for Northern Ireland",  "GB"),
     SCOTLAND_CHARITY("GB-SC", "Office of The Scottish Charity Regulator (OSCR)",  "GB"),
     SCOTLAND_CHARITY_WITH_CHC_COH("GB-SC", "Office of The Scottish Charity Regulator (OSCR)",  "GB"),
+    SCOTLAND_CHARITY_WITH_KNOWN_AND_UNKNOWN_IDENTIFIERS("GB-SC", "Office of The Scottish Charity Regulator (OSCR)",  "GB"),
     INVALID_SCHEME("GB-XYZ", "",  "");
 
     private final String schemeCode;

@@ -5,14 +5,13 @@ import com.ccs.conclave.api.cii.requests.RestRequests;
 import com.ccs.conclave.api.cii.response.*;
 import io.restassured.response.Response;
 import org.apache.log4j.Logger;
-import org.json.JSONException;
-import org.skyscreamer.jsonassert.JSONAssert;
-import org.skyscreamer.jsonassert.JSONCompareMode;
 import org.testng.Assert;
 import java.util.Arrays;
 
 import static com.ccs.conclave.api.cii.data.SchemeRegistry.*;
 import static com.ccs.conclave.api.common.StatusCodes.*;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
 
 public class VerifyEndpointResponses {
     private final static Logger logger = Logger.getLogger(VerifyEndpointResponses.class);
@@ -197,11 +196,11 @@ public class VerifyEndpointResponses {
         return ccsOrgId;
     }
 
-    public static void verifyManageIdentifiersResponse(Response expectedRes, Response actualRes) throws JSONException {
+    public static void verifyManageIdentifiersResponse(Response expectedRes, Response actualRes) {
         // Address, ContactPoint and name are not part of ManageIdentifiers get call response
         String actualResIdentifiers = actualRes.asString().split("address")[0].split("identifier")[1];
         String expectedResIdentifiers = expectedRes.asString().split("address")[0].split("identifier")[1];
-        JSONAssert.assertEquals(expectedResIdentifiers, actualResIdentifiers, JSONCompareMode.STRICT);
+        assertThat(expectedResIdentifiers, is(actualResIdentifiers));
     }
 
     public static void verifyRegisteredSchemes(Response actualRes, SchemeInfo expectedSchemeInfo, int selectedAddIds) {
