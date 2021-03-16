@@ -1,6 +1,9 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
 
 <suite name="cii.api.tests" verbose="1">
+    <listeners>
+        <listener class-name="com.ccs.conclave.api.common.AnnotationTransformer"/>
+    </listeners>
     <test name="Integration Test - Integration scenarios">
         <classes>
             <class name="com.ccs.conclave.api.cii.tests.IntegrationTests"/>
