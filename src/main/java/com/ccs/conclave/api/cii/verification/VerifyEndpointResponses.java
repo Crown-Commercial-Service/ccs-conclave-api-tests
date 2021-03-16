@@ -1,7 +1,6 @@
 package com.ccs.conclave.api.cii.verification;
 
 import com.ccs.conclave.api.cii.pojo.*;
-import com.ccs.conclave.api.cii.requests.RequestTestEndpoints;
 import com.ccs.conclave.api.cii.requests.RestRequests;
 import com.ccs.conclave.api.cii.response.*;
 import io.restassured.response.Response;
@@ -11,7 +10,6 @@ import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
 import org.testng.Assert;
 import java.util.Arrays;
-import java.util.List;
 
 import static com.ccs.conclave.api.cii.data.SchemeRegistry.*;
 import static com.ccs.conclave.api.common.StatusCodes.*;
