@@ -196,10 +196,7 @@ public class DeleteSchemeTests extends BaseClass {
         logger.info("Deleting Primary identifier of the existing organisation...");
         AdditionalSchemeInfo deleteSchemeInfo = new AdditionalSchemeInfo();
         deleteSchemeInfo.setCcsOrgId(getCCSOrgId());
-        Identifier identifier = new Identifier();
-        identifier.setScheme(getSchemeCode(SCOTLAND_CHARITY));
-        identifier.setId(schemeInfo.getIdentifier().getId());
-        deleteSchemeInfo.setIdentifier(identifier);
+        deleteSchemeInfo.setIdentifier(schemeInfo.getIdentifier());
         response = RestRequests.deleteScheme(deleteSchemeInfo);
         verifyBadRequestResponse(response);
 
@@ -235,23 +232,27 @@ public class DeleteSchemeTests extends BaseClass {
     // Integration Scenario:- Verify admin users can delete hidden additional identifiers
     @Test
     public void deleteSchemeInfoForHiddenAddIdentifiers() {
-        SchemeInfo schemeInfo = OrgDataProvider.getInfo(DUN_AND_BRADSTREET_WITH_COH_AND_CHC);
         SchemeInfo schemeInfoWithoutAddIds = OrgDataProvider.getInfoWithoutAddIdentifiers(DUN_AND_BRADSTREET_WITH_COH_AND_CHC);
 
         // Perform Get call to form the request payload for POST call
         String getSchemeInfo = getSchemeInfoWithEmptyAddIdentifiers(DUN_AND_BRADSTREET_WITH_COH_AND_CHC);
+        // get only AdditionalIdentifiers from another Scheme
+        List<AdditionalSchemeInfo> additionalSchemesInfo = getAdditionalIdentifierInfo(DUN_AND_BRADSTREET_WITH_COH_AND_CHC);
 
         // Perform Post Operation without Additional Identifiers
         Response postSchemeRes = RestRequests.postSchemeInfo(getSchemeInfo);
         verifyPostSchemeInfoResponse(schemeInfoWithoutAddIds, postSchemeRes);
 
-        // verify duplicate check for additional identifier (COH in DUNS) even if not registered
-        Response getSchemeRes = getSchemeInfo(COMPANIES_HOUSE, schemeInfo.getAdditionalIdentifiers().get(0).getId());
-        verifyResponseCodeForDuplicateResource(getSchemeRes);
+        logger.info("Deleting hidden additional identifiers");
+        AdditionalSchemeInfo deleteSchemeInfo = additionalSchemesInfo.get(0);
+        deleteSchemeInfo.setCcsOrgId(getCCSOrgId());
+        deleteSchemeInfo.setIdentifier(additionalSchemesInfo.get(0).getIdentifier());
+        Response response = RestRequests.deleteScheme(deleteSchemeInfo);
+        verifyDeletedScheme(schemeInfoWithoutAddIds.getIdentifier().getId(), deleteSchemeInfo);
 
-        // verify duplicate check for additional identifier (CHC in DUNS) even if not registered
-        getSchemeRes = getSchemeInfo(CHARITIES_COMMISSION, schemeInfo.getAdditionalIdentifiers().get(1).getId());
-        verifyResponseCodeForDuplicateResource(getSchemeRes);
+        deleteSchemeInfo.setIdentifier(additionalSchemesInfo.get(1).getIdentifier());
+        response = RestRequests.deleteScheme(deleteSchemeInfo);
+        verifyDeletedScheme(schemeInfoWithoutAddIds.getIdentifier().getId(), deleteSchemeInfo);
 
         // Delete Database entry if the Org. is already registered
         deleteOrganisation(getCCSOrgId());

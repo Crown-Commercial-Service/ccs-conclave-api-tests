@@ -17,7 +17,7 @@ public class RestRequests {
     private final static Logger logger = Logger.getLogger(RestRequests.class);
 //    private static String baseURI = System.getProperty("base.url");
 //    private static String apiKey = System.getProperty("api.key");
-private static String baseURI = "https://test.conclavecii.api.crowncommercial.gov.uk";
+    private static String baseURI = "https://test.conclavecii.api.crowncommercial.gov.uk";
     private static String apiKey = "6B9EbGdKgNjQnTqVsYv2";
     public static String getBaseURI() {
         return baseURI;

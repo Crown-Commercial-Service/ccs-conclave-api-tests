@@ -124,7 +124,7 @@ public class IntegrationTests extends BaseClass {
 
     // Integration Scenario: user can update registered scheme in cii after updating source
     @Test
-    public void userUpdatesIdentifierAfterModifiedSource() throws JSONException {
+    public void userUpdatesAdditionalIdentifierAfterModifiedTheSource() throws JSONException {
         // Register Primary Identifier with additional identifiers
         SchemeInfo schemeInfo = getInfo(CHARITIES_COMMISSION_WITH_SC);
         Response getSchemeRes = getSchemeInfo(CHARITIES_COMMISSION_WITH_SC, schemeInfo.getIdentifier().getId());
@@ -224,5 +224,9 @@ public class IntegrationTests extends BaseClass {
         deleteOrganisation(getCCSOrgId());
         postSchemeRes = RestRequests.postSchemeInfo(getSchemeInfo.asString());
         verifyPostSchemeInfoResponse(schemeInfo, postSchemeRes);
+    }
+
+    // Todo @Test
+    public void userUpdatesPrimaryIdentifierAfterModifiedTheSource() {
     }
 }

@@ -134,7 +134,7 @@ public class VerifyEndpointResponses {
     }
 
     public static void verifyUpdatedScheme(String ccsOrgId, AdditionalSchemeInfo expectedAdditionalSchemeInfo) {
-        Response actualRes = RestRequests.getAllRegisteredSchemesInfo(ccsOrgId);
+        Response actualRes = RestRequests.getRegisteredSchemesInfo(ccsOrgId);
         GetRegisteredSchemesResponse registeredSchemeInfoRes = new GetRegisteredSchemesResponse(Arrays.asList(actualRes.getBody().as(RegisteredSchemeInfo[].class)));
         RegisteredSchemeInfo actualSchemeInfo = registeredSchemeInfoRes.getRegisteredSchemesInfo().get(0);
 
@@ -157,20 +157,6 @@ public class VerifyEndpointResponses {
             }
         }
         Assert.assertEquals(addIdentifierPresent, 1, "Additional identifier is updated as part of Update call!!!!");
-
-
-//        Assert.assertTrue(isIdentifierRegisteredAlready(expectedAdditionalSchemeInfo.getIdentifier().getId()), "Expected additional identifier is not in CII DB!!");
-//
-//        // Get additional identifiers using the Primary Identifier from CII Database
-//        List<AdditionalSchemeInfo> actualAdditionalSchemesInfo = RequestTestEndpoints.getAdditionalIdentifiersFromDB(primaryId);
-//        Assert.assertTrue(actualAdditionalSchemesInfo.size() > 0, "Expected additional identifier as part of " + primaryId + "is not in CII DB!!");
-//
-//        for (AdditionalSchemeInfo actualAdditionalSchemeInfo : actualAdditionalSchemesInfo) {
-//            if (actualAdditionalSchemeInfo.getIdentifier().getId().equals(expectedAdditionalSchemeInfo.getIdentifier().getId())) {
-//                Assert.assertEquals(actualAdditionalSchemeInfo.getCcsOrgId(), expectedAdditionalSchemeInfo.getCcsOrgId(), "Wrong ccsOrgId in additional identifier!!");
-//                Assert.assertEquals(actualAdditionalSchemeInfo.getIdentifier().getScheme(), expectedAdditionalSchemeInfo.getIdentifier().getScheme(), "Wrong scheme in additional identifier!!");
-//            }
-//        }
     }
 
     public static void verifyDeletedScheme(String identifier, AdditionalSchemeInfo deletedAdditionalSchemeInfo) {
