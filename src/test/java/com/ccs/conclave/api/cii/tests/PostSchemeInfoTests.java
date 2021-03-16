@@ -207,7 +207,7 @@ public class PostSchemeInfoTests extends BaseClass {
 
 
     @Test
-    public void postSchemeInfoWithInvalidPrimarySchemeOrID() {
+    public void postSchemeInfoWithInvalidPrimarySchemeOrID() throws InterruptedException {
         String responseStr = getSchemeInfoWithInvalidPrimaryScheme();
         Response response = RestRequests.postSchemeInfo(responseStr);
         verifyInvalidIdResponse(response);
@@ -236,7 +236,7 @@ public class PostSchemeInfoTests extends BaseClass {
         SchemeInfo expectedSchemeInfo = getInfoWithoutAddIdentifiers(CHARITIES_COMMISSION_WITH_COH);
 
         // Modify The Response to Update Additional Identifier With Valid Additional Identifier of Another Scheme
-        String responseStr = getSchemeInfoWithAddIdentifierofAnotherScheme(CHARITIES_COMMISSION_WITH_COH);
+        String responseStr = getSchemeInfoWithAddIdentifierOfAnotherScheme(CHARITIES_COMMISSION_WITH_COH);
         Response response = RestRequests.postSchemeInfo(responseStr);
         verifyPostSchemeInfoResponse(expectedSchemeInfo, response);
 
@@ -244,12 +244,12 @@ public class PostSchemeInfoTests extends BaseClass {
         deleteOrganisation(getCCSOrgId());
     }
 
-    @Test //CON-543 - Fixed
-    public void postSchemeInfoWithNoAdditionalIdentifierSection() {
-        String responseStr = getSchemeInfoWithoutAddIdentifierSection(NORTHERN_CHARITY_WITH_COH);
+    @Test // CON-543 - Fixed
+    public void postSchemeInfoWithNoAdditionalIdentifierSection() throws InterruptedException {
+        SchemeInfo expectedSchemeInfo = getInfoWithoutAddIdentifiers(CHARITIES_COMMISSION_WITH_COH);
 
-        //Modify the response to Remove The Additional Identifier Section
-        SchemeInfo expectedSchemeInfo = getInfoWithoutAddIdentifiers(NORTHERN_CHARITY_WITH_COH);
+        // Modify the response to Remove The Additional Identifier Section
+        String responseStr = getSchemeInfoWithoutAddIdentifierSection(CHARITIES_COMMISSION_WITH_COH);
         Response response = RestRequests.postSchemeInfo(responseStr);
         verifyPostSchemeInfoResponse(expectedSchemeInfo, response);
         deleteOrganisation(getCCSOrgId());

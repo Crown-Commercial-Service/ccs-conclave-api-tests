@@ -2,6 +2,7 @@ package com.ccs.conclave.api.cii.verification;
 
 import com.ccs.conclave.api.cii.pojo.*;
 import com.ccs.conclave.api.cii.requests.RequestTestEndpoints;
+import com.ccs.conclave.api.cii.requests.RestRequests;
 import com.ccs.conclave.api.cii.response.*;
 import io.restassured.response.Response;
 import org.apache.log4j.Logger;
@@ -11,7 +12,6 @@ import org.skyscreamer.jsonassert.JSONCompareMode;
 import org.testng.Assert;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Stream;
 
 import static com.ccs.conclave.api.cii.data.SchemeRegistry.*;
 import static com.ccs.conclave.api.common.StatusCodes.*;
@@ -21,9 +21,8 @@ public class VerifyEndpointResponses {
     private static String ccsOrgId;
 
     public static void verifyGetSchemeInfoResponse(SchemeInfo expectedSchemeInfo, Response response) {
-        GetSchemeInfoResponse actualRes = new GetSchemeInfoResponse();
+        GetSchemeInfoResponse actualRes = new GetSchemeInfoResponse(response.getBody().as(SchemeInfo.class));
         verifyResponseCodeForSuccess(response);
-        actualRes.setSchemeInfo(response.as(SchemeInfo.class));
         verifySchemeInfo(actualRes.getSchemeInfo(), expectedSchemeInfo);
     }
 
@@ -120,6 +119,7 @@ public class VerifyEndpointResponses {
         Assert.assertEquals(scheme.getSchemeCountryCode(), getSchemeCountryCode(NORTHERN_CHARITY), "Invalid CountryCode!");
     }
 
+    // This method depends on GetRegisteredSchemes endpoint
     public static void verifyPostSchemeInfoResponse(SchemeInfo expectedSchemeInfo, Response response) {
         verifyResponseCodeForCreatedResource(response);
         PostSchemeInfoResponse actualResponse = new PostSchemeInfoResponse(Arrays.asList(response.getBody().as(OrgIdentifier[].class)));
@@ -128,52 +128,50 @@ public class VerifyEndpointResponses {
         Assert.assertTrue(!actualResponse.getOrgIdentifier().get(0).getCcsOrgId().isEmpty()); // CcsOrgId is not empty
         logger.info("CcsOrgId: " + actualResponse.getOrgIdentifier().get(0).getCcsOrgId());
 
-        GetCIIDBDataTestEndpointResponse dbInfo = RequestTestEndpoints.getRegisteredOrganisations(expectedSchemeInfo.getIdentifier().getId());
-        Assert.assertTrue(dbInfo.getDbData().size() >= 1, "No CII Database entry for the org registration for id :" + expectedSchemeInfo.getIdentifier().getId());
+        // get registered schemes after post
+        Response actualRes = RestRequests.getRegisteredSchemesInfo(ccsOrgId);
+        verifyRegisteredSchemes(actualRes, expectedSchemeInfo, expectedSchemeInfo.getAdditionalIdentifiers().size());
+    }
 
-        // verify ccsOrgId
-        Assert.assertEquals(dbInfo.getDbData().get(0).getCcsOrgId(), actualResponse.getOrgIdentifier().get(0).getCcsOrgId(), "Registered OrgId is wrong!");
+    public static void verifyUpdatedScheme(String ccsOrgId, AdditionalSchemeInfo expectedAdditionalSchemeInfo) {
+        Response actualRes = RestRequests.getAllRegisteredSchemesInfo(ccsOrgId);
+        GetRegisteredSchemesResponse registeredSchemeInfoRes = new GetRegisteredSchemesResponse(Arrays.asList(actualRes.getBody().as(RegisteredSchemeInfo[].class)));
+        RegisteredSchemeInfo actualSchemeInfo = registeredSchemeInfoRes.getRegisteredSchemesInfo().get(0);
 
-        // verify scheme, id and isPrimaryScheme
-        Assert.assertEquals(dbInfo.getDbData().get(0).getSchemeOrgRegNumber(), expectedSchemeInfo.getIdentifier().getId(), "Registered Id is wrong!");
-        Assert.assertEquals(dbInfo.getDbData().get(0).getScheme(), expectedSchemeInfo.getIdentifier().getScheme(), "Registered Scheme is wrong!");
-        Assert.assertEquals(dbInfo.getDbData().get(0).getPrimaryScheme(), "true", "IsPrimary flag is wrong!");
-
-        if (expectedSchemeInfo.getAdditionalIdentifiers().size() > 0) {
-            Assert.assertEquals(dbInfo.getDbData().size() - 1, expectedSchemeInfo.getAdditionalIdentifiers().size(),
-                    "Additional identifier/s is not registered for id " + expectedSchemeInfo.getIdentifier().getId());
-
-            for (int i = 1; i < dbInfo.getDbData().size(); i++) {
-                // verify ccsOrgId
-                Assert.assertEquals(dbInfo.getDbData().get(i).getCcsOrgId(), actualResponse.getOrgIdentifier().get(0).getCcsOrgId(), "Registered OrgId is wrong!");
-
-                // verify scheme, id and isPrimaryScheme for additional identifiers
-                Assert.assertEquals(dbInfo.getDbData().get(i).getSchemeOrgRegNumber(), expectedSchemeInfo.getAdditionalIdentifiers().get(i - 1).getId(), "Registered Id is wrong!");
-                Assert.assertEquals(dbInfo.getDbData().get(i).getScheme(), expectedSchemeInfo.getAdditionalIdentifiers().get(i - 1).getScheme(), "Registered Scheme is wrong!");
-                Assert.assertEquals(dbInfo.getDbData().get(i).getPrimaryScheme(), "false", "IsPrimary flag is wrong!");
+        int addIdentifierPresent = 0;
+        if (actualSchemeInfo.getIdentifier().getId().equals(expectedAdditionalSchemeInfo.getIdentifier().getId())) {
+            Assert.assertEquals(actualSchemeInfo.getIdentifier().getId(), expectedAdditionalSchemeInfo.getIdentifier().getId(), "Invalid Id returned via get registered schemes!!");
+            Assert.assertEquals(actualSchemeInfo.getIdentifier().getScheme(), expectedAdditionalSchemeInfo.getIdentifier().getScheme(), "Invalid scheme returned via get registered schemes!!!!");
+            Assert.assertEquals(actualSchemeInfo.getIdentifier().getUri(), expectedAdditionalSchemeInfo.getIdentifier().getUri(), "Invalid uri returned via get registered schemes!!!!");
+            Assert.assertEquals(actualSchemeInfo.getIdentifier().getLegalName(), expectedAdditionalSchemeInfo.getIdentifier().getLegalName(), "Invalid Legal name returned via get registered schemes!!!!");
+            ++addIdentifierPresent;
+        }  else {
+            for (Identifier addIdentifier : actualSchemeInfo.getAdditionalIdentifiers()) {
+                if (addIdentifier.getId().equals(expectedAdditionalSchemeInfo.getIdentifier().getId())) {
+                    Assert.assertEquals(addIdentifier.getId(), expectedAdditionalSchemeInfo.getIdentifier().getId(), "Invalid Id returned via get registered schemes!!");
+                    Assert.assertEquals(addIdentifier.getScheme(), expectedAdditionalSchemeInfo.getIdentifier().getScheme(), "Invalid scheme returned via get registered schemes!!!!");
+                    Assert.assertEquals(addIdentifier.getUri(), expectedAdditionalSchemeInfo.getIdentifier().getUri(), "Invalid uri returned via get registered schemes!!!!");
+                    Assert.assertEquals(addIdentifier.getLegalName(), expectedAdditionalSchemeInfo.getIdentifier().getLegalName(), "Invalid Legal name returned via get registered schemes!!!!");
+                    ++addIdentifierPresent;
+                }
             }
         }
+        Assert.assertEquals(addIdentifierPresent, 1, "Additional identifier is updated as part of Update call!!!!");
+
+
+//        Assert.assertTrue(isIdentifierRegisteredAlready(expectedAdditionalSchemeInfo.getIdentifier().getId()), "Expected additional identifier is not in CII DB!!");
+//
+//        // Get additional identifiers using the Primary Identifier from CII Database
+//        List<AdditionalSchemeInfo> actualAdditionalSchemesInfo = RequestTestEndpoints.getAdditionalIdentifiersFromDB(primaryId);
+//        Assert.assertTrue(actualAdditionalSchemesInfo.size() > 0, "Expected additional identifier as part of " + primaryId + "is not in CII DB!!");
+//
+//        for (AdditionalSchemeInfo actualAdditionalSchemeInfo : actualAdditionalSchemesInfo) {
+//            if (actualAdditionalSchemeInfo.getIdentifier().getId().equals(expectedAdditionalSchemeInfo.getIdentifier().getId())) {
+//                Assert.assertEquals(actualAdditionalSchemeInfo.getCcsOrgId(), expectedAdditionalSchemeInfo.getCcsOrgId(), "Wrong ccsOrgId in additional identifier!!");
+//                Assert.assertEquals(actualAdditionalSchemeInfo.getIdentifier().getScheme(), expectedAdditionalSchemeInfo.getIdentifier().getScheme(), "Wrong scheme in additional identifier!!");
+//            }
+//        }
     }
-
-    public static void verifyUpdatedScheme(String primaryId, AdditionalSchemeInfo expectedAdditionalSchemeInfo) {
-        Assert.assertTrue(isIdentifierRegisteredAlready(expectedAdditionalSchemeInfo.getIdentifier().getId()), "Expected additional identifier is not in CII DB!!");
-
-        // Get additional identifiers using the Primary Identifier from CII Database
-        List<AdditionalSchemeInfo> actualAdditionalSchemesInfo = RequestTestEndpoints.getAdditionalIdentifiersFromDB(primaryId);
-        Assert.assertTrue(actualAdditionalSchemesInfo.size() > 0, "Expected additional identifier as part of " + primaryId + "is not in CII DB!!");
-
-        for (AdditionalSchemeInfo actualAdditionalSchemeInfo : actualAdditionalSchemesInfo) {
-            if (actualAdditionalSchemeInfo.getIdentifier().getId().equals(expectedAdditionalSchemeInfo.getIdentifier().getId())) {
-                Assert.assertEquals(actualAdditionalSchemeInfo.getCcsOrgId(), expectedAdditionalSchemeInfo.getCcsOrgId(), "Wrong ccsOrgId in additional identifier!!");
-                Assert.assertEquals(actualAdditionalSchemeInfo.getIdentifier().getScheme(), expectedAdditionalSchemeInfo.getIdentifier().getScheme(), "Wrong scheme in additional identifier!!");
-            }
-        }
-    }
-
-    public static boolean isIdentifierRegisteredAlready(String id) {
-        return RequestTestEndpoints.isInCIIDataBase(id);
-    }
-
 
     public static void verifyDeletedScheme(String identifier, AdditionalSchemeInfo deletedAdditionalSchemeInfo) {
         List<AdditionalSchemeInfo> actualAdditionalSchemesInfo = RequestTestEndpoints.getAdditionalIdentifiersFromDB(identifier);

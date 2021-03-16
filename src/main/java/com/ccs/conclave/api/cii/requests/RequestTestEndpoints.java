@@ -28,7 +28,7 @@ public class RequestTestEndpoints {
         return ccsOrgId;
     }
 
-    public static GetCIIDBDataTestEndpointResponse getRegisteredOrganisations(String id) {
+    private static GetCIIDBDataTestEndpointResponse getRegisteredOrganisations(String id) {
         String endpoint = RestRequests.getBaseURI() + getRegisteredOrgIdsURI + id;
         Response response = RestRequests.get(endpoint);
         GetCIIDBDataTestEndpointResponse dbInfo = new GetCIIDBDataTestEndpointResponse(Arrays.asList());

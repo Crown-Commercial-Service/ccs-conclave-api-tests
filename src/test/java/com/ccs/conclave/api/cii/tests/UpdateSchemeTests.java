@@ -45,7 +45,7 @@ public class UpdateSchemeTests extends BaseClass {
         additionalSchemeInfo.setCcsOrgId(getCCSOrgId());
         response = RestRequests.updateScheme(additionalSchemeInfo);
         verifyResponseCodeForSuccess(response);
-        verifyUpdatedScheme(schemeInfo.getIdentifier().getId(), additionalSchemeInfo);
+        verifyUpdatedScheme(getCCSOrgId(), additionalSchemeInfo);
 
         // Delete Database entry if the Org. is already registered
         deleteOrganisation(getCCSOrgId());
@@ -74,19 +74,19 @@ public class UpdateSchemeTests extends BaseClass {
         additionalSchemeInfo1.setCcsOrgId(getCCSOrgId());
         response = RestRequests.updateScheme(additionalSchemeInfo1);
         verifyResponseCodeForSuccess(response);
-        verifyUpdatedScheme(schemeInfo.getIdentifier().getId(), additionalSchemeInfo1);
+        verifyUpdatedScheme(getCCSOrgId(), additionalSchemeInfo1);
 
         logger.info("Adding additional identifier2 to the existing organisation...");
         AdditionalSchemeInfo additionalSchemeInfo2 = additionalSchemesInfo.get(1);
         additionalSchemeInfo2.setCcsOrgId(getCCSOrgId());
         response = RestRequests.updateScheme(additionalSchemeInfo2);
         verifyResponseCodeForSuccess(response);
-        verifyUpdatedScheme(schemeInfo.getIdentifier().getId(), additionalSchemeInfo2);
+        verifyUpdatedScheme(getCCSOrgId(), additionalSchemeInfo2);
 
         logger.info("Try Update again without deleting...");
         response = RestRequests.updateScheme(additionalSchemeInfo2);
         verifyResponseCodeForSuccess(response);
-        verifyUpdatedScheme(schemeInfo.getIdentifier().getId(), additionalSchemeInfo2);
+        verifyUpdatedScheme(getCCSOrgId(), additionalSchemeInfo2);
 
         // Delete Database entry if the Org. is already registered
         deleteOrganisation(getCCSOrgId());
@@ -151,7 +151,7 @@ public class UpdateSchemeTests extends BaseClass {
         additionalSchemeInfo1.setCcsOrgId(getCCSOrgId());
         response = RestRequests.updateScheme(additionalSchemeInfo1);
         verifyResponseCodeForSuccess(response);
-        verifyUpdatedScheme(schemeInfo.getIdentifier().getId(), additionalSchemeInfo1);
+        verifyUpdatedScheme(getCCSOrgId(), additionalSchemeInfo1);
 
         // Delete Database entry if the Org. is already registered
         deleteOrganisation(getCCSOrgId());

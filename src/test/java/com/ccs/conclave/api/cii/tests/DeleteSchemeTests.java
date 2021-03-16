@@ -115,7 +115,7 @@ public class DeleteSchemeTests extends BaseClass {
         logger.info("Updating additional identifier1 to the existing organisation...");
         response = RestRequests.updateScheme(additionalSchemeInfo1);
         verifyResponseCodeForSuccess(response);
-        verifyUpdatedScheme(schemeInfo.getIdentifier().getId(), additionalSchemeInfo1);
+        verifyUpdatedScheme(getCCSOrgId(), additionalSchemeInfo1);
 
         logger.info("Deleting additional identifier1 to the existing organisation...");
         response = RestRequests.deleteScheme(additionalSchemeInfo1);
@@ -132,7 +132,7 @@ public class DeleteSchemeTests extends BaseClass {
         logger.info("Updating additional identifier2 to the existing organisation...");
         response = RestRequests.updateScheme(additionalSchemeInfo2);
         verifyResponseCodeForSuccess(response);
-        verifyUpdatedScheme(schemeInfo.getIdentifier().getId(), additionalSchemeInfo2);
+        verifyUpdatedScheme(getCCSOrgId(), additionalSchemeInfo2);
 
         logger.info("Deleting additional identifier2 to the existing organisation...");
         response = RestRequests.deleteScheme(additionalSchemeInfo2);
@@ -236,13 +236,14 @@ public class DeleteSchemeTests extends BaseClass {
     @Test
     public void deleteSchemeInfoForHiddenAddIdentifiers() {
         SchemeInfo schemeInfo = OrgDataProvider.getInfo(DUN_AND_BRADSTREET_WITH_COH_AND_CHC);
+        SchemeInfo schemeInfoWithoutAddIds = OrgDataProvider.getInfoWithoutAddIdentifiers(DUN_AND_BRADSTREET_WITH_COH_AND_CHC);
 
         // Perform Get call to form the request payload for POST call
         String getSchemeInfo = getSchemeInfoWithEmptyAddIdentifiers(DUN_AND_BRADSTREET_WITH_COH_AND_CHC);
 
         // Perform Post Operation without Additional Identifiers
         Response postSchemeRes = RestRequests.postSchemeInfo(getSchemeInfo);
-        verifyPostSchemeInfoResponse(schemeInfo, postSchemeRes);
+        verifyPostSchemeInfoResponse(schemeInfoWithoutAddIds, postSchemeRes);
 
         // verify duplicate check for additional identifier (COH in DUNS) even if not registered
         Response getSchemeRes = getSchemeInfo(COMPANIES_HOUSE, schemeInfo.getAdditionalIdentifiers().get(0).getId());
