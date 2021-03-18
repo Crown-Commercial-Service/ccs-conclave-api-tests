@@ -16,6 +16,9 @@ import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeMethod;
 
 import com.relevantcodes.extentreports.LogStatus;
+
+import static com.ccs.conclave.api.cii.data.SchemeRegistry.SALES_FORCE;
+import static com.ccs.conclave.api.cii.data.SchemeRegistry.getSchemeCode;
 import static com.ccs.conclave.api.cii.requests.RestRequests.*;
 
 public class BaseClass {

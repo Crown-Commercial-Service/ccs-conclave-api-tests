@@ -156,15 +156,16 @@ public class UpdateSchemeTests extends BaseClass {
     }
 
 
-    // Defect: CON-764
-    //@Test
+    // Defect: CON-764:FIXED
+    @Test
     public void updatePrimaryIdentifier() {
         SchemeInfo schemeInfo = OrgDataProvider.getInfo(COMPANIES_HOUSE);
+        SchemeInfo schemeInfoWithoutSF =OrgDataProvider.getInfoWithoutSFIdentifier(COMPANIES_HOUSE);
         Response schemeInfoRes = getSchemeInfo(COMPANIES_HOUSE, schemeInfo.getIdentifier().getId());
         verifyGetSchemeInfoResponse(schemeInfo, schemeInfoRes);
 
         Response response = RestRequests.postSchemeInfo(schemeInfoRes.asString());
-        verifyPostSchemeInfoResponse(schemeInfo, response);
+        verifyPostSchemeInfoResponse(schemeInfoWithoutSF, response);
 
         logger.info("Update Primary scheme successfully...");
         AdditionalSchemeInfo updateSchemeInfo = new AdditionalSchemeInfo();

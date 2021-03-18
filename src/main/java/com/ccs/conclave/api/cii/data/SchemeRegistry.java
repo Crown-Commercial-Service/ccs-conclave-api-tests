@@ -8,7 +8,7 @@ public enum SchemeRegistry {
     DUN_AND_BRADSTREET_SCOTLAND("US-DUN", "Dun & Bradstreet",  "US"),
     DUN_AND_BRADSTREET_IRELAND("US-DUN", "Dun & Bradstreet",  "US"),
     DUN_AND_BRADSTREET_WITH_COH("US-DUN", "Dun & Bradstreet",  "US"),
-    DUN_AND_BRADSTREET_WITH_COH_AND_CHC("US-DUN", "Dun & Bradstreet",  "US"),
+    DUN_AND_BRADSTREET_WITH_CHC_AND_COH("US-DUN", "Dun & Bradstreet",  "US"),
     CHARITIES_COMMISSION("GB-CHC", "Charity Commission for England and Wales", "GB"),
     CHARITIES_COMMISSION_WITH_TWO_COH("GB-CHC", "Charity Commission for England and Wales",  "GB"),
     CHARITIES_COMMISSION_WITH_COH("GB-CHC", "Charity Commission for England and Wales",  "GB"),
@@ -20,6 +20,7 @@ public enum SchemeRegistry {
     SCOTLAND_CHARITY("GB-SC", "Office of The Scottish Charity Regulator (OSCR)",  "GB"),
     SCOTLAND_CHARITY_WITH_CHC_COH("GB-SC", "Office of The Scottish Charity Regulator (OSCR)",  "GB"),
     SCOTLAND_CHARITY_WITH_KNOWN_AND_UNKNOWN_IDENTIFIERS("GB-SC", "Office of The Scottish Charity Regulator (OSCR)",  "GB"),
+    SALES_FORCE("GB-CCS", "The Crown Commercial Service",  "GB"),
     INVALID_SCHEME("GB-XYZ", "",  "");
 
     private final String schemeCode;

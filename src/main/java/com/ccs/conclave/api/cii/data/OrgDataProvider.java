@@ -2,6 +2,7 @@ package com.ccs.conclave.api.cii.data;
 
 import com.ccs.conclave.api.cii.pojo.*;
 import com.ccs.conclave.api.common.BaseClass;
+import org.apache.log4j.Logger;
 import org.testng.Assert;
 
 import java.util.ArrayList;
@@ -11,6 +12,7 @@ import static com.ccs.conclave.api.cii.data.SchemeRegistry.*;
 import static com.ccs.conclave.api.cii.requests.RestRequests.*;
 
 public class OrgDataProvider extends BaseClass {
+    private final static Logger logger = Logger.getLogger(OrgDataProvider.class);
 
     public static SchemeInfo getInfo(SchemeRegistry schemeRegistry) {
         SchemeInfo schemeInfo = new SchemeInfo();
@@ -32,7 +34,13 @@ public class OrgDataProvider extends BaseClass {
                 identifier.setUri("");
                 schemeInfo.setIdentifier(identifier);
 
-                // No additionalIdentifier for COMPANIES_HOUSE
+                // Salesforce identifier
+                additionalIdentifier1.setScheme(SchemeRegistry.getSchemeCode(SALES_FORCE));
+                additionalIdentifier1.setId("0014J000004aDETQA2~10585349");
+                additionalIdentifier1.setUri("/services/data/v45.0/sobjects/Account/0014J000004aDETQA2");
+                additionalIdentifier1.setLegalName("AI RECRUITMENT TECHNOLOGIES LIMITED");
+                additionalIdentifiers.add(additionalIdentifier1);
+                schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
 
                 address.setCountryName("England");
                 address.setLocality("Prescot");
@@ -57,7 +65,13 @@ public class OrgDataProvider extends BaseClass {
                 identifier.setUri("");
                 schemeInfo.setIdentifier(identifier);
 
-                // No additionalIdentifier
+                // Salesforce identifier
+                additionalIdentifier1.setScheme(SchemeRegistry.getSchemeCode(SALES_FORCE));
+                additionalIdentifier1.setId("0014J00000Ov486QAB~10590792");
+                additionalIdentifier1.setUri("/services/data/v45.0/sobjects/Account/0014J00000Ov486QAB");
+                additionalIdentifier1.setLegalName("West Suffolk College");
+                additionalIdentifiers.add(additionalIdentifier1);
+                schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
 
                 address.setCountryName("United Kingdom");
                 address.setLocality("BURY ST. EDMUNDS");
@@ -82,7 +96,13 @@ public class OrgDataProvider extends BaseClass {
                 identifier.setUri("");
                 schemeInfo.setIdentifier(identifier);
 
-                // No additionalIdentifier
+                // Salesforce identifier
+                additionalIdentifier1.setScheme(SchemeRegistry.getSchemeCode(SALES_FORCE));
+                additionalIdentifier1.setId("001b000003OCd9RAAT~10046325");
+                additionalIdentifier1.setUri("/services/data/v45.0/sobjects/Account/001b000003OCd9RAAT");
+                additionalIdentifier1.setLegalName("Home Office Immigration And Nationalisation");
+                additionalIdentifiers.add(additionalIdentifier1);
+                schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
 
                 address.setCountryName("United Kingdom");
                 address.setLocality("NEWPORT");
@@ -107,7 +127,13 @@ public class OrgDataProvider extends BaseClass {
                 identifier.setUri("");
                 schemeInfo.setIdentifier(identifier);
 
-                // No additionalIdentifier
+                // Salesforce identifier
+                additionalIdentifier1.setScheme(SchemeRegistry.getSchemeCode(SALES_FORCE));
+                additionalIdentifier1.setId("001b000003OCd8LAAT~10046257");
+                additionalIdentifier1.setUri("/services/data/v45.0/sobjects/Account/001b000003OCd8LAAT");
+                additionalIdentifier1.setLegalName("Northern Ireland Housing Executive");
+                additionalIdentifiers.add(additionalIdentifier1);
+                schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
 
                 address.setCountryName("United Kingdom");
                 address.setLocality("BELFAST");
@@ -132,7 +158,13 @@ public class OrgDataProvider extends BaseClass {
                 identifier.setUri("");
                 schemeInfo.setIdentifier(identifier);
 
-                // No additionalIdentifier
+                // Salesforce identifier
+                additionalIdentifier1.setScheme(SchemeRegistry.getSchemeCode(SALES_FORCE));
+                additionalIdentifier1.setId("001b000003OCd8TAAT~10046265");
+                additionalIdentifier1.setUri("/services/data/v45.0/sobjects/Account/001b000003OCd8TAAT");
+                additionalIdentifier1.setLegalName("Glasgow City Council");
+                additionalIdentifiers.add(additionalIdentifier1);
+                schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
 
                 address.setCountryName("United Kingdom");
                 address.setLocality("GLASGOW");
@@ -157,7 +189,13 @@ public class OrgDataProvider extends BaseClass {
                 identifier.setUri("");
                 schemeInfo.setIdentifier(identifier);
 
-                // No additionalIdentifier
+                // Salesforce identifier
+                additionalIdentifier1.setScheme(SchemeRegistry.getSchemeCode(SALES_FORCE));
+                additionalIdentifier1.setId("001b000003OCf9DAAT~10050797");
+                additionalIdentifier1.setUri("/services/data/v45.0/sobjects/Account/001b000003OCf9DAAT");
+                additionalIdentifier1.setLegalName("First Data International Ltd");
+                additionalIdentifiers.add(additionalIdentifier1);
+                schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
 
                 address.setCountryName("United Kingdom");
                 address.setLocality("ROTHERHAM");
@@ -190,6 +228,14 @@ public class OrgDataProvider extends BaseClass {
                 additionalIdentifiers.add(additionalIdentifier1);
                 schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
 
+                // Salesforce identifier
+                additionalIdentifier2.setScheme(SchemeRegistry.getSchemeCode(SALES_FORCE));
+                additionalIdentifier2.setId("0014J00000Ov47rQAB~10590777");
+                additionalIdentifier2.setUri("/services/data/v45.0/sobjects/Account/0014J00000Ov47rQAB");
+                additionalIdentifier2.setLegalName("BIOS HEALTH LTD");
+                additionalIdentifiers.add(additionalIdentifier2);
+                schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
+
                 address.setCountryName("United Kingdom");
                 address.setLocality("CAMBRIDGE");
                 address.setPostalCode("CB2 1NN");
@@ -205,7 +251,7 @@ public class OrgDataProvider extends BaseClass {
                 schemeInfo.setContactPoint(contactPoint);
                 break;
 
-            case DUN_AND_BRADSTREET_WITH_COH_AND_CHC:
+            case DUN_AND_BRADSTREET_WITH_CHC_AND_COH:
                 schemeInfo.setName("CHAIGELEY EDUCATIONAL FOUNDATION");
                 identifier.setId("378509368");
                 identifier.setScheme(SchemeRegistry.getSchemeCode(DUN_AND_BRADSTREET_WITH_COH));
@@ -224,6 +270,14 @@ public class OrgDataProvider extends BaseClass {
                 additionalIdentifier2.setUri("");
                 additionalIdentifier2.setLegalName("CHAIGELEY EDUCATIONAL FOUNDATION");
                 additionalIdentifiers.add(additionalIdentifier2);
+                schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
+
+                // Salesforce identifier
+                additionalIdentifier3.setScheme(SchemeRegistry.getSchemeCode(SALES_FORCE));
+                additionalIdentifier3.setId("0001b000003YNthvAAD~10121852");
+                additionalIdentifier3.setUri("/services/data/v45.0/sobjects/Account/001b000003YNthvAAD");
+                additionalIdentifier3.setLegalName("CHAIGELEY EDUCATIONAL FOUNDATION");
+                additionalIdentifiers.add(additionalIdentifier3);
                 schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
 
                 address.setCountryName("United Kingdom");
@@ -284,6 +338,15 @@ public class OrgDataProvider extends BaseClass {
                 additionalIdentifier2.setLegalName("THE CEDAR CENTRE");
                 additionalIdentifiers.add(additionalIdentifier2);
                 schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
+
+                // Salesforce identifier
+                additionalIdentifier3.setScheme(SchemeRegistry.getSchemeCode(SALES_FORCE));
+                additionalIdentifier3.setId("0001b000003YNthvAAD~10121852");
+                additionalIdentifier3.setUri("/services/data/v45.0/sobjects/Account/001b000003YNthvAAD");
+                additionalIdentifier3.setLegalName("CHAIGELEY EDUCATIONAL FOUNDATION");
+                additionalIdentifiers.add(additionalIdentifier3);
+                schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
+
                 address.setCountryName("");
                 address.setLocality("17 Arden Crescent");
                 address.setPostalCode("E14 9WA");
@@ -351,6 +414,8 @@ public class OrgDataProvider extends BaseClass {
                 additionalIdentifiers.add(additionalIdentifier2);
                 schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
 
+                // No Salesforce identifier
+
                 address.setCountryName("WOODFORD GREEN");
                 address.setLocality("19-20 BOURNE COURT");
                 address.setPostalCode("IG8 8HD");
@@ -359,9 +424,9 @@ public class OrgDataProvider extends BaseClass {
                 schemeInfo.setAddress(address);
 
                 contactPoint.setName("");
-                contactPoint.setEmail("info@3space.org");
+                contactPoint.setEmail("NotEmpty");
                 contactPoint.setFaxNumber("");
-                contactPoint.setTelephone("07780903180");
+                contactPoint.setTelephone("NotEmpty");
                 contactPoint.setUri("");
                 schemeInfo.setContactPoint(contactPoint);
                 break;
@@ -382,6 +447,8 @@ public class OrgDataProvider extends BaseClass {
                 additionalIdentifiers.add(additionalIdentifier1);
                 schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
 
+                // No Salesforce identifier
+
                 address.setCountryName("");
                 address.setLocality("HERTFORDSHIRE");
                 address.setPostalCode("WD3 1HA");
@@ -390,14 +457,12 @@ public class OrgDataProvider extends BaseClass {
                 schemeInfo.setAddress(address);
 
                 contactPoint.setName("");
-                contactPoint.setEmail("marie@9livesfurniture.org.uk");
+                contactPoint.setEmail("NotEmpty");
                 contactPoint.setFaxNumber("");
-                contactPoint.setTelephone("01923 718666");
+                contactPoint.setTelephone("NotEmpty");
                 contactPoint.setUri("");
                 schemeInfo.setContactPoint(contactPoint);
                 break;
-
-
 
             case CHARITIES_COMMISSION_WITH_KNOWN_AND_UNKNOWN_IDENTIFIERS:
                 schemeInfo.setName("ACTION FOR BLIND PEOPLE");
@@ -441,6 +506,8 @@ public class OrgDataProvider extends BaseClass {
                 additionalIdentifier5.setLegalName("Action for Blind People");
                 additionalIdentifiers.add(additionalIdentifier5);
                 schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
+
+                // No Salesforce identifier
 
                 address.setCountryName("");
                 address.setLocality("105 JUDD STREET");
@@ -500,6 +567,8 @@ public class OrgDataProvider extends BaseClass {
                 additionalIdentifiers.add(additionalIdentifier5);
                 schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
 
+                // No Salesforce identifier
+
                 address.setCountryName("Scotland");
                 address.setLocality("105 Judd Street");
                 address.setPostalCode("WC1H 9NE");
@@ -529,6 +598,8 @@ public class OrgDataProvider extends BaseClass {
                 additionalIdentifier1.setLegalName("CRAIGAVON CHRISTIAN YOUTH");
                 additionalIdentifiers.add(additionalIdentifier1);
                 schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
+
+                // No Salesforce identifier
 
                 address.setCountryName("Northern Ireland");
                 address.setLocality("Lurgan");
@@ -614,6 +685,8 @@ public class OrgDataProvider extends BaseClass {
                 additionalIdentifiers.add(additionalIdentifier2);
                 schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
 
+                // No Salesforce identifier
+
                 address.setCountryName("Scotland");
                 address.setLocality("Camberley");
                 address.setPostalCode("GU15 1EJ");
@@ -643,6 +716,12 @@ public class OrgDataProvider extends BaseClass {
                 additionalIdentifier1.setLegalName("Invalid Name");
                 additionalIdentifiers.add(additionalIdentifier1);
                 schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
+                break;
+
+            case SALES_FORCE:
+                schemeInfo.setName("Dummy data"); // Salesforce is only for internal search
+                identifier.setId("");
+                schemeInfo.setIdentifier(identifier);
                 break;
 
             default:
@@ -695,5 +774,22 @@ public class OrgDataProvider extends BaseClass {
             additionalSchemesInfo.add(additionalSchemeInfo);
         }
         return additionalSchemesInfo;
+    }
+
+    public static SchemeInfo getInfoWithoutSFIdentifier(SchemeRegistry schemeRegistry) {
+        SchemeInfo schemeInfo = getInfo(schemeRegistry);
+
+        SchemeInfo schemeInfoModified = new SchemeInfo();
+        schemeInfoModified.setName(schemeInfo.getName());
+        schemeInfoModified.setIdentifier(schemeInfo.getIdentifier());
+        schemeInfoModified.setContactPoint(schemeInfo.getContactPoint());
+        schemeInfoModified.setAddress(schemeInfo.getAddress());
+
+        for (Identifier identifier : schemeInfo.getAdditionalIdentifiers()) {
+            if(!identifier.getScheme().equals(getSchemeCode(SALES_FORCE))) {
+                schemeInfoModified.getAdditionalIdentifiers().add(identifier);
+            }
+        }
+        return schemeInfoModified;
     }
 }

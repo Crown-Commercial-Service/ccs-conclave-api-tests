@@ -8,7 +8,6 @@ import com.ccs.conclave.api.cii.requests.RestRequests;
 import com.ccs.conclave.api.common.BaseClass;
 import io.restassured.response.Response;
 import org.apache.log4j.Logger;
-import org.json.JSONException;
 import org.testng.annotations.Test;
 
 import static com.ccs.conclave.api.cii.data.OrgDataProvider.getInfo;
@@ -71,10 +70,10 @@ public class IntegrationTests extends BaseClass {
     // additional identifiers as cii stores them as hidden identifiers
     @Test
     public void userSearchUsingAddIdentifierOfAlreadyRegisteredPrimaryIdentifier() {
-        SchemeInfo schemeInfo = OrgDataProvider.getInfo(DUN_AND_BRADSTREET_WITH_COH_AND_CHC);
-        SchemeInfo schemeInfoWithoutAddIds = OrgDataProvider.getInfoWithoutAddIdentifiers(DUN_AND_BRADSTREET_WITH_COH_AND_CHC);
+        SchemeInfo schemeInfo = OrgDataProvider.getInfo(DUN_AND_BRADSTREET_WITH_CHC_AND_COH);
+        SchemeInfo schemeInfoWithoutAddIds = OrgDataProvider.getInfoWithoutAddIdentifiers(DUN_AND_BRADSTREET_WITH_CHC_AND_COH);
         // Perform Post Operation without Additional Identifiers
-        String getSchemeInfo = getSchemeInfoWithEmptyAddIdentifiers(DUN_AND_BRADSTREET_WITH_COH_AND_CHC);
+        String getSchemeInfo = getSchemeInfoWithEmptyAddIdentifiers(DUN_AND_BRADSTREET_WITH_CHC_AND_COH);
         Response postSchemeRes = RestRequests.postSchemeInfo(getSchemeInfo);
         verifyPostSchemeInfoResponse(schemeInfoWithoutAddIds, postSchemeRes);
         logger.info("Successfully registered organisation without additional identifiers...");
@@ -93,10 +92,10 @@ public class IntegrationTests extends BaseClass {
 
     @Test
     public void userUpdateAddIdentifierViaAddRegistry() {
-        SchemeInfo schemeInfo = OrgDataProvider.getInfo(DUN_AND_BRADSTREET_WITH_COH_AND_CHC);
-        SchemeInfo schemeInfoWithOneAddId = OrgDataProvider.getInfoWithFirstAddIdentifier(DUN_AND_BRADSTREET_WITH_COH_AND_CHC);
+        SchemeInfo schemeInfo = OrgDataProvider.getInfo(DUN_AND_BRADSTREET_WITH_CHC_AND_COH);
+        SchemeInfo schemeInfoWithOneAddId = OrgDataProvider.getInfoWithFirstAddIdentifier(DUN_AND_BRADSTREET_WITH_CHC_AND_COH);
         // Perform Post Operation without Additional Identifiers
-        String getSchemeInfoRes = getSchemeInfoWithFirstAddIdentifier(DUN_AND_BRADSTREET_WITH_COH_AND_CHC);
+        String getSchemeInfoRes = getSchemeInfoWithFirstAddIdentifier(DUN_AND_BRADSTREET_WITH_CHC_AND_COH);
         Response postSchemeRes = RestRequests.postSchemeInfo(getSchemeInfoRes);
         verifyPostSchemeInfoResponse(schemeInfoWithOneAddId, postSchemeRes);
         logger.info("Successfully registered organisation with one additional identifier...");
