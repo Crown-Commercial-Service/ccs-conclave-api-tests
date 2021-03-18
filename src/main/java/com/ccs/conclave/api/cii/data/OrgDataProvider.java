@@ -322,9 +322,9 @@ public class OrgDataProvider extends BaseClass {
                 schemeInfo.setAddress(address);
 
                 contactPoint.setName("");
-                contactPoint.setEmail("");
+                contactPoint.setEmail("NotEmpty");
                 contactPoint.setFaxNumber("");
-                contactPoint.setTelephone("");
+                contactPoint.setTelephone("NotEmpty");
                 contactPoint.setUri("");
                 schemeInfo.setContactPoint(contactPoint);
                 break;
@@ -359,9 +359,9 @@ public class OrgDataProvider extends BaseClass {
                 schemeInfo.setAddress(address);
 
                 contactPoint.setName("");
-                contactPoint.setEmail("info@3space.org");
+                contactPoint.setEmail("NotEmpty");
                 contactPoint.setFaxNumber("");
-                contactPoint.setTelephone("07780903180");
+                contactPoint.setTelephone("NotEmpty");
                 contactPoint.setUri("");
                 schemeInfo.setContactPoint(contactPoint);
                 break;
@@ -390,9 +390,9 @@ public class OrgDataProvider extends BaseClass {
                 schemeInfo.setAddress(address);
 
                 contactPoint.setName("");
-                contactPoint.setEmail("marie@9livesfurniture.org.uk");
+                contactPoint.setEmail("NotEmpty");
                 contactPoint.setFaxNumber("");
-                contactPoint.setTelephone("01923 718666");
+                contactPoint.setTelephone("NotEmpty");
                 contactPoint.setUri("");
                 schemeInfo.setContactPoint(contactPoint);
                 break;
