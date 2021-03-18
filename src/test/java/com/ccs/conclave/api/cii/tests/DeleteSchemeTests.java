@@ -25,7 +25,7 @@ public class DeleteSchemeTests extends BaseClass {
     public void deleteScheme_COH_from_DUN() {
         SchemeInfo schemeInfo = OrgDataProvider.getInfo(DUN_AND_BRADSTREET_WITH_COH);
         // get only AdditionalIdentifiers from the given Scheme
-        List<AdditionalSchemeInfo> additionalSchemesInfo = getAdditionalIdentifierInfo(DUN_AND_BRADSTREET_WITH_COH);
+        List<AdditionalSchemeInfo> additionalSchemesInfo = getInfoWithOnlyAdditionalIdentifier(DUN_AND_BRADSTREET_WITH_COH);
         Assert.assertEquals(additionalSchemesInfo.size() , 1, "Only one additional identifier is expected, please check the test data!");
 
         // Perform Get call to form the request payload for POST call
@@ -56,7 +56,7 @@ public class DeleteSchemeTests extends BaseClass {
     public void deleteScheme_COH_and_CHC_from_SC() {
         SchemeInfo schemeInfo = OrgDataProvider.getInfo(SCOTLAND_CHARITY_WITH_CHC_COH);
         // get only AdditionalIdentifiers from the given Scheme
-        List<AdditionalSchemeInfo> additionalSchemesInfo = getAdditionalIdentifierInfo(SCOTLAND_CHARITY_WITH_CHC_COH);
+        List<AdditionalSchemeInfo> additionalSchemesInfo = getInfoWithOnlyAdditionalIdentifier(SCOTLAND_CHARITY_WITH_CHC_COH);
         Assert.assertEquals(additionalSchemesInfo.size(), 2, "Two additional identifiers are expected, please check the test data!");
 
         // Perform Get call to form the request payload for POST call
@@ -91,7 +91,7 @@ public class DeleteSchemeTests extends BaseClass {
     public void deleteScheme_and_updateScheme() {
         SchemeInfo schemeInfo = OrgDataProvider.getInfo(CHARITIES_COMMISSION_WITH_COH_AND_SC);
         // get only AdditionalIdentifiers from the given Scheme
-        List<AdditionalSchemeInfo> additionalSchemesInfo = getAdditionalIdentifierInfo(CHARITIES_COMMISSION_WITH_COH_AND_SC);
+        List<AdditionalSchemeInfo> additionalSchemesInfo = getInfoWithOnlyAdditionalIdentifier(CHARITIES_COMMISSION_WITH_COH_AND_SC);
         Assert.assertEquals(additionalSchemesInfo.size(), 2, "Two additional identifiers are expected, please check the test data!");
 
         // Perform Get call to form the request payload for POST call
@@ -145,7 +145,7 @@ public class DeleteSchemeTests extends BaseClass {
     public void deleteSchemeInvalidOrgIdOrIdentifierOrScheme() {
         SchemeInfo schemeInfo = OrgDataProvider.getInfo(DUN_AND_BRADSTREET_WITH_COH);
         // get only AdditionalIdentifiers from the given Scheme
-        List<AdditionalSchemeInfo> additionalSchemesInfo = getAdditionalIdentifierInfo(DUN_AND_BRADSTREET_WITH_COH);
+        List<AdditionalSchemeInfo> additionalSchemesInfo = getInfoWithOnlyAdditionalIdentifier(DUN_AND_BRADSTREET_WITH_COH);
         Assert.assertEquals(additionalSchemesInfo.size(), 1, "Only one additional identifier is expected, please check the test data!");
 
         // Perform Get call to form the request payload for POST call
@@ -216,7 +216,7 @@ public class DeleteSchemeTests extends BaseClass {
 
         logger.info("Deleting valid additional identifier of another scheme");
         // get only AdditionalIdentifiers from another Scheme
-        List<AdditionalSchemeInfo> additionalSchemesInfo = getAdditionalIdentifierInfo(CHARITIES_COMMISSION_WITH_SC);
+        List<AdditionalSchemeInfo> additionalSchemesInfo = getInfoWithOnlyAdditionalIdentifier(CHARITIES_COMMISSION_WITH_SC);
         AdditionalSchemeInfo additionalSchemeInfo = additionalSchemesInfo.get(0);
         additionalSchemeInfo.setCcsOrgId(getCCSOrgId());
         // Perform deletion of valid additional Identifier of another scheme with valid OrgID
@@ -235,7 +235,7 @@ public class DeleteSchemeTests extends BaseClass {
         // Perform Get call to form the request payload for POST call
         String getSchemeInfo = getSchemeInfoWithEmptyAddIdentifiers(DUN_AND_BRADSTREET_WITH_CHC_AND_COH);
         // get only AdditionalIdentifiers from another Scheme
-        List<AdditionalSchemeInfo> additionalSchemesInfo = getAdditionalIdentifierInfo(DUN_AND_BRADSTREET_WITH_CHC_AND_COH);
+        List<AdditionalSchemeInfo> additionalSchemesInfo = getInfoWithOnlyAdditionalIdentifier(DUN_AND_BRADSTREET_WITH_CHC_AND_COH);
 
         // Perform Post Operation without Additional Identifiers
         Response postSchemeRes = RestRequests.postSchemeInfo(getSchemeInfo);

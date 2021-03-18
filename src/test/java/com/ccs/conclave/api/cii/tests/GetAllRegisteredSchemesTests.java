@@ -11,7 +11,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import java.util.List;
 
-import static com.ccs.conclave.api.cii.data.OrgDataProvider.getAdditionalIdentifierInfo;
+import static com.ccs.conclave.api.cii.data.OrgDataProvider.getInfoWithOnlyAdditionalIdentifier;
 import static com.ccs.conclave.api.cii.data.OrgDataProvider.getInfoWithoutAddIdentifiers;
 import static com.ccs.conclave.api.cii.data.RequestPayloads.getSchemeInfoWithEmptyAddIdentifiers;
 import static com.ccs.conclave.api.cii.data.SchemeRegistry.*;
@@ -71,7 +71,7 @@ public class GetAllRegisteredSchemesTests extends BaseClass {
         SchemeInfo expectedPosRes = OrgDataProvider.getInfoWithoutAddIdentifiers(SCOTLAND_CHARITY_WITH_CHC_COH);
 
         // get only AdditionalIdentifiers from the given Scheme
-        List<AdditionalSchemeInfo> additionalSchemesInfo = getAdditionalIdentifierInfo(SCOTLAND_CHARITY_WITH_CHC_COH);
+        List<AdditionalSchemeInfo> additionalSchemesInfo = getInfoWithOnlyAdditionalIdentifier(SCOTLAND_CHARITY_WITH_CHC_COH);
         Assert.assertEquals(additionalSchemesInfo.size(), 2, "Two additional identifier are expected, please check the test data!");
 
         Response postSchemeRes = RestRequests.postSchemeInfo(getSchemeInfo);
@@ -125,7 +125,7 @@ public class GetAllRegisteredSchemesTests extends BaseClass {
         Response getSchemeInfoRes = getSchemeInfo(DUN_AND_BRADSTREET_WITH_COH, schemeInfo.getIdentifier().getId());
 
         // get only AdditionalIdentifiers from the given Scheme
-        List<AdditionalSchemeInfo> additionalSchemesInfo = getAdditionalIdentifierInfo(DUN_AND_BRADSTREET_WITH_COH);
+        List<AdditionalSchemeInfo> additionalSchemesInfo = getInfoWithOnlyAdditionalIdentifier(DUN_AND_BRADSTREET_WITH_COH);
         Assert.assertEquals(additionalSchemesInfo.size(), 1, "Two additional identifier are expected, please check the test data!");
 
         Response postSchemeRes = RestRequests.postSchemeInfo(getSchemeInfoRes.asString());

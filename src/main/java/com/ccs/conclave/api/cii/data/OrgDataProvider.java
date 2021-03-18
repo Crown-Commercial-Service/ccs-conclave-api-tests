@@ -685,7 +685,13 @@ public class OrgDataProvider extends BaseClass {
                 additionalIdentifiers.add(additionalIdentifier2);
                 schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
 
-                // No Salesforce identifier
+                // Salesforce identifier
+                additionalIdentifier3.setScheme(SchemeRegistry.getSchemeCode(SALES_FORCE));
+                additionalIdentifier3.setId("001b000003YNr2cAAD~10111645");
+                additionalIdentifier3.setUri("/services/data/v45.0/sobjects/Account/001b000003YNr2cAAD");
+                additionalIdentifier3.setLegalName("ACORN CHRISTIAN FOUNDATION");
+                additionalIdentifiers.add(additionalIdentifier3);
+                schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
 
                 address.setCountryName("Scotland");
                 address.setLocality("Camberley");
@@ -765,7 +771,7 @@ public class OrgDataProvider extends BaseClass {
     }
 
     // This method returns only AdditionalSchemesInfo
-    public static List<AdditionalSchemeInfo> getAdditionalIdentifierInfo(SchemeRegistry schemeRegistry) {
+    public static List<AdditionalSchemeInfo> getInfoWithOnlyAdditionalIdentifier(SchemeRegistry schemeRegistry) {
         List<AdditionalSchemeInfo> additionalSchemesInfo = new ArrayList<>();
         SchemeInfo schemeInfo = getInfo(schemeRegistry);
         for (Identifier addIdentifier : schemeInfo.getAdditionalIdentifiers()) {
@@ -778,7 +784,6 @@ public class OrgDataProvider extends BaseClass {
 
     public static SchemeInfo getInfoWithoutSFIdentifier(SchemeRegistry schemeRegistry) {
         SchemeInfo schemeInfo = getInfo(schemeRegistry);
-
         SchemeInfo schemeInfoModified = new SchemeInfo();
         schemeInfoModified.setName(schemeInfo.getName());
         schemeInfoModified.setIdentifier(schemeInfo.getIdentifier());
@@ -786,7 +791,7 @@ public class OrgDataProvider extends BaseClass {
         schemeInfoModified.setAddress(schemeInfo.getAddress());
 
         for (Identifier identifier : schemeInfo.getAdditionalIdentifiers()) {
-            if(!identifier.getScheme().equals(getSchemeCode(SALES_FORCE))) {
+            if (!identifier.getScheme().equals(getSchemeCode(SALES_FORCE))) {
                 schemeInfoModified.getAdditionalIdentifiers().add(identifier);
             }
         }
