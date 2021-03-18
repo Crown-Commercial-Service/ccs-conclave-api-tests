@@ -2,7 +2,6 @@ package com.ccs.conclave.api.cii.data;
 
 import com.ccs.conclave.api.cii.pojo.*;
 import com.ccs.conclave.api.common.BaseClass;
-import org.apache.log4j.Logger;
 import org.testng.Assert;
 
 import java.util.ArrayList;
@@ -12,9 +11,8 @@ import static com.ccs.conclave.api.cii.data.SchemeRegistry.*;
 import static com.ccs.conclave.api.cii.requests.RestRequests.*;
 
 public class OrgDataProvider extends BaseClass {
-    private final static Logger logger = Logger.getLogger(OrgDataProvider.class);
 
-    public static SchemeInfo getInfo(SchemeRegistry schemeRegistry) {
+    public static SchemeInfo getExpectedSchemeInfo(SchemeRegistry schemeRegistry) {
         SchemeInfo schemeInfo = new SchemeInfo();
         Identifier identifier = new Identifier();
         Identifier additionalIdentifier1 = new Identifier();
@@ -745,8 +743,8 @@ public class OrgDataProvider extends BaseClass {
     }
 
     // remove additional identifiers from test data to perform Update scheme tests
-    public static SchemeInfo getInfoWithoutAddIdentifiers(SchemeRegistry schemeRegistry) {
-        SchemeInfo schemeInfo = getInfo(schemeRegistry);
+    public static SchemeInfo getExpSchemeInfoWithoutAddIdentifiers(SchemeRegistry schemeRegistry) {
+        SchemeInfo schemeInfo = getExpectedSchemeInfo(schemeRegistry);
 
         SchemeInfo schemeInfoModified = new SchemeInfo();
         schemeInfoModified.setName(schemeInfo.getName());
@@ -756,8 +754,8 @@ public class OrgDataProvider extends BaseClass {
         return schemeInfoModified;
     }
 
-    public static SchemeInfo getInfoWithFirstAddIdentifier(SchemeRegistry schemeRegistry) {
-        SchemeInfo schemeInfo = getInfo(schemeRegistry);
+    public static SchemeInfo getExpSchemeInfoWithFirstAddIdentifier(SchemeRegistry schemeRegistry) {
+        SchemeInfo schemeInfo = getExpectedSchemeInfo(schemeRegistry);
 
         SchemeInfo schemeInfoModified = new SchemeInfo();
         schemeInfoModified.setName(schemeInfo.getName());
@@ -771,9 +769,9 @@ public class OrgDataProvider extends BaseClass {
     }
 
     // This method returns only AdditionalSchemesInfo
-    public static List<AdditionalSchemeInfo> getInfoWithOnlyAdditionalIdentifier(SchemeRegistry schemeRegistry) {
+    public static List<AdditionalSchemeInfo> getExpSchemeInfoWithOnlyAddIdentifiers(SchemeRegistry schemeRegistry) {
         List<AdditionalSchemeInfo> additionalSchemesInfo = new ArrayList<>();
-        SchemeInfo schemeInfo = getInfo(schemeRegistry);
+        SchemeInfo schemeInfo = getExpectedSchemeInfo(schemeRegistry);
         for (Identifier addIdentifier : schemeInfo.getAdditionalIdentifiers()) {
             AdditionalSchemeInfo additionalSchemeInfo = new AdditionalSchemeInfo();
             additionalSchemeInfo.setIdentifier(addIdentifier);
@@ -782,8 +780,23 @@ public class OrgDataProvider extends BaseClass {
         return additionalSchemesInfo;
     }
 
-    public static SchemeInfo getInfoWithoutSFIdentifier(SchemeRegistry schemeRegistry) {
-        SchemeInfo schemeInfo = getInfo(schemeRegistry);
+    public static SchemeInfo getExpSchemeInfoWithoutSFIdentifier(SchemeRegistry schemeRegistry) {
+        SchemeInfo schemeInfo = getExpectedSchemeInfo(schemeRegistry);
+        SchemeInfo schemeInfoModified = new SchemeInfo();
+        schemeInfoModified.setName(schemeInfo.getName());
+        schemeInfoModified.setIdentifier(schemeInfo.getIdentifier());
+        schemeInfoModified.setContactPoint(schemeInfo.getContactPoint());
+        schemeInfoModified.setAddress(schemeInfo.getAddress());
+
+        for (Identifier identifier : schemeInfo.getAdditionalIdentifiers()) {
+            if (!identifier.getScheme().equals(getSchemeCode(SALES_FORCE))) {
+                schemeInfoModified.getAdditionalIdentifiers().add(identifier);
+            }
+        }
+        return schemeInfoModified;
+    }
+
+    public static SchemeInfo getExpSchemeInfoWithoutSFIdentifier(SchemeInfo schemeInfo) {
         SchemeInfo schemeInfoModified = new SchemeInfo();
         schemeInfoModified.setName(schemeInfo.getName());
         schemeInfoModified.setIdentifier(schemeInfo.getIdentifier());

@@ -17,8 +17,6 @@ import org.testng.annotations.BeforeMethod;
 
 import com.relevantcodes.extentreports.LogStatus;
 
-import static com.ccs.conclave.api.cii.data.SchemeRegistry.SALES_FORCE;
-import static com.ccs.conclave.api.cii.data.SchemeRegistry.getSchemeCode;
 import static com.ccs.conclave.api.cii.requests.RestRequests.*;
 
 public class BaseClass {
@@ -48,7 +46,7 @@ public class BaseClass {
     protected void clearTestData() {
         logger.info("Clearing test data...");
         for(SchemeRegistry registry : SchemeRegistry.values()) {
-            SchemeInfo schemeInfo = OrgDataProvider.getInfo(registry);
+            SchemeInfo schemeInfo = OrgDataProvider.getExpectedSchemeInfo(registry);
 
             // Delete Database entry if the Org. is already registered
             deleteOrganisationWithIdTestEndPt(schemeInfo.getIdentifier().getId());

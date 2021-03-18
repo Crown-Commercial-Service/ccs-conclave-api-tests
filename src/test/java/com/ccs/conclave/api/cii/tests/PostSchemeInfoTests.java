@@ -8,7 +8,7 @@ import io.restassured.response.Response;
 import org.apache.log4j.Logger;
 import org.testng.annotations.Test;
 
-import static com.ccs.conclave.api.cii.data.OrgDataProvider.getInfoWithoutAddIdentifiers;
+import static com.ccs.conclave.api.cii.data.OrgDataProvider.getExpSchemeInfoWithoutAddIdentifiers;
 import static com.ccs.conclave.api.cii.data.RequestPayloads.*;
 import static com.ccs.conclave.api.cii.data.SchemeRegistry.*;
 import static com.ccs.conclave.api.cii.requests.RestRequests.deleteOrganisation;
@@ -21,7 +21,7 @@ public class PostSchemeInfoTests extends BaseClass {
 
     @Test
     public void postSchemeInfoCOH_NoAddIdentifier() {
-        SchemeInfo schemeInfo = OrgDataProvider.getInfo(COMPANIES_HOUSE);
+        SchemeInfo schemeInfo = OrgDataProvider.getExpectedSchemeInfo(COMPANIES_HOUSE);
 
         // Perform Get call to form the request payload for POST call
         Response getSchemeRes = getSchemeInfo(COMPANIES_HOUSE, schemeInfo.getIdentifier().getId());
@@ -51,7 +51,7 @@ public class PostSchemeInfoTests extends BaseClass {
 
     @Test
     public void postSchemeInfoDUNS_With_MultipleAddIdentifiers() {
-        SchemeInfo schemeInfo = OrgDataProvider.getInfo(DUN_AND_BRADSTREET_WITH_CHC_AND_COH);
+        SchemeInfo schemeInfo = OrgDataProvider.getExpectedSchemeInfo(DUN_AND_BRADSTREET_WITH_CHC_AND_COH);
 
         // Perform Get call to form the request payload for POST call
         Response getSchemeRes = getSchemeInfo(DUN_AND_BRADSTREET_WITH_CHC_AND_COH, schemeInfo.getIdentifier().getId());
@@ -83,7 +83,7 @@ public class PostSchemeInfoTests extends BaseClass {
 
     @Test
     public void postSchemeInfoCHC_With_MultipleAddIdentifiers() {
-        SchemeInfo schemeInfo = OrgDataProvider.getInfo(CHARITIES_COMMISSION_WITH_COH_AND_SC);
+        SchemeInfo schemeInfo = OrgDataProvider.getExpectedSchemeInfo(CHARITIES_COMMISSION_WITH_COH_AND_SC);
 
         // Perform Get call to form the request payload for POST call
         Response getSchemeRes = getSchemeInfo(CHARITIES_COMMISSION_WITH_COH_AND_SC, schemeInfo.getIdentifier().getId());
@@ -107,7 +107,7 @@ public class PostSchemeInfoTests extends BaseClass {
 
     @Test
     public void postSchemeInfoSC_With_NoAddIdentifiers() {
-        SchemeInfo schemeInfo = OrgDataProvider.getInfo(SCOTLAND_CHARITY);
+        SchemeInfo schemeInfo = OrgDataProvider.getExpectedSchemeInfo(SCOTLAND_CHARITY);
 
         // Perform Get call to form the request payload for POST call
         Response getSchemeRes = getSchemeInfo(SCOTLAND_CHARITY, schemeInfo.getIdentifier().getId());
@@ -131,7 +131,7 @@ public class PostSchemeInfoTests extends BaseClass {
 
     @Test
     public void postSchemeInfoNIC_With_OneAddIdentifiers() {
-        SchemeInfo schemeInfo = OrgDataProvider.getInfo(NORTHERN_CHARITY_WITH_COH);
+        SchemeInfo schemeInfo = OrgDataProvider.getExpectedSchemeInfo(NORTHERN_CHARITY_WITH_COH);
 
         // Perform Get call to form the request payload for POST call
         Response getSchemeRes = getSchemeInfo(NORTHERN_CHARITY_WITH_COH, schemeInfo.getIdentifier().getId());
@@ -155,7 +155,7 @@ public class PostSchemeInfoTests extends BaseClass {
 
     @Test
     public void postSchemeInfoSC_Without_Prefix() {
-        SchemeInfo schemeInfo = OrgDataProvider.getInfo(SCOTLAND_CHARITY);
+        SchemeInfo schemeInfo = OrgDataProvider.getExpectedSchemeInfo(SCOTLAND_CHARITY);
 
         // Perform Get call to form the request payload for POST call
         String IdWithPrefix = schemeInfo.getIdentifier().getId();
@@ -181,7 +181,7 @@ public class PostSchemeInfoTests extends BaseClass {
 
     @Test
     public void postSchemeInfoNIC_Without_Prefix() {
-        SchemeInfo schemeInfo = OrgDataProvider.getInfo(NORTHERN_CHARITY_WITH_COH);
+        SchemeInfo schemeInfo = OrgDataProvider.getExpectedSchemeInfo(NORTHERN_CHARITY_WITH_COH);
 
         // Perform Get call to form the request payload for POST call
         String IdWithPrefix = schemeInfo.getIdentifier().getId();
@@ -220,7 +220,7 @@ public class PostSchemeInfoTests extends BaseClass {
 
     @Test
     public void postSchemeInfoWithInvalidAdditionalIdentifier() {
-        SchemeInfo expectedSchemeInfo = getInfoWithoutAddIdentifiers(DUN_AND_BRADSTREET_WITH_COH);
+        SchemeInfo expectedSchemeInfo = getExpSchemeInfoWithoutAddIdentifiers(DUN_AND_BRADSTREET_WITH_COH);
 
         // Modify the response to pass Invalid Additional Identifier
         String responseStr = getSchemeInfoWithInvalidAddIdentifier(DUN_AND_BRADSTREET_WITH_COH);
@@ -233,7 +233,7 @@ public class PostSchemeInfoTests extends BaseClass {
 
     @Test
     public void postSchemeInfoWithAddIdentifierOfAnotherScheme() {
-        SchemeInfo expectedSchemeInfo = getInfoWithoutAddIdentifiers(CHARITIES_COMMISSION_WITH_COH);
+        SchemeInfo expectedSchemeInfo = getExpSchemeInfoWithoutAddIdentifiers(CHARITIES_COMMISSION_WITH_COH);
 
         // Modify The Response to Update Additional Identifier With Valid Additional Identifier of Another Scheme
         String responseStr = getSchemeInfoWithAddIdentifierOfAnotherScheme(CHARITIES_COMMISSION_WITH_COH);
@@ -246,7 +246,7 @@ public class PostSchemeInfoTests extends BaseClass {
 
     @Test // CON-543 - Fixed
     public void postSchemeInfoWithNoAdditionalIdentifierSection() throws InterruptedException {
-        SchemeInfo expectedSchemeInfo = getInfoWithoutAddIdentifiers(CHARITIES_COMMISSION_WITH_COH);
+        SchemeInfo expectedSchemeInfo = getExpSchemeInfoWithoutAddIdentifiers(CHARITIES_COMMISSION_WITH_COH);
 
         // Modify the response to Remove The Additional Identifier Section
         String responseStr = getSchemeInfoWithoutAddIdentifierSection(CHARITIES_COMMISSION_WITH_COH);

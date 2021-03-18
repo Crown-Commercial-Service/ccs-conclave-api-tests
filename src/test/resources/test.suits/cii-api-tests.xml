@@ -6,7 +6,7 @@
     </listeners>
     <test name="Get Scheme Names tests">
         <classes>
-            <class name="com.ccs.conclave.api.cii.tests.GetSchemesTests"/>
+            <class name="com.ccs.conclave.api.cii.tests.GetSchemeNamesTests"/>
         </classes>
     </test>
     <test name="Get Scheme info tests">

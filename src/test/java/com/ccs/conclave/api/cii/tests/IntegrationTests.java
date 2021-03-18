@@ -10,7 +10,7 @@ import io.restassured.response.Response;
 import org.apache.log4j.Logger;
 import org.testng.annotations.Test;
 
-import static com.ccs.conclave.api.cii.data.OrgDataProvider.getInfo;
+import static com.ccs.conclave.api.cii.data.OrgDataProvider.getExpectedSchemeInfo;
 import static com.ccs.conclave.api.cii.data.RequestPayloads.getSchemeInfoWithEmptyAddIdentifiers;
 import static com.ccs.conclave.api.cii.data.SchemeRegistry.*;
 import static com.ccs.conclave.api.cii.requests.RestRequests.*;
@@ -25,8 +25,8 @@ public class IntegrationTests extends BaseClass {
     // identifiers in the manage organisation profile
     @Test
     public void registerOrgAndVerifyIdentifiers() {
-        SchemeInfo schemeInfo = OrgDataProvider.getInfo(SCOTLAND_CHARITY_WITH_CHC_COH);
-        SchemeInfo schemeInfoWithOneAddId = OrgDataProvider.getInfoWithFirstAddIdentifier(SCOTLAND_CHARITY_WITH_CHC_COH);
+        SchemeInfo schemeInfo = OrgDataProvider.getExpectedSchemeInfo(SCOTLAND_CHARITY_WITH_CHC_COH);
+        SchemeInfo schemeInfoWithOneAddId = OrgDataProvider.getExpSchemeInfoWithFirstAddIdentifier(SCOTLAND_CHARITY_WITH_CHC_COH);
 
         // Perform Post Operation without Additional Identifiers
         String getSchemeInfoRes = getSchemeInfoWithFirstAddIdentifier(SCOTLAND_CHARITY_WITH_CHC_COH);
@@ -47,7 +47,7 @@ public class IntegrationTests extends BaseClass {
     // Verified both registered primary and additional identifiers get call duplicate check
     @Test
     public void userSearchUsingAlreadyRegisteredIdentifiers() {
-        SchemeInfo schemeInfo = OrgDataProvider.getInfo(NORTHERN_CHARITY_WITH_COH);
+        SchemeInfo schemeInfo = OrgDataProvider.getExpectedSchemeInfo(NORTHERN_CHARITY_WITH_COH);
         Response getSchemeInfo = getSchemeInfo(NORTHERN_CHARITY_WITH_COH, schemeInfo.getIdentifier().getId());
         Response postSchemeRes = RestRequests.postSchemeInfo(getSchemeInfo.asString());
         verifyPostSchemeInfoResponse(schemeInfo, postSchemeRes);
@@ -70,8 +70,8 @@ public class IntegrationTests extends BaseClass {
     // additional identifiers as cii stores them as hidden identifiers
     @Test
     public void userSearchUsingAddIdentifierOfAlreadyRegisteredPrimaryIdentifier() {
-        SchemeInfo schemeInfo = OrgDataProvider.getInfo(DUN_AND_BRADSTREET_WITH_CHC_AND_COH);
-        SchemeInfo schemeInfoWithoutAddIds = OrgDataProvider.getInfoWithoutAddIdentifiers(DUN_AND_BRADSTREET_WITH_CHC_AND_COH);
+        SchemeInfo schemeInfo = OrgDataProvider.getExpectedSchemeInfo(DUN_AND_BRADSTREET_WITH_CHC_AND_COH);
+        SchemeInfo schemeInfoWithoutAddIds = OrgDataProvider.getExpSchemeInfoWithoutAddIdentifiers(DUN_AND_BRADSTREET_WITH_CHC_AND_COH);
         // Perform Post Operation without Additional Identifiers
         String getSchemeInfo = getSchemeInfoWithEmptyAddIdentifiers(DUN_AND_BRADSTREET_WITH_CHC_AND_COH);
         Response postSchemeRes = RestRequests.postSchemeInfo(getSchemeInfo);
@@ -92,8 +92,8 @@ public class IntegrationTests extends BaseClass {
 
     @Test
     public void userUpdateAddIdentifierViaAddRegistry() {
-        SchemeInfo schemeInfo = OrgDataProvider.getInfo(DUN_AND_BRADSTREET_WITH_CHC_AND_COH);
-        SchemeInfo schemeInfoWithOneAddId = OrgDataProvider.getInfoWithFirstAddIdentifier(DUN_AND_BRADSTREET_WITH_CHC_AND_COH);
+        SchemeInfo schemeInfo = OrgDataProvider.getExpectedSchemeInfo(DUN_AND_BRADSTREET_WITH_CHC_AND_COH);
+        SchemeInfo schemeInfoWithOneAddId = OrgDataProvider.getExpSchemeInfoWithFirstAddIdentifier(DUN_AND_BRADSTREET_WITH_CHC_AND_COH);
         // Perform Post Operation without Additional Identifiers
         String getSchemeInfoRes = getSchemeInfoWithFirstAddIdentifier(DUN_AND_BRADSTREET_WITH_CHC_AND_COH);
         Response postSchemeRes = RestRequests.postSchemeInfo(getSchemeInfoRes);
@@ -125,7 +125,7 @@ public class IntegrationTests extends BaseClass {
     @Test
     public void userUpdatesAdditionalIdentifierAfterModifiedTheSource() {
         // Register Primary Identifier with additional identifiers
-        SchemeInfo schemeInfo = getInfo(CHARITIES_COMMISSION_WITH_SC);
+        SchemeInfo schemeInfo = getExpectedSchemeInfo(CHARITIES_COMMISSION_WITH_SC);
         Response getSchemeRes = getSchemeInfo(CHARITIES_COMMISSION_WITH_SC, schemeInfo.getIdentifier().getId());
 
         Response getSchemeResAddId = getSchemeInfo(SCOTLAND_CHARITY, schemeInfo.getAdditionalIdentifiers().get(0).getId());
@@ -177,8 +177,8 @@ public class IntegrationTests extends BaseClass {
     // NOTE: atm. Endpoint doesn't check admin or normal user
     @Test
     public void adminDeleteIdentifierHiddenAddIdentifiers() {
-        SchemeInfo schemeInfo = OrgDataProvider.getInfo(DUN_AND_BRADSTREET_WITH_COH);
-        SchemeInfo schemeInfoWithoutAddIds = OrgDataProvider.getInfoWithoutAddIdentifiers(DUN_AND_BRADSTREET_WITH_COH);
+        SchemeInfo schemeInfo = OrgDataProvider.getExpectedSchemeInfo(DUN_AND_BRADSTREET_WITH_COH);
+        SchemeInfo schemeInfoWithoutAddIds = OrgDataProvider.getExpSchemeInfoWithoutAddIdentifiers(DUN_AND_BRADSTREET_WITH_COH);
         // Perform Get call to form the request payload for POST call
         String getSchemeInfo = getSchemeInfoWithEmptyAddIdentifiers(DUN_AND_BRADSTREET_WITH_COH);
 
@@ -212,7 +212,7 @@ public class IntegrationTests extends BaseClass {
     // can register again
     @Test
     public void adminDeleteOrganisationAndUserRegisterAgain() {
-        SchemeInfo schemeInfo = OrgDataProvider.getInfo(COMPANIES_HOUSE);
+        SchemeInfo schemeInfo = OrgDataProvider.getExpectedSchemeInfo(COMPANIES_HOUSE);
         Response getSchemeInfo = getSchemeInfo(COMPANIES_HOUSE, schemeInfo.getIdentifier().getId());
 
         // Perform Post Operation without Additional Identifiers
@@ -229,7 +229,7 @@ public class IntegrationTests extends BaseClass {
     // @Test
     public void userUpdatesPrimaryIdentifierAfterModifiedTheSource() {
         // Register Primary Identifier with additional identifiers
-        SchemeInfo schemeInfo = getInfo(CHARITIES_COMMISSION_WITH_SC);
+        SchemeInfo schemeInfo = getExpectedSchemeInfo(CHARITIES_COMMISSION_WITH_SC);
         Response getSchemeRes = getSchemeInfo(CHARITIES_COMMISSION_WITH_SC, schemeInfo.getIdentifier().getId());
 
         Response postSchemeInfoRes = RestRequests.postSchemeInfo(getSchemeRes.asString());

@@ -12,7 +12,7 @@ import org.testng.annotations.Test;
 
 import java.util.List;
 
-import static com.ccs.conclave.api.cii.data.OrgDataProvider.getInfoWithOnlyAdditionalIdentifier;
+import static com.ccs.conclave.api.cii.data.OrgDataProvider.getExpSchemeInfoWithOnlyAddIdentifiers;
 import static com.ccs.conclave.api.cii.data.SchemeRegistry.*;
 import static com.ccs.conclave.api.cii.requests.RestRequests.deleteOrganisation;
 import static com.ccs.conclave.api.cii.verification.VerifyEndpointResponses.*;
@@ -22,9 +22,9 @@ public class SFIdentifierTests extends BaseClass {
 
     @Test
     public void deleteScheme_COH_from_DUN() {
-        SchemeInfo schemeInfo = OrgDataProvider.getInfo(DUN_AND_BRADSTREET_WITH_COH);
+        SchemeInfo schemeInfo = OrgDataProvider.getExpectedSchemeInfo(DUN_AND_BRADSTREET_WITH_COH);
         // get only AdditionalIdentifiers from the given Scheme
-        List<AdditionalSchemeInfo> additionalSchemesInfo = getInfoWithOnlyAdditionalIdentifier(DUN_AND_BRADSTREET_WITH_COH);
+        List<AdditionalSchemeInfo> additionalSchemesInfo = getExpSchemeInfoWithOnlyAddIdentifiers(DUN_AND_BRADSTREET_WITH_COH);
         Assert.assertEquals(additionalSchemesInfo.size() , 1, "Only one additional identifier is expected, please check the test data!");
 
         // Perform Get call to form the request payload for POST call

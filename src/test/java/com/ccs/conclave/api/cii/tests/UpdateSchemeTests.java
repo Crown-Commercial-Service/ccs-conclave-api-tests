@@ -28,9 +28,9 @@ public class UpdateSchemeTests extends BaseClass {
         // GetScheme response without additional identifiers
         String responseStr = getSchemeInfoWithEmptyAddIdentifiers(DUN_AND_BRADSTREET_WITH_COH);
         // Get expected SchemeInfo without additional identifiers
-        SchemeInfo expectedSchemeInfo = getInfoWithoutAddIdentifiers(DUN_AND_BRADSTREET_WITH_COH);
+        SchemeInfo expectedSchemeInfo = getExpSchemeInfoWithoutAddIdentifiers(DUN_AND_BRADSTREET_WITH_COH);
         // get only AdditionalIdentifiers from the given Scheme
-        List<AdditionalSchemeInfo> additionalSchemesInfo = getInfoWithOnlyAdditionalIdentifier(DUN_AND_BRADSTREET_WITH_COH);
+        List<AdditionalSchemeInfo> additionalSchemesInfo = getExpSchemeInfoWithOnlyAddIdentifiers(DUN_AND_BRADSTREET_WITH_COH);
         Assert.assertTrue(additionalSchemesInfo.size() == 1, "Only one additional identifier is expected, please check the test data!");
 
         logger.info("Performing Post Operation/register organisation with only Primary Identifier");
@@ -54,10 +54,10 @@ public class UpdateSchemeTests extends BaseClass {
     @Test
     public void updateScheme_COH_and_CHC_into_SC() {
         // Get expected SchemeInfo without additional identifiers
-        SchemeInfo expectedSchemeInfo = getInfoWithoutAddIdentifiers(SCOTLAND_CHARITY_WITH_CHC_COH);
+        SchemeInfo expectedSchemeInfo = getExpSchemeInfoWithoutAddIdentifiers(SCOTLAND_CHARITY_WITH_CHC_COH);
 
         // get only AdditionalIdentifiers from the given Scheme
-        List<AdditionalSchemeInfo> additionalSchemesInfo = getInfoWithOnlyAdditionalIdentifier(SCOTLAND_CHARITY_WITH_CHC_COH);
+        List<AdditionalSchemeInfo> additionalSchemesInfo = getExpSchemeInfoWithOnlyAddIdentifiers(SCOTLAND_CHARITY_WITH_CHC_COH);
         Assert.assertTrue(additionalSchemesInfo.size() == 2, "Two additional identifier are expected, please check the test data!");
 
         // GetScheme response without additional identifiers
@@ -96,9 +96,9 @@ public class UpdateSchemeTests extends BaseClass {
         // GetScheme response without additional identifiers
         String responseStr = getSchemeInfoWithEmptyAddIdentifiers(DUN_AND_BRADSTREET_WITH_COH);
         // Get expected SchemeInfo without additional identifiers
-        SchemeInfo expectedSchemeInfo = getInfoWithoutAddIdentifiers(DUN_AND_BRADSTREET_WITH_COH);
+        SchemeInfo expectedSchemeInfo = getExpSchemeInfoWithoutAddIdentifiers(DUN_AND_BRADSTREET_WITH_COH);
         // get only AdditionalIdentifiers from the given Scheme
-        List<AdditionalSchemeInfo> additionalSchemesInfo = getInfoWithOnlyAdditionalIdentifier(INVALID_SCHEME);
+        List<AdditionalSchemeInfo> additionalSchemesInfo = getExpSchemeInfoWithOnlyAddIdentifiers(INVALID_SCHEME);
         Assert.assertTrue(additionalSchemesInfo.size() == 1, "Only one additional identifier is expected, please check the test data!");
 
         logger.info("Performing Post Operation/register organisation with only Primary Identifier");
@@ -132,10 +132,10 @@ public class UpdateSchemeTests extends BaseClass {
         // GetScheme response without additional identifiers
         String responseStr = getSchemeInfoWithEmptyAddIdentifiers(DUN_AND_BRADSTREET_WITH_COH);
         // Get expected SchemeInfo without additional identifiers
-        SchemeInfo expectedSchemeInfo = getInfoWithoutAddIdentifiers(DUN_AND_BRADSTREET_WITH_COH);
+        SchemeInfo expectedSchemeInfo = getExpSchemeInfoWithoutAddIdentifiers(DUN_AND_BRADSTREET_WITH_COH);
 
         // get only AdditionalIdentifiers from the given Scheme
-        List<AdditionalSchemeInfo> additionalSchemesInfo = getInfoWithOnlyAdditionalIdentifier(CHARITIES_COMMISSION_WITH_COH);
+        List<AdditionalSchemeInfo> additionalSchemesInfo = getExpSchemeInfoWithOnlyAddIdentifiers(CHARITIES_COMMISSION_WITH_COH);
         Assert.assertTrue(additionalSchemesInfo.size() == 1, "Two additional identifier are expected, please check the test data!");
 
         // Perform Post Operation/ register organisation with only Primary Identifier
@@ -159,8 +159,8 @@ public class UpdateSchemeTests extends BaseClass {
     // Defect: CON-764:FIXED
     @Test
     public void updatePrimaryIdentifier() {
-        SchemeInfo schemeInfo = OrgDataProvider.getInfo(COMPANIES_HOUSE);
-        SchemeInfo schemeInfoWithoutSF =OrgDataProvider.getInfoWithoutSFIdentifier(COMPANIES_HOUSE);
+        SchemeInfo schemeInfo = OrgDataProvider.getExpectedSchemeInfo(COMPANIES_HOUSE);
+        SchemeInfo schemeInfoWithoutSF =OrgDataProvider.getExpSchemeInfoWithoutSFIdentifier(COMPANIES_HOUSE);
         Response schemeInfoRes = getSchemeInfo(COMPANIES_HOUSE, schemeInfo.getIdentifier().getId());
         verifyGetSchemeInfoResponse(schemeInfo, schemeInfoRes);
 
