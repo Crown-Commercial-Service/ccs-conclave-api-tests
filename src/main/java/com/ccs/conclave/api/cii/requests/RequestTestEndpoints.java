@@ -1,15 +1,10 @@
 package com.ccs.conclave.api.cii.requests;
 
-import com.ccs.conclave.api.cii.pojo.AdditionalSchemeInfo;
 import com.ccs.conclave.api.cii.pojo.DBData;
-import com.ccs.conclave.api.cii.pojo.Identifier;
 import com.ccs.conclave.api.cii.response.GetCIIDBDataTestEndpointResponse;
 import io.restassured.response.Response;
 import org.apache.log4j.Logger;
-
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import static com.ccs.conclave.api.common.StatusCodes.*;
 
@@ -28,7 +23,7 @@ public class RequestTestEndpoints {
         return ccsOrgId;
     }
 
-    public static GetCIIDBDataTestEndpointResponse getRegisteredOrganisations(String id) {
+    private static GetCIIDBDataTestEndpointResponse getRegisteredOrganisations(String id) {
         String endpoint = RestRequests.getBaseURI() + getRegisteredOrgIdsURI + id;
         Response response = RestRequests.get(endpoint);
         GetCIIDBDataTestEndpointResponse dbInfo = new GetCIIDBDataTestEndpointResponse(Arrays.asList());
@@ -40,35 +35,35 @@ public class RequestTestEndpoints {
         return dbInfo;
     }
 
-    public static List<AdditionalSchemeInfo> getAdditionalIdentifiersFromDB(String primaryId) {
-        List<AdditionalSchemeInfo> additionalSchemesInfo = new ArrayList<>();
-        GetCIIDBDataTestEndpointResponse dbInfo = RequestTestEndpoints.getRegisteredOrganisations(primaryId);
-        if(dbInfo.getDbData().size() > 0) {
-            for (DBData dbData : dbInfo.getDbData()) {
-                if(dbData.getPrimaryScheme().equals("false")) {
-                    AdditionalSchemeInfo additionalSchemeInfo = new AdditionalSchemeInfo();
-                    Identifier identifier = new Identifier();
-                    additionalSchemeInfo.setCcsOrgId(dbData.getCcsOrgId());
-                    identifier.setId(dbData.getSchemeOrgRegNumber());
-                    identifier.setScheme(dbData.getScheme());
-                    additionalSchemeInfo.setIdentifier(identifier);
-                    additionalSchemesInfo.add(additionalSchemeInfo);
-                }
-            }
-        }
-        return additionalSchemesInfo;
-    }
-
-    public static boolean isInCIIDataBase(String id) {
-        GetCIIDBDataTestEndpointResponse dbInfo = RequestTestEndpoints.getRegisteredOrganisations(id);
-        if(dbInfo.getDbData().size() > 0) {
-            for (DBData dbData : dbInfo.getDbData()) {
-                if (dbData.getSchemeOrgRegNumber().equals(id)) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
+//    public static List<AdditionalSchemeInfo> getAdditionalIdentifiersFromDB(String primaryId) {
+//        List<AdditionalSchemeInfo> additionalSchemesInfo = new ArrayList<>();
+//        GetCIIDBDataTestEndpointResponse dbInfo = RequestTestEndpoints.getRegisteredOrganisations(primaryId);
+//        if(dbInfo.getDbData().size() > 0) {
+//            for (DBData dbData : dbInfo.getDbData()) {
+//                if(dbData.getPrimaryScheme().equals("false")) {
+//                    AdditionalSchemeInfo additionalSchemeInfo = new AdditionalSchemeInfo();
+//                    Identifier identifier = new Identifier();
+//                    additionalSchemeInfo.setCcsOrgId(dbData.getCcsOrgId());
+//                    identifier.setId(dbData.getSchemeOrgRegNumber());
+//                    identifier.setScheme(dbData.getScheme());
+//                    additionalSchemeInfo.setIdentifier(identifier);
+//                    additionalSchemesInfo.add(additionalSchemeInfo);
+//                }
+//            }
+//        }
+//        return additionalSchemesInfo;
+//    }
+//
+//    public static boolean isInCIIDataBase(String id) {
+//        GetCIIDBDataTestEndpointResponse dbInfo = RequestTestEndpoints.getRegisteredOrganisations(id);
+//        if(dbInfo.getDbData().size() > 0) {
+//            for (DBData dbData : dbInfo.getDbData()) {
+//                if (dbData.getSchemeOrgRegNumber().equals(id)) {
+//                    return true;
+//                }
+//            }
+//        }
+//        return false;
+//    }
 }
 

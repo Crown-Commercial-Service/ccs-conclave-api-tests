@@ -16,6 +16,7 @@ import static com.ccs.conclave.api.cii.data.OrgDataProvider.*;
 import static com.ccs.conclave.api.cii.data.RequestPayloads.*;
 import static com.ccs.conclave.api.cii.data.SchemeRegistry.*;
 import static com.ccs.conclave.api.cii.requests.RestRequests.deleteOrganisation;
+import static com.ccs.conclave.api.cii.requests.RestRequests.getSchemeInfo;
 import static com.ccs.conclave.api.cii.verification.VerifyEndpointResponses.*;
 import static com.ccs.conclave.api.cii.verification.VerifyEndpointResponses.getCCSOrgId;
 
@@ -24,7 +25,6 @@ public class UpdateSchemeTests extends BaseClass {
 
     @Test
     public void updateScheme_COH_into_DUNS() {
-        SchemeInfo schemeInfo = OrgDataProvider.getInfo(DUN_AND_BRADSTREET_WITH_COH);
         // GetScheme response without additional identifiers
         String responseStr = getSchemeInfoWithEmptyAddIdentifiers(DUN_AND_BRADSTREET_WITH_COH);
         // Get expected SchemeInfo without additional identifiers
@@ -45,7 +45,7 @@ public class UpdateSchemeTests extends BaseClass {
         additionalSchemeInfo.setCcsOrgId(getCCSOrgId());
         response = RestRequests.updateScheme(additionalSchemeInfo);
         verifyResponseCodeForSuccess(response);
-        verifyUpdatedScheme(schemeInfo.getIdentifier().getId(), additionalSchemeInfo);
+        verifyUpdatedScheme(getCCSOrgId(), additionalSchemeInfo);
 
         // Delete Database entry if the Org. is already registered
         deleteOrganisation(getCCSOrgId());
@@ -53,7 +53,6 @@ public class UpdateSchemeTests extends BaseClass {
 
     @Test
     public void updateScheme_COH_and_CHC_into_SC() {
-        SchemeInfo schemeInfo = OrgDataProvider.getInfo(SCOTLAND_CHARITY_WITH_CHC_COH);
         // Get expected SchemeInfo without additional identifiers
         SchemeInfo expectedSchemeInfo = getInfoWithoutAddIdentifiers(SCOTLAND_CHARITY_WITH_CHC_COH);
 
@@ -74,19 +73,19 @@ public class UpdateSchemeTests extends BaseClass {
         additionalSchemeInfo1.setCcsOrgId(getCCSOrgId());
         response = RestRequests.updateScheme(additionalSchemeInfo1);
         verifyResponseCodeForSuccess(response);
-        verifyUpdatedScheme(schemeInfo.getIdentifier().getId(), additionalSchemeInfo1);
+        verifyUpdatedScheme(getCCSOrgId(), additionalSchemeInfo1);
 
         logger.info("Adding additional identifier2 to the existing organisation...");
         AdditionalSchemeInfo additionalSchemeInfo2 = additionalSchemesInfo.get(1);
         additionalSchemeInfo2.setCcsOrgId(getCCSOrgId());
         response = RestRequests.updateScheme(additionalSchemeInfo2);
         verifyResponseCodeForSuccess(response);
-        verifyUpdatedScheme(schemeInfo.getIdentifier().getId(), additionalSchemeInfo2);
+        verifyUpdatedScheme(getCCSOrgId(), additionalSchemeInfo2);
 
         logger.info("Try Update again without deleting...");
         response = RestRequests.updateScheme(additionalSchemeInfo2);
         verifyResponseCodeForSuccess(response);
-        verifyUpdatedScheme(schemeInfo.getIdentifier().getId(), additionalSchemeInfo2);
+        verifyUpdatedScheme(getCCSOrgId(), additionalSchemeInfo2);
 
         // Delete Database entry if the Org. is already registered
         deleteOrganisation(getCCSOrgId());
@@ -130,7 +129,6 @@ public class UpdateSchemeTests extends BaseClass {
     // So this test expects a success response.
     @Test
     public void updateScheme_validIdentifierOfAnotherScheme() {
-        SchemeInfo schemeInfo = OrgDataProvider.getInfo(DUN_AND_BRADSTREET_WITH_COH);
         // GetScheme response without additional identifiers
         String responseStr = getSchemeInfoWithEmptyAddIdentifiers(DUN_AND_BRADSTREET_WITH_COH);
         // Get expected SchemeInfo without additional identifiers
@@ -151,9 +149,29 @@ public class UpdateSchemeTests extends BaseClass {
         additionalSchemeInfo1.setCcsOrgId(getCCSOrgId());
         response = RestRequests.updateScheme(additionalSchemeInfo1);
         verifyResponseCodeForSuccess(response);
-        verifyUpdatedScheme(schemeInfo.getIdentifier().getId(), additionalSchemeInfo1);
+        verifyUpdatedScheme(getCCSOrgId(), additionalSchemeInfo1);
 
         // Delete Database entry if the Org. is already registered
         deleteOrganisation(getCCSOrgId());
+    }
+
+
+    // Defect: CON-764
+    //@Test
+    public void updatePrimaryIdentifier() {
+        SchemeInfo schemeInfo = OrgDataProvider.getInfo(COMPANIES_HOUSE);
+        Response schemeInfoRes = getSchemeInfo(COMPANIES_HOUSE, schemeInfo.getIdentifier().getId());
+        verifyGetSchemeInfoResponse(schemeInfo, schemeInfoRes);
+
+        Response response = RestRequests.postSchemeInfo(schemeInfoRes.asString());
+        verifyPostSchemeInfoResponse(schemeInfo, response);
+
+        logger.info("Update Primary scheme successfully...");
+        AdditionalSchemeInfo updateSchemeInfo = new AdditionalSchemeInfo();
+        updateSchemeInfo.setCcsOrgId(getCCSOrgId());
+        updateSchemeInfo.setIdentifier(schemeInfo.getIdentifier());
+        response = RestRequests.updateScheme(updateSchemeInfo);
+        verifyResponseCodeForSuccess(response);
+        verifyUpdatedScheme(getCCSOrgId(), updateSchemeInfo);
     }
 }

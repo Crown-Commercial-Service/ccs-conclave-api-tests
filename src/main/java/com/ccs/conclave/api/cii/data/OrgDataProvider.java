@@ -2,6 +2,7 @@ package com.ccs.conclave.api.cii.data;
 
 import com.ccs.conclave.api.cii.pojo.*;
 import com.ccs.conclave.api.common.BaseClass;
+import org.testng.Assert;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -667,6 +668,20 @@ public class OrgDataProvider extends BaseClass {
         schemeInfoModified.setIdentifier(schemeInfo.getIdentifier());
         schemeInfoModified.setContactPoint(schemeInfo.getContactPoint());
         schemeInfoModified.setAddress(schemeInfo.getAddress());
+        return schemeInfoModified;
+    }
+
+    public static SchemeInfo getInfoWithFirstAddIdentifier(SchemeRegistry schemeRegistry) {
+        SchemeInfo schemeInfo = getInfo(schemeRegistry);
+
+        SchemeInfo schemeInfoModified = new SchemeInfo();
+        schemeInfoModified.setName(schemeInfo.getName());
+        schemeInfoModified.setIdentifier(schemeInfo.getIdentifier());
+        schemeInfoModified.setContactPoint(schemeInfo.getContactPoint());
+        schemeInfoModified.setAddress(schemeInfo.getAddress());
+
+        Assert.assertTrue(schemeInfo.getAdditionalIdentifiers().size() > 0, "No additional identifier in test data!!");
+        schemeInfoModified.getAdditionalIdentifiers().add(schemeInfo.getAdditionalIdentifiers().get(0));
         return schemeInfoModified;
     }
 

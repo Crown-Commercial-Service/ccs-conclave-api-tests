@@ -8,4 +8,8 @@ import lombok.Setter;
 @Getter
 public class GetSchemeInfoResponse {
     private SchemeInfo schemeInfo;
+
+    public GetSchemeInfoResponse(SchemeInfo schemeInfo) {
+        this.schemeInfo = schemeInfo;
+    }
 }

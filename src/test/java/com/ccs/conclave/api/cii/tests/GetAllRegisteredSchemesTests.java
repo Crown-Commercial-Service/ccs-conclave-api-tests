@@ -22,7 +22,7 @@ public class GetAllRegisteredSchemesTests extends BaseClass {
     private final static Logger logger = Logger.getLogger(GetAllRegisteredSchemesTests.class);
 
     @Test
-        public void getRegisteredSchemes() {
+        public void geAlltRegisteredSchemes() {
         SchemeInfo schemeInfo = OrgDataProvider.getInfo(NORTHERN_CHARITY_WITH_COH);
         Response getSchemeInfo = getSchemeInfo(NORTHERN_CHARITY_WITH_COH, schemeInfo.getIdentifier().getId());
         Response postSchemeRes = RestRequests.postSchemeInfo(getSchemeInfo.asString());
@@ -42,7 +42,7 @@ public class GetAllRegisteredSchemesTests extends BaseClass {
     }
 
     @Test
-    public void getRegisteredSchemesIfAddIdentifiersNotSelected() {
+    public void getAllRegisteredSchemesIfAddIdentifiersNotSelected() {
         SchemeInfo schemeInfo = OrgDataProvider.getInfo(SCOTLAND_CHARITY_WITH_CHC_COH);
         String getSchemeInfo = getSchemeInfoWithEmptyAddIdentifiers(SCOTLAND_CHARITY_WITH_CHC_COH);
         SchemeInfo expectedPostRes = OrgDataProvider.getInfoWithoutAddIdentifiers(SCOTLAND_CHARITY_WITH_CHC_COH);
@@ -65,7 +65,7 @@ public class GetAllRegisteredSchemesTests extends BaseClass {
     }
 
     @Test
-    public void getRegisteredSchemesAfterUpdate() {
+    public void getAllRegisteredSchemesAfterUpdate() {
         SchemeInfo schemeInfo = OrgDataProvider.getInfo(SCOTLAND_CHARITY_WITH_CHC_COH);
         String getSchemeInfo = getSchemeInfoWithEmptyAddIdentifiers(SCOTLAND_CHARITY_WITH_CHC_COH);
         SchemeInfo expectedPosRes = OrgDataProvider.getInfoWithoutAddIdentifiers(SCOTLAND_CHARITY_WITH_CHC_COH);
@@ -119,7 +119,7 @@ public class GetAllRegisteredSchemesTests extends BaseClass {
     }
 
     @Test
-    public void getRegisteredSchemesAfterDelete() {
+    public void getAllRegisteredSchemesAfterDelete() {
         SchemeInfo schemeInfo = OrgDataProvider.getInfo(DUN_AND_BRADSTREET_WITH_COH);
         SchemeInfo expectedSchemeInfoWithoutAddIds = getInfoWithoutAddIdentifiers(DUN_AND_BRADSTREET_WITH_COH);
         Response getSchemeInfoRes = getSchemeInfo(DUN_AND_BRADSTREET_WITH_COH, schemeInfo.getIdentifier().getId());
@@ -156,7 +156,7 @@ public class GetAllRegisteredSchemesTests extends BaseClass {
     }
 
     @Test
-    public void getRegisteredSchemesWithInvalidOrgId() {
+    public void getAllRegisteredSchemesWithInvalidOrgId() {
         Response getRegisteredSchemesRes = getRegisteredSchemesInfo("0000000000000000");
         verifyInvalidIdResponse(getRegisteredSchemesRes);
     }

@@ -1,7 +1,6 @@
 package com.ccs.conclave.api.cii.response;
 
 import com.ccs.conclave.api.cii.pojo.DBData;
-import com.ccs.conclave.api.cii.pojo.Scheme;
 import lombok.Getter;
 import lombok.Setter;
 

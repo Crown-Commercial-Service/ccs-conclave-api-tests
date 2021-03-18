@@ -1,5 +1,6 @@
 package com.ccs.conclave.api.cii.data;
 
+import com.ccs.conclave.api.cii.pojo.Identifier;
 import com.ccs.conclave.api.cii.pojo.SchemeInfo;
 import com.ccs.conclave.api.cii.requests.RestRequests;
 import io.restassured.response.Response;
@@ -7,6 +8,7 @@ import org.testng.Assert;
 
 import static com.ccs.conclave.api.cii.data.SchemeRegistry.*;
 import static com.ccs.conclave.api.cii.verification.VerifyEndpointResponses.verifyGetSchemeInfoResponse;
+import static com.ccs.conclave.api.cii.verification.VerifyEndpointResponses.verifyResponseCodeForSuccess;
 
 public class RequestPayloads {
     public static String getSchemeInfoWithInvalidAddIdentifier(SchemeRegistry scheme) {
@@ -16,20 +18,24 @@ public class RequestPayloads {
         return response.asString().replaceAll(schemeInfo.getAdditionalIdentifiers().get(0).getId(), "55667788776");
     }
 
-    public static String getSchemeInfoWithAddIdentifierofAnotherScheme(SchemeRegistry scheme) {
+    public static String getSchemeInfoWithAddIdentifierOfAnotherScheme(SchemeRegistry scheme) {
         SchemeInfo schemeInfo = OrgDataProvider.getInfo(scheme);
         Response response = RestRequests.getSchemeInfo(scheme, schemeInfo.getIdentifier().getId());
         verifyGetSchemeInfoResponse(schemeInfo, response);
-        String schemeName = getSchemeCode(SCOTLAND_CHARITY);
-        String additionalIdentifier = OrgDataProvider.getInfo(CHARITIES_COMMISSION_WITH_SC).getAdditionalIdentifiers().get(0).getId();
-        return response.asString().replaceAll(schemeInfo.getAdditionalIdentifiers().get(0).getScheme(), schemeName).replaceAll(schemeInfo.getAdditionalIdentifiers().get(0).getId(), additionalIdentifier);
+
+        Identifier addIdOfCurrentScheme = schemeInfo.getAdditionalIdentifiers().get(0);
+        Identifier addIdOfAnotherScheme = OrgDataProvider.getInfo(CHARITIES_COMMISSION_WITH_SC).getAdditionalIdentifiers().get(0);
+        return response.asString().replaceAll(addIdOfCurrentScheme.getScheme(), addIdOfAnotherScheme.getScheme())
+                .replaceAll(addIdOfCurrentScheme.getId(), addIdOfAnotherScheme.getId());
     }
 
     // Modify the response to update Valid Scheme of Primary Scheme with Invalid Scheme
-    public static String getSchemeInfoWithInvalidPrimaryScheme() {
+    public static String getSchemeInfoWithInvalidPrimaryScheme() throws InterruptedException {
         SchemeInfo schemeInfo = OrgDataProvider.getInfo(COMPANIES_HOUSE);
+        Thread.sleep(500);
         Response response = RestRequests.getSchemeInfo(COMPANIES_HOUSE, schemeInfo.getIdentifier().getId());
-        verifyGetSchemeInfoResponse(schemeInfo, response); // verify Get SchemeInfo response before using it
+        //verifyGetSchemeInfoResponse(schemeInfo, response); // verify Get SchemeInfo response before using it
+        verifyResponseCodeForSuccess(response);
         return response.asString().replaceAll(getSchemeCode(COMPANIES_HOUSE), getSchemeCode(INVALID_SCHEME));
     }
 
@@ -41,11 +47,14 @@ public class RequestPayloads {
         return response.asString().replaceAll(schemeInfo.getIdentifier().getId(), "9988776655");
     }
 
-    public static String getSchemeInfoWithoutAddIdentifierSection(SchemeRegistry scheme) {
-        SchemeInfo schemeInfo = OrgDataProvider.getInfo(scheme);
-        Response response = RestRequests.getSchemeInfo(scheme, schemeInfo.getIdentifier().getId());
-        verifyGetSchemeInfoResponse(schemeInfo, response); // verify Get SchemeInfo response before using it
-        String[] strings = response.asString().split("additionalIdentifiers\":\\[(.*?)\\],\"");
+    public static String getSchemeInfoWithoutAddIdentifierSection(SchemeRegistry scheme) throws InterruptedException {
+
+        String id = OrgDataProvider.getInfo(scheme).getIdentifier().getId();
+        Thread.sleep(500);
+        Response response = RestRequests.getSchemeInfo(scheme, id);
+        //verifyGetSchemeInfoResponse(schemeInfo, response); // verify Get SchemeInfo response before using it
+        verifyResponseCodeForSuccess(response);
+        String[] strings = response.asString().split("additionalIdentifiers\":\\[(.*?)],\"");
         return strings[0] + strings[1];
     }
 
@@ -54,7 +63,7 @@ public class RequestPayloads {
         Response response = RestRequests.getSchemeInfo(scheme, schemeInfo.getIdentifier().getId());
         verifyGetSchemeInfoResponse(schemeInfo, response); // verify Get SchemeInfo response before using it
 
-        String[] strings = response.asString().split("additionalIdentifiers\":\\[(.*?)\\]");
+        String[] strings = response.asString().split("additionalIdentifiers\":\\[(.*?)]");
         return strings[0] + "additionalIdentifiers\":[]" + strings[1];
     }
 
