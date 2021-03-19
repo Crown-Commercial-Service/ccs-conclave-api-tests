@@ -769,13 +769,15 @@ public class OrgDataProvider extends BaseClass {
     }
 
     // This method returns only AdditionalSchemesInfo
-    public static List<AdditionalSchemeInfo> getExpSchemeInfoWithOnlyAddIdentifiers(SchemeRegistry schemeRegistry) {
+    public static List<AdditionalSchemeInfo> getExpSchemeInfoWithOnlyAddIdentifiersExceptSF(SchemeRegistry schemeRegistry) {
         List<AdditionalSchemeInfo> additionalSchemesInfo = new ArrayList<>();
         SchemeInfo schemeInfo = getExpectedSchemeInfo(schemeRegistry);
         for (Identifier addIdentifier : schemeInfo.getAdditionalIdentifiers()) {
-            AdditionalSchemeInfo additionalSchemeInfo = new AdditionalSchemeInfo();
-            additionalSchemeInfo.setIdentifier(addIdentifier);
-            additionalSchemesInfo.add(additionalSchemeInfo);
+            if (!addIdentifier.getScheme().equals(getSchemeCode(SALES_FORCE))) {
+                AdditionalSchemeInfo additionalSchemeInfo = new AdditionalSchemeInfo();
+                additionalSchemeInfo.setIdentifier(addIdentifier);
+                additionalSchemesInfo.add(additionalSchemeInfo);
+            }
         }
         return additionalSchemesInfo;
     }

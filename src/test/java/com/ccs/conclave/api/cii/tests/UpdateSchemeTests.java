@@ -26,11 +26,11 @@ public class UpdateSchemeTests extends BaseClass {
     @Test
     public void updateScheme_COH_into_DUNS() {
         // GetScheme response without additional identifiers
-        String responseStr = getSchemeInfoWithEmptyAddIdentifiers(DUN_AND_BRADSTREET_WITH_COH);
+        String responseStr = getSchemeInfoWithoutAddIdentifiers(DUN_AND_BRADSTREET_WITH_COH);
         // Get expected SchemeInfo without additional identifiers
         SchemeInfo expectedSchemeInfo = getExpSchemeInfoWithoutAddIdentifiers(DUN_AND_BRADSTREET_WITH_COH);
         // get only AdditionalIdentifiers from the given Scheme
-        List<AdditionalSchemeInfo> additionalSchemesInfo = getExpSchemeInfoWithOnlyAddIdentifiers(DUN_AND_BRADSTREET_WITH_COH);
+        List<AdditionalSchemeInfo> additionalSchemesInfo = getExpSchemeInfoWithOnlyAddIdentifiersExceptSF(DUN_AND_BRADSTREET_WITH_COH);
         Assert.assertTrue(additionalSchemesInfo.size() == 1, "Only one additional identifier is expected, please check the test data!");
 
         logger.info("Performing Post Operation/register organisation with only Primary Identifier");
@@ -57,11 +57,11 @@ public class UpdateSchemeTests extends BaseClass {
         SchemeInfo expectedSchemeInfo = getExpSchemeInfoWithoutAddIdentifiers(SCOTLAND_CHARITY_WITH_CHC_COH);
 
         // get only AdditionalIdentifiers from the given Scheme
-        List<AdditionalSchemeInfo> additionalSchemesInfo = getExpSchemeInfoWithOnlyAddIdentifiers(SCOTLAND_CHARITY_WITH_CHC_COH);
+        List<AdditionalSchemeInfo> additionalSchemesInfo = getExpSchemeInfoWithOnlyAddIdentifiersExceptSF(SCOTLAND_CHARITY_WITH_CHC_COH);
         Assert.assertTrue(additionalSchemesInfo.size() == 2, "Two additional identifier are expected, please check the test data!");
 
         // GetScheme response without additional identifiers
-        String responseStr = getSchemeInfoWithEmptyAddIdentifiers(SCOTLAND_CHARITY_WITH_CHC_COH);
+        String responseStr = getSchemeInfoWithoutAddIdentifiers(SCOTLAND_CHARITY_WITH_CHC_COH);
         // Perform Post Operation/ register organisation with only Primary Identifier
         Response response = RestRequests.postSchemeInfo(responseStr);
 
@@ -94,11 +94,11 @@ public class UpdateSchemeTests extends BaseClass {
     @Test
     public void updateSchemeInvalidSchemeOrID() {
         // GetScheme response without additional identifiers
-        String responseStr = getSchemeInfoWithEmptyAddIdentifiers(DUN_AND_BRADSTREET_WITH_COH);
+        String responseStr = getSchemeInfoWithoutAddIdentifiers(DUN_AND_BRADSTREET_WITH_COH);
         // Get expected SchemeInfo without additional identifiers
         SchemeInfo expectedSchemeInfo = getExpSchemeInfoWithoutAddIdentifiers(DUN_AND_BRADSTREET_WITH_COH);
         // get only AdditionalIdentifiers from the given Scheme
-        List<AdditionalSchemeInfo> additionalSchemesInfo = getExpSchemeInfoWithOnlyAddIdentifiers(INVALID_SCHEME);
+        List<AdditionalSchemeInfo> additionalSchemesInfo = getExpSchemeInfoWithOnlyAddIdentifiersExceptSF(INVALID_SCHEME);
         Assert.assertTrue(additionalSchemesInfo.size() == 1, "Only one additional identifier is expected, please check the test data!");
 
         logger.info("Performing Post Operation/register organisation with only Primary Identifier");
@@ -130,12 +130,12 @@ public class UpdateSchemeTests extends BaseClass {
     @Test
     public void updateScheme_validIdentifierOfAnotherScheme() {
         // GetScheme response without additional identifiers
-        String responseStr = getSchemeInfoWithEmptyAddIdentifiers(DUN_AND_BRADSTREET_WITH_COH);
+        String responseStr = getSchemeInfoWithoutAddIdentifiers(DUN_AND_BRADSTREET_WITH_COH);
         // Get expected SchemeInfo without additional identifiers
         SchemeInfo expectedSchemeInfo = getExpSchemeInfoWithoutAddIdentifiers(DUN_AND_BRADSTREET_WITH_COH);
 
         // get only AdditionalIdentifiers from the given Scheme
-        List<AdditionalSchemeInfo> additionalSchemesInfo = getExpSchemeInfoWithOnlyAddIdentifiers(CHARITIES_COMMISSION_WITH_COH);
+        List<AdditionalSchemeInfo> additionalSchemesInfo = getExpSchemeInfoWithOnlyAddIdentifiersExceptSF(CHARITIES_COMMISSION_WITH_COH);
         Assert.assertTrue(additionalSchemesInfo.size() == 1, "Two additional identifier are expected, please check the test data!");
 
         // Perform Post Operation/ register organisation with only Primary Identifier

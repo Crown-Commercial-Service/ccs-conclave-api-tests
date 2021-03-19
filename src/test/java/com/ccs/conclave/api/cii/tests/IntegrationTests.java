@@ -10,8 +10,9 @@ import io.restassured.response.Response;
 import org.apache.log4j.Logger;
 import org.testng.annotations.Test;
 
+import static com.ccs.conclave.api.cii.data.OrgDataProvider.getExpSchemeInfoWithoutSFIdentifier;
 import static com.ccs.conclave.api.cii.data.OrgDataProvider.getExpectedSchemeInfo;
-import static com.ccs.conclave.api.cii.data.RequestPayloads.getSchemeInfoWithEmptyAddIdentifiers;
+import static com.ccs.conclave.api.cii.data.RequestPayloads.getSchemeInfoWithoutAddIdentifiers;
 import static com.ccs.conclave.api.cii.data.SchemeRegistry.*;
 import static com.ccs.conclave.api.cii.requests.RestRequests.*;
 import static com.ccs.conclave.api.cii.data.RequestPayloads.*;
@@ -73,7 +74,7 @@ public class IntegrationTests extends BaseClass {
         SchemeInfo schemeInfo = OrgDataProvider.getExpectedSchemeInfo(DUN_AND_BRADSTREET_WITH_CHC_AND_COH);
         SchemeInfo schemeInfoWithoutAddIds = OrgDataProvider.getExpSchemeInfoWithoutAddIdentifiers(DUN_AND_BRADSTREET_WITH_CHC_AND_COH);
         // Perform Post Operation without Additional Identifiers
-        String getSchemeInfo = getSchemeInfoWithEmptyAddIdentifiers(DUN_AND_BRADSTREET_WITH_CHC_AND_COH);
+        String getSchemeInfo = getSchemeInfoWithoutAddIdentifiers(DUN_AND_BRADSTREET_WITH_CHC_AND_COH);
         Response postSchemeRes = RestRequests.postSchemeInfo(getSchemeInfo);
         verifyPostSchemeInfoResponse(schemeInfoWithoutAddIds, postSchemeRes);
         logger.info("Successfully registered organisation without additional identifiers...");
@@ -180,7 +181,7 @@ public class IntegrationTests extends BaseClass {
         SchemeInfo schemeInfo = OrgDataProvider.getExpectedSchemeInfo(DUN_AND_BRADSTREET_WITH_COH);
         SchemeInfo schemeInfoWithoutAddIds = OrgDataProvider.getExpSchemeInfoWithoutAddIdentifiers(DUN_AND_BRADSTREET_WITH_COH);
         // Perform Get call to form the request payload for POST call
-        String getSchemeInfo = getSchemeInfoWithEmptyAddIdentifiers(DUN_AND_BRADSTREET_WITH_COH);
+        String getSchemeInfo = getSchemeInfoWithoutAddIdentifiers(DUN_AND_BRADSTREET_WITH_COH);
 
         // Perform Post Operation without Additional Identifiers
         Response postSchemeRes = RestRequests.postSchemeInfo(getSchemeInfo);
@@ -225,8 +226,8 @@ public class IntegrationTests extends BaseClass {
         verifyPostSchemeInfoResponse(schemeInfo, postSchemeRes);
     }
 
-    // Defect CON-764
-    // @Test
+    // Defect CON-764:FIXED
+     @Test
     public void userUpdatesPrimaryIdentifierAfterModifiedTheSource() {
         // Register Primary Identifier with additional identifiers
         SchemeInfo schemeInfo = getExpectedSchemeInfo(CHARITIES_COMMISSION_WITH_SC);
@@ -256,4 +257,68 @@ public class IntegrationTests extends BaseClass {
         // Delete Database entry if the Org. is already registered
         deleteOrganisation(getCCSOrgId());
     }
+
+    @Test
+    public void ccsAdminDeleteSalesForceIdentifierOfOrg() {
+        SchemeInfo expectedSchemeInfo = getExpectedSchemeInfo(COMPANIES_HOUSE);
+        // As SF is there as part of Test data need to ensure SF Identifier is not registered as hidden:false
+        SchemeInfo expectedRegisteredSchemeInfo = getExpSchemeInfoWithoutSFIdentifier(COMPANIES_HOUSE);
+
+        // Perform Get call to form the request payload for POST call
+        Response getSchemeRes = getSchemeInfo(COMPANIES_HOUSE, expectedSchemeInfo.getIdentifier().getId());
+        verifyResponseCodeForSuccess(getSchemeRes);
+
+        // Perform Post Operation
+        Response postSchemeRes = RestRequests.postSchemeInfo(getSchemeRes.asString());
+        verifyPostSchemeInfoResponse(expectedRegisteredSchemeInfo, postSchemeRes);
+
+        // verify All registered identifiers including hidden once
+        Response allRegSchemesRes = getAllRegisteredSchemesInfo(getCCSOrgId());
+        expectedSchemeInfo.getIdentifier().setHidden("false");
+        expectedSchemeInfo.getAdditionalIdentifiers().get(0).setHidden("true");
+        verifyAllRegisteredSchemes(allRegSchemesRes, expectedSchemeInfo);
+
+        logger.info("admin deleted salesforce id....");
+        AdditionalSchemeInfo deleteSchemeInfo = new AdditionalSchemeInfo();
+        deleteSchemeInfo.setIdentifier(expectedSchemeInfo.getAdditionalIdentifiers().get(0));
+        deleteSchemeInfo.setCcsOrgId(getCCSOrgId());
+        Response deleteRes = deleteScheme(deleteSchemeInfo);
+        verifyDeletedScheme(getCCSOrgId(), deleteSchemeInfo);
+
+        // Delete Database entry if the Org. is already registered
+        deleteOrganisation(getCCSOrgId());
+    }
+
+    @Test
+    public void orgAdminUpdatesAddIdentifierAndSalesForceIdSaved() {
+        SchemeInfo expectedSchemeInfo = getExpectedSchemeInfo(COMPANIES_HOUSE);
+        // As SF is there as part of Test data need to ensure SF Identifier is not registered as hidden:false
+        SchemeInfo expectedRegisteredSchemeInfo = getExpSchemeInfoWithoutSFIdentifier(COMPANIES_HOUSE);
+
+        // Perform Get call to form the request payload for POST call
+        Response getSchemeRes = getSchemeInfo(COMPANIES_HOUSE, expectedSchemeInfo.getIdentifier().getId());
+        verifyResponseCodeForSuccess(getSchemeRes);
+
+        // Perform Post Operation
+        Response postSchemeRes = RestRequests.postSchemeInfo(getSchemeRes.asString());
+        verifyPostSchemeInfoResponse(expectedRegisteredSchemeInfo, postSchemeRes);
+
+        // verify All registered identifiers including hidden once
+        Response allRegSchemesRes = getAllRegisteredSchemesInfo(getCCSOrgId());
+        expectedSchemeInfo.getIdentifier().setHidden("false");
+        expectedSchemeInfo.getAdditionalIdentifiers().get(0).setHidden("true");
+        verifyAllRegisteredSchemes(allRegSchemesRes, expectedSchemeInfo);
+
+        logger.info("admin deleted salesforce id....");
+        AdditionalSchemeInfo deleteSchemeInfo = new AdditionalSchemeInfo();
+        deleteSchemeInfo.setIdentifier(expectedSchemeInfo.getAdditionalIdentifiers().get(0));
+        deleteSchemeInfo.setCcsOrgId(getCCSOrgId());
+        Response deleteRes = deleteScheme(deleteSchemeInfo);
+        verifyDeletedScheme(getCCSOrgId(), deleteSchemeInfo);
+
+        // Delete Database entry if the Org. is already registered
+        deleteOrganisation(getCCSOrgId());
+    }
+
+
 }

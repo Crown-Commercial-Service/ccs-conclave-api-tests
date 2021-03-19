@@ -25,7 +25,7 @@ public class ManageIdentifiersTests extends BaseClass {
         // Register Primary Identifier without additional
         SchemeInfo schemeInfo = getExpectedSchemeInfo(SCOTLAND_CHARITY_WITH_CHC_COH);
         SchemeInfo schemeInfoWithoutAddIds = getExpSchemeInfoWithoutAddIdentifiers(SCOTLAND_CHARITY_WITH_CHC_COH);
-        String getSchemeInfoWithoutAddIdsRes = getSchemeInfoWithEmptyAddIdentifiers(SCOTLAND_CHARITY_WITH_CHC_COH);
+        String getSchemeInfoWithoutAddIdsRes = getSchemeInfoWithoutAddIdentifiers(SCOTLAND_CHARITY_WITH_CHC_COH);
 
         // Get call using additional identifier
         String additionalIdentifierId = schemeInfo.getAdditionalIdentifiers().get(1).getId();
@@ -51,7 +51,7 @@ public class ManageIdentifiersTests extends BaseClass {
         // Register Primary Identifier without additional
         SchemeInfo schemeInfo = getExpectedSchemeInfo(SCOTLAND_CHARITY_WITH_CHC_COH);
         SchemeInfo schemeInfoWithoutAddIds = getExpSchemeInfoWithoutAddIdentifiers(SCOTLAND_CHARITY_WITH_CHC_COH);
-        String getSchemeInfoWithoutAddIdsRes = getSchemeInfoWithEmptyAddIdentifiers(SCOTLAND_CHARITY_WITH_CHC_COH);
+        String getSchemeInfoWithoutAddIdsRes = getSchemeInfoWithoutAddIdentifiers(SCOTLAND_CHARITY_WITH_CHC_COH);
 
         String additionalIdentifierId = schemeInfo.getAdditionalIdentifiers().get(0).getId();
         Response getSchemeForCHC = getSchemeInfo(CHARITIES_COMMISSION, additionalIdentifierId);
