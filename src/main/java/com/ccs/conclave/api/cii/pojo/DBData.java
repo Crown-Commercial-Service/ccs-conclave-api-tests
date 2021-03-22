@@ -10,4 +10,6 @@ public class DBData {
     private String primaryScheme;
     private String active;
     private String scheme;
+    private String uri;
+    private String legalName;
 }

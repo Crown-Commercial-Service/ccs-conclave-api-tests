@@ -7,10 +7,10 @@ import org.testng.annotations.Test;
 
 import static com.ccs.conclave.api.cii.verification.VerifyEndpointResponses.*;
 
-public class GetSchemesTests extends BaseClass {
+public class GetSchemeNamesTests extends BaseClass {
 
     @Test
-    public void getSchemesTest() {
+    public void getSchemeNamesTest() {
         Response response = RestRequests.getSchemes();
         verifyGetSchemesResponse(response);
     }

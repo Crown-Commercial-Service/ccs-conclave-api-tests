@@ -116,7 +116,8 @@ public class VerifyEndpointResponses {
         Assert.assertEquals(scheme.getSchemeCountryCode(), getSchemeCountryCode(NORTHERN_CHARITY), "Invalid CountryCode!");
     }
 
-    // This method depends on GetRegisteredSchemes endpoint
+    // This method verifies only the registered schemes to verify the hidden schemes as part of post need to use VerifyAllRegistered
+    // Schemes
     public static void verifyPostSchemeInfoResponse(SchemeInfo expectedSchemeInfo, Response response) {
         verifyResponseCodeForCreatedResource(response);
         PostSchemeInfoResponse actualResponse = new PostSchemeInfoResponse(Arrays.asList(response.getBody().as(OrgIdentifier[].class)));
@@ -126,8 +127,8 @@ public class VerifyEndpointResponses {
         logger.info("CcsOrgId: " + actualResponse.getOrgIdentifier().get(0).getCcsOrgId());
 
         // get registered schemes after post
-        Response actualRes = RestRequests.getRegisteredSchemesInfo(ccsOrgId);
-        verifyRegisteredSchemes(actualRes, expectedSchemeInfo, expectedSchemeInfo.getAdditionalIdentifiers().size());
+        Response regSchemesRes = RestRequests.getRegisteredSchemesInfo(ccsOrgId);
+        verifyRegisteredSchemes(regSchemesRes, expectedSchemeInfo, expectedSchemeInfo.getAdditionalIdentifiers().size());
     }
 
     public static void verifyUpdatedScheme(String ccsOrgId, AdditionalSchemeInfo expectedAdditionalSchemeInfo) {
