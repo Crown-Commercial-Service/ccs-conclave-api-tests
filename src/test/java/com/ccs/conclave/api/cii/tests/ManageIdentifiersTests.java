@@ -73,7 +73,7 @@ public class ManageIdentifiersTests extends BaseClass {
     @Test
     public void manageIdsGetSchemeInfoWithValidIdentifierNotPartOfOrg() throws JSONException {
         // Register Primary Identifier without additional
-        SchemeInfo schemeInfo = getExpectedSchemeInfo(SCOTLAND_CHARITY_WITH_CHC_COH);
+        SchemeInfo schemeInfo = getExpSchemeInfoWithoutSFIdentifier(SCOTLAND_CHARITY_WITH_CHC_COH);
 
         Response getSchemeRes = getSchemeInfo(SCOTLAND_CHARITY_WITH_CHC_COH, schemeInfo.getIdentifier().getId());
         verifyResponseCodeForSuccess(getSchemeRes);
@@ -95,9 +95,10 @@ public class ManageIdentifiersTests extends BaseClass {
     // Negative Scenarios to verify status code
     @Test
     public void manageIdsGetSchemeInfoWithInvalidIdentifierOrSchemeOrOrgId() {
-        SchemeInfo schemeInfo = getExpectedSchemeInfo(DUN_AND_BRADSTREET_IRELAND);
+        SchemeInfo schemeInfo = getExpSchemeInfoWithoutSFIdentifier(DUN_AND_BRADSTREET_IRELAND);
         Response getSchemeRes = getSchemeInfo(DUN_AND_BRADSTREET_IRELAND, schemeInfo.getIdentifier().getId());
         verifyResponseCodeForSuccess(getSchemeRes);
+
         Response postSchemeInfoRes = RestRequests.postSchemeInfo(getSchemeRes.asString());
         verifyPostSchemeInfoResponse(schemeInfo, postSchemeInfoRes);
         logger.info("Successfully registered organisation...");

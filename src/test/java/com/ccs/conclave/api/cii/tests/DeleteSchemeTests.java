@@ -23,7 +23,7 @@ public class DeleteSchemeTests extends BaseClass {
 
     @Test
     public void deleteScheme_COH_from_DUN() {
-        SchemeInfo schemeInfo = OrgDataProvider.getExpectedSchemeInfo(DUN_AND_BRADSTREET_WITH_COH);
+        SchemeInfo schemeInfo = getExpSchemeInfoWithoutSFIdentifier(DUN_AND_BRADSTREET_WITH_COH);
         // get only AdditionalIdentifiers from the given Scheme
         List<AdditionalSchemeInfo> additionalSchemesInfo = getExpSchemeInfoWithOnlyAddIdentifiersExceptSF(DUN_AND_BRADSTREET_WITH_COH);
         Assert.assertEquals(additionalSchemesInfo.size() , 1, "Only one additional identifier is expected, please check the test data!");
@@ -54,7 +54,7 @@ public class DeleteSchemeTests extends BaseClass {
 
     @Test
     public void deleteScheme_COH_and_CHC_from_SC() {
-        SchemeInfo schemeInfo = OrgDataProvider.getExpectedSchemeInfo(SCOTLAND_CHARITY_WITH_CHC_COH);
+        SchemeInfo schemeInfo = getExpSchemeInfoWithoutSFIdentifier(SCOTLAND_CHARITY_WITH_CHC_COH);
         // get only AdditionalIdentifiers from the given Scheme
         List<AdditionalSchemeInfo> additionalSchemesInfo = getExpSchemeInfoWithOnlyAddIdentifiersExceptSF(SCOTLAND_CHARITY_WITH_CHC_COH);
         Assert.assertEquals(additionalSchemesInfo.size(), 2, "Two additional identifiers are expected, please check the test data!");
@@ -89,7 +89,7 @@ public class DeleteSchemeTests extends BaseClass {
     // User can delete an additional identifier and update again
     @Test
     public void deleteScheme_and_updateScheme() {
-        SchemeInfo schemeInfo = OrgDataProvider.getExpectedSchemeInfo(CHARITIES_COMMISSION_WITH_COH_AND_SC);
+        SchemeInfo schemeInfo = getExpSchemeInfoWithoutSFIdentifier(CHARITIES_COMMISSION_WITH_COH_AND_SC);
         // get only AdditionalIdentifiers from the given Scheme
         List<AdditionalSchemeInfo> additionalSchemesInfo = getExpSchemeInfoWithOnlyAddIdentifiersExceptSF(CHARITIES_COMMISSION_WITH_COH_AND_SC);
         Assert.assertEquals(additionalSchemesInfo.size(), 2, "Two additional identifiers are expected, please check the test data!");
@@ -143,7 +143,7 @@ public class DeleteSchemeTests extends BaseClass {
 
     @Test
     public void deleteSchemeInvalidOrgIdOrIdentifierOrScheme() {
-        SchemeInfo schemeInfo = OrgDataProvider.getExpectedSchemeInfo(DUN_AND_BRADSTREET_WITH_COH);
+        SchemeInfo schemeInfo = getExpSchemeInfoWithoutSFIdentifier(DUN_AND_BRADSTREET_WITH_COH);
         // get only AdditionalIdentifiers from the given Scheme
         List<AdditionalSchemeInfo> additionalSchemesInfo = getExpSchemeInfoWithOnlyAddIdentifiersExceptSF(DUN_AND_BRADSTREET_WITH_COH);
         Assert.assertEquals(additionalSchemesInfo.size(), 1, "Only one additional identifier is expected, please check the test data!");
@@ -180,7 +180,7 @@ public class DeleteSchemeTests extends BaseClass {
 
     @Test
     public void deleteScheme_PrimaryIdentifier() {
-        SchemeInfo schemeInfo = OrgDataProvider.getExpectedSchemeInfo(SCOTLAND_CHARITY_WITH_CHC_COH);
+        SchemeInfo schemeInfo = getExpSchemeInfoWithoutSFIdentifier(SCOTLAND_CHARITY_WITH_CHC_COH);
 
         // Perform Get call to form the request payload for POST call
         Response response = RestRequests.getSchemeInfo(SCOTLAND_CHARITY_WITH_CHC_COH, schemeInfo.getIdentifier().getId());
@@ -204,7 +204,7 @@ public class DeleteSchemeTests extends BaseClass {
 
     @Test
     public void deleteScheme_addIdentifier_Of_Another_scheme() {
-        SchemeInfo schemeInfo = OrgDataProvider.getExpectedSchemeInfo(NORTHERN_CHARITY_WITH_COH);
+        SchemeInfo schemeInfo = getExpSchemeInfoWithoutSFIdentifier(NORTHERN_CHARITY_WITH_COH);
         // Perform Get call to form the request payload for POST call
         Response response = RestRequests.getSchemeInfo(NORTHERN_CHARITY_WITH_COH, schemeInfo.getIdentifier().getId());
         verifyGetSchemeInfoResponse(schemeInfo, response); // verify Get SchemeInfo response before passing to Post
@@ -230,7 +230,7 @@ public class DeleteSchemeTests extends BaseClass {
     // Integration Scenario:- Verify admin users can delete hidden additional identifiers
     @Test
     public void deleteSchemeInfoForHiddenAddIdentifiers() {
-        SchemeInfo schemeInfoWithoutAddIds = OrgDataProvider.getExpSchemeInfoWithoutAddIdentifiers(DUN_AND_BRADSTREET_WITH_CHC_AND_COH);
+        SchemeInfo schemeInfoWithoutAddIds = getExpSchemeInfoWithoutAddIdentifiers(DUN_AND_BRADSTREET_WITH_CHC_AND_COH);
 
         // Perform Get call to form the request payload for POST call
         String getSchemeInfo = getSchemeInfoWithoutAddIdentifiers(DUN_AND_BRADSTREET_WITH_CHC_AND_COH);

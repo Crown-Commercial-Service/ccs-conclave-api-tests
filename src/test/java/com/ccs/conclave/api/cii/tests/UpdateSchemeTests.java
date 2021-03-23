@@ -160,9 +160,9 @@ public class UpdateSchemeTests extends BaseClass {
     @Test
     public void updatePrimaryIdentifier() {
         SchemeInfo schemeInfo = OrgDataProvider.getExpectedSchemeInfo(COMPANIES_HOUSE);
-        SchemeInfo schemeInfoWithoutSF =OrgDataProvider.getExpSchemeInfoWithoutSFIdentifier(COMPANIES_HOUSE);
+        SchemeInfo schemeInfoWithoutSF = OrgDataProvider.getExpSchemeInfoWithoutSFIdentifier(COMPANIES_HOUSE);
         Response schemeInfoRes = getSchemeInfo(COMPANIES_HOUSE, schemeInfo.getIdentifier().getId());
-        verifyGetSchemeInfoResponse(schemeInfo, schemeInfoRes);
+        verifyGetSchemeInfoResponse(schemeInfoWithoutSF, schemeInfoRes);
 
         Response response = RestRequests.postSchemeInfo(schemeInfoRes.asString());
         verifyPostSchemeInfoResponse(schemeInfoWithoutSF, response);
