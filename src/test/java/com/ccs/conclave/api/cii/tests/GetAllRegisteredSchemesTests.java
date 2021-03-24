@@ -11,7 +11,7 @@ import org.testng.annotations.Test;
 import java.util.List;
 
 import static com.ccs.conclave.api.cii.data.OrgDataProvider.*;
-import static com.ccs.conclave.api.cii.data.RequestPayloads.getSchemeInfoWithoutAddIdentifiers;
+import static com.ccs.conclave.api.cii.data.RequestPayloads.*;
 import static com.ccs.conclave.api.cii.data.SchemeRegistry.*;
 import static com.ccs.conclave.api.cii.requests.RestRequests.*;
 import static com.ccs.conclave.api.cii.verification.VerifyEndpointResponses.*;
@@ -30,13 +30,12 @@ public class GetAllRegisteredSchemesTests extends BaseClass {
         logger.info("Successfully registered organisation...");
 
         // set hidden = false as organisation is registered with additional identifier
-        SchemeInfo expectedSchemeInfo = schemeInfo;
-        expectedSchemeInfo.getAdditionalIdentifiers().get(0).setHidden("false");
+        schemeInfo.getAdditionalIdentifiers().get(0).setHidden("false");
         // SF id is always hidden=true, which is set on the test data
 
         logger.info("Get All registered schemes...");
         Response registeredSchemesRes = getAllRegisteredSchemesInfo(getCCSOrgId());
-        verifyAllRegisteredSchemes(registeredSchemesRes, expectedSchemeInfo);
+        verifyAllRegisteredSchemes(registeredSchemesRes, schemeInfo);
 
         // Delete Database entry if the Org. is already registered
         deleteOrganisation(getCCSOrgId());
@@ -45,22 +44,22 @@ public class GetAllRegisteredSchemesTests extends BaseClass {
     @Test
     public void getAllRegisteredSchemesIfAddIdentifiersNotSelected() {
         SchemeInfo schemeInfo = getExpectedSchemeInfo(SCOTLAND_CHARITY_WITH_CHC_COH);
-        String getSchemeInfo = getSchemeInfoWithoutAddIdentifiers(SCOTLAND_CHARITY_WITH_CHC_COH);
         SchemeInfo expectedPostRes = getExpSchemeInfoWithoutAddIdentifiers(SCOTLAND_CHARITY_WITH_CHC_COH);
+
+        String getSchemeInfo = getSchemeInfoWithoutAddIdentifiers(SCOTLAND_CHARITY_WITH_CHC_COH);
 
         Response postSchemeRes = RestRequests.postSchemeInfo(getSchemeInfo);
         verifyPostSchemeInfoResponse(expectedPostRes, postSchemeRes);
         logger.info("Successfully registered organisation without additional identifiers...");
 
         // set hidden = true because no additional identifiers used for registration
-        SchemeInfo expectedSchemeInfo = schemeInfo;
-        expectedSchemeInfo.getAdditionalIdentifiers().get(0).setHidden("true");
-        expectedSchemeInfo.getAdditionalIdentifiers().get(1).setHidden("true");
+        schemeInfo.getAdditionalIdentifiers().get(0).setHidden("true");
+        schemeInfo.getAdditionalIdentifiers().get(1).setHidden("true");
         // SF id is always hidden=true, which is set on the test data
 
         logger.info("Get registered schemes...");
         Response registeredSchemesRes = getAllRegisteredSchemesInfo(getCCSOrgId());
-        verifyAllRegisteredSchemes(registeredSchemesRes, expectedSchemeInfo);
+        verifyAllRegisteredSchemes(registeredSchemesRes, schemeInfo);
 
         // Delete Database entry if the Org. is already registered
         deleteOrganisation(getCCSOrgId());
@@ -69,12 +68,13 @@ public class GetAllRegisteredSchemesTests extends BaseClass {
     @Test
     public void getAllRegisteredSchemesAfterUpdate() {
         SchemeInfo schemeInfo = getExpectedSchemeInfo(SCOTLAND_CHARITY_WITH_CHC_COH);
-        String getSchemeInfo = getSchemeInfoWithoutAddIdentifiers(SCOTLAND_CHARITY_WITH_CHC_COH);
         SchemeInfo expectedPosRes = getExpSchemeInfoWithoutAddIdentifiers(SCOTLAND_CHARITY_WITH_CHC_COH);
 
         // get only AdditionalIdentifiers from the given Scheme
         List<AdditionalSchemeInfo> additionalSchemesInfo = getExpSchemeInfoWithOnlyAddIdentifiersExceptSF(SCOTLAND_CHARITY_WITH_CHC_COH);
         Assert.assertEquals(additionalSchemesInfo.size(), 2, "Two additional identifier are expected, please check the test data!");
+
+        String getSchemeInfo = getSchemeInfoWithoutAddIdentifiers(SCOTLAND_CHARITY_WITH_CHC_COH);
 
         Response postSchemeRes = RestRequests.postSchemeInfo(getSchemeInfo);
         verifyPostSchemeInfoResponse(expectedPosRes, postSchemeRes);
@@ -138,13 +138,12 @@ public class GetAllRegisteredSchemesTests extends BaseClass {
         logger.info("Successfully registered organisation without additional identifiers...");
 
         // set hidden = true because no additional identifiers used for registration
-        SchemeInfo expectedSchemeInfo = schemeInfo;
-        expectedSchemeInfo.getAdditionalIdentifiers().get(0).setHidden("false");
+        schemeInfo.getAdditionalIdentifiers().get(0).setHidden("false");
         // SF id is always hidden=true, which is set on the test data
 
         logger.info("Get registered schemes...");
         Response registeredSchemesRes = getAllRegisteredSchemesInfo(getCCSOrgId());
-        verifyAllRegisteredSchemes(registeredSchemesRes, expectedSchemeInfo);
+        verifyAllRegisteredSchemes(registeredSchemesRes, schemeInfo);
 
         logger.info("Deleting additional identifier from the existing organisation...");
         AdditionalSchemeInfo additionalSchemeInfo1 = additionalSchemesInfo.get(0);

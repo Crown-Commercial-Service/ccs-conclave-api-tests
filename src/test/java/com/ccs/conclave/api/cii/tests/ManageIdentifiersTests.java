@@ -5,7 +5,6 @@ import com.ccs.conclave.api.cii.requests.RestRequests;
 import com.ccs.conclave.api.common.BaseClass;
 import io.restassured.response.Response;
 import org.apache.log4j.Logger;
-import org.json.JSONException;
 import org.testng.annotations.Test;
 
 import static com.ccs.conclave.api.cii.data.OrgDataProvider.*;
@@ -21,7 +20,7 @@ public class ManageIdentifiersTests extends BaseClass {
 
     // This test covers the scenario where the additional identifier doesn't know about primary identifier
     @Test
-    public void manageIdsGetSchemeInfoForAdditionalIdUnawareOfPrimaryId() throws JSONException {
+    public void manageIdsGetSchemeInfoForAdditionalIdUnawareOfPrimaryId() {
         // Register Primary Identifier without additional
         SchemeInfo schemeInfo = getExpectedSchemeInfo(SCOTLAND_CHARITY_WITH_CHC_COH);
         SchemeInfo schemeInfoWithoutAddIds = getExpSchemeInfoWithoutAddIdentifiers(SCOTLAND_CHARITY_WITH_CHC_COH);
@@ -47,7 +46,7 @@ public class ManageIdentifiersTests extends BaseClass {
     // This test covers the scenario where the additional identifier knows about primary identifier
     // manageIdentifiers get call is expected to bring Primary identifier if it is part of same organisation
     @Test
-    public void manageIdsGetSchemeInfoForAdditionalIdKnowsPrimaryId() throws JSONException {
+    public void manageIdsGetSchemeInfoForAdditionalIdKnowsPrimaryId() {
         // Register Primary Identifier without additional
         SchemeInfo schemeInfo = getExpectedSchemeInfo(SCOTLAND_CHARITY_WITH_CHC_COH);
         SchemeInfo schemeInfoWithoutAddIds = getExpSchemeInfoWithoutAddIdentifiers(SCOTLAND_CHARITY_WITH_CHC_COH);
@@ -71,7 +70,7 @@ public class ManageIdentifiersTests extends BaseClass {
 
     // organisation admin searching valid identifier which is not as part of his org
     @Test
-    public void manageIdsGetSchemeInfoWithValidIdentifierNotPartOfOrg() throws JSONException {
+    public void manageIdsGetSchemeInfoWithValidIdentifierNotPartOfOrg() {
         // Register Primary Identifier without additional
         SchemeInfo schemeInfo = getExpSchemeInfoWithoutSFIdentifier(SCOTLAND_CHARITY_WITH_CHC_COH);
 

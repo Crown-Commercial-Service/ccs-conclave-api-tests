@@ -1,6 +1,5 @@
 package com.ccs.conclave.api.cii.tests;
 
-import com.ccs.conclave.api.cii.data.OrgDataProvider;
 import com.ccs.conclave.api.cii.pojo.AdditionalSchemeInfo;
 import com.ccs.conclave.api.cii.pojo.Identifier;
 import com.ccs.conclave.api.cii.pojo.SchemeInfo;
@@ -285,6 +284,7 @@ public class IntegrationTests extends BaseClass {
         deleteSchemeInfo.setIdentifier(expectedSchemeInfo.getAdditionalIdentifiers().get(0));
         deleteSchemeInfo.setCcsOrgId(getCCSOrgId());
         Response deleteRes = deleteScheme(deleteSchemeInfo);
+        verifyResponseCodeForSuccess(deleteRes);
         verifyDeletedScheme(getCCSOrgId(), deleteSchemeInfo);
 
         // Delete Database entry if the Org. is already registered
@@ -316,6 +316,7 @@ public class IntegrationTests extends BaseClass {
         deleteSchemeInfo.setIdentifier(expectedSchemeInfo.getAdditionalIdentifiers().get(0));
         deleteSchemeInfo.setCcsOrgId(getCCSOrgId());
         Response deleteRes = deleteScheme(deleteSchemeInfo);
+        verifyResponseCodeForSuccess(deleteRes);
         verifyDeletedScheme(getCCSOrgId(), deleteSchemeInfo);
 
         // Delete Database entry if the Org. is already registered
