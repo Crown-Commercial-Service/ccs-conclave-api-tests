@@ -116,9 +116,9 @@ public class SFHiddenIdentifierTests extends BaseClass {
         verifyAllRegisteredSchemes(allRegisteredIdsRes, expectedSchemeInfo);
     }
 
-    // Endpoint won't allow to update SF identifier via PUY endpoint
+    // Endpoint won't allow to update SF identifier via PUT endpoint
     @Test
-    public void updateWithSFIdentifierButIgnored() {
+    public void addOrUpdateSFIdentifierIsNotAllowed() {
         SchemeInfo expectedSchemeInfo = getExpectedSchemeInfo(COMPANIES_HOUSE);
 
         SchemeInfo expectedRegisteredSchemeInfo = getExpSchemeInfoWithoutSFIdentifier(COMPANIES_HOUSE);
@@ -141,7 +141,7 @@ public class SFHiddenIdentifierTests extends BaseClass {
 
 
     // This test ensures that the SF id is saved while Add/Update operation; scenario is replicated by additional
-    // additoional identifier of another scheme
+    // additional identifier of another scheme
     @Test
     public void verifySFIdSavedWhileUpdate() {
         SchemeInfo expectedSchemeInfo = getExpectedSchemeInfo(CHARITIES_COMMISSION);
@@ -164,10 +164,11 @@ public class SFHiddenIdentifierTests extends BaseClass {
         Response updateRes = updateScheme(updateScheme);
         verifyResponseCodeForSuccess(updateRes);
 
-
         logger.info("Verify only SF Id is registered as inactive..");
         Response allRegisteredIdsRes = getAllRegisteredSchemesInfo(getCCSOrgId());
+        identifierWithSF.getIdentifier().setHidden("false");
         expectedSchemeInfo.getAdditionalIdentifiers().add(identifierWithSF.getIdentifier());
+        // SF id is hidden:true it is set in tht test data
         expectedSchemeInfo.getAdditionalIdentifiers().add(identifierWithSF.getAdditionalIdentifiers().get(0));
         verifyAllRegisteredSchemes(allRegisteredIdsRes, expectedSchemeInfo);
     }

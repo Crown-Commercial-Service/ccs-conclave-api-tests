@@ -116,7 +116,7 @@ public class VerifyEndpointResponses {
         Assert.assertEquals(scheme.getSchemeCountryCode(), getSchemeCountryCode(NORTHERN_CHARITY), "Invalid CountryCode!");
     }
 
-    // This method verifies only the registered schemes to verify the hidden schemes as part of post need to use VerifyAllRegistered
+    // This method verifies only the registered schemes; to verify the hidden schemes as part of post need to use VerifyAllRegistered
     // Schemes
     public static void verifyPostSchemeInfoResponse(SchemeInfo expectedSchemeInfo, Response response) {
         verifyResponseCodeForCreatedResource(response);

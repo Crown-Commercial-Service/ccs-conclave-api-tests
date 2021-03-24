@@ -49,4 +49,9 @@
             <class name="com.ccs.conclave.api.cii.tests.IntegrationTests"/>
         </classes>
     </test>
+    <test name="Salesforce Hidden identifier test scenarios">
+        <classes>
+            <class name="com.ccs.conclave.api.cii.tests.SFHiddenIdentifierTests"/>
+        </classes>
+    </test>
 </suite>

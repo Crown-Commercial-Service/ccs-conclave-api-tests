@@ -1,6 +1,5 @@
 package com.ccs.conclave.api.cii.tests;
 
-import com.ccs.conclave.api.cii.data.OrgDataProvider;
 import com.ccs.conclave.api.cii.pojo.AdditionalSchemeInfo;
 import com.ccs.conclave.api.cii.pojo.SchemeInfo;
 import com.ccs.conclave.api.cii.requests.RestRequests;
@@ -10,7 +9,7 @@ import org.apache.log4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import static com.ccs.conclave.api.cii.data.OrgDataProvider.getExpSchemeInfoWithOnlyAddIdentifiersExceptSF;
+import static com.ccs.conclave.api.cii.data.OrgDataProvider.*;
 import static com.ccs.conclave.api.cii.data.RequestPayloads.getSchemeInfoWithoutAddIdentifiers;
 import static com.ccs.conclave.api.cii.data.SchemeRegistry.*;
 import static com.ccs.conclave.api.cii.requests.RestRequests.deleteOrganisation;
@@ -22,7 +21,7 @@ public class GetRegisteredSchemesTests extends BaseClass {
 
     @Test
     public void getRegisteredSchemes() {
-        SchemeInfo schemeInfo = OrgDataProvider.getExpectedSchemeInfo(NORTHERN_CHARITY_WITH_COH);
+        SchemeInfo schemeInfo = getExpectedSchemeInfo(NORTHERN_CHARITY_WITH_COH);
         Response getSchemeInfo = getSchemeInfo(NORTHERN_CHARITY_WITH_COH, schemeInfo.getIdentifier().getId());
         Response postSchemeRes = RestRequests.postSchemeInfo(getSchemeInfo.asString());
         verifyPostSchemeInfoResponse(schemeInfo, postSchemeRes);
@@ -38,9 +37,9 @@ public class GetRegisteredSchemesTests extends BaseClass {
 
     @Test
     public void getRegisteredSchemesIfAddIdentifiersNotSelected() {
-        SchemeInfo schemeInfo = OrgDataProvider.getExpectedSchemeInfo(SCOTLAND_CHARITY_WITH_CHC_COH);
+        SchemeInfo schemeInfo = getExpectedSchemeInfo(SCOTLAND_CHARITY_WITH_CHC_COH);
         String getSchemeInfo = getSchemeInfoWithoutAddIdentifiers(SCOTLAND_CHARITY_WITH_CHC_COH);
-        SchemeInfo expectedSchemeInfo = OrgDataProvider.getExpSchemeInfoWithoutAddIdentifiers(SCOTLAND_CHARITY_WITH_CHC_COH);
+        SchemeInfo expectedSchemeInfo = getExpSchemeInfoWithoutAddIdentifiers(SCOTLAND_CHARITY_WITH_CHC_COH);
 
         Response postSchemeRes = RestRequests.postSchemeInfo(getSchemeInfo);
         verifyPostSchemeInfoResponse(expectedSchemeInfo, postSchemeRes);
@@ -56,9 +55,9 @@ public class GetRegisteredSchemesTests extends BaseClass {
 
     @Test
     public void getRegisteredSchemesAfterUpdate() {
-        SchemeInfo schemeInfo = OrgDataProvider.getExpectedSchemeInfo(SCOTLAND_CHARITY_WITH_CHC_COH);
+        SchemeInfo schemeInfo = getExpectedSchemeInfo(SCOTLAND_CHARITY_WITH_CHC_COH);
         String getSchemeInfo = getSchemeInfoWithoutAddIdentifiers(SCOTLAND_CHARITY_WITH_CHC_COH);
-        SchemeInfo expectedSchemeInfo = OrgDataProvider.getExpSchemeInfoWithoutAddIdentifiers(SCOTLAND_CHARITY_WITH_CHC_COH);
+        SchemeInfo expectedSchemeInfo = getExpSchemeInfoWithoutAddIdentifiers(SCOTLAND_CHARITY_WITH_CHC_COH);
 
         // get only AdditionalIdentifiers from the given Scheme
         var additionalSchemesInfo = getExpSchemeInfoWithOnlyAddIdentifiersExceptSF(SCOTLAND_CHARITY_WITH_CHC_COH);
@@ -104,20 +103,20 @@ public class GetRegisteredSchemesTests extends BaseClass {
 
     @Test
     public void getRegisteredSchemesAfterDelete() {
-        SchemeInfo schemeInfo = OrgDataProvider.getExpectedSchemeInfo(DUN_AND_BRADSTREET_WITH_COH);
-        Response getSchemeInfoRes = getSchemeInfo(DUN_AND_BRADSTREET_WITH_COH, schemeInfo.getIdentifier().getId());
+        SchemeInfo schemeInfoWithoutSFId = getExpSchemeInfoWithoutSFIdentifier(DUN_AND_BRADSTREET_WITH_COH);
+        Response getSchemeInfoRes = getSchemeInfo(DUN_AND_BRADSTREET_WITH_COH, schemeInfoWithoutSFId.getIdentifier().getId());
 
         // get only AdditionalIdentifiers from the given Scheme
         var additionalSchemesInfo = getExpSchemeInfoWithOnlyAddIdentifiersExceptSF(DUN_AND_BRADSTREET_WITH_COH);
         Assert.assertEquals(additionalSchemesInfo.size(), 1, "Two additional identifier are expected, please check the test data!");
 
         Response postSchemeRes = RestRequests.postSchemeInfo(getSchemeInfoRes.asString());
-        verifyPostSchemeInfoResponse(schemeInfo, postSchemeRes);
+        verifyPostSchemeInfoResponse(schemeInfoWithoutSFId, postSchemeRes);
         logger.info("Successfully registered organisation without additional identifiers...");
 
         logger.info("Get registered schemes...");
         Response registeredSchemesRes = getRegisteredSchemesInfo(getCCSOrgId());
-        verifyRegisteredSchemes(registeredSchemesRes, schemeInfo, 1);
+        verifyRegisteredSchemes(registeredSchemesRes, schemeInfoWithoutSFId, 1);
 
         logger.info("Deleting additional identifier from the existing organisation...");
         AdditionalSchemeInfo additionalSchemeInfo1 = additionalSchemesInfo.get(0);
@@ -127,7 +126,7 @@ public class GetRegisteredSchemesTests extends BaseClass {
 
         logger.info("Get registered schemes after deleting additional identifier...");
         registeredSchemesRes = getRegisteredSchemesInfo(getCCSOrgId());
-        verifyRegisteredSchemes(registeredSchemesRes, schemeInfo, 0);
+        verifyRegisteredSchemes(registeredSchemesRes, schemeInfoWithoutSFId, 0);
 
         // Delete Database entry if the Org. is already registered
         deleteOrganisation(getCCSOrgId());

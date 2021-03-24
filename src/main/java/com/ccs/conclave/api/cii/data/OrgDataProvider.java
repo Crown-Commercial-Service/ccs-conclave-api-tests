@@ -37,6 +37,7 @@ public class OrgDataProvider extends BaseClass {
                 additionalIdentifier1.setId("0014J000004aDETQA2~10585349");
                 additionalIdentifier1.setUri("/services/data/v45.0/sobjects/Account/0014J000004aDETQA2");
                 additionalIdentifier1.setLegalName("AI RECRUITMENT TECHNOLOGIES LIMITED");
+                additionalIdentifier1.setHidden("true");
                 additionalIdentifiers.add(additionalIdentifier1);
                 schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
 
@@ -68,6 +69,7 @@ public class OrgDataProvider extends BaseClass {
                 additionalIdentifier1.setId("0014J00000Ov486QAB~10590792");
                 additionalIdentifier1.setUri("/services/data/v45.0/sobjects/Account/0014J00000Ov486QAB");
                 additionalIdentifier1.setLegalName("West Suffolk College");
+                additionalIdentifier1.setHidden("true");
                 additionalIdentifiers.add(additionalIdentifier1);
                 schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
 
@@ -99,6 +101,7 @@ public class OrgDataProvider extends BaseClass {
                 additionalIdentifier1.setId("001b000003OCd9RAAT~10046325");
                 additionalIdentifier1.setUri("/services/data/v45.0/sobjects/Account/001b000003OCd9RAAT");
                 additionalIdentifier1.setLegalName("Home Office Immigration And Nationalisation");
+                additionalIdentifier1.setHidden("true");
                 additionalIdentifiers.add(additionalIdentifier1);
                 schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
 
@@ -130,6 +133,7 @@ public class OrgDataProvider extends BaseClass {
                 additionalIdentifier1.setId("001b000003OCd8LAAT~10046257");
                 additionalIdentifier1.setUri("/services/data/v45.0/sobjects/Account/001b000003OCd8LAAT");
                 additionalIdentifier1.setLegalName("Northern Ireland Housing Executive");
+                additionalIdentifier1.setHidden("true");
                 additionalIdentifiers.add(additionalIdentifier1);
                 schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
 
@@ -161,6 +165,7 @@ public class OrgDataProvider extends BaseClass {
                 additionalIdentifier1.setId("001b000003OCd8TAAT~10046265");
                 additionalIdentifier1.setUri("/services/data/v45.0/sobjects/Account/001b000003OCd8TAAT");
                 additionalIdentifier1.setLegalName("Glasgow City Council");
+                additionalIdentifier1.setHidden("true");
                 additionalIdentifiers.add(additionalIdentifier1);
                 schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
 
@@ -192,6 +197,7 @@ public class OrgDataProvider extends BaseClass {
                 additionalIdentifier1.setId("001b000003OCf9DAAT~10050797");
                 additionalIdentifier1.setUri("/services/data/v45.0/sobjects/Account/001b000003OCf9DAAT");
                 additionalIdentifier1.setLegalName("First Data International Ltd");
+                additionalIdentifier1.setHidden("true");
                 additionalIdentifiers.add(additionalIdentifier1);
                 schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
 
@@ -231,6 +237,7 @@ public class OrgDataProvider extends BaseClass {
                 additionalIdentifier2.setId("0014J00000Ov47rQAB~10590777");
                 additionalIdentifier2.setUri("/services/data/v45.0/sobjects/Account/0014J00000Ov47rQAB");
                 additionalIdentifier2.setLegalName("BIOS HEALTH LTD");
+                additionalIdentifier2.setHidden("true");
                 additionalIdentifiers.add(additionalIdentifier2);
                 schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
 
@@ -275,6 +282,7 @@ public class OrgDataProvider extends BaseClass {
                 additionalIdentifier3.setId("0001b000003YNthvAAD~10121852");
                 additionalIdentifier3.setUri("/services/data/v45.0/sobjects/Account/001b000003YNthvAAD");
                 additionalIdentifier3.setLegalName("CHAIGELEY EDUCATIONAL FOUNDATION");
+                additionalIdentifier3.setHidden("true");
                 additionalIdentifiers.add(additionalIdentifier3);
                 schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
 
@@ -342,6 +350,7 @@ public class OrgDataProvider extends BaseClass {
                 additionalIdentifier3.setId("0001b000003YNthvAAD~10121852");
                 additionalIdentifier3.setUri("/services/data/v45.0/sobjects/Account/001b000003YNthvAAD");
                 additionalIdentifier3.setLegalName("CHAIGELEY EDUCATIONAL FOUNDATION");
+                additionalIdentifier3.setHidden("true");
                 additionalIdentifiers.add(additionalIdentifier3);
                 schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
 
@@ -688,6 +697,7 @@ public class OrgDataProvider extends BaseClass {
                 additionalIdentifier3.setId("001b000003YNr2cAAD~10111645");
                 additionalIdentifier3.setUri("/services/data/v45.0/sobjects/Account/001b000003YNr2cAAD");
                 additionalIdentifier3.setLegalName("ACORN CHRISTIAN FOUNDATION");
+                additionalIdentifier3.setHidden("true");
                 additionalIdentifiers.add(additionalIdentifier3);
                 schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
 
@@ -725,6 +735,7 @@ public class OrgDataProvider extends BaseClass {
             case SALES_FORCE:
                 schemeInfo.setName("Dummy data"); // Salesforce is only for internal search
                 identifier.setId("");
+                identifier.setHidden("true");
                 schemeInfo.setIdentifier(identifier);
                 break;
 
@@ -768,7 +779,7 @@ public class OrgDataProvider extends BaseClass {
         return schemeInfoModified;
     }
 
-    // This method returns only AdditionalSchemesInfo
+    // This method returns only AdditionalSchemesInfo without SF Id
     public static List<AdditionalSchemeInfo> getExpSchemeInfoWithOnlyAddIdentifiersExceptSF(SchemeRegistry schemeRegistry) {
         List<AdditionalSchemeInfo> additionalSchemesInfo = new ArrayList<>();
         SchemeInfo schemeInfo = getExpectedSchemeInfo(schemeRegistry);
@@ -778,6 +789,17 @@ public class OrgDataProvider extends BaseClass {
                 additionalSchemeInfo.setIdentifier(addIdentifier);
                 additionalSchemesInfo.add(additionalSchemeInfo);
             }
+        }
+        return additionalSchemesInfo;
+    }
+
+    public static List<AdditionalSchemeInfo> getExpSchemeInfoWithOnlyAddIdentifiersIncludeSF(SchemeRegistry schemeRegistry) {
+        List<AdditionalSchemeInfo> additionalSchemesInfo = new ArrayList<>();
+        SchemeInfo schemeInfo = getExpectedSchemeInfo(schemeRegistry);
+        for (Identifier addIdentifier : schemeInfo.getAdditionalIdentifiers()) {
+                AdditionalSchemeInfo additionalSchemeInfo = new AdditionalSchemeInfo();
+                additionalSchemeInfo.setIdentifier(addIdentifier);
+                additionalSchemesInfo.add(additionalSchemeInfo);
         }
         return additionalSchemesInfo;
     }
@@ -798,6 +820,8 @@ public class OrgDataProvider extends BaseClass {
         return schemeInfoModified;
     }
 
+
+
     public static SchemeInfo getExpSchemeInfoWithoutSFIdentifier(SchemeInfo schemeInfo) {
         SchemeInfo schemeInfoModified = new SchemeInfo();
         schemeInfoModified.setName(schemeInfo.getName());
@@ -807,6 +831,22 @@ public class OrgDataProvider extends BaseClass {
 
         for (Identifier identifier : schemeInfo.getAdditionalIdentifiers()) {
             if (!identifier.getScheme().equals(getSchemeCode(SALES_FORCE))) {
+                schemeInfoModified.getAdditionalIdentifiers().add(identifier);
+            }
+        }
+        return schemeInfoModified;
+    }
+
+    public static SchemeInfo getExpSchemeInfoWithOnlySFIdentifier(SchemeRegistry schemeRegistry) {
+        SchemeInfo schemeInfo = getExpectedSchemeInfo(schemeRegistry);
+        SchemeInfo schemeInfoModified = new SchemeInfo();
+        schemeInfoModified.setName(schemeInfo.getName());
+        schemeInfoModified.setIdentifier(schemeInfo.getIdentifier());
+        schemeInfoModified.setContactPoint(schemeInfo.getContactPoint());
+        schemeInfoModified.setAddress(schemeInfo.getAddress());
+
+        for (Identifier identifier : schemeInfo.getAdditionalIdentifiers()) {
+            if (identifier.getScheme().equals(getSchemeCode(SALES_FORCE))) {
                 schemeInfoModified.getAdditionalIdentifiers().add(identifier);
             }
         }
