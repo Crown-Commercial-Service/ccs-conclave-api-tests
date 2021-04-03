@@ -1,14 +1,16 @@
 package com.ccs.conclave.api.common;
 
-public class Endpoints {
-    public static String getSchemesURI = "/identities/schemes";
-    public static String getSchemeInfoURI = "/identities/schemes/organisation?";
-    public static String postSchemeInfoURI = "/identities/schemes/organisation";
-    public static String updateSchemeURI = "/identities/schemes/organisation";
-    public static String deleteSchemeURI = "/identities/schemes/organisation";
-    public static String deleteOrganisationURI = "/identities/organisation?";
-    public static String adminGetSchemeInfoURI = "/identities/schemes/manageidentifiers?";
-    public static String getRegisteredSchemesURI ="/identities/schemes/organisations?";
-    public static String getAllRegisteredSchemesURI ="/identities/schemes/organisations/all?";
+import static com.ccs.conclave.api.common.BaseClass.getProperty;
 
+public class Endpoints {
+
+    public static String getSchemesURI = getProperty("getSchemesURI");
+    public static String getSchemeInfoURI = getProperty("getSchemeInfoURI");
+    public static String postSchemeInfoURI = getProperty("postSchemeInfoURI");
+    public static String updateSchemeURI = getProperty("updateSchemeURI");
+    public static String deleteSchemeURI = getProperty("deleteSchemeURI");
+    public static String deleteOrganisationURI = getProperty("deleteOrganisationURI");
+    public static String adminGetSchemeInfoURI = getProperty("adminGetSchemeInfoURI");
+    public static String getRegisteredSchemesURI = getProperty("getRegisteredSchemesURI");
+    public static String getAllRegisteredSchemesURI = getProperty("getAllRegisteredSchemesURI");
 }

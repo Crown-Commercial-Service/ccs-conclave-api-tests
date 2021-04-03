@@ -1,6 +1,10 @@
 package com.ccs.conclave.api.common;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.Method;
+import java.util.Properties;
 
 import com.ccs.conclave.api.cii.data.OrgDataProvider;
 import com.ccs.conclave.api.cii.data.SchemeRegistry;
@@ -11,9 +15,7 @@ import com.ccs.conclave.api.report.ExtentTestManager;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 import org.testng.ITestResult;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.AfterSuite;
-import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.*;
 
 import com.relevantcodes.extentreports.LogStatus;
 
@@ -21,6 +23,7 @@ import static com.ccs.conclave.api.cii.requests.RestRequests.*;
 
 public class BaseClass {
     private final static Logger logger = Logger.getLogger(BaseClass.class);
+    protected static Properties properties;
 
     @BeforeMethod
     public void beforeMethod(Method method) {
@@ -55,5 +58,31 @@ public class BaseClass {
             }
         }
         logger.info("Cleared all test data...");
+    }
+
+    @BeforeSuite @BeforeClass
+    protected void loadTestData() throws IOException {
+        InputStream inputStream;
+
+       // if(System.getProperty("mock.tests").equals("True")) {
+        if(("True").equals("True")) {
+            logger.info("Loading mock endpoints...");
+            inputStream = getClass().getClassLoader().getResourceAsStream("mockEndpoints.properties");
+            OrgDataProvider.initMockTestDataProvider();
+        } else {
+            logger.info("Loading real endpoints...");
+            inputStream = getClass().getClassLoader().getResourceAsStream("realEndpoints.properties");
+            OrgDataProvider.initRegistryTestDataProvider();
+        }
+        if(inputStream != null) {
+            properties = new Properties();
+            properties.load(inputStream);
+        } else {
+            throw new FileNotFoundException("property file not found in the classpath!");
+        }
+    }
+
+    public static String getProperty(String key) {
+        return properties.getProperty(key);
     }
 }
