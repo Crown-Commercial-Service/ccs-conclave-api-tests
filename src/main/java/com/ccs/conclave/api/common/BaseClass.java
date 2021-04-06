@@ -60,12 +60,11 @@ public class BaseClass {
         logger.info("Cleared all test data...");
     }
 
-    @BeforeSuite @BeforeClass
+    @BeforeSuite
     protected void loadTestData() throws IOException {
         InputStream inputStream;
-
-       // if(System.getProperty("mock.tests").equals("True")) {
-        if(("True").equals("True")) {
+        System.setProperty("mock.tests", "True");
+        if (System.getProperty("mock.tests").equals("True")) {
             logger.info("Loading mock endpoints...");
             inputStream = getClass().getClassLoader().getResourceAsStream("mockEndpoints.properties");
             OrgDataProvider.initMockTestDataProvider();
@@ -74,7 +73,7 @@ public class BaseClass {
             inputStream = getClass().getClassLoader().getResourceAsStream("realEndpoints.properties");
             OrgDataProvider.initRegistryTestDataProvider();
         }
-        if(inputStream != null) {
+        if (inputStream != null) {
             properties = new Properties();
             properties.load(inputStream);
         } else {

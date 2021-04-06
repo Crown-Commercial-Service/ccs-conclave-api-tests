@@ -34,9 +34,9 @@ public class MockDataProvider {
 
                 // Salesforce identifier
                 additionalIdentifier1.setScheme(SchemeRegistry.getSchemeCode(SALES_FORCE));
-                additionalIdentifier1.setId("0014J000004aDETQA2~10585349");
-                additionalIdentifier1.setUri("/services/data/v45.0/sobjects/Account/0014J000004aDETQA2");
-                additionalIdentifier1.setLegalName("AI RECRUITMENT TECHNOLOGIES LIMITED");
+                additionalIdentifier1.setId("NSO7IUSHF98HFP9WEH9FQZ~56734565467");
+                additionalIdentifier1.setUri("/services/data/v46.0/subjects/Accout/NSO7IUSHF98HFP9WEH9FQZ");
+                additionalIdentifier1.setLegalName("Dummy organisation");
                 additionalIdentifier1.setHidden("true");
                 additionalIdentifiers.add(additionalIdentifier1);
                 schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
@@ -60,15 +60,15 @@ public class MockDataProvider {
                 schemeInfo.setName("Company Example 404123456");
                 identifier.setId("404123456");
                 identifier.setScheme(SchemeRegistry.getSchemeCode(DUN_AND_BRADSTREET));
-                identifier.setLegalName("West Suffolk College");
+                identifier.setLegalName("Company Example 404123456");
                 identifier.setUri("");
                 schemeInfo.setIdentifier(identifier);
 
                 // Salesforce identifier
                 additionalIdentifier1.setScheme(SchemeRegistry.getSchemeCode(SALES_FORCE));
-                additionalIdentifier1.setId("0014J00000Ov486QAB~10590792");
-                additionalIdentifier1.setUri("/services/data/v45.0/sobjects/Account/0014J00000Ov486QAB");
-                additionalIdentifier1.setLegalName("West Suffolk College");
+                additionalIdentifier1.setId("NSO7IUSHF98HFP9WEH9FNQ~56734565467");
+                additionalIdentifier1.setUri("/services/data/v46.0/subjects/Accout/NSO7IUSHF98HFP9WEH9FNQ2");
+                additionalIdentifier1.setLegalName("Dummy organisation");
                 additionalIdentifier1.setHidden("true");
                 additionalIdentifiers.add(additionalIdentifier1);
                 schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
@@ -92,15 +92,15 @@ public class MockDataProvider {
                 schemeInfo.setName("Company Example 404123456");
                 identifier.setId("404123456");
                 identifier.setScheme(SchemeRegistry.getSchemeCode(DUN_AND_BRADSTREET));
-                identifier.setLegalName("West Suffolk College");
+                identifier.setLegalName("Company Example 404123456");
                 identifier.setUri("");
                 schemeInfo.setIdentifier(identifier);
 
                 // Salesforce identifier
                 additionalIdentifier1.setScheme(SchemeRegistry.getSchemeCode(SALES_FORCE));
-                additionalIdentifier1.setId("0014J00000Ov486QAB~10590792");
-                additionalIdentifier1.setUri("/services/data/v45.0/sobjects/Account/0014J00000Ov486QAB");
-                additionalIdentifier1.setLegalName("West Suffolk College");
+                additionalIdentifier1.setId("NSO7IUSHF98HFP9WEH9FNQ~56734565467");
+                additionalIdentifier1.setUri("/services/data/v46.0/subjects/Accout/NSO7IUSHF98HFP9WEH9FNQ2");
+                additionalIdentifier1.setLegalName("Dummy organisation");
                 additionalIdentifier1.setHidden("true");
                 additionalIdentifiers.add(additionalIdentifier1);
                 schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
@@ -120,380 +120,380 @@ public class MockDataProvider {
                 schemeInfo.setContactPoint(contactPoint);
                 break;
 
-//             case DUN_AND_BRADSTREET_WITH_COH:
-//                schemeInfo.setName("Company Example 505123456");
-//                identifier.setId("505123456");
-//                identifier.setScheme(SchemeRegistry.getSchemeCode(DUN_AND_BRADSTREET_WITH_COH));
-//                identifier.setLegalName("Company Example 505123456");
-//                identifier.setUri("");
-//                schemeInfo.setIdentifier(identifier);
-//
-//                additionalIdentifier1.setScheme(SchemeRegistry.getSchemeCode(COMPANIES_HOUSE));
-//                additionalIdentifier1.setId("09012345");
-//                additionalIdentifier1.setUri("");
-//                additionalIdentifier1.setLegalName("Company Example 09012345");
-//                additionalIdentifiers.add(additionalIdentifier1);
-//                schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
-//
-//                // Salesforce identifier
-//                additionalIdentifier2.setScheme(SchemeRegistry.getSchemeCode(SALES_FORCE));
-//                additionalIdentifier2.setId("0014J00000Ov47rQAB~10590777");
-//                additionalIdentifier2.setUri("/services/data/v45.0/sobjects/Account/0014J00000Ov47rQAB");
-//                additionalIdentifier2.setLegalName("BIOS HEALTH LTD");
-//                additionalIdentifier2.setHidden("true");
-//                additionalIdentifiers.add(additionalIdentifier2);
-//                schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
-//
-//                address.setCountryName("United Kingdom");
-//                address.setLocality("Locality");
-//                address.setPostalCode("AB1C 2DE");
-//                address.setRegion("");
-//                address.setStreetAddress("123 Fake Street");
-//                schemeInfo.setAddress(address);
-//
-//                contactPoint.setName("");
-//                contactPoint.setEmail("");
-//                contactPoint.setFaxNumber("");
-//                contactPoint.setTelephone("");
-//                contactPoint.setUri("");
-//                schemeInfo.setContactPoint(contactPoint);
-//                break;
-//
-//            case DUN_AND_BRADSTREET_WITH_CHC_AND_COH:
-//                schemeInfo.setName("CHAIGELEY EDUCATIONAL FOUNDATION");
-//                identifier.setId("378509368");
-//                identifier.setScheme(SchemeRegistry.getSchemeCode(DUN_AND_BRADSTREET_WITH_COH));
-//                identifier.setLegalName("CHAIGELEY EDUCATIONAL FOUNDATION");
-//                identifier.setUri("");
-//                schemeInfo.setIdentifier(identifier);
-//
-//                additionalIdentifier1.setScheme(SchemeRegistry.getSchemeCode(CHARITIES_COMMISSION));
-//                additionalIdentifier1.setId("1060403");
-//                additionalIdentifier1.setUri("https://register-of-charities.charitycommission.gov.uk/charity-details/?regId=1060403&subId=0");
-//                additionalIdentifier1.setLegalName("CHAIGELEY EDUCATIONAL FOUNDATION");
-//                additionalIdentifiers.add(additionalIdentifier1);
-//
-//                additionalIdentifier2.setScheme(SchemeRegistry.getSchemeCode(COMPANIES_HOUSE));
-//                additionalIdentifier2.setId("03301881");
-//                additionalIdentifier2.setUri("");
-//                additionalIdentifier2.setLegalName("CHAIGELEY EDUCATIONAL FOUNDATION");
-//                additionalIdentifiers.add(additionalIdentifier2);
-//                schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
-//
-//                // Salesforce identifier
-//                additionalIdentifier3.setScheme(SchemeRegistry.getSchemeCode(SALES_FORCE));
-//                additionalIdentifier3.setId("0001b000003YNthvAAD~10121852");
-//                additionalIdentifier3.setUri("/services/data/v45.0/sobjects/Account/001b000003YNthvAAD");
-//                additionalIdentifier3.setLegalName("CHAIGELEY EDUCATIONAL FOUNDATION");
-//                additionalIdentifier3.setHidden("true");
-//                additionalIdentifiers.add(additionalIdentifier3);
-//                schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
-//
-//                address.setCountryName("United Kingdom");
-//                address.setLocality("WARRINGTON");
-//                address.setPostalCode("WA4 2TE");
-//                address.setRegion("");
-//                address.setStreetAddress("Lymm Road, Thelwall");
-//                schemeInfo.setAddress(address);
-//
-//                contactPoint.setName("");
-//                contactPoint.setEmail("");
-//                contactPoint.setFaxNumber("");
-//                contactPoint.setTelephone("");
-//                contactPoint.setUri("");
-//                schemeInfo.setContactPoint(contactPoint);
-//                break;
-//
-//            case CHARITIES_COMMISSION:
-//                schemeInfo.setName("1 SIGNAL REGIMENT PRI FUND");
-//                identifier.setId("1183905");
-//                identifier.setScheme(SchemeRegistry.getSchemeCode(CHARITIES_COMMISSION));
-//                identifier.setLegalName("1 SIGNAL REGIMENT PRI FUND");
-//                identifier.setUri("https://register-of-charities.charitycommission.gov.uk/charity-details/?regId=1183905&subId=0");
-//                schemeInfo.setIdentifier(identifier);
-//
-//                address.setCountryName("");
-//                address.setLocality("Beaconside");
-//                address.setPostalCode("ST18 0AQ");
-//                address.setRegion("Stafford");
-//                address.setStreetAddress("Ministry of Defence, Beacon Barracks");
-//                schemeInfo.setAddress(address);
-//
-//                contactPoint.setName("");
-//                contactPoint.setEmail("NotEmpty");
-//                contactPoint.setFaxNumber("");
-//                contactPoint.setTelephone("NotEmpty");
-//                contactPoint.setUri("");
-//                schemeInfo.setContactPoint(contactPoint);
-//                break;
-//
-//            case CHARITIES_COMMISSION_WITH_TWO_COH:
-//                schemeInfo.setName("THE CEDAR CENTRE");
-//                identifier.setId("802955");
-//                identifier.setScheme(SchemeRegistry.getSchemeCode(CHARITIES_COMMISSION_WITH_TWO_COH));
-//                identifier.setLegalName("THE CEDAR CENTRE");
-//                identifier.setUri("https://register-of-charities.charitycommission.gov.uk/charity-details/?regId=802955&subId=0");
-//                schemeInfo.setIdentifier(identifier);
-//
-//                additionalIdentifier1.setScheme(SchemeRegistry.getSchemeCode(COMPANIES_HOUSE));
-//                additionalIdentifier1.setId("02432836");
-//                additionalIdentifier1.setUri("");
-//                additionalIdentifier1.setLegalName("THE CEDAR CENTRE");
-//                additionalIdentifiers.add(additionalIdentifier1);
-//
-//                additionalIdentifier2.setScheme(SchemeRegistry.getSchemeCode(COMPANIES_HOUSE));
-//                additionalIdentifier2.setId("CS003009");
-//                additionalIdentifier2.setUri("");
-//                additionalIdentifier2.setLegalName("THE CEDAR CENTRE");
-//                additionalIdentifiers.add(additionalIdentifier2);
-//                schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
-//
-//                // Salesforce identifier
-//                additionalIdentifier3.setScheme(SchemeRegistry.getSchemeCode(SALES_FORCE));
-//                additionalIdentifier3.setId("0001b000003YNthvAAD~10121852");
-//                additionalIdentifier3.setUri("/services/data/v45.0/sobjects/Account/001b000003YNthvAAD");
-//                additionalIdentifier3.setLegalName("CHAIGELEY EDUCATIONAL FOUNDATION");
-//                additionalIdentifier3.setHidden("true");
-//                additionalIdentifiers.add(additionalIdentifier3);
-//                schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
-//
-//                address.setCountryName("");
-//                address.setLocality("17 Arden Crescent");
-//                address.setPostalCode("E14 9WA");
-//                address.setRegion("LONDON");
-//                address.setStreetAddress("CEDAR CENTRE, THE CEDAR CENTRE");
-//                schemeInfo.setAddress(address);
-//
-//                contactPoint.setName("");
-//                contactPoint.setEmail("");
-//                contactPoint.setFaxNumber("");
-//                contactPoint.setTelephone("NotEmpty");
-//                contactPoint.setUri("");
-//                schemeInfo.setContactPoint(contactPoint);
-//                break;
-//
-//            case CHARITIES_COMMISSION_WITH_SC:
-//                schemeInfo.setName("ADVENTIST DEVELOPMENT AND RELIEF AGENCY - UK");
-//                identifier.setId("1074937");
-//                identifier.setScheme(SchemeRegistry.getSchemeCode(CHARITIES_COMMISSION));
-//                identifier.setLegalName("ADVENTIST DEVELOPMENT AND RELIEF AGENCY - UK");
-//                identifier.setUri("https://register-of-charities.charitycommission.gov.uk/charity-details/?regId=1074937&subId=0");
-//                schemeInfo.setIdentifier(identifier);
-//
-//                additionalIdentifier1.setScheme(SchemeRegistry.getSchemeCode(SCOTLAND_CHARITY));
-//                additionalIdentifier1.setId("SC037726");
-//                additionalIdentifier1.setUri("https://www.oscr.org.uk/about-charities/search-the-register/charity-details?number=SC037726");
-//                additionalIdentifier1.setLegalName("Adventist Development and Relief Agency – UK");
-//                additionalIdentifiers.add(additionalIdentifier1);
-//                schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
-//
-//                address.setCountryName("Scotland");
-//                address.setLocality("Garston");
-//                address.setPostalCode("WD25 9JZ");
-//                address.setRegion("Watford, Herts");
-//                address.setStreetAddress("Stanborough Park");
-//                schemeInfo.setAddress(address);
-//
-//                contactPoint.setName("");
-//                contactPoint.setEmail("NotEmpty");
-//                contactPoint.setFaxNumber("");
-//                contactPoint.setTelephone("NotEmpty");
-//                contactPoint.setUri("");
-//                schemeInfo.setContactPoint(contactPoint);
-//                break;
-//
-//            case CHARITIES_COMMISSION_WITH_COH_AND_SC:
-//                schemeInfo.setName("3SPACE");
-//                identifier.setId("1136377");
-//                identifier.setScheme(SchemeRegistry.getSchemeCode(CHARITIES_COMMISSION_WITH_COH_AND_SC));
-//                identifier.setLegalName("3SPACE");
-//                identifier.setUri("https://register-of-charities.charitycommission.gov.uk/charity-details/?regId=1136377&subId=0");
-//                schemeInfo.setIdentifier(identifier);
-//
-//                additionalIdentifier1.setScheme(SchemeRegistry.getSchemeCode(COMPANIES_HOUSE));
-//                additionalIdentifier1.setId("07221470");
-//                additionalIdentifier1.setUri("");
-//                additionalIdentifier1.setLegalName("3SPACE");
-//                additionalIdentifiers.add(additionalIdentifier1);
-//                schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
-//
-//                additionalIdentifier2.setScheme(SchemeRegistry.getSchemeCode(SCOTLAND_CHARITY));
-//                additionalIdentifier2.setId("SC042130");
-//                additionalIdentifier2.setUri("https://www.oscr.org.uk/about-charities/search-the-register/charity-details?number=SC042130");
-//                additionalIdentifier2.setLegalName("3Space");
-//                additionalIdentifiers.add(additionalIdentifier2);
-//                schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
-//
-//                // No Salesforce identifier
-//
-//                address.setCountryName("WOODFORD GREEN");
-//                address.setLocality("19-20 BOURNE COURT");
-//                address.setPostalCode("IG8 8HD");
-//                address.setRegion("SOUTHEND ROAD");
-//                address.setStreetAddress("3SPACE, C/O RAFFINGER STUART LTD");
-//                schemeInfo.setAddress(address);
-//
-//                contactPoint.setName("");
-//                contactPoint.setEmail("NotEmpty");
-//                contactPoint.setFaxNumber("");
-//                contactPoint.setTelephone("NotEmpty");
-//                contactPoint.setUri("");
-//                schemeInfo.setContactPoint(contactPoint);
-//                break;
-//
-//
-//            case CHARITIES_COMMISSION_WITH_COH:
-//                schemeInfo.setName("9 Lives Furniture");
-//                identifier.setId("1096086");
-//                identifier.setScheme(SchemeRegistry.getSchemeCode(CHARITIES_COMMISSION_WITH_COH));
-//                identifier.setLegalName("9 Lives Furniture");
-//                identifier.setUri("https://register-of-charities.charitycommission.gov.uk/charity-details/?regId=1096086&subId=0");
-//                schemeInfo.setIdentifier(identifier);
-//
-//                additionalIdentifier1.setScheme(SchemeRegistry.getSchemeCode(COMPANIES_HOUSE));
-//                additionalIdentifier1.setId("04375649");
-//                additionalIdentifier1.setUri("");
-//                additionalIdentifier1.setLegalName("9 LIVES FURNITURE");
-//                additionalIdentifiers.add(additionalIdentifier1);
-//                schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
-//
-//                // No Salesforce identifier
-//
-//                address.setCountryName("");
-//                address.setLocality("HERTFORDSHIRE");
-//                address.setPostalCode("WD3 1HA");
-//                address.setRegion("");
-//                address.setStreetAddress("25 WHARF LANE, RICKMANSWORTH");
-//                schemeInfo.setAddress(address);
-//
-//                contactPoint.setName("");
-//                contactPoint.setEmail("NotEmpty");
-//                contactPoint.setFaxNumber("");
-//                contactPoint.setTelephone("NotEmpty");
-//                contactPoint.setUri("");
-//                schemeInfo.setContactPoint(contactPoint);
-//                break;
-//
-//            case CHARITIES_COMMISSION_WITH_KNOWN_AND_UNKNOWN_IDENTIFIERS:
-//                schemeInfo.setName("ACTION FOR BLIND PEOPLE");
-//                identifier.setId("205913");
-//                identifier.setScheme(SchemeRegistry.getSchemeCode(CHARITIES_COMMISSION_WITH_KNOWN_AND_UNKNOWN_IDENTIFIERS));
-//                identifier.setLegalName("ACTION FOR BLIND PEOPLE");
-//                identifier.setUri("https://register-of-charities.charitycommission.gov.uk/charity-details/?regId=205913&subId=0");
-//                schemeInfo.setIdentifier(identifier);
-//
-//                additionalIdentifier1.setScheme(SchemeRegistry.getSchemeCode(CHARITIES_COMMISSION));
-//                additionalIdentifier1.setId("226227");
-//                additionalIdentifier1.setUri("https://register-of-charities.charitycommission.gov.uk/charity-details/?regId=226227&subId=0");
-//                additionalIdentifier1.setLegalName("THE ROYAL NATIONAL INSTITUTE OF BLIND PEOPLE");
-//                additionalIdentifiers.add(additionalIdentifier1);
-//                schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
-//
-//                additionalIdentifier2.setScheme(SchemeRegistry.getSchemeCode(COMPANIES_HOUSE));
-//                additionalIdentifier2.setId("00026688");
-//                additionalIdentifier2.setUri("");
-//                additionalIdentifier2.setLegalName("ACTION FOR BLIND PEOPLE");
-//                additionalIdentifiers.add(additionalIdentifier2);
-//                schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
-//
-//                additionalIdentifier3.setScheme(SchemeRegistry.getSchemeCode(COMPANIES_HOUSE));
-//                additionalIdentifier3.setId("RC000500");
-//                additionalIdentifier3.setUri("");
-//                additionalIdentifier3.setLegalName("ROYAL NATIONAL INSTITUTE OF BLIND PEOPLE");
-//                additionalIdentifiers.add(additionalIdentifier3);
-//                schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
-//
-//                additionalIdentifier4.setScheme(SchemeRegistry.getSchemeCode(SCOTLAND_CHARITY));
-//                additionalIdentifier4.setId("SC039316");
-//                additionalIdentifier4.setUri("https://www.oscr.org.uk/about-charities/search-the-register/charity-details?number=SC039316");
-//                additionalIdentifier4.setLegalName("Royal National Institute of Blind People");
-//                additionalIdentifiers.add(additionalIdentifier4);
-//                schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
-//
-//                additionalIdentifier5.setScheme(SchemeRegistry.getSchemeCode(SCOTLAND_CHARITY));
-//                additionalIdentifier5.setId("SC040050");
-//                additionalIdentifier5.setUri("https://www.oscr.org.uk/about-charities/search-the-register/charity-details?number=SC040050");
-//                additionalIdentifier5.setLegalName("Action for Blind People");
-//                additionalIdentifiers.add(additionalIdentifier5);
-//                schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
-//
-//                // No Salesforce identifier
-//
-//                address.setCountryName("");
-//                address.setLocality("105 JUDD STREET");
-//                address.setPostalCode("WC1H 9NE");
-//                address.setRegion("LONDON");
-//                address.setStreetAddress("ROYAL NATIONAL INSTITUTE FOR THE, BLIND");
-//                schemeInfo.setAddress(address);
-//
-//                contactPoint.setName("");
-//                contactPoint.setEmail("NotEmpty");
-//                contactPoint.setFaxNumber("");
-//                contactPoint.setTelephone("NotEmpty");
-//                contactPoint.setUri("");
-//                schemeInfo.setContactPoint(contactPoint);
-//                break;
-//
-//            case SCOTLAND_CHARITY_WITH_KNOWN_AND_UNKNOWN_IDENTIFIERS:
-//                schemeInfo.setName("Action for Blind People");
-//                identifier.setId("SC040050");
-//                identifier.setScheme(SchemeRegistry.getSchemeCode(SCOTLAND_CHARITY_WITH_KNOWN_AND_UNKNOWN_IDENTIFIERS));
-//                identifier.setLegalName("Action for Blind People");
-//                identifier.setUri("https://www.oscr.org.uk/about-charities/search-the-register/charity-details?number=SC040050");
-//                schemeInfo.setIdentifier(identifier);
-//
-//                additionalIdentifier1.setScheme(SchemeRegistry.getSchemeCode(CHARITIES_COMMISSION));
-//                additionalIdentifier1.setId("205913");
-//                additionalIdentifier1.setUri("https://register-of-charities.charitycommission.gov.uk/charity-details/?regId=205913&subId=0");
-//                additionalIdentifier1.setLegalName("ACTION FOR BLIND PEOPLE");
-//                additionalIdentifiers.add(additionalIdentifier1);
-//                schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
-//
-//                additionalIdentifier2.setScheme(SchemeRegistry.getSchemeCode(CHARITIES_COMMISSION));
-//                additionalIdentifier2.setId("226227");
-//                additionalIdentifier2.setUri("https://register-of-charities.charitycommission.gov.uk/charity-details/?regId=226227&subId=0");
-//                additionalIdentifier2.setLegalName("THE ROYAL NATIONAL INSTITUTE OF BLIND PEOPLE");
-//                additionalIdentifiers.add(additionalIdentifier2);
-//                schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
-//
-//                additionalIdentifier3.setScheme(SchemeRegistry.getSchemeCode(COMPANIES_HOUSE));
-//                additionalIdentifier3.setId("00026688");
-//                additionalIdentifier3.setUri("");
-//                additionalIdentifier3.setLegalName("ACTION FOR BLIND PEOPLE");
-//                additionalIdentifiers.add(additionalIdentifier3);
-//                schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
-//
-//                additionalIdentifier4.setScheme(SchemeRegistry.getSchemeCode(COMPANIES_HOUSE));
-//                additionalIdentifier4.setId("RC000500");
-//                additionalIdentifier4.setUri("");
-//                additionalIdentifier4.setLegalName("ROYAL NATIONAL INSTITUTE OF BLIND PEOPLE");
-//                additionalIdentifiers.add(additionalIdentifier4);
-//                schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
-//
-//                additionalIdentifier5.setScheme(SchemeRegistry.getSchemeCode(SCOTLAND_CHARITY));
-//                additionalIdentifier5.setId("SC039316");
-//                additionalIdentifier5.setUri("https://www.oscr.org.uk/about-charities/search-the-register/charity-details?number=SC039316");
-//                additionalIdentifier5.setLegalName("Royal National Institute of Blind People");
-//                additionalIdentifiers.add(additionalIdentifier5);
-//                schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
-//
-//                // No Salesforce identifier
-//
-//                address.setCountryName("Scotland");
-//                address.setLocality("105 Judd Street");
-//                address.setPostalCode("WC1H 9NE");
-//                address.setRegion("London");
-//                address.setStreetAddress("Action for Blind People");
-//                schemeInfo.setAddress(address);
-//
-//                contactPoint.setName("");
-//                contactPoint.setEmail("");
-//                contactPoint.setFaxNumber("");
-//                contactPoint.setTelephone("");
-//                contactPoint.setUri("");
-//                schemeInfo.setContactPoint(contactPoint);
-//                break;
-//
+             case DUN_AND_BRADSTREET_WITH_COH:
+                schemeInfo.setName("Company Example 505123456");
+                identifier.setId("505123456");
+                identifier.setScheme(SchemeRegistry.getSchemeCode(DUN_AND_BRADSTREET_WITH_COH));
+                identifier.setLegalName("Company Example 505123456");
+                identifier.setUri("");
+                schemeInfo.setIdentifier(identifier);
+
+                additionalIdentifier1.setScheme(SchemeRegistry.getSchemeCode(COMPANIES_HOUSE));
+                additionalIdentifier1.setId("09012345");
+                additionalIdentifier1.setUri("");
+                additionalIdentifier1.setLegalName("Company Example 09012345");
+                additionalIdentifiers.add(additionalIdentifier1);
+                schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
+
+                // Salesforce identifier
+                additionalIdentifier2.setScheme(SchemeRegistry.getSchemeCode(SALES_FORCE));
+                additionalIdentifier2.setId("NSO7IUSHF98HFP9WEH9FHE~56734565478");
+                additionalIdentifier2.setUri("/services/data/v46.0/subjects/Accout/NSO7IUSHF98HFP9WEH9FHE");
+                additionalIdentifier2.setLegalName("Dummy organisation");
+                additionalIdentifier2.setHidden("true");
+                additionalIdentifiers.add(additionalIdentifier2);
+                schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
+
+                address.setCountryName("United Kingdom");
+                address.setLocality("Locality");
+                address.setPostalCode("AB1C 2DE");
+                address.setRegion("");
+                address.setStreetAddress("123 Fake Street");
+                schemeInfo.setAddress(address);
+
+                contactPoint.setName("");
+                contactPoint.setEmail("");
+                contactPoint.setFaxNumber("");
+                contactPoint.setTelephone("");
+                contactPoint.setUri("");
+                schemeInfo.setContactPoint(contactPoint);
+                break;
+
+            case DUN_AND_BRADSTREET_WITH_CHC_AND_COH:
+                schemeInfo.setName("Company Example 606123456");
+                identifier.setId("378509368");
+                identifier.setScheme(SchemeRegistry.getSchemeCode(DUN_AND_BRADSTREET_WITH_COH));
+                identifier.setLegalName("Company Example 606123456");
+                identifier.setUri("");
+                schemeInfo.setIdentifier(identifier);
+
+                additionalIdentifier1.setScheme(SchemeRegistry.getSchemeCode(CHARITIES_COMMISSION));
+                additionalIdentifier1.setId("101123");
+                additionalIdentifier1.setUri("http://www.example.org.uk");
+                additionalIdentifier1.setLegalName("Charity Example 101123");
+                additionalIdentifiers.add(additionalIdentifier1);
+
+                additionalIdentifier2.setScheme(SchemeRegistry.getSchemeCode(COMPANIES_HOUSE));
+                additionalIdentifier2.setId("06012345");
+                additionalIdentifier2.setUri("");
+                additionalIdentifier2.setLegalName("Company Example 06012345");
+                additionalIdentifiers.add(additionalIdentifier2);
+                schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
+
+                // Salesforce identifier
+                additionalIdentifier3.setScheme(SchemeRegistry.getSchemeCode(SALES_FORCE));
+                additionalIdentifier3.setId("0001b000003YNthvAAD~10121852");
+                additionalIdentifier3.setUri("/services/data/v45.0/sobjects/Account/001b000003YNthvAAD");
+                additionalIdentifier3.setLegalName("CHAIGELEY EDUCATIONAL FOUNDATION");
+                additionalIdentifier3.setHidden("true");
+                additionalIdentifiers.add(additionalIdentifier3);
+                schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
+
+                address.setCountryName("Country");
+                address.setLocality("Locality");
+                address.setPostalCode("AB1C 2DE");
+                address.setRegion("");
+                address.setStreetAddress("123 Fake Street");
+                schemeInfo.setAddress(address);
+
+                contactPoint.setName("");
+                contactPoint.setEmail("");
+                contactPoint.setFaxNumber("");
+                contactPoint.setTelephone("");
+                contactPoint.setUri("");
+                schemeInfo.setContactPoint(contactPoint);
+                break;
+
+            case CHARITIES_COMMISSION:
+                schemeInfo.setName("Charity Example 202123");
+                identifier.setId("202123");
+                identifier.setScheme(SchemeRegistry.getSchemeCode(CHARITIES_COMMISSION));
+                identifier.setLegalName("Charity Example 202123");
+                identifier.setUri("http://www.example.org.uk");
+                schemeInfo.setIdentifier(identifier);
+
+                address.setCountryName("");
+                address.setLocality("Locality");
+                address.setPostalCode("A1 2BC");
+                address.setRegion("Stafford");
+                address.setStreetAddress("123 Example Street");
+                schemeInfo.setAddress(address);
+
+                contactPoint.setName("");
+                contactPoint.setEmail("example@email.com");
+                contactPoint.setFaxNumber("");
+                contactPoint.setTelephone("07123456789");
+                contactPoint.setUri("");
+                schemeInfo.setContactPoint(contactPoint);
+                break;
+
+            case CHARITIES_COMMISSION_WITH_TWO_COH:
+                schemeInfo.setName("Charity Example 303123");
+                identifier.setId("303123");
+                identifier.setScheme(SchemeRegistry.getSchemeCode(CHARITIES_COMMISSION_WITH_TWO_COH));
+                identifier.setLegalName("Charity Example 303123");
+                identifier.setUri("http://www.example.org.uk");
+                schemeInfo.setIdentifier(identifier);
+
+                additionalIdentifier1.setScheme(SchemeRegistry.getSchemeCode(COMPANIES_HOUSE));
+                additionalIdentifier1.setId("04012345");
+                additionalIdentifier1.setUri("");
+                additionalIdentifier1.setLegalName("Company Example 04012345");
+                additionalIdentifiers.add(additionalIdentifier1);
+
+                additionalIdentifier2.setScheme(SchemeRegistry.getSchemeCode(COMPANIES_HOUSE));
+                additionalIdentifier2.setId("07012345");
+                additionalIdentifier2.setUri("");
+                additionalIdentifier2.setLegalName("Company Example 07012345");
+                additionalIdentifiers.add(additionalIdentifier2);
+                schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
+
+                // Salesforce identifier
+                additionalIdentifier3.setScheme(SchemeRegistry.getSchemeCode(SALES_FORCE));
+                additionalIdentifier3.setId("0001b000003YNthvAAD~10121852");
+                additionalIdentifier3.setUri("/services/data/v45.0/sobjects/Account/001b000003YNthvAAD");
+                additionalIdentifier3.setLegalName("CHAIGELEY EDUCATIONAL FOUNDATION");
+                additionalIdentifier3.setHidden("true");
+                additionalIdentifiers.add(additionalIdentifier3);
+                schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
+
+                address.setCountryName("");
+                address.setLocality("Locality");
+                address.setPostalCode("A1 2BC");
+                address.setRegion("Test Region");
+                address.setStreetAddress("123 Example Street");
+                schemeInfo.setAddress(address);
+
+                contactPoint.setName("");
+                contactPoint.setEmail("");
+                contactPoint.setFaxNumber("");
+                contactPoint.setTelephone("07123456789");
+                contactPoint.setUri("");
+                schemeInfo.setContactPoint(contactPoint);
+                break;
+
+            case CHARITIES_COMMISSION_WITH_SC:
+                schemeInfo.setName("Charity Example 404123");
+                identifier.setId("404123");
+                identifier.setScheme(SchemeRegistry.getSchemeCode(CHARITIES_COMMISSION));
+                identifier.setLegalName("Charity Example 404123");
+                identifier.setUri("http://www.example.org.uk");
+                schemeInfo.setIdentifier(identifier);
+
+                additionalIdentifier1.setScheme(SchemeRegistry.getSchemeCode(SCOTLAND_CHARITY));
+                additionalIdentifier1.setId("SC012345");
+                additionalIdentifier1.setUri("http://www.example.org.uk");
+                additionalIdentifier1.setLegalName("Charity Example SC012345");
+                additionalIdentifiers.add(additionalIdentifier1);
+                schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
+
+                address.setCountryName("");
+                address.setLocality("Locality");
+                address.setPostalCode("A1 2BC");
+                address.setRegion("Test Region");
+                address.setStreetAddress("123 Example Street");
+                schemeInfo.setAddress(address);
+
+                contactPoint.setName("");
+                contactPoint.setEmail("example@email.com");
+                contactPoint.setFaxNumber("");
+                contactPoint.setTelephone("07123456789");
+                contactPoint.setUri("");
+                schemeInfo.setContactPoint(contactPoint);
+                break;
+
+            case CHARITIES_COMMISSION_WITH_COH_AND_SC:
+                schemeInfo.setName("Charity Example 505123");
+                identifier.setId("505123");
+                identifier.setScheme(SchemeRegistry.getSchemeCode(CHARITIES_COMMISSION_WITH_COH_AND_SC));
+                identifier.setLegalName("Charity Example 505123");
+                identifier.setUri("http://www.example.org.uk");
+                schemeInfo.setIdentifier(identifier);
+
+                additionalIdentifier1.setScheme(SchemeRegistry.getSchemeCode(COMPANIES_HOUSE));
+                additionalIdentifier1.setId("08012345");
+                additionalIdentifier1.setUri("");
+                additionalIdentifier1.setLegalName("Company Example 08012345");
+                additionalIdentifiers.add(additionalIdentifier1);
+                schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
+
+                additionalIdentifier2.setScheme(SchemeRegistry.getSchemeCode(SCOTLAND_CHARITY));
+                additionalIdentifier2.setId("SC022345");
+                additionalIdentifier2.setUri("http://www.example.org.uk");
+                additionalIdentifier2.setLegalName("Charity Example SC022345");
+                additionalIdentifiers.add(additionalIdentifier2);
+                schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
+
+                // No Salesforce identifier
+
+                address.setCountryName("");
+                address.setLocality("Locality");
+                address.setPostalCode("A1 2BC");
+                address.setRegion("Test Region");
+                address.setStreetAddress("123 Example Street");
+                schemeInfo.setAddress(address);
+
+                contactPoint.setName("");
+                contactPoint.setEmail("example@email.com");
+                contactPoint.setFaxNumber("");
+                contactPoint.setTelephone("07123456789");
+                contactPoint.setUri("");
+                schemeInfo.setContactPoint(contactPoint);
+                break;
+
+
+            case CHARITIES_COMMISSION_WITH_COH:
+                schemeInfo.setName("Charity Example 606123");
+                identifier.setId("606123");
+                identifier.setScheme(SchemeRegistry.getSchemeCode(CHARITIES_COMMISSION_WITH_COH));
+                identifier.setLegalName("Charity Example 606123");
+                identifier.setUri("http://www.example.org.uk");
+                schemeInfo.setIdentifier(identifier);
+
+                additionalIdentifier1.setScheme(SchemeRegistry.getSchemeCode(COMPANIES_HOUSE));
+                additionalIdentifier1.setId("03012345");
+                additionalIdentifier1.setUri("");
+                additionalIdentifier1.setLegalName("Company Example 03012345");
+                additionalIdentifiers.add(additionalIdentifier1);
+                schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
+
+                // No Salesforce identifier
+
+                address.setCountryName("");
+                address.setLocality("Locality");
+                address.setPostalCode("A1 2BC");
+                address.setRegion("Test Region");
+                address.setStreetAddress("123 Example Street");
+                schemeInfo.setAddress(address);
+
+                contactPoint.setName("");
+                contactPoint.setEmail("example@email.com");
+                contactPoint.setFaxNumber("");
+                contactPoint.setTelephone("07123456789");
+                contactPoint.setUri("");
+                schemeInfo.setContactPoint(contactPoint);
+                break;
+
+            case CHARITIES_COMMISSION_WITH_KNOWN_AND_UNKNOWN_IDENTIFIERS:
+                schemeInfo.setName("Charity Example 909123");
+                identifier.setId("909123");
+                identifier.setScheme(SchemeRegistry.getSchemeCode(CHARITIES_COMMISSION_WITH_KNOWN_AND_UNKNOWN_IDENTIFIERS));
+                identifier.setLegalName("Charity Example 909123");
+                identifier.setUri("http://www.example.org.uk");
+                schemeInfo.setIdentifier(identifier);
+
+                additionalIdentifier1.setScheme(SchemeRegistry.getSchemeCode(CHARITIES_COMMISSION));
+                additionalIdentifier1.setId("1012345");
+                additionalIdentifier1.setUri("http://www.example.org.uk");
+                additionalIdentifier1.setLegalName("Charity Example 1012345");
+                additionalIdentifiers.add(additionalIdentifier1);
+                schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
+
+                additionalIdentifier2.setScheme(SchemeRegistry.getSchemeCode(COMPANIES_HOUSE));
+                additionalIdentifier2.setId("RC000123");
+                additionalIdentifier2.setUri("");
+                additionalIdentifier2.setLegalName("Company Example RC000123");
+                additionalIdentifiers.add(additionalIdentifier2);
+                schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
+
+                additionalIdentifier3.setScheme(SchemeRegistry.getSchemeCode(COMPANIES_HOUSE));
+                additionalIdentifier3.setId("RC000500");
+                additionalIdentifier3.setUri("");
+                additionalIdentifier3.setLegalName("ROYAL NATIONAL INSTITUTE OF BLIND PEOPLE");
+                additionalIdentifiers.add(additionalIdentifier3);
+                schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
+
+                additionalIdentifier4.setScheme(SchemeRegistry.getSchemeCode(SCOTLAND_CHARITY));
+                additionalIdentifier4.setId("SC039316");
+                additionalIdentifier4.setUri("https://www.oscr.org.uk/about-charities/search-the-register/charity-details?number=SC039316");
+                additionalIdentifier4.setLegalName("Royal National Institute of Blind People");
+                additionalIdentifiers.add(additionalIdentifier4);
+                schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
+
+                additionalIdentifier5.setScheme(SchemeRegistry.getSchemeCode(SCOTLAND_CHARITY));
+                additionalIdentifier5.setId("SC040050");
+                additionalIdentifier5.setUri("https://www.oscr.org.uk/about-charities/search-the-register/charity-details?number=SC040050");
+                additionalIdentifier5.setLegalName("Action for Blind People");
+                additionalIdentifiers.add(additionalIdentifier5);
+                schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
+
+                // No Salesforce identifier
+
+                address.setCountryName("");
+                address.setLocality("Locality");
+                address.setPostalCode("A1 2BC");
+                address.setRegion("Test Region");
+                address.setStreetAddress("123 Example Street");
+                schemeInfo.setAddress(address);
+
+                contactPoint.setName("");
+                contactPoint.setEmail("example@email.com");
+                contactPoint.setFaxNumber("");
+                contactPoint.setTelephone("07123456789");
+                contactPoint.setUri("");
+                schemeInfo.setContactPoint(contactPoint);
+                break;
+
+            case SCOTLAND_CHARITY_WITH_KNOWN_AND_UNKNOWN_IDENTIFIERS:
+                schemeInfo.setName("Charity Example SC032345");
+                identifier.setId("SC032345");
+                identifier.setScheme(SchemeRegistry.getSchemeCode(SCOTLAND_CHARITY_WITH_KNOWN_AND_UNKNOWN_IDENTIFIERS));
+                identifier.setLegalName("Charity Example SC032345");
+                identifier.setUri("http://www.example.org.uk");
+                schemeInfo.setIdentifier(identifier);
+
+                additionalIdentifier1.setScheme(SchemeRegistry.getSchemeCode(CHARITIES_COMMISSION));
+                additionalIdentifier1.setId("909123");
+                additionalIdentifier1.setUri("http://www.example.org.uk");
+                additionalIdentifier1.setLegalName("Charity Example 909123");
+                additionalIdentifiers.add(additionalIdentifier1);
+                schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
+
+                additionalIdentifier2.setScheme(SchemeRegistry.getSchemeCode(CHARITIES_COMMISSION));
+                additionalIdentifier2.setId("1012345");
+                additionalIdentifier2.setUri("http://www.example.org.uk");
+                additionalIdentifier2.setLegalName("Charity Example 1012345");
+                additionalIdentifiers.add(additionalIdentifier2);
+                schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
+
+                additionalIdentifier3.setScheme(SchemeRegistry.getSchemeCode(COMPANIES_HOUSE));
+                additionalIdentifier3.setId("RC000123");
+                additionalIdentifier3.setUri("");
+                additionalIdentifier3.setLegalName("Company Example RC000123");
+                additionalIdentifiers.add(additionalIdentifier3);
+                schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
+
+                additionalIdentifier4.setScheme(SchemeRegistry.getSchemeCode(COMPANIES_HOUSE));
+                additionalIdentifier4.setId("RC000500");
+                additionalIdentifier4.setUri("");
+                additionalIdentifier4.setLegalName("ROYAL NATIONAL INSTITUTE OF BLIND PEOPLE");
+                additionalIdentifiers.add(additionalIdentifier4);
+                schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
+
+                additionalIdentifier5.setScheme(SchemeRegistry.getSchemeCode(SCOTLAND_CHARITY));
+                additionalIdentifier5.setId("SC039316");
+                additionalIdentifier5.setUri("https://www.oscr.org.uk/about-charities/search-the-register/charity-details?number=SC039316");
+                additionalIdentifier5.setLegalName("Royal National Institute of Blind People");
+                additionalIdentifiers.add(additionalIdentifier5);
+                schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
+
+                // No Salesforce identifier
+
+                address.setCountryName("");
+                address.setLocality("Locality");
+                address.setPostalCode("A1 2BC");
+                address.setRegion("Test Region");
+                address.setStreetAddress("123 Example Street");
+                schemeInfo.setAddress(address);
+
+                contactPoint.setName("");
+                contactPoint.setEmail("");
+                contactPoint.setFaxNumber("");
+                contactPoint.setTelephone("");
+                contactPoint.setUri("");
+                schemeInfo.setContactPoint(contactPoint);
+                break;
+
 //            case NORTHERN_CHARITY_WITH_COH:
 //                schemeInfo.setName("Craigavon Christian Youth");
 //                identifier.setId("NIC107049");
@@ -656,101 +656,5 @@ public class MockDataProvider {
         return schemeInfo;
     }
 
-    // remove additional identifiers from test data to perform Update scheme tests
-    public SchemeInfo getExpSchemeInfoWithoutAddIdentifiers(SchemeRegistry schemeRegistry) {
-        SchemeInfo schemeInfo = getExpectedSchemeInfo(schemeRegistry);
 
-        SchemeInfo schemeInfoModified = new SchemeInfo();
-        schemeInfoModified.setName(schemeInfo.getName());
-        schemeInfoModified.setIdentifier(schemeInfo.getIdentifier());
-        schemeInfoModified.setContactPoint(schemeInfo.getContactPoint());
-        schemeInfoModified.setAddress(schemeInfo.getAddress());
-        return schemeInfoModified;
-    }
-
-    public SchemeInfo getExpSchemeInfoWithFirstAddIdentifier(SchemeRegistry schemeRegistry) {
-        SchemeInfo schemeInfo = getExpectedSchemeInfo(schemeRegistry);
-
-        SchemeInfo schemeInfoModified = new SchemeInfo();
-        schemeInfoModified.setName(schemeInfo.getName());
-        schemeInfoModified.setIdentifier(schemeInfo.getIdentifier());
-        schemeInfoModified.setContactPoint(schemeInfo.getContactPoint());
-        schemeInfoModified.setAddress(schemeInfo.getAddress());
-
-        Assert.assertTrue(schemeInfo.getAdditionalIdentifiers().size() > 0, "No additional identifier in test data!!");
-        schemeInfoModified.getAdditionalIdentifiers().add(schemeInfo.getAdditionalIdentifiers().get(0));
-        return schemeInfoModified;
-    }
-
-    // This method returns only AdditionalSchemesInfo without SF Id
-    public List<AdditionalSchemeInfo> getExpSchemeInfoWithOnlyAddIdentifiersExceptSF(SchemeRegistry schemeRegistry) {
-        List<AdditionalSchemeInfo> additionalSchemesInfo = new ArrayList<>();
-        SchemeInfo schemeInfo = getExpectedSchemeInfo(schemeRegistry);
-        for (Identifier addIdentifier : schemeInfo.getAdditionalIdentifiers()) {
-            if (!addIdentifier.getScheme().equals(getSchemeCode(SALES_FORCE))) {
-                AdditionalSchemeInfo additionalSchemeInfo = new AdditionalSchemeInfo();
-                additionalSchemeInfo.setIdentifier(addIdentifier);
-                additionalSchemesInfo.add(additionalSchemeInfo);
-            }
-        }
-        return additionalSchemesInfo;
-    }
-
-    public List<AdditionalSchemeInfo> getExpSchemeInfoWithOnlyAddIdentifiersIncludeSF(SchemeRegistry schemeRegistry) {
-        List<AdditionalSchemeInfo> additionalSchemesInfo = new ArrayList<>();
-        SchemeInfo schemeInfo = getExpectedSchemeInfo(schemeRegistry);
-        for (Identifier addIdentifier : schemeInfo.getAdditionalIdentifiers()) {
-                AdditionalSchemeInfo additionalSchemeInfo = new AdditionalSchemeInfo();
-                additionalSchemeInfo.setIdentifier(addIdentifier);
-                additionalSchemesInfo.add(additionalSchemeInfo);
-        }
-        return additionalSchemesInfo;
-    }
-
-    public SchemeInfo getExpSchemeInfoWithoutSFIdentifier(SchemeRegistry schemeRegistry) {
-        SchemeInfo schemeInfo = getExpectedSchemeInfo(schemeRegistry);
-        SchemeInfo schemeInfoModified = new SchemeInfo();
-        schemeInfoModified.setName(schemeInfo.getName());
-        schemeInfoModified.setIdentifier(schemeInfo.getIdentifier());
-        schemeInfoModified.setContactPoint(schemeInfo.getContactPoint());
-        schemeInfoModified.setAddress(schemeInfo.getAddress());
-
-        for (Identifier identifier : schemeInfo.getAdditionalIdentifiers()) {
-            if (!identifier.getScheme().equals(getSchemeCode(SALES_FORCE))) {
-                schemeInfoModified.getAdditionalIdentifiers().add(identifier);
-            }
-        }
-        return schemeInfoModified;
-    }
-
-    public SchemeInfo getExpSchemeInfoWithoutSFIdentifier(SchemeInfo schemeInfo) {
-        SchemeInfo schemeInfoModified = new SchemeInfo();
-        schemeInfoModified.setName(schemeInfo.getName());
-        schemeInfoModified.setIdentifier(schemeInfo.getIdentifier());
-        schemeInfoModified.setContactPoint(schemeInfo.getContactPoint());
-        schemeInfoModified.setAddress(schemeInfo.getAddress());
-
-        for (Identifier identifier : schemeInfo.getAdditionalIdentifiers()) {
-            if (!identifier.getScheme().equals(getSchemeCode(SALES_FORCE))) {
-                schemeInfoModified.getAdditionalIdentifiers().add(identifier);
-            }
-        }
-        return schemeInfoModified;
-    }
-
-    public SchemeInfo getExpSchemeInfoWithOnlySFIdentifier(SchemeRegistry schemeRegistry) {
-        SchemeInfo schemeInfo = getExpectedSchemeInfo(schemeRegistry);
-        SchemeInfo schemeInfoModified = new SchemeInfo();
-        schemeInfoModified.setName(schemeInfo.getName());
-        schemeInfoModified.setIdentifier(schemeInfo.getIdentifier());
-        schemeInfoModified.setContactPoint(schemeInfo.getContactPoint());
-        schemeInfoModified.setAddress(schemeInfo.getAddress());
-
-        for (Identifier identifier : schemeInfo.getAdditionalIdentifiers()) {
-            if (identifier.getScheme().equals(getSchemeCode(SALES_FORCE))) {
-                schemeInfoModified.getAdditionalIdentifiers().add(identifier);
-            }
-        }
-        return schemeInfoModified;
-    }
 }

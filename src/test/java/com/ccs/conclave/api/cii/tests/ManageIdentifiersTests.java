@@ -94,8 +94,8 @@ public class ManageIdentifiersTests extends BaseClass {
     // Negative Scenarios to verify status code
     @Test
     public void manageIdsGetSchemeInfoWithInvalidIdentifierOrSchemeOrOrgId() {
-        SchemeInfo schemeInfo = getExpSchemeInfoWithoutSFIdentifier(DUN_AND_BRADSTREET_IRELAND);
-        Response getSchemeRes = getSchemeInfo(DUN_AND_BRADSTREET_IRELAND, schemeInfo.getIdentifier().getId());
+        SchemeInfo schemeInfo = getExpSchemeInfoWithoutSFIdentifier(DUN_AND_BRADSTREET_WALES);
+        Response getSchemeRes = getSchemeInfo(DUN_AND_BRADSTREET_WALES, schemeInfo.getIdentifier().getId());
         verifyResponseCodeForSuccess(getSchemeRes);
 
         Response postSchemeInfoRes = RestRequests.postSchemeInfo(getSchemeRes.asString());
