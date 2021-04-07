@@ -37,8 +37,7 @@ public class SFHiddenIdentifierTests extends BaseClass {
         verifyAllRegisteredSchemes(allRegisteredIdsRes, expectedSchemeInfo);
     }
 
-    // The Primary Id has no SF identifier but additional identifier has one
-    @Test
+    @Test(description = "The Primary Id has no SF identifier but additional identifier has one")
     public void verifyPostWithSFIdentifierForAdditionalId() {
         SchemeInfo expectedSchemeInfo = getExpectedSchemeInfo(SCOTLAND_CHARITY_WITH_CHC_COH);
 
@@ -60,8 +59,8 @@ public class SFHiddenIdentifierTests extends BaseClass {
         verifyAllRegisteredSchemes(allRegisteredIdsRes, expectedSchemeInfo);
     }
 
-    // It is expected to save only one SF identifier, here the Test data has SF identifier for both Primary and Additional
-    @Test
+
+    @Test(description = "It is expected to save only one SF identifier, here the Test data has SF identifier for both Primary and Additional")
     public void verifyNoDuplicateSFIdentifierIsSaved() {
         SchemeInfo expectedSchemeInfo = getExpectedSchemeInfo(DUN_AND_BRADSTREET_WITH_COH);
 
@@ -82,8 +81,8 @@ public class SFHiddenIdentifierTests extends BaseClass {
         verifyAllRegisteredSchemes(allRegisteredIdsRes, expectedSchemeInfo);
     }
 
-    // register only identifier which has no SF id, but SF is saved because additional identifier has one
-    @Test
+    @Test(description = "register only identifier which has no SF id, but SF is saved because additional identifier has one." +
+            "Update the additional identifier with SF and ensure SF id is still hidden")
     public void updateWithSFIdentifier() {
         SchemeInfo expectedSchemeInfo = getExpectedSchemeInfo(SCOTLAND_CHARITY_WITH_CHC_COH);
 
@@ -98,7 +97,7 @@ public class SFHiddenIdentifierTests extends BaseClass {
         Response allRegisteredIdsRes = getAllRegisteredSchemesInfo(getCCSOrgId());
         expectedSchemeInfo.getAdditionalIdentifiers().get(0).setHidden("false");
         expectedSchemeInfo.getAdditionalIdentifiers().get(1).setHidden("true");
-        expectedSchemeInfo.getAdditionalIdentifiers().get(2).setHidden("true");
+        expectedSchemeInfo.getAdditionalIdentifiers().get(2).setHidden("true"); // SF Identifier is hidden
         verifyAllRegisteredSchemes(allRegisteredIdsRes, expectedSchemeInfo);
 
         logger.info("Add new Additional identifier..");
@@ -112,12 +111,11 @@ public class SFHiddenIdentifierTests extends BaseClass {
         allRegisteredIdsRes = getAllRegisteredSchemesInfo(getCCSOrgId());
         expectedSchemeInfo.getAdditionalIdentifiers().get(0).setHidden("false");
         expectedSchemeInfo.getAdditionalIdentifiers().get(1).setHidden("false");
-        expectedSchemeInfo.getAdditionalIdentifiers().get(2).setHidden("true");
+        expectedSchemeInfo.getAdditionalIdentifiers().get(2).setHidden("true"); // SF Identifier is hidden
         verifyAllRegisteredSchemes(allRegisteredIdsRes, expectedSchemeInfo);
     }
 
-    // Endpoint won't allow to update SF identifier via PUT endpoint
-    @Test
+    @Test(description = "CII PUT endpoint won't allow to update SF identifier via PUT endpoint")
     public void addOrUpdateSFIdentifierIsNotAllowed() {
         SchemeInfo expectedSchemeInfo = getExpectedSchemeInfo(COMPANIES_HOUSE);
 
@@ -139,10 +137,8 @@ public class SFHiddenIdentifierTests extends BaseClass {
         verifyInvalidIdResponse(updateRes);
     }
 
-
-    // This test ensures that the SF id is saved while Add/Update operation; scenario is replicated by additional
-    // additional identifier of another scheme
-    @Test
+    @Test(description = "This test ensures that the SF id is saved while Add/Update operation; scenario is replicated by additional" +
+            "additional identifier of another scheme" )
     public void verifySFIdSavedWhileUpdate() {
         SchemeInfo expectedSchemeInfo = getExpectedSchemeInfo(CHARITIES_COMMISSION);
 
