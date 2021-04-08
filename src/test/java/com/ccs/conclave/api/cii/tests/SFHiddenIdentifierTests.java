@@ -142,8 +142,6 @@ public class SFHiddenIdentifierTests extends BaseClass {
     public void verifySFIdSavedWhileUpdate() {
         SchemeInfo expectedSchemeInfo = getExpectedSchemeInfo(CHARITIES_COMMISSION);
 
-        //   SchemeInfo expectedRegisteredSchemeInfo = getExpSchemeInfoWithoutSFIdentifier(COMPANIES_HOUSE);
-
         // Perform Get call to form the request payload for POST call
         Response getSchemeRes = getSchemeInfo(CHARITIES_COMMISSION, expectedSchemeInfo.getIdentifier().getId());
         verifyResponseCodeForSuccess(getSchemeRes);

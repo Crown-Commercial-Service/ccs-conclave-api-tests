@@ -124,10 +124,9 @@ public class UpdateSchemeTests extends BaseClass {
         deleteOrganisation(getCCSOrgId());
     }
 
-    // Org admin can add any additional identifier as part of his organisation with his own risk.
-    // CII is not checking whether the additional identifier admin choose is as part of his organisation or not.
-    // So this test expects a success response.
-    @Test
+    @Test(description = "Org admin can add any additional identifier as part of his organisation with his own risk." +
+            "CII is not checking whether the additional identifier admin choose is as part of his organisation or not." +
+            "So this test expects a success response.")
     public void updateScheme_validIdentifierOfAnotherScheme() {
         // GetScheme response without additional identifiers
         String responseStr = getSchemeInfoWithoutAddIdentifiers(DUN_AND_BRADSTREET_WITH_COH);

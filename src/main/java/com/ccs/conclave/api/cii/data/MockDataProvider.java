@@ -317,7 +317,7 @@ public class MockDataProvider {
 
                 additionalIdentifier2.setScheme(SchemeRegistry.getSchemeCode(SCOTLAND_CHARITY));
                 additionalIdentifier2.setId("SC022345");
-                additionalIdentifier2.setUri("");
+                additionalIdentifier2.setUri("http://www.example.org.uk");
                 additionalIdentifier2.setLegalName("Charity Example SC022345");
                 additionalIdentifiers.add(additionalIdentifier2);
                 schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
@@ -395,7 +395,7 @@ public class MockDataProvider {
 
                 additionalIdentifier4.setScheme(SchemeRegistry.getSchemeCode(SCOTLAND_CHARITY));
                 additionalIdentifier4.setId("SC032345");
-                additionalIdentifier4.setUri("");
+                additionalIdentifier4.setUri("http://www.example.org.uk");
                 additionalIdentifier4.setLegalName("Charity Example SC032345");
                 additionalIdentifiers.add(additionalIdentifier4);
                 schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
@@ -422,7 +422,7 @@ public class MockDataProvider {
                 identifier.setId("SC032345");
                 identifier.setScheme(SchemeRegistry.getSchemeCode(SCOTLAND_CHARITY_WITH_KNOWN_AND_UNKNOWN_IDENTIFIERS));
                 identifier.setLegalName("Charity Example SC032345");
-                identifier.setUri("");
+                identifier.setUri("http://www.example.org.uk");
                 schemeInfo.setIdentifier(identifier);
 
                 additionalIdentifier1.setScheme(SchemeRegistry.getSchemeCode(CHARITIES_COMMISSION));
@@ -468,7 +468,7 @@ public class MockDataProvider {
                 identifier.setId("NIC101234");
                 identifier.setScheme(SchemeRegistry.getSchemeCode(NORTHERN_CHARITY_WITH_COH));
                 identifier.setLegalName("Charity Example NIC101234");
-                identifier.setUri("");
+                identifier.setUri("http://www.example.org.uk");
                 schemeInfo.setIdentifier(identifier);
 
                 additionalIdentifier1.setScheme(SchemeRegistry.getSchemeCode(COMPANIES_HOUSE));
@@ -500,7 +500,7 @@ public class MockDataProvider {
                 identifier.setId("201234");
                 identifier.setScheme(SchemeRegistry.getSchemeCode(NORTHERN_CHARITY));
                 identifier.setLegalName("Charity Example NIC201234");
-                identifier.setUri("");
+                identifier.setUri("http://www.example.org.uk");
                 schemeInfo.setIdentifier(identifier);
 
                 address.setCountryName("");
@@ -523,7 +523,7 @@ public class MockDataProvider {
                 identifier.setId("SC101234");
                 identifier.setScheme(SchemeRegistry.getSchemeCode(SCOTLAND_CHARITY));
                 identifier.setLegalName("Charity Example SC101234");
-                identifier.setUri("");
+                identifier.setUri("http://www.example.org.uk");
                 schemeInfo.setIdentifier(identifier);
 
                 address.setCountryName("");
@@ -547,7 +547,7 @@ public class MockDataProvider {
                 identifier.setId("SC201234");
                 identifier.setScheme(SchemeRegistry.getSchemeCode(SCOTLAND_CHARITY_WITH_CHC_COH));
                 identifier.setLegalName("Charity Example SC201234");
-                identifier.setUri("");
+                identifier.setUri("http://www.example.org.uk");
                 schemeInfo.setIdentifier(identifier);
 
                 additionalIdentifier1.setScheme(SchemeRegistry.getSchemeCode(CHARITIES_COMMISSION));

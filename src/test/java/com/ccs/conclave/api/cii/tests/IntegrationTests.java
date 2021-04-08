@@ -20,9 +20,8 @@ import static com.ccs.conclave.api.cii.verification.VerifyEndpointResponses.*;
 public class IntegrationTests extends BaseClass {
     private final static Logger logger = Logger.getLogger(IntegrationTests.class);
 
-    // when user Register Primary Identifier and SELECTED AddIdentifiers(eg:only first one), and expected to see only registered
-    // identifiers in the manage organisation profile
-    @Test
+    @Test(description = "when user Register Primary Identifier and selected only one of the AddIdentifiers, then expected to see only registered" +
+            "identifiers in the manage organisation profile")
     public void registerOrgAndVerifyIdentifiers() {
         SchemeInfo schemeInfo = getExpectedSchemeInfo(SCOTLAND_CHARITY_WITH_CHC_COH);
         SchemeInfo schemeInfoWithOneAddId = getExpSchemeInfoWithFirstAddIdentifier(SCOTLAND_CHARITY_WITH_CHC_COH);
@@ -42,9 +41,8 @@ public class IntegrationTests extends BaseClass {
         deleteOrganisation(getCCSOrgId());
     }
 
-    // Duplicate check in Get call is verified here after successful Post operation.
-    // Verified both registered primary and additional identifiers get call duplicate check
-    @Test
+    @Test(description = "Duplicate check in Get call(for both Primary and Additional identifiers are verified" +
+            " after successful Post operation.")
     public void userSearchUsingAlreadyRegisteredIdentifiers() {
         SchemeInfo schemeInfo = getExpectedSchemeInfo(NORTHERN_CHARITY_WITH_COH);
         Response getSchemeInfo = getSchemeInfo(NORTHERN_CHARITY_WITH_COH, schemeInfo.getIdentifier().getId());
@@ -64,10 +62,9 @@ public class IntegrationTests extends BaseClass {
         deleteOrganisation(getCCSOrgId());
     }
 
-    // Duplicate check in Get call is verified here after successful Post operation without additional identifiers.
-    // When user Register Primary Identifier without AddIdentifiers, another user is not able to use those
-    // additional identifiers as cii stores them as hidden identifiers
-    @Test
+    @Test(description = "Duplicate check in Get call is verified after successful Post operation without additional identifiers." +
+            "When user Register Primary Identifier without AddIdentifiers, another user is not able to use those" +
+            "additional identifiers as cii stores them as hidden identifiers")
     public void userSearchUsingAddIdentifierOfAlreadyRegisteredPrimaryIdentifier() {
         SchemeInfo schemeInfo = getExpectedSchemeInfo(DUN_AND_BRADSTREET_WITH_CHC_AND_COH);
         SchemeInfo schemeInfoWithoutAddIds = getExpSchemeInfoWithoutAddIdentifiers(DUN_AND_BRADSTREET_WITH_CHC_AND_COH);
@@ -120,8 +117,7 @@ public class IntegrationTests extends BaseClass {
         deleteOrganisation(getCCSOrgId());
     }
 
-    // Integration Scenario: user can update registered scheme in cii after updating source
-    @Test
+    @Test(description = "Integration Scenario: user can update registered scheme in cii after updating source")
     public void userUpdatesAdditionalIdentifierAfterModifiedTheSource() {
         // Register Primary Identifier with additional identifiers
         SchemeInfo schemeInfo = getExpectedSchemeInfo(CHARITIES_COMMISSION_WITH_SC);
@@ -172,9 +168,8 @@ public class IntegrationTests extends BaseClass {
         deleteOrganisation(getCCSOrgId());
     }
 
-    // Verify admin users can delete hidden additional identifiers
     // NOTE: atm. Endpoint doesn't check admin or normal user
-    @Test
+    @Test(description = "Verify admin users can delete hidden additional identifiers")
     public void adminDeleteHiddenAddIdentifiers() {
         SchemeInfo schemeInfo = getExpectedSchemeInfo(DUN_AND_BRADSTREET_WITH_COH);
         SchemeInfo schemeInfoWithoutAddIds = getExpSchemeInfoWithoutAddIdentifiers(DUN_AND_BRADSTREET_WITH_COH);
@@ -210,9 +205,8 @@ public class IntegrationTests extends BaseClass {
         deleteOrganisation(getCCSOrgId());
     }
 
-    // When admin receives a claim form about conflict, admin delete organisation registration so that right user
-    // can register again
-    @Test
+    @Test(description = "When admin receives a claim form about conflict, admin delete organisation registration so that right user\n" +
+            "  can register again")
     public void adminDeleteOrganisationAndUserRegisterAgain() {
         SchemeInfo schemeInfo = getExpSchemeInfoWithoutSFIdentifier(COMPANIES_HOUSE);
         Response getSchemeInfo = getSchemeInfo(COMPANIES_HOUSE, schemeInfo.getIdentifier().getId());
@@ -260,7 +254,7 @@ public class IntegrationTests extends BaseClass {
     }
 
     @Test
-    public void ccsAdminDeleteSalesForceIdentifierOfOrg() {
+    public void ccsAdminDeletesSalesForceIdentifierOfOrg() {
         SchemeInfo expectedSchemeInfo = getExpectedSchemeInfo(COMPANIES_HOUSE);
         // As SF is there as part of Test data need to ensure SF Identifier is not registered as hidden:false
         SchemeInfo expectedRegisteredSchemeInfo = getExpSchemeInfoWithoutSFIdentifier(COMPANIES_HOUSE);
@@ -291,37 +285,48 @@ public class IntegrationTests extends BaseClass {
         deleteOrganisation(getCCSOrgId());
     }
 
-    @Test
+    @Test(description = "delete SF identifier and verify SF id is saved while updating additional identifier")
     public void orgAdminUpdatesAddIdentifierAndSalesForceIdSaved() {
-        SchemeInfo expectedSchemeInfo = getExpectedSchemeInfo(COMPANIES_HOUSE);
-        // As SF is there as part of Test data need to ensure SF Identifier is not registered as hidden:false
-        SchemeInfo expectedRegisteredSchemeInfo = getExpSchemeInfoWithoutSFIdentifier(COMPANIES_HOUSE);
+        SchemeInfo expectedSchemeInfo = getExpectedSchemeInfo(DUN_AND_BRADSTREET_WITH_COH);
+
+        SchemeInfo expectedRegisteredSchemeInfo = getExpSchemeInfoWithoutSFIdentifier(DUN_AND_BRADSTREET_WITH_COH);
 
         // Perform Get call to form the request payload for POST call
-        Response getSchemeRes = getSchemeInfo(COMPANIES_HOUSE, expectedSchemeInfo.getIdentifier().getId());
+        Response getSchemeRes = getSchemeInfo(DUN_AND_BRADSTREET_WITH_COH, expectedSchemeInfo.getIdentifier().getId());
         verifyResponseCodeForSuccess(getSchemeRes);
 
-        // Perform Post Operation
         Response postSchemeRes = RestRequests.postSchemeInfo(getSchemeRes.asString());
+        logger.info("Verify only Primary Id is registered as active..");
         verifyPostSchemeInfoResponse(expectedRegisteredSchemeInfo, postSchemeRes);
 
-        // verify All registered identifiers including hidden once
-        Response allRegSchemesRes = getAllRegisteredSchemesInfo(getCCSOrgId());
-        expectedSchemeInfo.getIdentifier().setHidden("false");
-        expectedSchemeInfo.getAdditionalIdentifiers().get(0).setHidden("true");
-        verifyAllRegisteredSchemes(allRegSchemesRes, expectedSchemeInfo);
+        logger.info("Verify only SF Id is registered as inactive..");
+        Response allRegisteredIdsRes = getAllRegisteredSchemesInfo(getCCSOrgId());
+        expectedSchemeInfo.getAdditionalIdentifiers().get(0).setHidden("false");
+        expectedSchemeInfo.getAdditionalIdentifiers().get(1).setHidden("true");
+        verifyAllRegisteredSchemes(allRegisteredIdsRes, expectedSchemeInfo);
 
         logger.info("admin deleted salesforce id....");
         AdditionalSchemeInfo deleteSchemeInfo = new AdditionalSchemeInfo();
-        deleteSchemeInfo.setIdentifier(expectedSchemeInfo.getAdditionalIdentifiers().get(0));
+        deleteSchemeInfo.setIdentifier(expectedSchemeInfo.getAdditionalIdentifiers().get(1));
         deleteSchemeInfo.setCcsOrgId(getCCSOrgId());
         Response deleteRes = deleteScheme(deleteSchemeInfo);
         verifyResponseCodeForSuccess(deleteRes);
         verifyDeletedScheme(getCCSOrgId(), deleteSchemeInfo);
 
+        // admin updates additional identifier
+        AdditionalSchemeInfo updateSchemeInfo = new AdditionalSchemeInfo();
+        updateSchemeInfo.setIdentifier(expectedSchemeInfo.getAdditionalIdentifiers().get(0));
+        updateSchemeInfo.setCcsOrgId(getCCSOrgId());
+        Response response = updateScheme(updateSchemeInfo);
+        verifyResponseCodeForSuccess(response);
+
+        logger.info("Verify only SF Id is registered as inactive..");
+        allRegisteredIdsRes = getAllRegisteredSchemesInfo(getCCSOrgId());
+        expectedSchemeInfo.getAdditionalIdentifiers().get(0).setHidden("false");
+        expectedSchemeInfo.getAdditionalIdentifiers().get(1).setHidden("true");
+        verifyAllRegisteredSchemes(allRegisteredIdsRes, expectedSchemeInfo);
+
         // Delete Database entry if the Org. is already registered
         deleteOrganisation(getCCSOrgId());
     }
-
-
 }

@@ -18,8 +18,7 @@ public class ManageIdentifiersTests extends BaseClass {
 
     // NOTE:- the response of manageIdentifiers endpoint is verified using GetSchemeInfo(Get call brings registry info)
 
-    // This test covers the scenario where the additional identifier doesn't know about primary identifier
-    @Test
+    @Test(description = "This test covers the scenario where the additional identifier doesn't know about primary identifier")
     public void manageIdsGetSchemeInfoForAdditionalIdUnawareOfPrimaryId() {
         // Register Primary Identifier without additional
         SchemeInfo schemeInfo = getExpectedSchemeInfo(SCOTLAND_CHARITY_WITH_CHC_COH);
@@ -43,9 +42,8 @@ public class ManageIdentifiersTests extends BaseClass {
         verifyManageIdentifiersResponse(expectedRes, response);
     }
 
-    // This test covers the scenario where the additional identifier knows about primary identifier
-    // manageIdentifiers get call is expected to bring Primary identifier if it is part of same organisation
-    @Test
+    @Test(description = "This test covers the scenario where the additional identifier knows about primary identifier" +
+            "manageIdentifiers get call is expected to bring Primary identifier if it is part of same organisation")
     public void manageIdsGetSchemeInfoForAdditionalIdKnowsPrimaryId() {
         // Register Primary Identifier without additional
         SchemeInfo schemeInfo = getExpectedSchemeInfo(SCOTLAND_CHARITY_WITH_CHC_COH);
@@ -68,8 +66,7 @@ public class ManageIdentifiersTests extends BaseClass {
         verifyManageIdentifiersResponse(getSchemeForCHC, response);
     }
 
-    // organisation admin searching valid identifier which is not as part of his org
-    @Test
+    @Test(description = "organisation admin searching valid identifier which is not as part of his org")
     public void manageIdsGetSchemeInfoWithValidIdentifierNotPartOfOrg() {
         // Register Primary Identifier without additional
         SchemeInfo schemeInfo = getExpSchemeInfoWithoutSFIdentifier(SCOTLAND_CHARITY_WITH_CHC_COH);
@@ -91,8 +88,7 @@ public class ManageIdentifiersTests extends BaseClass {
         verifyManageIdentifiersResponse(expectedRes, response);
     }
 
-    // Negative Scenarios to verify status code
-    @Test
+    @Test(description = "Negative Scenarios to verify status code")
     public void manageIdsGetSchemeInfoWithInvalidIdentifierOrSchemeOrOrgId() {
         SchemeInfo schemeInfo = getExpSchemeInfoWithoutSFIdentifier(DUN_AND_BRADSTREET_WALES);
         Response getSchemeRes = getSchemeInfo(DUN_AND_BRADSTREET_WALES, schemeInfo.getIdentifier().getId());
