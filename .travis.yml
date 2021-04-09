@@ -8,8 +8,9 @@ env:
     - APIKEY=$API_KEY
     - GITHUBTOKEN=$GITHUB_TOKEN
     - BUILDNUMBER=$TRAVIS_BUILD_NUMBER
+    - MOCKTESTS=$MOCK_TESTS
 script:
-  - mvn clean test -Dbase.url=$BASEURL -Dapi.key=$APIKEY
+  - mvn clean test -Dbase.url=$BASEURL -Dapi.key=$APIKEY -Dmock.tests=$MOCKTESTS
 before_deploy:
   - mv target/report/conclave_api_test_report.html target/report/conclave_api_test_report_$BUILDNUMBER.html
   - cp target/report/conclave_api_test_report_$BUILDNUMBER.html target/report/index.html
