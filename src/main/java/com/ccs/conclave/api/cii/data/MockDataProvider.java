@@ -497,7 +497,7 @@ public class MockDataProvider {
 
             case NORTHERN_CHARITY:
                 schemeInfo.setName("Charity Example NIC201234");
-                identifier.setId("201234");
+                identifier.setId("NIC201234");
                 identifier.setScheme(SchemeRegistry.getSchemeCode(NORTHERN_CHARITY));
                 identifier.setLegalName("Charity Example NIC201234");
                 identifier.setUri("http://www.example.org.uk");
