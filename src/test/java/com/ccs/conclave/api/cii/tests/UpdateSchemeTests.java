@@ -174,4 +174,34 @@ public class UpdateSchemeTests extends BaseClass {
         verifyResponseCodeForSuccess(response);
         verifyUpdatedScheme(getCCSOrgId(), updateSchemeInfo);
     }
+
+    @Test(description = "Try to update using existing identifier as aprt of another organisation and expect duplicate error code")
+    public void updateAlreadyExistingIdentifier() {
+        SchemeInfo schemeInfo1 = getExpectedSchemeInfo(DUN_AND_BRADSTREET_WITH_COH);
+        SchemeInfo schemeInfoWithoutSF = OrgDataProvider.getExpSchemeInfoWithoutSFIdentifier(DUN_AND_BRADSTREET_WITH_COH);
+        Response schemeInfoRes = getSchemeInfo(DUN_AND_BRADSTREET_WITH_COH, schemeInfo1.getIdentifier().getId());
+        verifyGetSchemeInfoResponse(schemeInfoWithoutSF, schemeInfoRes);
+        Response response1 = RestRequests.postSchemeInfo(schemeInfoRes.asString());
+        verifyPostSchemeInfoResponse(schemeInfoWithoutSF, response1);
+
+        // Register another identifier with only Primary Identifier
+        SchemeInfo schemeInfo2 = getExpectedSchemeInfo(CHARITIES_COMMISSION);
+        Response schemeInfoRes2 = getSchemeInfo(CHARITIES_COMMISSION, schemeInfo2.getIdentifier().getId());
+        SchemeInfo expectedSchemeInfo = getExpectedSchemeInfo(CHARITIES_COMMISSION);
+        Response response2 = RestRequests.postSchemeInfo(schemeInfoRes2.asString());
+        verifyPostSchemeInfoResponse(expectedSchemeInfo, response2);
+
+        logger.info("Update identifier already existing...");
+        AdditionalSchemeInfo updateSchemeInfo1 = new AdditionalSchemeInfo();
+        updateSchemeInfo1.setCcsOrgId(getCCSOrgId());
+        updateSchemeInfo1.setIdentifier(schemeInfo1.getIdentifier());
+        Response response3 = RestRequests.updateScheme(updateSchemeInfo1);
+        verifyResponseCodeForDuplicateResource(response3);
+
+        AdditionalSchemeInfo updateSchemeInfo2 = new AdditionalSchemeInfo();
+        updateSchemeInfo2.setCcsOrgId(getCCSOrgId());
+        updateSchemeInfo2.setIdentifier(schemeInfo1.getAdditionalIdentifiers().get(0));
+        Response response4 = RestRequests.updateScheme(updateSchemeInfo2);
+        verifyResponseCodeForDuplicateResource(response4);
+    }
 }

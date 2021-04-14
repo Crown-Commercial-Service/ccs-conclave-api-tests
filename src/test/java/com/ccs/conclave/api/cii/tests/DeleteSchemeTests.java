@@ -36,7 +36,7 @@ public class DeleteSchemeTests extends BaseClass {
         verifyPostSchemeInfoResponse(schemeInfo, response);
         logger.info("Successful post operation...");
 
-        logger.info("Deleting additional identifier to the existing organisation...");
+        logger.info("Deleting additional identifier from the existing organisation...");
         AdditionalSchemeInfo additionalSchemeInfo = additionalSchemesInfo.get(0);
         additionalSchemeInfo.setCcsOrgId(getCCSOrgId());
         response = RestRequests.deleteScheme(additionalSchemeInfo);
@@ -67,14 +67,14 @@ public class DeleteSchemeTests extends BaseClass {
         verifyPostSchemeInfoResponse(schemeInfo, response);
         logger.info("Successful post operation...");
 
-        logger.info("Deleting additional identifier1 to the existing organisation...");
+        logger.info("Deleting additional identifier1 from the existing organisation...");
         AdditionalSchemeInfo additionalSchemeInfo1 = additionalSchemesInfo.get(0);
         additionalSchemeInfo1.setCcsOrgId(getCCSOrgId());
         response = RestRequests.deleteScheme(additionalSchemeInfo1);
         verifyResponseCodeForSuccess(response);
         verifyDeletedScheme(getCCSOrgId(), additionalSchemeInfo1);
 
-        logger.info("Deleting additional identifier2 to the existing organisation...");
+        logger.info("Deleting additional identifier2 from the existing organisation...");
         AdditionalSchemeInfo additionalSchemeInfo2 = additionalSchemesInfo.get(1);
         additionalSchemeInfo2.setCcsOrgId(getCCSOrgId());
         response = RestRequests.deleteScheme(additionalSchemeInfo2);
@@ -102,7 +102,7 @@ public class DeleteSchemeTests extends BaseClass {
         verifyPostSchemeInfoResponse(schemeInfo, response);
         logger.info("Successful post operation...");
 
-        logger.info("Deleting additional identifier1 to the existing organisation...");
+        logger.info("Deleting additional identifier1 from the existing organisation...");
         AdditionalSchemeInfo additionalSchemeInfo1 = additionalSchemesInfo.get(0);
         additionalSchemeInfo1.setCcsOrgId(getCCSOrgId());
         response = RestRequests.deleteScheme(additionalSchemeInfo1);
@@ -114,12 +114,12 @@ public class DeleteSchemeTests extends BaseClass {
         verifyResponseCodeForSuccess(response);
         verifyUpdatedScheme(getCCSOrgId(), additionalSchemeInfo1);
 
-        logger.info("Deleting additional identifier1 to the existing organisation...");
+        logger.info("Deleting additional identifier1 from the existing organisation...");
         response = RestRequests.deleteScheme(additionalSchemeInfo1);
         verifyResponseCodeForSuccess(response);
         verifyDeletedScheme(getCCSOrgId(), additionalSchemeInfo1);
 
-        logger.info("Deleting additional identifier2 to the existing organisation...");
+        logger.info("Deleting additional identifier2 from the existing organisation...");
         AdditionalSchemeInfo additionalSchemeInfo2 = additionalSchemesInfo.get(1);
         additionalSchemeInfo2.setCcsOrgId(getCCSOrgId());
         response = RestRequests.deleteScheme(additionalSchemeInfo2);
@@ -131,7 +131,7 @@ public class DeleteSchemeTests extends BaseClass {
         verifyResponseCodeForSuccess(response);
         verifyUpdatedScheme(getCCSOrgId(), additionalSchemeInfo2);
 
-        logger.info("Deleting additional identifier2 to the existing organisation...");
+        logger.info("Deleting additional identifier2 from the existing organisation...");
         response = RestRequests.deleteScheme(additionalSchemeInfo2);
         verifyResponseCodeForSuccess(response);
         verifyDeletedScheme(getCCSOrgId(), additionalSchemeInfo2);
@@ -177,7 +177,7 @@ public class DeleteSchemeTests extends BaseClass {
         deleteOrganisation(getCCSOrgId());
     }
 
-    @Test
+    // @Test CON-851
     public void deleteScheme_PrimaryIdentifier() {
         SchemeInfo schemeInfo = getExpSchemeInfoWithoutSFIdentifier(SCOTLAND_CHARITY_WITH_CHC_COH);
 

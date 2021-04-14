@@ -528,7 +528,7 @@ public class RegistryDataProvider {
 
             case NORTHERN_CHARITY:
                 schemeInfo.setName("Lifereach Ni");
-                identifier.setId("103185");
+                identifier.setId("NIC103185");
                 identifier.setScheme(SchemeRegistry.getSchemeCode(NORTHERN_CHARITY));
                 identifier.setLegalName("Lifereach Ni");
                 identifier.setUri("http://www.charitycommissionni.org.uk/charity-details/?regid=103185&subid=0");
