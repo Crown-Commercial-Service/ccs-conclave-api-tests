@@ -13,4 +13,11 @@ public class Endpoints {
     public static String adminGetSchemeInfoURI = getProperty("adminGetSchemeInfoURI");
     public static String getRegisteredSchemesURI = getProperty("getRegisteredSchemesURI");
     public static String getAllRegisteredSchemesURI = getProperty("getAllRegisteredSchemesURI");
+
+    // Test endpoint
+    public static String getRegisteredOrgIdsURI = getProperty("getRegisteredOrgIdsURI");
+    public static String orgCreationURI = getProperty("orgCreationURI");
+    public static String userCreationURI = getProperty("userCreationURI");
+    public static String auth0SignupURI = getProperty("auth0SignupURI");
+    public static String loginURI = getProperty("loginURI");
 }

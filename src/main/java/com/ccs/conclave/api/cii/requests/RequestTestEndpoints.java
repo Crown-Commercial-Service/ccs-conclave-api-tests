@@ -6,13 +6,13 @@ import io.restassured.response.Response;
 import org.apache.log4j.Logger;
 import java.util.Arrays;
 
+import static com.ccs.conclave.api.common.Endpoints.*;
 import static com.ccs.conclave.api.common.StatusCodes.*;
 
 // Endpoints used in this class are for testing  purpose only and won't be deployed in Production. Therefore the tests
 // which are depending on these endpoints cannot be executed in Production.
 public class RequestTestEndpoints {
     private final static Logger logger = Logger.getLogger(RequestTestEndpoints.class);
-    private static final String getRegisteredOrgIdsURI = "/api/v1/testing/search/identities/schemes/organisation?id=";
 
     public static String getRegisteredOrgId(String id) {
         String ccsOrgId = "";
