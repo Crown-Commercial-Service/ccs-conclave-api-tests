@@ -35,6 +35,10 @@ public class RequestTestEndpoints {
         return dbInfo;
     }
 
+    public static void postOrgCreation() {
+
+    }
+
 //    public static List<AdditionalSchemeInfo> getAdditionalIdentifiersFromDB(String primaryId) {
 //        List<AdditionalSchemeInfo> additionalSchemesInfo = new ArrayList<>();
 //        GetCIIDBDataTestEndpointResponse dbInfo = RequestTestEndpoints.getRegisteredOrganisations(primaryId);
