@@ -63,7 +63,8 @@ public class BaseClass {
     @BeforeSuite
     protected void loadTestData() throws IOException {
         InputStream inputStream;
-        if (System.getProperty("mock.tests").equals("True")) {
+        if ("False".equals("True")) {
+        //if (System.getProperty("mock.tests").equals("True")) {
             logger.info("Loading mock endpoints...");
             inputStream = getClass().getClassLoader().getResourceAsStream("mockEndpoints.properties");
             OrgDataProvider.initMockTestDataProvider();
@@ -74,6 +75,8 @@ public class BaseClass {
         }
         if (inputStream != null) {
             properties = new Properties();
+            properties.load(inputStream);
+            inputStream = getClass().getClassLoader().getResourceAsStream("testEndpoints.properties");
             properties.load(inputStream);
         } else {
             throw new FileNotFoundException("property file not found in the classpath!");

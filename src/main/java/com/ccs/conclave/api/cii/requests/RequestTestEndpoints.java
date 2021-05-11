@@ -2,11 +2,11 @@ package com.ccs.conclave.api.cii.requests;
 
 import com.ccs.conclave.api.cii.pojo.DBData;
 import com.ccs.conclave.api.cii.response.GetCIIDBDataTestEndpointResponse;
+import com.ccs.conclave.api.common.Endpoints;
 import io.restassured.response.Response;
 import org.apache.log4j.Logger;
 import java.util.Arrays;
 
-import static com.ccs.conclave.api.common.Endpoints.*;
 import static com.ccs.conclave.api.common.StatusCodes.*;
 
 // Endpoints used in this class are for testing  purpose only and won't be deployed in Production. Therefore the tests
@@ -24,7 +24,7 @@ public class RequestTestEndpoints {
     }
 
     private static GetCIIDBDataTestEndpointResponse getRegisteredOrganisations(String id) {
-        String endpoint = RestRequests.getBaseURI() + getRegisteredOrgIdsURI + id;
+        String endpoint = RestRequests.getBaseURI() + Endpoints.getRegisteredOrgIdsURI + id;
         Response response = RestRequests.get(endpoint);
         GetCIIDBDataTestEndpointResponse dbInfo = new GetCIIDBDataTestEndpointResponse(Arrays.asList());
         if (response.getStatusCode() == OK.getCode()) {
@@ -35,9 +35,21 @@ public class RequestTestEndpoints {
         return dbInfo;
     }
 
-    public static void postOrgCreation() {
-
-    }
+//    public static String postOrgDataForOrgCreation() {
+//
+//    }
+//
+//    public static String postUserDataForUserCreation() {
+//
+//    }
+//
+//    public static String signupAuthO() {
+//
+//    }
+//
+//    public static String login() {
+//
+//    }
 
 //    public static List<AdditionalSchemeInfo> getAdditionalIdentifiersFromDB(String primaryId) {
 //        List<AdditionalSchemeInfo> additionalSchemesInfo = new ArrayList<>();

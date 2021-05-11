@@ -16,7 +16,8 @@ import static io.restassured.RestAssured.given;
 public class RestRequests {
     private final static Logger logger = Logger.getLogger(RestRequests.class);
     private static String baseURI = System.getProperty("base.url");
-    private static String apiKey = System.getProperty("api.key");
+    private static String apiToken = System.getProperty("api.token");
+    private static String deleteToken = System.getProperty("delete.token");
 
     public static String getBaseURI() {
         return baseURI;
@@ -94,14 +95,14 @@ public class RestRequests {
 
     public static Response get(String baseURI) {
         logger.info(">>> RestRequests::get() >>>");
-        Response res = given().header("Apikey", apiKey).expect().defaultParser(Parser.JSON).when().get(baseURI);
+        Response res = given().header("x-api-key", apiToken).expect().defaultParser(Parser.JSON).when().get(baseURI);
         logger.info("RestRequests::get() call with status code: " + res.getStatusCode());
         return res;
     }
 
     public static Response post(String baseURI, String requestPayload) {
         logger.info(">>> RestRequests::post() >>>");
-        Response res = given().header("Apikey", apiKey).header("Content-Type", "application/json")
+        Response res = given().header("x-api-key", apiToken).header("Content-Type", "application/json")
                 .body(requestPayload).when().post(baseURI);
         logger.info("RestRequests::post() call with status code: " + res.getStatusCode());
         return res;
@@ -109,7 +110,7 @@ public class RestRequests {
 
     public static Response put(String baseURI, Object requestPayload) {
         logger.info(">>> RestRequests::put() >>>");
-        Response res = given().header("Apikey", apiKey).header("Content-Type", "application/json")
+        Response res = given().header("x-api-key", apiToken).header("Content-Type", "application/json")
                         .body(requestPayload).when().put(baseURI);
         logger.info("RestRequests::put() call with status code: " + res.getStatusCode());
         return res;
@@ -117,7 +118,7 @@ public class RestRequests {
 
     public static Response delete(String baseURI, Object requestPayload) {
         logger.info(">>> RestRequests::delete() >>>");
-        Response res = given().header("Apikey", apiKey).header("Content-Type", "application/json")
+        Response res = given().header("x-api-key", apiToken).header("Content-Type", "application/json")
                 .body(requestPayload).when().delete(baseURI);
         logger.info("RestRequests::delete() call with status code: " + res.getStatusCode());
         return res;
@@ -125,7 +126,7 @@ public class RestRequests {
 
     public static Response deleteAll(String baseURI) {
         logger.info(">>> RestRequests::deleteAll() >>>");
-        Response res = given().header("Apikey", apiKey).expect().defaultParser(Parser.JSON).when().delete(baseURI);
+        Response res = given().header("x-api-key", deleteToken).expect().defaultParser(Parser.JSON).when().delete(baseURI);
         logger.info("RestRequests::deleteAll() call with status code: " + res.getStatusCode());
         return res;
     }
