@@ -35,6 +35,15 @@ public class RequestTestEndpoints {
         return dbInfo;
     }
 
+    public static String getAccessToken(String ccsOrgId) {
+        return registerOrgAndUser(ccsOrgId);
+    }
+
+    private static String registerOrgAndUser(String orgId) {
+        // Todo
+        return null;
+    }
+
 //    public static String postOrgDataForOrgCreation() {
 //
 //    }

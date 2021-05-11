@@ -15,9 +15,10 @@ import static io.restassured.RestAssured.given;
 
 public class RestRequests {
     private final static Logger logger = Logger.getLogger(RestRequests.class);
-    private static String baseURI = System.getProperty("base.url");
-    private static String apiToken = System.getProperty("api.token");
-    private static String deleteToken = System.getProperty("delete.token");
+    private static final String baseURI = System.getProperty("base.url");
+    private static final String apiToken = System.getProperty("api.token");
+    private static final String deleteToken = System.getProperty("delete.token");
+    private static final String clientId = System.getProperty("client.id");
 
     public static String getBaseURI() {
         return baseURI;
@@ -62,12 +63,14 @@ public class RestRequests {
 
     public static Response updateScheme(AdditionalSchemeInfo additionalSchemeInfo) {
         String endpoint = baseURI + Endpoints.updateSchemeURI;
-        return put(endpoint, additionalSchemeInfo);
+        String accessToken = RequestTestEndpoints.getAccessToken(additionalSchemeInfo.getCcsOrgId());
+        return put(endpoint, additionalSchemeInfo, accessToken);
     }
 
     public static Response deleteScheme(AdditionalSchemeInfo additionalSchemeInfo) {
         String endpoint = baseURI + Endpoints.deleteSchemeURI;
-        return delete(endpoint, additionalSchemeInfo);
+        String accessToken = RequestTestEndpoints.getAccessToken(additionalSchemeInfo.getCcsOrgId());
+        return delete(endpoint, additionalSchemeInfo, accessToken);
     }
 
     public static void deleteOrganisation(String ccsOrgId) {
@@ -108,17 +111,27 @@ public class RestRequests {
         return res;
     }
 
-    public static Response put(String baseURI, Object requestPayload) {
+    public static Response put(String baseURI, AdditionalSchemeInfo requestPayload, String accessToken) {
         logger.info(">>> RestRequests::put() >>>");
-        Response res = given().header("x-api-key", apiToken).header("Content-Type", "application/json")
-                        .body(requestPayload).when().put(baseURI);
+        Response res = given().header("x-api-key", apiToken)
+                .header("Authorization", "Bearer " + accessToken)
+                .param("ccs_org_id", requestPayload.getCcsOrgId())
+                .param("identifier[scheme]", requestPayload.getIdentifier().getScheme())
+                .param("identifier[id]", requestPayload.getIdentifier().getId())
+                .param("clientid", clientId)
+                .when().put(baseURI);
         logger.info("RestRequests::put() call with status code: " + res.getStatusCode());
         return res;
     }
 
-    public static Response delete(String baseURI, Object requestPayload) {
+    public static Response delete(String baseURI, AdditionalSchemeInfo requestPayload, String accessToken) {
         logger.info(">>> RestRequests::delete() >>>");
-        Response res = given().header("x-api-key", apiToken).header("Content-Type", "application/json")
+        Response res = given().header("x-api-key", apiToken)
+                .header("Authorization", "Bearer " + accessToken)
+                .param("ccs_org_id", requestPayload.getCcsOrgId())
+                .param("identifier[scheme]", requestPayload.getIdentifier().getScheme())
+                .param("identifier[id]", requestPayload.getIdentifier().getId())
+                .param("clientid", clientId)
                 .body(requestPayload).when().delete(baseURI);
         logger.info("RestRequests::delete() call with status code: " + res.getStatusCode());
         return res;

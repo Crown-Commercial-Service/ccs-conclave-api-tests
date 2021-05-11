@@ -63,8 +63,7 @@ public class BaseClass {
     @BeforeSuite
     protected void loadTestData() throws IOException {
         InputStream inputStream;
-        if ("False".equals("True")) {
-        //if (System.getProperty("mock.tests").equals("True")) {
+        if (System.getProperty("mock.tests").equals("True")) {
             logger.info("Loading mock endpoints...");
             inputStream = getClass().getClassLoader().getResourceAsStream("mockEndpoints.properties");
             OrgDataProvider.initMockTestDataProvider();
