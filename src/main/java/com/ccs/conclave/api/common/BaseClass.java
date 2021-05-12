@@ -75,6 +75,8 @@ public class BaseClass {
         if (inputStream != null) {
             properties = new Properties();
             properties.load(inputStream);
+            inputStream = getClass().getClassLoader().getResourceAsStream("testEndpoints.properties");
+            properties.load(inputStream);
         } else {
             throw new FileNotFoundException("property file not found in the classpath!");
         }
