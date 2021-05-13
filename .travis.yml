@@ -4,7 +4,9 @@ before_install:
   - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
 env:
   global:
-    - BASEURL=$BASE_URL
+    - CIIBASEURL=$CII_BASE_URL
+    - CONCLAVEBASEURL=$CONCLAVE_BASE_URL
+    - AUTH0URL=$AUTH0_URL
     - APITOKEN=$API_TOKEN
     - DELETETOKEN=$DELETE_TOKEN
     - CLIENTID=$CLIENT_ID
@@ -12,7 +14,7 @@ env:
     - BUILDNUMBER=$TRAVIS_BUILD_NUMBER
     - MOCKTESTS=$MOCK_TESTS
 script:
-  - mvn clean test -Dbase.url=$BASEURL -Dapi.token=$APITOKEN -Ddelete.token=$DELETETOKEN -Dclient.id=$CLIENTID -Dmock.tests=$MOCKTESTS
+  - mvn clean test -Dcii.base.url=$CIIBASEURL -Dconclave.base.url=$CONCLAVEBASEURL -Dauth0.url=$AUTH0URL -Dapi.token=$APITOKEN -Ddelete.token=$DELETETOKEN -Dclient.id=$CLIENTID -Dmock.tests=$MOCKTESTS
 before_deploy:
   - mv target/report/conclave_api_test_report.html target/report/conclave_api_test_report_$BUILDNUMBER.html
   - cp target/report/conclave_api_test_report_$BUILDNUMBER.html target/report/index.html
