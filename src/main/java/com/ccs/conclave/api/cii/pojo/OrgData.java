@@ -5,10 +5,10 @@ import lombok.Setter;
 
 @Setter @Getter
 public class OrgData {
-    private String legalName;
+    private String legalName = "Test Organisation";
     private String ciiOrganisationId;
-    private ContactPoint contactPoint;
-    private Address address;
-    private String organisationUri;
-    private String rightToBuy;
+    private ContactPoint contactPoint = new ContactPoint();
+    private Address address = new Address();
+    private String organisationUri = "";
+    private boolean rightToBuy = false;
 }

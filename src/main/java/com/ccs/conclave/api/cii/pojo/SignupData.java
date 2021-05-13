@@ -7,5 +7,5 @@ import lombok.Setter;
 public class SignupData {
     private String email;
     private String password;
-    private String connection;
+    private String connection = "Username-Password-Authentication";
 }
