@@ -4,6 +4,8 @@ import com.ccs.conclave.api.cii.pojo.AdditionalSchemeInfo;
 import com.ccs.conclave.api.cii.pojo.SignupData;
 import com.ccs.conclave.api.common.Endpoints;
 import com.ccs.conclave.api.cii.data.SchemeRegistry;
+import io.restassured.RestAssured;
+import io.restassured.config.EncoderConfig;
 import io.restassured.parsing.Parser;
 import io.restassured.response.Response;
 import org.apache.log4j.Logger;
@@ -18,13 +20,23 @@ public class RestRequests {
     private final static Logger logger = Logger.getLogger(RestRequests.class);
     private static final String ciiBaseURI = System.getProperty("cii.base.url");
     private static final String conclaveBaseURI = System.getProperty("conclave.base.url");
+    private static final String conclaveLoginURI = System.getProperty("conclave.login.url");
     private static final String auth0URI = System.getProperty("auth0.url");
     private static final String apiToken = System.getProperty("api.token");
     private static final String deleteToken = System.getProperty("delete.token");
     private static final String clientId = System.getProperty("client.id");
+    private static final String clientSecret= System.getProperty("client.secret");
 
     public static String getCiiBaseURI() {
         return ciiBaseURI;
+    }
+
+    public static String getClientId() {
+        return clientId;
+    }
+
+    public static String getClientSecret() {
+        return clientSecret;
     }
 
     public static Response getSchemeInfo(SchemeRegistry scheme, String identifier) {
@@ -34,10 +46,11 @@ public class RestRequests {
     }
 
     public static Response manageIdentifiers(SchemeRegistry scheme, String identifier, String ccsOrgId) {
-        String endpoint = ciiBaseURI + Endpoints.adminGetSchemeInfoURI + "scheme=" + getSchemeCode(scheme) + "&id=" + identifier
-                + "&ccs_org_id=" + ccsOrgId;
+        String endpoint = Endpoints.adminGetSchemeInfoURI + "scheme=" + getSchemeCode(scheme) + "&id=" + identifier
+                + "&ccs_org_id=" + ccsOrgId + "&clientid=" + getClientId();
         logger.info("admin GetSchemeInfo Endpoint: " + endpoint);
-        return get(endpoint);
+        String accessToken = RequestTestEndpoints.getAccessToken(ccsOrgId);
+        return getEndpointWithAccessToken(endpoint, accessToken);
     }
 
     public static Response getRegisteredSchemesInfo(String ccsOrgId) {
@@ -47,9 +60,10 @@ public class RestRequests {
     }
 
     public static Response getAllRegisteredSchemesInfo(String ccsOrgId) {
-        String endpoint = ciiBaseURI + Endpoints.getAllRegisteredSchemesURI + "ccs_org_id=" + ccsOrgId;
+        String endpoint = Endpoints.getAllRegisteredSchemesURI + "ccs_org_id=" + ccsOrgId + "&clientid=" + getClientId();
         logger.info("get RegisteredSchemeInfo Endpoint: " + endpoint);
-        return get(endpoint);
+        String accessToken = RequestTestEndpoints.getAccessToken(ccsOrgId);
+        return getEndpointWithAccessToken(endpoint, accessToken);
     }
 
     public static Response getSchemes() {
@@ -105,6 +119,15 @@ public class RestRequests {
         return res;
     }
 
+    private static Response getEndpointWithAccessToken(String endpoint, String accessToken) {
+        logger.info(">>> RestRequests::getEndpointWithAccessToken() >>>");
+        Response res = given().header("x-api-key", apiToken)
+                .header("Authorization", "Bearer " + accessToken)
+                .expect().defaultParser(Parser.JSON).when().get(ciiBaseURI + endpoint);
+        logger.info("RestRequests::getEndpointWithAccessToken() call with status code: " + res.getStatusCode());
+        return res;
+    }
+
     public static Response postToCIIAPI(String baseURI, String requestPayload) {
         logger.info(">>> RestRequests::postToCIIAPI() >>>");
         Response res = given().header("x-api-key", apiToken).header("Content-Type", "application/json")
@@ -118,22 +141,39 @@ public class RestRequests {
         Response res = given().header("Content-Type", "application/json")
                 .body(requestPayload).when().post(conclaveBaseURI + endPoint);
         Assert.assertEquals(res.getStatusCode(), OK.getCode(), "Something went wrong while Conclave post operation!");
+        Assert.assertEquals(res.asString().isEmpty(), false, "Something went wrong while Conclave post operation!");
         logger.info("RestRequests::postToConclaveAPI() call with status code: " + res.getStatusCode());
+        return res;
+    }
+
+    public static Response loginToConclaveAPI(String endPoint, Object loginData) {
+        logger.info(">>> RestRequests::loginToConclaveAPI() >>>");
+        Response res = given()
+                .header("x-api-key", "ff60479b004b4424916e062228e600eb")
+                .header("Content-Type", "application/json")
+                .body(loginData)
+                .log().all().when().post(conclaveLoginURI + endPoint);
+        Assert.assertEquals(res.getStatusCode(), OK.getCode(), "Something went wrong while Conclave Login post operation!");
+        logger.info("RestRequests::loginToConclaveAPI() call with status code: " + res.getStatusCode());
         return res;
     }
 
     public static Response postToAuth0(String endPoint, SignupData signupData) {
         logger.info(">>> RestRequests::postToAuth0() >>>");
-        Response res = given().header("Accept", "application/json")
-                .contentType("application/x-www-form-urlencoded")
-                //.header("Content-Type", "application/x-www-form-urlencoded")
-                // .formParams(signupData)
-                .formParam("connection", signupData.getConnection())
-                .formParam("email", signupData.getEmail())
-                .formParam("password", signupData.getPassword())
-                .formParam("client_id", clientId).log().all()
+        EncoderConfig encoderConfig = RestAssured.config().getEncoderConfig()
+                .appendDefaultContentCharsetToContentTypeIfUndefined(false);
+        RestAssured.config = RestAssured.config().encoderConfig(encoderConfig);
+        Response res = given()
+                .header("Content-Type", "application/x-www-form-urlencoded")
+                .header("Accept", "application/json")
+                .param("connection", signupData.getConnection())
+                .param("email", signupData.getEmail())
+                .param("password", signupData.getPassword())
+                .param("client_id", clientId).log().all()
                 .when().log().all().post(auth0URI + endPoint);
         logger.info("RestRequests::postToAuth0() call with status code: " + res.getStatusCode());
+        Assert.assertEquals(res.getStatusCode(), OK.getCode(), "Something went wrong while Conclave Login post operation!");
+        Assert.assertEquals(res.asString().contains(signupData.getEmail()), true, "Registered email address is not in Conclave Login post response!");
         return res;
     }
 
