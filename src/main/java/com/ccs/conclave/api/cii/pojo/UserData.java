@@ -8,8 +8,8 @@ public class UserData {
     private String firstName;
     private String lastName;
     private String userName;
-    private String partyId;
-    private String title;
+    private int partyId = 1;
+    private int title = 1;
     private String jobTitle;
     private String organisationId;
 }

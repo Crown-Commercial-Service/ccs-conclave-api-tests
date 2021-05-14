@@ -1,12 +1,15 @@
 package com.ccs.conclave.api.cii.requests;
 
 import com.ccs.conclave.api.cii.pojo.DBData;
+import com.ccs.conclave.api.cii.pojo.OrgData;
+import com.ccs.conclave.api.cii.pojo.SignupData;
+import com.ccs.conclave.api.cii.pojo.UserData;
 import com.ccs.conclave.api.cii.response.GetCIIDBDataTestEndpointResponse;
 import com.ccs.conclave.api.common.Endpoints;
 import io.restassured.response.Response;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.log4j.Logger;
 import java.util.Arrays;
-
 import static com.ccs.conclave.api.common.StatusCodes.*;
 
 // Endpoints used in this class are for testing  purpose only and won't be deployed in Production. Therefore the tests
@@ -24,7 +27,7 @@ public class RequestTestEndpoints {
     }
 
     private static GetCIIDBDataTestEndpointResponse getRegisteredOrganisations(String id) {
-        String endpoint = RestRequests.getBaseURI() + Endpoints.getRegisteredOrgIdsURI + id;
+        String endpoint = RestRequests.getCiiBaseURI() + Endpoints.getRegisteredOrgIdsURI + id;
         Response response = RestRequests.get(endpoint);
         GetCIIDBDataTestEndpointResponse dbInfo = new GetCIIDBDataTestEndpointResponse(Arrays.asList());
         if (response.getStatusCode() == OK.getCode()) {
@@ -40,22 +43,45 @@ public class RequestTestEndpoints {
     }
 
     private static String registerOrgAndUser(String orgId) {
-        // Todo
+        OrgData orgData = new OrgData();
+        orgData.setCiiOrganisationId(orgId);
+        String conclaveOrgId = postOrgDataForOrgCreation(orgData);
+
+        UserData userData = new UserData();
+        userData.setOrganisationId(conclaveOrgId);
+        String userEmail = getUserEmail();
+        userData.setUserName(userEmail);
+        postUserDataForUserCreation(userData);
+
+        SignupData signupData = new SignupData();
+        signupData.setEmail(userEmail);
+        signupData.setPassword("Letmein1234$");
+        // Todo: Fix Auth0 post call
+        // signupToAuth0(signupData);
+
+        //Todo - Login Endpoint
         return null;
     }
 
-//    public static String postOrgDataForOrgCreation() {
-//
-//    }
-//
-//    public static String postUserDataForUserCreation() {
-//
-//    }
-//
-//    public static String signupAuthO() {
-//
-//    }
-//
+    private static String getUserEmail() {
+        return "api-test" + RandomStringUtils.randomAlphabetic(5) + "@void.com";
+    }
+
+    public static String postOrgDataForOrgCreation(OrgData orgData) {
+        Response response = RestRequests.postToConclaveAPI(Endpoints.orgCreationURI, orgData);
+        return response.asString();
+    }
+
+    public static String postUserDataForUserCreation(UserData userData) {
+        Response response = RestRequests.postToConclaveAPI(Endpoints.userCreationURI, userData);
+        return response.asString();
+    }
+
+    public static String signupToAuth0(SignupData signupData) {
+        Response response = RestRequests.postToAuth0(Endpoints.auth0SignupURI, signupData);
+        return response.asString();
+    }
+
 //    public static String login() {
 //
 //    }
