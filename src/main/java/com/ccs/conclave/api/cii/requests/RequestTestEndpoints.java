@@ -1,14 +1,14 @@
 package com.ccs.conclave.api.cii.requests;
 
-import com.ccs.conclave.api.cii.pojo.DBData;
-import com.ccs.conclave.api.cii.pojo.OrgData;
-import com.ccs.conclave.api.cii.pojo.SignupData;
-import com.ccs.conclave.api.cii.pojo.UserData;
+import com.ccs.conclave.api.cii.pojo.*;
+import com.ccs.conclave.api.cii.response.ConclaveLoginResponse;
 import com.ccs.conclave.api.cii.response.GetCIIDBDataTestEndpointResponse;
 import com.ccs.conclave.api.common.Endpoints;
 import io.restassured.response.Response;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.log4j.Logger;
+import org.testng.Assert;
+
 import java.util.Arrays;
 import static com.ccs.conclave.api.common.StatusCodes.*;
 
@@ -43,48 +43,53 @@ public class RequestTestEndpoints {
     }
 
     private static String registerOrgAndUser(String orgId) {
-        OrgData orgData = new OrgData();
-        orgData.setCiiOrganisationId(orgId);
-        String conclaveOrgId = postOrgDataForOrgCreation(orgData);
-
-        UserData userData = new UserData();
-        userData.setOrganisationId(conclaveOrgId);
         String userEmail = getUserEmail();
-        userData.setUserName(userEmail);
-        postUserDataForUserCreation(userData);
+        String password = "Letmein1234$";
 
-        SignupData signupData = new SignupData();
-        signupData.setEmail(userEmail);
-        signupData.setPassword("Letmein1234$");
-        // Todo: Fix Auth0 post call
-        // signupToAuth0(signupData);
-
-        //Todo - Login Endpoint
-        return null;
+        String conclaveOrgId = postOrgDataForOrgCreation(orgId);
+        postUserDataForUserCreation(conclaveOrgId, userEmail);
+        signupToAuth0(userEmail, password);
+        return loginToConclave(userEmail, password);
     }
 
     private static String getUserEmail() {
-        return "api-test" + RandomStringUtils.randomAlphabetic(5) + "@void.com";
+        return "test" + RandomStringUtils.randomAlphabetic(5).toLowerCase() + "@yopmail.com";
     }
 
-    public static String postOrgDataForOrgCreation(OrgData orgData) {
+    public static String postOrgDataForOrgCreation(String orgId) {
+        OrgData orgData = new OrgData();
+        orgData.setCiiOrganisationId(orgId);
         Response response = RestRequests.postToConclaveAPI(Endpoints.orgCreationURI, orgData);
         return response.asString();
     }
 
-    public static String postUserDataForUserCreation(UserData userData) {
-        Response response = RestRequests.postToConclaveAPI(Endpoints.userCreationURI, userData);
-        return response.asString();
+    public static void postUserDataForUserCreation(String conclaveOrgId, String userEmail) {
+        UserData userData = new UserData();
+        userData.setOrganisationId(conclaveOrgId);
+        userData.setUserName(userEmail);
+        RestRequests.postToConclaveAPI(Endpoints.userCreationURI, userData);
     }
 
-    public static String signupToAuth0(SignupData signupData) {
-        Response response = RestRequests.postToAuth0(Endpoints.auth0SignupURI, signupData);
-        return response.asString();
+    public static void signupToAuth0(String userEmail, String password) {
+        SignupData signupData = new SignupData();
+        signupData.setEmail(userEmail);
+        signupData.setPassword(password);
+        RestRequests.postToAuth0(Endpoints.auth0SignupURI, signupData);
     }
 
-//    public static String login() {
-//
-//    }
+    public static String loginToConclave(String userEmail, String password) {
+        LoginData loginData = new LoginData();
+        loginData.setUsername(userEmail);
+        loginData.setPassword(password);
+        loginData.setClient_id(RestRequests.getClientId());
+        loginData.setClient_secret(RestRequests.getClientSecret());
+        Response response = RestRequests.loginToConclaveAPI(Endpoints.loginURI, loginData);
+
+        ConclaveLoginResponse loginResponse = new ConclaveLoginResponse(response.getBody().as(LoginDetails.class));
+        String accessToken = loginResponse.getLoginDetails().getAccessToken();
+        Assert.assertEquals(accessToken.isEmpty(), false, "Invalid accessToken in login response");
+        return accessToken;
+    }
 
 //    public static List<AdditionalSchemeInfo> getAdditionalIdentifiersFromDB(String primaryId) {
 //        List<AdditionalSchemeInfo> additionalSchemesInfo = new ArrayList<>();
