@@ -67,9 +67,9 @@ public class OrgDataProvider extends BaseClass {
         List<AdditionalSchemeInfo> additionalSchemesInfo = new ArrayList<>();
         SchemeInfo schemeInfo = getExpectedSchemeInfo(schemeRegistry);
         for (Identifier addIdentifier : schemeInfo.getAdditionalIdentifiers()) {
-                AdditionalSchemeInfo additionalSchemeInfo = new AdditionalSchemeInfo();
-                additionalSchemeInfo.setIdentifier(addIdentifier);
-                additionalSchemesInfo.add(additionalSchemeInfo);
+            AdditionalSchemeInfo additionalSchemeInfo = new AdditionalSchemeInfo();
+            additionalSchemeInfo.setIdentifier(addIdentifier);
+            additionalSchemesInfo.add(additionalSchemeInfo);
         }
         return additionalSchemesInfo;
     }
@@ -89,7 +89,6 @@ public class OrgDataProvider extends BaseClass {
         }
         return schemeInfoModified;
     }
-
 
 
     public static SchemeInfo getExpSchemeInfoWithoutSFIdentifier(SchemeInfo schemeInfo) {
@@ -122,6 +121,19 @@ public class OrgDataProvider extends BaseClass {
         }
         return schemeInfoModified;
     }
+
+    public static String getOnlySFIdentifier(SchemeRegistry schemeRegistry) {
+        SchemeInfo schemeInfo = getExpectedSchemeInfo(schemeRegistry);
+        SchemeInfo schemeInfoModified = new SchemeInfo();
+        schemeInfoModified.setIdentifier(schemeInfo.getIdentifier());
+        for (Identifier identifier : schemeInfo.getAdditionalIdentifiers()) {
+            if (identifier.getScheme().equals(getSchemeCode(SALES_FORCE))) {
+                schemeInfoModified.getAdditionalIdentifiers().add(identifier);
+            }
+        }
+        return schemeInfoModified.getAdditionalIdentifiers().get(0).getId();
+    }
+
 
     public static void initMockTestDataProvider() {
         mockDataProvider = new MockDataProvider();

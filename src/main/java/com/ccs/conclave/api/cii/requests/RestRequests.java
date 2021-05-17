@@ -25,7 +25,8 @@ public class RestRequests {
     private static final String apiToken = System.getProperty("api.token");
     private static final String deleteToken = System.getProperty("delete.token");
     private static final String clientId = System.getProperty("client.id");
-    private static final String clientSecret= System.getProperty("client.secret");
+    private static final String clientSecret = System.getProperty("client.secret");
+
 
     public static String getCiiBaseURI() {
         return ciiBaseURI;
@@ -75,6 +76,11 @@ public class RestRequests {
     public static Response postSchemeInfo(String requestPayload) {
         String endpoint = ciiBaseURI + Endpoints.postSchemeInfoURI;
         return postToCIIAPI(endpoint, requestPayload);
+    }
+
+    public static Response postRegisterBuyerInfo(String accountIdType, String accountId) {
+        String endpoint = ciiBaseURI + Endpoints.postRegisterBuyerURI + "account_id_type=" + accountIdType + "&account_id=" + accountId;
+        return postToSF(endpoint);
     }
 
     public static Response updateScheme(AdditionalSchemeInfo additionalSchemeInfo) {
@@ -135,6 +141,15 @@ public class RestRequests {
         logger.info("RestRequests::postToCIIAPI() call with status code: " + res.getStatusCode());
         return res;
     }
+
+    public static Response postToSF(String baseURI) {
+        logger.info(">>> RestRequests::postToSF() >>>");
+        Response res = given().header("x-api-key", apiToken).header("Content-Type", "application/json")
+                .when().post(baseURI);
+        logger.info("RestRequests::postToSF() call with status code: " + res.getStatusCode());
+        return res;
+    }
+
 
     public static Response postToConclaveAPI(String endPoint, Object requestPayload) {
         logger.info(">>> RestRequests::postToConclaveAPI() >>>");
