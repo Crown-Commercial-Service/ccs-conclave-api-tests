@@ -16,10 +16,7 @@ env:
     - BUILDNUMBER=$TRAVIS_BUILD_NUMBER
     - MOCKTESTS=$MOCK_TESTS
 script:
-    - mvn clean test -Dcii.base.url=$CIIBASEURL -Dconclave.base.url=$CONCLAVEBASEURL -Dconclave.login.url=$CONCLAVELOGINURL
-    - -Dauth0.url=$AUTH0URL -Dapi.token=$APITOKEN -Ddelete.token=$DELETETOKEN
-    - -Dclient.id=$CLIENTID -Dclient.secret=$CLIENTSECRET
-    - -Dmock.tests=$MOCKTESTS
+    - mvn clean test -Dcii.base.url=$CIIBASEURL -Dconclave.base.url=$CONCLAVEBASEURL -Dconclave.login.url=$CONCLAVELOGINURL -Dauth0.url=$AUTH0URL -Dapi.token=$APITOKEN -Ddelete.token=$DELETETOKEN -Dclient.id=$CLIENTID -Dclient.secret=$CLIENTSECRET -Dmock.tests=$MOCKTESTS
 before_deploy:
   - mv target/report/conclave_api_test_report.html target/report/conclave_api_test_report_$BUILDNUMBER.html
   - cp target/report/conclave_api_test_report_$BUILDNUMBER.html target/report/index.html
