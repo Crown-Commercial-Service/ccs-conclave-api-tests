@@ -21,6 +21,7 @@ public class RestRequests {
     private static final String ciiBaseURI = System.getProperty("cii.base.url");
     private static final String conclaveBaseURI = System.getProperty("conclave.base.url");
     private static final String conclaveLoginURI = System.getProperty("conclave.login.url");
+    private static final String loginToken = System.getProperty("login.token");
     private static final String auth0URI = System.getProperty("auth0.url");
     private static final String apiToken = System.getProperty("api.token");
     private static final String deleteToken = System.getProperty("delete.token");
@@ -149,7 +150,7 @@ public class RestRequests {
     public static Response loginToConclaveAPI(String endPoint, Object loginData) {
         logger.info(">>> RestRequests::loginToConclaveAPI() >>>");
         Response res = given()
-                .header("x-api-key", "ff60479b004b4424916e062228e600eb")
+                .header("x-api-key", loginToken)
                 .header("Content-Type", "application/json")
                 .body(loginData)
                 .when().post(conclaveLoginURI + endPoint);
