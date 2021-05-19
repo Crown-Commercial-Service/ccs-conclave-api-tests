@@ -167,7 +167,7 @@ public class RestRequests {
                 .header("x-api-key", "ff60479b004b4424916e062228e600eb")
                 .header("Content-Type", "application/json")
                 .body(loginData)
-                .log().all().when().post(conclaveLoginURI + endPoint);
+                .when().post(conclaveLoginURI + endPoint);
         Assert.assertEquals(res.getStatusCode(), OK.getCode(), "Something went wrong while Conclave Login post operation!");
         logger.info("RestRequests::loginToConclaveAPI() call with status code: " + res.getStatusCode());
         return res;
@@ -184,8 +184,8 @@ public class RestRequests {
                 .param("connection", signupData.getConnection())
                 .param("email", signupData.getEmail())
                 .param("password", signupData.getPassword())
-                .param("client_id", clientId).log().all()
-                .when().log().all().post(auth0URI + endPoint);
+                .param("client_id", clientId)
+                .when().post(auth0URI + endPoint);
         logger.info("RestRequests::postToAuth0() call with status code: " + res.getStatusCode());
         Assert.assertEquals(res.getStatusCode(), OK.getCode(), "Something went wrong while Conclave Login post operation!");
         Assert.assertEquals(res.asString().contains(signupData.getEmail()), true, "Registered email address is not in Conclave Login post response!");
