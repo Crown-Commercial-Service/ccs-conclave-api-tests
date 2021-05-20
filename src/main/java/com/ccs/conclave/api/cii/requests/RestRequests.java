@@ -211,7 +211,12 @@ public class RestRequests extends BaseClass {
 
     public static Response deleteAll(String baseURI) {
         logger.info(">>> RestRequests::deleteAll() >>>");
-        Response res = given().header("x-api-key", deleteToken).expect().defaultParser(Parser.JSON).when().delete(baseURI);
+        Response res;
+        if(isMockTestEnabled())
+            res = given().header("x-api-key", apiToken).expect().defaultParser(Parser.JSON).when().delete(baseURI);
+        else
+            res = given().header("x-api-key", deleteToken).expect().defaultParser(Parser.JSON).when().delete(baseURI);
+
         logger.info("RestRequests::deleteAll() call with status code: " + res.getStatusCode());
         return res;
     }
