@@ -4,12 +4,14 @@ import com.ccs.conclave.api.cii.pojo.OrgIdentifier;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Setter
 @Getter
 public class PostSFInfoResponse {
-    private OrgIdentifier orgIdentifier;
+    private List<OrgIdentifier> orgIdentifier;
 
-    public PostSFInfoResponse(OrgIdentifier ccsOrgId) {
+    public PostSFInfoResponse(List<OrgIdentifier> ccsOrgId) {
         this.orgIdentifier = ccsOrgId;
     }
 }
