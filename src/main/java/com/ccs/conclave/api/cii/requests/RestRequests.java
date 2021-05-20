@@ -28,7 +28,7 @@ public class RestRequests {
     private static final String deleteToken = System.getProperty("delete.token");
     private static final String clientId = System.getProperty("client.id");
     private static final String clientSecret = System.getProperty("client.secret");
-
+    
     public static String getCiiBaseURI() {
         return ciiBaseURI;
     }

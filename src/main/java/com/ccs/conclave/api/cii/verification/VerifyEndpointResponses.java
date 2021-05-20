@@ -132,12 +132,12 @@ public class VerifyEndpointResponses {
     }
 
     public static void verifyPostSFInfoResponse(SchemeInfo expectedSchemeInfo, Response response) {
-        verifyResponseCodeForCreatedResource(response);
+        verifyResponseCodeForSuccess(response);
 
-        PostSFInfoResponse actualResponse = new PostSFInfoResponse(Arrays.asList(response.getBody().as(OrgIdentifier[].class)));
-        ccsOrgId = actualResponse.getOrgIdentifier().get(0).getCcsOrgId();
-        Assert.assertTrue(!actualResponse.getOrgIdentifier().get(0).getCcsOrgId().isEmpty()); // CcsOrgId is not empty
-        logger.info("CcsOrgId: " + actualResponse.getOrgIdentifier().get(0).getCcsOrgId());
+        PostSFInfoResponse actualResponse = new PostSFInfoResponse((response.getBody().as(OrgIdentifier.class)));
+        ccsOrgId = actualResponse.getOrgIdentifier().getCcsOrgId();
+        Assert.assertTrue(!actualResponse.getOrgIdentifier().getCcsOrgId().isEmpty()); // CcsOrgId is not empty
+        logger.info("CcsOrgId: " + actualResponse.getOrgIdentifier().getCcsOrgId());
 
         // get registered schemes after post
         Response regSchemesRes = RestRequests.getRegisteredSchemesInfo(ccsOrgId);
