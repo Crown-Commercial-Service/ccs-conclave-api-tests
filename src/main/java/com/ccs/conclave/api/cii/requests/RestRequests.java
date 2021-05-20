@@ -18,21 +18,16 @@ import static io.restassured.RestAssured.given;
 
 public class RestRequests {
     private final static Logger logger = Logger.getLogger(RestRequests.class);
-//    private static final String ciiBaseURI = System.getProperty("cii.base.url");
+    private static final String ciiBaseURI = System.getProperty("cii.base.url");
     private static final String conclaveBaseURI = System.getProperty("conclave.base.url");
     private static final String conclaveLoginURI = System.getProperty("conclave.login.url");
     private static final String loginToken = System.getProperty("login.token");
     private static final String auth0URI = System.getProperty("auth0.url");
     private static final String apiToken = System.getProperty("api.token");
-//    private static final String migrationToken = System.getProperty("migration.token");
+    private static final String migrationToken = System.getProperty("migration.token");
     private static final String deleteToken = System.getProperty("delete.token");
     private static final String clientId = System.getProperty("client.id");
     private static final String clientSecret = System.getProperty("client.secret");
-
-    private static String ciiBaseURI = "https://test.conclavecii.api.crowncommercial.gov.uk";
-    private static String migrationToken = "37IV343V74432RI3IY3I7G333RV72CI73V6R33I6VV3GVR3334";
-
-
 
     public static String getCiiBaseURI() {
         return ciiBaseURI;

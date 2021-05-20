@@ -10,7 +10,8 @@ import org.testng.annotations.Test;
 import static com.ccs.conclave.api.cii.data.OrgDataProvider.getExpSchemeInfoWithOnlySFIdentifier;
 import static com.ccs.conclave.api.cii.data.OrgDataProvider.getExpectedSchemeInfo;
 import static com.ccs.conclave.api.cii.data.SchemeRegistry.COMPANIES_HOUSE;
-import static com.ccs.conclave.api.cii.verification.VerifyEndpointResponses.verifyPostSchemeInfoResponse;
+import static com.ccs.conclave.api.cii.requests.RestRequests.getRegisteredSchemesInfo;
+import static com.ccs.conclave.api.cii.verification.VerifyEndpointResponses.*;
 
 public class PostSalesForceInfoTests extends BaseClass {
 
@@ -26,7 +27,11 @@ public class PostSalesForceInfoTests extends BaseClass {
 
         // Perform Post Operation
         Response postSchemeRes = RestRequests.postSFInfo("sfid", sfid);
-        verifyPostSchemeInfoResponse(schemeInfo, postSchemeRes);
+        verifyPostSFInfoResponse(schemeInfo, postSchemeRes);
+
+        logger.info("Get registered schemes...");
+        Response registeredSchemesRes = getRegisteredSchemesInfo(getCCSOrgId());
+        verifySFRegisteredSchemesAsAdditionalIdentifiers(registeredSchemesRes, schemeInfo, 1);
 
     }
 
@@ -40,10 +45,12 @@ public class PostSalesForceInfoTests extends BaseClass {
 
         // Perform Post Operation
         Response postSchemeRes = RestRequests.postSFInfo("sfurn", sfurn);
-        verifyPostSchemeInfoResponse(schemeInfo, postSchemeRes);
+        verifyPostSFInfoResponse(schemeInfo, postSchemeRes);
 
+        logger.info("Get registered schemes...");
+        Response registeredSchemesRes = getRegisteredSchemesInfo(getCCSOrgId());
+        verifySFRegisteredSchemesAsAdditionalIdentifiers(registeredSchemesRes, schemeInfo, 1);
     }
-
 
 }
 
