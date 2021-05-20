@@ -175,7 +175,7 @@ public class UpdateSchemeTests extends BaseClass {
         verifyUpdatedScheme(getCCSOrgId(), updateSchemeInfo);
     }
 
-    @Test(description = "Try to update using existing identifier as aprt of another organisation and expect duplicate error code")
+    @Test(description = "Try to update using existing identifier as part of another organisation and expect duplicate error code")
     public void updateAlreadyExistingIdentifier() {
         SchemeInfo schemeInfo1 = getExpectedSchemeInfo(DUN_AND_BRADSTREET_WITH_COH);
         SchemeInfo schemeInfoWithoutSF = OrgDataProvider.getExpSchemeInfoWithoutSFIdentifier(DUN_AND_BRADSTREET_WITH_COH);

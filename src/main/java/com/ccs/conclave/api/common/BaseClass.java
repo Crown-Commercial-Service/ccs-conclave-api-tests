@@ -63,7 +63,7 @@ public class BaseClass {
     @BeforeSuite
     protected void loadTestData() throws IOException {
         InputStream inputStream;
-        if (System.getProperty("mock.tests").equals("True")) {
+        if (isMockTestEnabled()) {
             logger.info("Loading mock endpoints...");
             inputStream = getClass().getClassLoader().getResourceAsStream("mockEndpoints.properties");
             OrgDataProvider.initMockTestDataProvider();
@@ -84,5 +84,12 @@ public class BaseClass {
 
     public static String getProperty(String key) {
         return properties.getProperty(key);
+    }
+
+    public static Boolean isMockTestEnabled() {
+        if(System.getProperty("mock.tests").equals("True")) {
+            return true;
+        }
+        return false;
     }
 }
