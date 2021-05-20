@@ -27,7 +27,7 @@ public class RequestTestEndpoints {
     }
 
     private static GetCIIDBDataTestEndpointResponse getRegisteredOrganisations(String id) {
-        String endpoint = RestRequests.getCiiBaseURI() + Endpoints.getRegisteredOrgIdsURI + id;
+        String endpoint = RestRequests.getBaseURI() + Endpoints.getRegisteredOrgIdsURI + id;
         Response response = RestRequests.get(endpoint);
         GetCIIDBDataTestEndpointResponse dbInfo = new GetCIIDBDataTestEndpointResponse(Arrays.asList());
         if (response.getStatusCode() == OK.getCode()) {

@@ -2,6 +2,7 @@ package com.ccs.conclave.api.cii.requests;
 
 import com.ccs.conclave.api.cii.pojo.AdditionalSchemeInfo;
 import com.ccs.conclave.api.cii.pojo.SignupData;
+import com.ccs.conclave.api.common.BaseClass;
 import com.ccs.conclave.api.common.Endpoints;
 import com.ccs.conclave.api.cii.data.SchemeRegistry;
 import io.restassured.RestAssured;
@@ -16,9 +17,10 @@ import static com.ccs.conclave.api.common.StatusCodes.OK;
 import static io.restassured.RestAssured.given;
 
 
-public class RestRequests {
+public class RestRequests extends BaseClass {
     private final static Logger logger = Logger.getLogger(RestRequests.class);
     private static final String ciiBaseURI = System.getProperty("cii.base.url");
+    private static final String ciiMockBaseURI = System.getProperty("cii.mock.base.url");
     private static final String conclaveBaseURI = System.getProperty("conclave.base.url");
     private static final String conclaveLoginURI = System.getProperty("conclave.login.url");
     private static final String loginToken = System.getProperty("login.token");
@@ -28,7 +30,10 @@ public class RestRequests {
     private static final String clientId = System.getProperty("client.id");
     private static final String clientSecret= System.getProperty("client.secret");
 
-    public static String getCiiBaseURI() {
+    public static String getBaseURI() {
+        if(isMockTestEnabled()) {
+            return ciiMockBaseURI;
+        }
         return ciiBaseURI;
     }
 
@@ -41,7 +46,7 @@ public class RestRequests {
     }
 
     public static Response getSchemeInfo(SchemeRegistry scheme, String identifier) {
-        String endpoint = ciiBaseURI + Endpoints.getSchemeInfoURI + "scheme=" + getSchemeCode(scheme) + "&id=" + identifier;
+        String endpoint = getBaseURI() + Endpoints.getSchemeInfoURI + "scheme=" + getSchemeCode(scheme) + "&id=" + identifier;
         logger.info("getSchemeInfo Endpoint: " + endpoint);
         return get(endpoint);
     }
@@ -55,7 +60,7 @@ public class RestRequests {
     }
 
     public static Response getRegisteredSchemesInfo(String ccsOrgId) {
-        String endpoint = ciiBaseURI + Endpoints.getRegisteredSchemesURI + "ccs_org_id=" + ccsOrgId;
+        String endpoint = getBaseURI() + Endpoints.getRegisteredSchemesURI + "ccs_org_id=" + ccsOrgId;
         logger.info("get RegisteredSchemeInfo Endpoint: " + endpoint);
         return get(endpoint);
     }
@@ -68,24 +73,24 @@ public class RestRequests {
     }
 
     public static Response getSchemes() {
-        String endpoint = ciiBaseURI + Endpoints.getSchemesURI;
+        String endpoint = getBaseURI() + Endpoints.getSchemesURI;
         logger.info("getSchemes Endpoint: " + endpoint);
         return get(endpoint);
     }
 
     public static Response postSchemeInfo(String requestPayload) {
-        String endpoint = ciiBaseURI + Endpoints.postSchemeInfoURI;
+        String endpoint = getBaseURI() + Endpoints.postSchemeInfoURI;
         return postToCIIAPI(endpoint, requestPayload);
     }
 
     public static Response updateScheme(AdditionalSchemeInfo additionalSchemeInfo) {
-        String endpoint = ciiBaseURI + Endpoints.updateSchemeURI;
+        String endpoint = getBaseURI() + Endpoints.updateSchemeURI;
         String accessToken = RequestTestEndpoints.getAccessToken(additionalSchemeInfo.getCcsOrgId());
         return put(endpoint, additionalSchemeInfo, accessToken);
     }
 
     public static Response deleteScheme(AdditionalSchemeInfo additionalSchemeInfo) {
-        String endpoint = ciiBaseURI + Endpoints.deleteSchemeURI;
+        String endpoint = getBaseURI() + Endpoints.deleteSchemeURI;
         String accessToken = RequestTestEndpoints.getAccessToken(additionalSchemeInfo.getCcsOrgId());
         return delete(endpoint, additionalSchemeInfo, accessToken);
     }
@@ -93,7 +98,7 @@ public class RestRequests {
     public static void deleteOrganisation(String ccsOrgId) {
         logger.info(">>> RestRequests::deleteOrganisation() >>>");
         if (!ccsOrgId.isEmpty()) {
-            Response response = RestRequests.deleteAll(RestRequests.getCiiBaseURI() + Endpoints.deleteOrganisationURI +
+            Response response = RestRequests.deleteAll(getBaseURI() + Endpoints.deleteOrganisationURI +
                     "ccs_org_id=" + ccsOrgId);
             Assert.assertEquals(response.getStatusCode(), OK.getCode(), "Something went wrong while deleting existing organisation!");
             logger.info("Successfully deleted registered organisation.");
@@ -105,7 +110,7 @@ public class RestRequests {
         logger.info(">>> RestRequests::deleteOrganisation() >>>");
         String ccsOrgId = RequestTestEndpoints.getRegisteredOrgId(id); // This is a test endpoint call
         if (!ccsOrgId.isEmpty()) {
-            Response response = RestRequests.deleteAll(RestRequests.getCiiBaseURI() + Endpoints.deleteOrganisationURI +
+            Response response = RestRequests.deleteAll(getBaseURI() + Endpoints.deleteOrganisationURI +
                     "ccs_org_id=" + ccsOrgId);
             Assert.assertEquals(response.getStatusCode(), OK.getCode(), "Something went wrong while deleting existing organisation!");
             logger.info("Successfully deleted registered organisation.");
@@ -124,7 +129,7 @@ public class RestRequests {
         logger.info(">>> RestRequests::getEndpointWithAccessToken() >>>");
         Response res = given().header("x-api-key", apiToken)
                 .header("Authorization", "Bearer " + accessToken)
-                .expect().defaultParser(Parser.JSON).when().get(ciiBaseURI + endpoint);
+                .expect().defaultParser(Parser.JSON).when().get(getBaseURI() + endpoint);
         logger.info("RestRequests::getEndpointWithAccessToken() call with status code: " + res.getStatusCode());
         return res;
     }
