@@ -119,7 +119,8 @@ public class VerifyEndpointResponses {
     // This method verifies only the registered schemes; to verify the hidden schemes as part of post need to use VerifyAllRegistered
     // Schemes
     public static void verifyPostSchemeInfoResponse(SchemeInfo expectedSchemeInfo, Response response) {
-        verifyResponseCodeForCreatedResource(response);
+//        verifyResponseCodeForCreatedResource(response);
+        verifyResponseCodeForSuccess(response);
         PostSchemeInfoResponse actualResponse = new PostSchemeInfoResponse(Arrays.asList(response.getBody().as(OrgIdentifier[].class)));
         Assert.assertTrue(actualResponse.getOrgIdentifier().size() == 1, "Not expected Post response!");
         ccsOrgId = actualResponse.getOrgIdentifier().get(0).getCcsOrgId();

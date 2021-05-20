@@ -7,7 +7,7 @@ public class Endpoints {
     public static String getSchemesURI = getProperty("getSchemesURI");
     public static String getSchemeInfoURI = getProperty("getSchemeInfoURI");
     public static String postSchemeInfoURI = getProperty("postSchemeInfoURI");
-    public static String postRegisterBuyerURI = getProperty("postRegisterBuyerURI");
+    public static String postRegisterBuyerURI = getProperty("postSalesForceURI");
     public static String updateSchemeURI = getProperty("updateSchemeURI");
     public static String deleteSchemeURI = getProperty("deleteSchemeURI");
     public static String deleteOrganisationURI = getProperty("deleteOrganisationURI");
