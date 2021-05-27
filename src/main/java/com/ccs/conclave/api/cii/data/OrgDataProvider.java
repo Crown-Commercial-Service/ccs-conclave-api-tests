@@ -122,19 +122,6 @@ public class OrgDataProvider extends BaseClass {
         return schemeInfoModified;
     }
 
-    public static String getOnlySFIdentifier(SchemeRegistry schemeRegistry) {
-        SchemeInfo schemeInfo = getExpectedSchemeInfo(schemeRegistry);
-        SchemeInfo schemeInfoModified = new SchemeInfo();
-        schemeInfoModified.setIdentifier(schemeInfo.getIdentifier());
-        for (Identifier identifier : schemeInfo.getAdditionalIdentifiers()) {
-            if (identifier.getScheme().equals(getSchemeCode(SALES_FORCE))) {
-                schemeInfoModified.getAdditionalIdentifiers().add(identifier);
-            }
-        }
-        return schemeInfoModified.getAdditionalIdentifiers().get(0).getId();
-    }
-
-
     public static void initMockTestDataProvider() {
         mockDataProvider = new MockDataProvider();
     }
