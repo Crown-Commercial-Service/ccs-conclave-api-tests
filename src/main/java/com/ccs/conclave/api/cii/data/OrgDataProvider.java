@@ -67,9 +67,9 @@ public class OrgDataProvider extends BaseClass {
         List<AdditionalSchemeInfo> additionalSchemesInfo = new ArrayList<>();
         SchemeInfo schemeInfo = getExpectedSchemeInfo(schemeRegistry);
         for (Identifier addIdentifier : schemeInfo.getAdditionalIdentifiers()) {
-                AdditionalSchemeInfo additionalSchemeInfo = new AdditionalSchemeInfo();
-                additionalSchemeInfo.setIdentifier(addIdentifier);
-                additionalSchemesInfo.add(additionalSchemeInfo);
+            AdditionalSchemeInfo additionalSchemeInfo = new AdditionalSchemeInfo();
+            additionalSchemeInfo.setIdentifier(addIdentifier);
+            additionalSchemesInfo.add(additionalSchemeInfo);
         }
         return additionalSchemesInfo;
     }
@@ -89,7 +89,6 @@ public class OrgDataProvider extends BaseClass {
         }
         return schemeInfoModified;
     }
-
 
 
     public static SchemeInfo getExpSchemeInfoWithoutSFIdentifier(SchemeInfo schemeInfo) {

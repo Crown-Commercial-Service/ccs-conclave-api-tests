@@ -131,6 +131,20 @@ public class VerifyEndpointResponses {
         verifyRegisteredSchemes(regSchemesRes, expectedSchemeInfo, expectedSchemeInfo.getAdditionalIdentifiers().size());
     }
 
+    public static void verifyPostSFInfoResponse(SchemeInfo expectedSchemeInfo, Response response) {
+        verifyResponseCodeForSuccess(response);
+
+        PostSFInfoResponse actualResponse = new PostSFInfoResponse((response.getBody().as(OrgIdentifier.class)));
+        ccsOrgId = actualResponse.getOrgIdentifier().getCcsOrgId();
+        Assert.assertTrue(!actualResponse.getOrgIdentifier().getCcsOrgId().isEmpty()); // CcsOrgId is not empty
+        logger.info("CcsOrgId: " + actualResponse.getOrgIdentifier().getCcsOrgId());
+
+        // get registered schemes after post
+        Response regSchemesRes = RestRequests.getRegisteredSchemesInfo(ccsOrgId);
+        verifySFRegisteredSchemesAsAdditionalIdentifiers(regSchemesRes, expectedSchemeInfo, expectedSchemeInfo.getAdditionalIdentifiers().size());
+    }
+
+
     public static void verifyUpdatedScheme(String ccsOrgId, AdditionalSchemeInfo expectedAdditionalSchemeInfo) {
         Response actualRes = RestRequests.getRegisteredSchemesInfo(ccsOrgId);
         GetRegisteredSchemesResponse registeredSchemeInfoRes = new GetRegisteredSchemesResponse(Arrays.asList(actualRes.getBody().as(RegisteredSchemeInfo[].class)));
@@ -212,6 +226,31 @@ public class VerifyEndpointResponses {
         Assert.assertEquals(actualSchemeInfo.getIdentifier().getScheme(), expectedSchemeInfo.getIdentifier().getScheme(), "Invalid scheme returned via get registered schemes!!!!");
         Assert.assertEquals(actualSchemeInfo.getIdentifier().getUri(), expectedSchemeInfo.getIdentifier().getUri(), "Invalid uri returned via get registered schemes!!!!");
         Assert.assertEquals(actualSchemeInfo.getIdentifier().getLegalName(), expectedSchemeInfo.getIdentifier().getLegalName(), "Invalid Legal name returned via get registered schemes!!!!");
+
+        Assert.assertEquals(actualSchemeInfo.getAdditionalIdentifiers().size(), selectedAddIds, "Wrong number of additional identifiers!!!!");
+
+        int addIdentifierPresent = 0;
+        for (int i = 0; i < selectedAddIds; i++) {
+            Identifier expectedAddIdentifier = expectedSchemeInfo.getAdditionalIdentifiers().get(i);
+            for (Identifier actualAddIdentifier : actualSchemeInfo.getAdditionalIdentifiers()) {
+                if (actualAddIdentifier.getId().equals(expectedAddIdentifier.getId()) &&
+                        actualAddIdentifier.getScheme().equals(expectedAddIdentifier.getScheme())) {
+                    ++addIdentifierPresent;
+                    Assert.assertEquals(actualAddIdentifier.getId(), expectedAddIdentifier.getId(), "Invalid Id for add identifier returned via get registered schemes!!!!");
+                    Assert.assertEquals(actualAddIdentifier.getScheme(), expectedAddIdentifier.getScheme(), "Invalid scheme for add identifier returned via get registered schemes!!");
+                    Assert.assertEquals(actualAddIdentifier.getUri(), expectedAddIdentifier.getUri(), "Invalid uri for add identifier returned via get registered schemes!!");
+                    Assert.assertEquals(actualAddIdentifier.getLegalName(), expectedAddIdentifier.getLegalName(), "Invalid legal name for add identifier returned via get registered schemes!!");
+                }
+            }
+            Assert.assertEquals(addIdentifierPresent, 1, "Additional identifier is not returned as part of Get Registered Schemes!!!!");
+            --addIdentifierPresent;
+        }
+    }
+
+    public static void verifySFRegisteredSchemesAsAdditionalIdentifiers(Response actualRes, SchemeInfo expectedSchemeInfo, int selectedAddIds) {
+        verifyResponseCodeForSuccess(actualRes);
+        GetRegisteredSchemesResponse registeredSchemeInfoRes = new GetRegisteredSchemesResponse(Arrays.asList(actualRes.getBody().as(RegisteredSchemeInfo[].class)));
+        RegisteredSchemeInfo actualSchemeInfo = registeredSchemeInfoRes.getRegisteredSchemesInfo().get(0);
 
         Assert.assertEquals(actualSchemeInfo.getAdditionalIdentifiers().size(), selectedAddIds, "Wrong number of additional identifiers!!!!");
 

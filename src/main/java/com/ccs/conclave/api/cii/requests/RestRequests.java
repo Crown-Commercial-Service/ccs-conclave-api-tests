@@ -26,6 +26,7 @@ public class RestRequests extends BaseClass {
     private static final String loginToken = System.getProperty("login.token");
     private static final String auth0URI = System.getProperty("auth0.url");
     private static final String apiToken = System.getProperty("api.token");
+    private static final String migrationToken = System.getProperty("migration.token");
     private static final String deleteToken = System.getProperty("delete.token");
     private static final String clientId = System.getProperty("client.id");
     private static final String clientSecret= System.getProperty("client.secret");
@@ -81,6 +82,11 @@ public class RestRequests extends BaseClass {
     public static Response postSchemeInfo(String requestPayload) {
         String endpoint = getBaseURI() + Endpoints.postSchemeInfoURI;
         return postToCIIAPI(endpoint, requestPayload);
+    }
+
+    public static Response postSFInfo(String accountIdType, String accountId) {
+        String endpoint = ciiBaseURI + Endpoints.postRegisterBuyerURI + "account_id_type=" + accountIdType + "&account_id=" + accountId;
+        return postSFInfoToCII(endpoint);
     }
 
     public static Response updateScheme(AdditionalSchemeInfo additionalSchemeInfo) {
@@ -141,6 +147,15 @@ public class RestRequests extends BaseClass {
         logger.info("RestRequests::postToCIIAPI() call with status code: " + res.getStatusCode());
         return res;
     }
+
+    public static Response postSFInfoToCII(String baseURI) {
+        logger.info(">>> RestRequests::postToSF() >>>");
+        Response res = given().header("x-api-key", migrationToken).header("Content-Type", "application/json")
+                .when().post(baseURI);
+        logger.info("RestRequests::postToSF() call with status code: " + res.getStatusCode());
+        return res;
+    }
+
 
     public static Response postToConclaveAPI(String endPoint, Object requestPayload) {
         logger.info(">>> RestRequests::postToConclaveAPI() >>>");
