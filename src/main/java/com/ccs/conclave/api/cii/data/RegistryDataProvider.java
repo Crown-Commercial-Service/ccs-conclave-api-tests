@@ -88,6 +88,15 @@ public class RegistryDataProvider {
                 schemeInfo.setContactPoint(contactPoint);
                 break;
 
+            case DUN_AND_BRADSTREET_WITH_COH_WITH_DIFF_SF_ID:
+                schemeInfo.setName("Placeholder-No real data available");
+                identifier.setId("909123456");
+                identifier.setScheme(SchemeRegistry.getSchemeCode(DUN_AND_BRADSTREET_WITH_COH_WITH_DIFF_SF_ID));
+                identifier.setLegalName("");
+                identifier.setUri("");
+                schemeInfo.setIdentifier(identifier);
+                break;
+
             case DUN_AND_BRADSTREET_WALES:
                 schemeInfo.setName("HMPS SHARED SERVICES");
                 identifier.setId("210019203");

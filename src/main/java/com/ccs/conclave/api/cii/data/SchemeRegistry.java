@@ -6,6 +6,7 @@ public enum SchemeRegistry {
     DUN_AND_BRADSTREET_WALES("US-DUN", "Dun & Bradstreet",  "US"),
     DUN_AND_BRADSTREET_WITH_COH("US-DUN", "Dun & Bradstreet",  "US"),
     DUN_AND_BRADSTREET_WITH_CHC_AND_COH("US-DUN", "Dun & Bradstreet",  "US"),
+    DUN_AND_BRADSTREET_WITH_COH_WITH_DIFF_SF_ID("US-DUN", "Dun & Bradstreet",  "US"),
     CHARITIES_COMMISSION("GB-CHC", "Charity Commission for England and Wales", "GB"),
     CHARITIES_COMMISSION_WITH_TWO_COH("GB-CHC", "Charity Commission for England and Wales",  "GB"),
     CHARITIES_COMMISSION_WITH_COH("GB-CHC", "Charity Commission for England and Wales",  "GB"),
