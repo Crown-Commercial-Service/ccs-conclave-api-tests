@@ -202,6 +202,68 @@ public class MockDataProvider {
                 schemeInfo.setContactPoint(contactPoint);
                 break;
 
+            case DUN_AND_BRADSTREET_WITH_COH_WITH_DIFF_SF_ID:
+                schemeInfo.setName("Company Example 909123456");
+                identifier.setId("909123456");
+                identifier.setScheme(SchemeRegistry.getSchemeCode(DUN_AND_BRADSTREET_WITH_COH));
+                identifier.setLegalName("Company Example 909123456");
+                identifier.setUri("");
+                schemeInfo.setIdentifier(identifier);
+
+                additionalIdentifier1.setScheme(SchemeRegistry.getSchemeCode(COMPANIES_HOUSE));
+                additionalIdentifier1.setId("09812345");
+                additionalIdentifier1.setUri("http://www.example.org.uk");
+                additionalIdentifier1.setLegalName("Charity Example 09812345");
+                additionalIdentifiers.add(additionalIdentifier1);
+
+                additionalIdentifier2.setScheme(SchemeRegistry.getSchemeCode(COMPANIES_HOUSE));
+                additionalIdentifier2.setId("09912345");
+                additionalIdentifier2.setUri("");
+                additionalIdentifier2.setLegalName("Company Example 09912345");
+                additionalIdentifiers.add(additionalIdentifier2);
+                schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
+
+                // Salesforce identifier for DUNS
+                additionalIdentifier3.setScheme(SchemeRegistry.getSchemeCode(SALES_FORCE));
+                additionalIdentifier3.setId("NSO7IUSHF98HFP9WEH5PHG~56734565567");
+                additionalIdentifier3.setUri("/services/data/v45.0/sobjects/Account/NSO7IUSHF98HFP9WEH5PHG");
+                additionalIdentifier3.setLegalName("CHAIGELEY EDUCATIONAL FOUNDATION");
+                additionalIdentifier3.setHidden("true");
+                additionalIdentifiers.add(additionalIdentifier3);
+                schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
+
+                // Salesforce identifier COH1
+                additionalIdentifier3.setScheme(SchemeRegistry.getSchemeCode(SALES_FORCE));
+                additionalIdentifier3.setId("NSO7IUSHF98HFP9WEH7PLC~56734565478");
+                additionalIdentifier3.setUri("/services/data/v45.0/sobjects/Account/NSO7IUSHF98HFP9WEH7PLC");
+                additionalIdentifier3.setLegalName("CHAIGELEY EDUCATIONAL FOUNDATION");
+                additionalIdentifier3.setHidden("true");
+                additionalIdentifiers.add(additionalIdentifier3);
+                schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
+
+                // Salesforce identifier COH2
+                additionalIdentifier3.setScheme(SchemeRegistry.getSchemeCode(SALES_FORCE));
+                additionalIdentifier3.setId("NSO7IUSHF98HFP9WEH6PMG~56734565478");
+                additionalIdentifier3.setUri("/services/data/v45.0/sobjects/Account/NSO7IUSHF98HFP9WEH6PMG");
+                additionalIdentifier3.setLegalName("CHAIGELEY EDUCATIONAL FOUNDATION");
+                additionalIdentifier3.setHidden("true");
+                additionalIdentifiers.add(additionalIdentifier3);
+                schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
+
+                address.setCountryName("Country");
+                address.setLocality("Locality");
+                address.setPostalCode("AB1C 2DE");
+                address.setRegion("");
+                address.setStreetAddress("123 Fake Street");
+                schemeInfo.setAddress(address);
+
+                contactPoint.setName("");
+                contactPoint.setEmail("");
+                contactPoint.setFaxNumber("");
+                contactPoint.setTelephone("");
+                contactPoint.setUri("");
+                schemeInfo.setContactPoint(contactPoint);
+                break;
             case CHARITIES_COMMISSION:
                 schemeInfo.setName("Charity Example 202123");
                 identifier.setId("202123");
