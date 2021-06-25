@@ -102,7 +102,6 @@ public class RestRequests extends BaseClass {
     }
 
     public static void deleteOrganisation(String ccsOrgId) {
-        logger.info(">>> RestRequests::deleteOrganisation() >>>");
         if (!ccsOrgId.isEmpty()) {
             Response response = RestRequests.deleteAll(getBaseURI() + Endpoints.deleteOrganisationURI +
                     "ccs_org_id=" + ccsOrgId);
@@ -113,7 +112,6 @@ public class RestRequests extends BaseClass {
     }
 
     public static void deleteOrganisationWithIdTestEndPt(String id) {
-        logger.info(">>> RestRequests::deleteOrganisation() >>>");
         String ccsOrgId = RequestTestEndpoints.getRegisteredOrgId(id); // This is a test endpoint call
         if (!ccsOrgId.isEmpty()) {
             Response response = RestRequests.deleteAll(getBaseURI() + Endpoints.deleteOrganisationURI +
@@ -125,14 +123,12 @@ public class RestRequests extends BaseClass {
     }
 
     public static Response get(String baseURI) {
-        logger.info(">>> RestRequests::get() >>>");
         Response res = given().header("x-api-key", apiToken).expect().defaultParser(Parser.JSON).when().get(baseURI);
         logger.info("RestRequests::get() call with status code: " + res.getStatusCode());
         return res;
     }
 
     private static Response getEndpointWithAccessToken(String endpoint, String accessToken) {
-        logger.info(">>> RestRequests::getEndpointWithAccessToken() >>>");
         Response res = given().header("x-api-key", apiToken)
                 .header("Authorization", "Bearer " + accessToken)
                 .expect().defaultParser(Parser.JSON).when().get(getBaseURI() + endpoint);
@@ -141,7 +137,6 @@ public class RestRequests extends BaseClass {
     }
 
     public static Response postToCIIAPI(String baseURI, String requestPayload) {
-        logger.info(">>> RestRequests::postToCIIAPI() >>>");
         Response res = given().header("x-api-key", apiToken).header("Content-Type", "application/json")
                 .body(requestPayload).when().post(baseURI);
         logger.info("RestRequests::postToCIIAPI() call with status code: " + res.getStatusCode());
@@ -149,16 +144,14 @@ public class RestRequests extends BaseClass {
     }
 
     public static Response postSFInfoToCII(String baseURI) {
-        logger.info(">>> RestRequests::postToSF() >>>");
         Response res = given().header("x-api-key", migrationToken).header("Content-Type", "application/json")
                 .when().post(baseURI);
-        logger.info("RestRequests::postToSF() call with status code: " + res.getStatusCode());
+        logger.info("RestRequests::postSFInfoToCII() call with status code: " + res.getStatusCode());
         return res;
     }
 
 
     public static Response postToConclaveAPI(String endPoint, Object requestPayload) {
-        logger.info(">>> RestRequests::postToConclaveAPI() >>>");
         Response res = given().header("Content-Type", "application/json")
                 .body(requestPayload).when().post(conclaveBaseURI + endPoint);
         Assert.assertEquals(res.getStatusCode(), OK.getCode(), "Something went wrong while Conclave post operation!");
@@ -168,7 +161,6 @@ public class RestRequests extends BaseClass {
     }
 
     public static Response loginToConclaveAPI(String endPoint, Object loginData) {
-        logger.info(">>> RestRequests::loginToConclaveAPI() >>>");
         Response res = given()
                 .header("x-api-key", loginToken)
                 .header("Content-Type", "application/json")
@@ -180,7 +172,6 @@ public class RestRequests extends BaseClass {
     }
 
     public static Response postToAuth0(String endPoint, SignupData signupData) {
-        logger.info(">>> RestRequests::postToAuth0() >>>");
         EncoderConfig encoderConfig = RestAssured.config().getEncoderConfig()
                 .appendDefaultContentCharsetToContentTypeIfUndefined(false);
         RestAssured.config = RestAssured.config().encoderConfig(encoderConfig);
@@ -199,7 +190,6 @@ public class RestRequests extends BaseClass {
     }
 
     public static Response put(String baseURI, AdditionalSchemeInfo requestPayload, String accessToken) {
-        logger.info(">>> RestRequests::put() >>>");
         Response res = given().header("x-api-key", apiToken)
                 .header("Authorization", "Bearer " + accessToken)
                 .param("ccs_org_id", requestPayload.getCcsOrgId())
@@ -212,7 +202,6 @@ public class RestRequests extends BaseClass {
     }
 
     public static Response delete(String baseURI, AdditionalSchemeInfo requestPayload, String accessToken) {
-        logger.info(">>> RestRequests::delete() >>>");
         Response res = given().header("x-api-key", apiToken)
                 .header("Authorization", "Bearer " + accessToken)
                 .param("ccs_org_id", requestPayload.getCcsOrgId())
@@ -225,7 +214,6 @@ public class RestRequests extends BaseClass {
     }
 
     public static Response deleteAll(String baseURI) {
-        logger.info(">>> RestRequests::deleteAll() >>>");
         Response res;
         if(isMockTestEnabled())
             res = given().header("x-api-key", apiToken).expect().defaultParser(Parser.JSON).when().delete(baseURI);
