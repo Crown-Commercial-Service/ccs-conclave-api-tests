@@ -1,9 +1,6 @@
 package com.ccs.conclave.api.cii.data;
 
 import com.ccs.conclave.api.cii.pojo.*;
-import com.ccs.conclave.api.common.BaseClass;
-import org.testng.Assert;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,27 +22,27 @@ public class RegistryDataProvider {
         ContactPoint contactPoint = new ContactPoint();
         switch (schemeRegistry) {
             case COMPANIES_HOUSE:
-                schemeInfo.setName("AI RECRUITMENT TECHNOLOGIES LIMITED");
-                identifier.setId("07651107");
+                schemeInfo.setName("CIRCLE HEALTH LIMITED");
+                identifier.setId("05042771");
                 identifier.setScheme(SchemeRegistry.getSchemeCode(COMPANIES_HOUSE));
-                identifier.setLegalName("AI RECRUITMENT TECHNOLOGIES LIMITED");
+                identifier.setLegalName("CIRCLE HEALTH LIMITED");
                 identifier.setUri("");
                 schemeInfo.setIdentifier(identifier);
 
                 // Salesforce identifier
                 additionalIdentifier1.setScheme(SchemeRegistry.getSchemeCode(SALES_FORCE));
-                additionalIdentifier1.setId("0014J000004aDETQA2~10585349");
-                additionalIdentifier1.setUri("/services/data/v45.0/sobjects/Account/0014J000004aDETQA2");
-                additionalIdentifier1.setLegalName("AI RECRUITMENT TECHNOLOGIES LIMITED");
+                additionalIdentifier1.setId("001b000003V2vepAAB~10052453");
+                additionalIdentifier1.setUri("/services/data/v45.0/sobjects/Account/001b000003V2vepAAB");
+                additionalIdentifier1.setLegalName("CIRCLE HEALTH LIMITED");
                 additionalIdentifier1.setHidden("true");
                 additionalIdentifiers.add(additionalIdentifier1);
                 schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
 
                 address.setCountryName("England");
-                address.setLocality("Prescot");
-                address.setPostalCode("L34 4AT");
-                address.setRegion("Merseyside");
-                address.setStreetAddress("Upper Floor, The Granary, Stanley Grange Ormskirk Road, Knowsley");
+                address.setLocality("London");
+                address.setPostalCode("EC4M 6XH");
+                address.setRegion("");
+                address.setStreetAddress("1st Floor 30 Cannon Street");
                 schemeInfo.setAddress(address);
 
                 contactPoint.setName("");
@@ -191,7 +188,7 @@ public class RegistryDataProvider {
 
                 // Salesforce identifier
                 additionalIdentifier3.setScheme(SchemeRegistry.getSchemeCode(SALES_FORCE));
-                additionalIdentifier3.setId("0001b000003YNthvAAD~10121852");
+                additionalIdentifier3.setId("001b000003YNthvAAD~10121852");
                 additionalIdentifier3.setUri("/services/data/v45.0/sobjects/Account/001b000003YNthvAAD");
                 additionalIdentifier3.setLegalName("CHAIGELEY EDUCATIONAL FOUNDATION");
                 additionalIdentifier3.setHidden("true");
@@ -645,11 +642,148 @@ public class RegistryDataProvider {
                 break;
 
             case SALES_FORCE:
-                schemeInfo.setName("Dummy data"); // Salesforce is only for internal search
-                identifier.setId("");
+                schemeInfo.setName("Sylvan Corporation"); // Salesforce is only for internal search
+                identifier.setId("001b000003OCdIZAA1~10046880");
+                identifier.setScheme(SchemeRegistry.getSchemeCode(SALES_FORCE));
+                identifier.setUri("/services/data/v45.0/sobjects/Account/001b000003OCdIZAA1");
+                identifier.setLegalName("Sylvan Corporation");
                 identifier.setHidden("true");
                 schemeInfo.setIdentifier(identifier);
                 break;
+
+            case SFID_WITH_VALID_DUNS_INVALID_COH:
+                // Sales force return COH but it is invalid - this data may not be available in future after SF data cleansing activity
+                schemeInfo.setName("C.A. PETRIDES LIMITED");
+                identifier.setId("114173941");
+                identifier.setScheme(SchemeRegistry.getSchemeCode(DUN_AND_BRADSTREET));
+                identifier.setLegalName("C.A. PETRIDES LIMITED");
+                identifier.setUri("");
+                schemeInfo.setIdentifier(identifier);
+
+                // Salesforce identifier
+                additionalIdentifier1.setScheme(SchemeRegistry.getSchemeCode(SALES_FORCE));
+                additionalIdentifier1.setId("001b000003YNcxdAAD~10057668");
+                additionalIdentifier1.setUri("/services/data/v45.0/sobjects/Account/001b000003YNcxdAAD");
+                additionalIdentifier1.setLegalName("C.A. PETRIDES LIMITED");
+                additionalIdentifier1.setHidden("true");
+                additionalIdentifiers.add(additionalIdentifier1);
+                schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
+
+                address.setCountryName("Cyprus");
+                address.setLocality("Limassol");
+                address.setPostalCode("3012");
+                address.setRegion("");
+                address.setStreetAddress("46 FRAGKLINOU ROUSVELT");
+                schemeInfo.setAddress(address);
+
+                contactPoint.setName("");
+                contactPoint.setEmail("");
+                contactPoint.setFaxNumber("");
+                contactPoint.setTelephone("");
+                contactPoint.setUri("");
+                schemeInfo.setContactPoint(contactPoint);
+                break;
+
+            case SFID_WITH_VALID_DUNS_UNKNOWN_COH:
+                // Sales force return COH as 'unknown' string
+                schemeInfo.setName("GREENWOOD&BELL");
+                identifier.setId("114173941");
+                identifier.setScheme(SchemeRegistry.getSchemeCode(DUN_AND_BRADSTREET));
+                identifier.setLegalName("GREENWOOD&BELL");
+                identifier.setUri("");
+                schemeInfo.setIdentifier(identifier);
+
+                // Salesforce identifier
+                additionalIdentifier1.setScheme(SchemeRegistry.getSchemeCode(SALES_FORCE));
+                additionalIdentifier1.setId("001b000003WaB1fAAF~10055423");
+                additionalIdentifier1.setUri("/services/data/v45.0/sobjects/Account/001b000003WaB1fAAF");
+                additionalIdentifier1.setLegalName("GREENWOOD & BELL");
+                additionalIdentifier1.setHidden("true");
+                additionalIdentifiers.add(additionalIdentifier1);
+                schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
+
+                address.setCountryName("United States");
+                address.setLocality("NORWICH");
+                address.setPostalCode("NR15 2JP");
+                address.setRegion("");
+                address.setStreetAddress("Provender Mill, The Street, Aslacton");
+                schemeInfo.setAddress(address);
+
+                contactPoint.setName("");
+                contactPoint.setEmail("");
+                contactPoint.setFaxNumber("");
+                contactPoint.setTelephone("");
+                contactPoint.setUri("");
+                schemeInfo.setContactPoint(contactPoint);
+                break;
+
+            case SFID_WITH_VALID_COH_INVALID_DUNS:
+                schemeInfo.setName("placeholder-no data available.");
+                identifier.setId("");
+                identifier.setScheme(SchemeRegistry.getSchemeCode(COMPANIES_HOUSE));
+                identifier.setLegalName("");
+                identifier.setUri("");
+                schemeInfo.setIdentifier(identifier);
+                break;
+
+            case SFID_WITH_VALID_COH_UNKNOWN_DUNS:
+                schemeInfo.setName("placeholder- no data available.");
+                identifier.setId("");
+                identifier.setScheme(SchemeRegistry.getSchemeCode(COMPANIES_HOUSE));
+                identifier.setLegalName("");
+                identifier.setUri("");
+                schemeInfo.setIdentifier(identifier);
+                break;
+
+            case SFID_WITH_INVALID_COH_INVALID_DUNS:
+                schemeInfo.setName("placeholder - no data available.");
+                identifier.setId("");
+                identifier.setScheme(SchemeRegistry.getSchemeCode(COMPANIES_HOUSE));
+                identifier.setLegalName("");
+                identifier.setUri("");
+                schemeInfo.setIdentifier(identifier);
+                break;
+
+            case SFID_WITH_DUNS_CHC_NO_COH:
+                // Sales force return DUNS and no COH: DUNs has COH in external registry
+                schemeInfo.setName("THE SNOWDROP PROJECT");
+                identifier.setId("222468678");
+                identifier.setScheme(SchemeRegistry.getSchemeCode(DUN_AND_BRADSTREET));
+                identifier.setLegalName("THE SNOWDROP PROJECT");
+                identifier.setUri("");
+                schemeInfo.setIdentifier(identifier);
+
+                additionalIdentifier1.setScheme(SchemeRegistry.getSchemeCode(CHARITIES_COMMISSION));
+                additionalIdentifier1.setId("1158856");
+                additionalIdentifier1.setUri("https://register-of-charities.charitycommission.gov.uk/charity-details/?regId=1158856&subId=0");
+                additionalIdentifier1.setLegalName("THE SNOWDROP PROJECT");
+                additionalIdentifiers.add(additionalIdentifier1);
+                schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
+
+                // Salesforce identifier
+                additionalIdentifier2.setScheme(SchemeRegistry.getSchemeCode(SALES_FORCE));
+                additionalIdentifier2.setId("001b000003YQRqSAAX~10540930");
+                additionalIdentifier2.setUri("/services/data/v45.0/sobjects/Account/001b000003YQRqSAAX");
+                additionalIdentifier2.setLegalName("The Snowdrop Project");
+                additionalIdentifier2.setHidden("true");
+                additionalIdentifiers.add(additionalIdentifier2);
+                schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
+
+                address.setCountryName("United States");
+                address.setLocality("SHEFFIELD");
+                address.setPostalCode("S3 8LT");
+                address.setRegion("");
+                address.setStreetAddress("7 Castle Street the Snowdrop Project Castle Green");
+                schemeInfo.setAddress(address);
+
+                contactPoint.setName("");
+                contactPoint.setEmail("");
+                contactPoint.setFaxNumber("");
+                contactPoint.setTelephone("");
+                contactPoint.setUri("");
+                schemeInfo.setContactPoint(contactPoint);
+                break;
+
 
             default:
                 throw new IllegalStateException("Unexpected value: " + schemeRegistry);

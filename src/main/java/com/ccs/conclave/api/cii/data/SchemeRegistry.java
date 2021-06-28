@@ -19,6 +19,12 @@ public enum SchemeRegistry {
     SCOTLAND_CHARITY_WITH_CHC_COH("GB-SC", "Office of The Scottish Charity Regulator (OSCR)",  "GB"),
     SCOTLAND_CHARITY_WITH_KNOWN_AND_UNKNOWN_IDENTIFIERS("GB-SC", "Office of The Scottish Charity Regulator (OSCR)",  "GB"),
     SALES_FORCE("GB-CCS", "The Crown Commercial Service",  "GB"),
+    SFID_WITH_VALID_DUNS_INVALID_COH("US-DUN", "Dun & Bradstreet",  "US"),
+    SFID_WITH_VALID_DUNS_UNKNOWN_COH("US-DUN", "Dun & Bradstreet",  "US"),
+    SFID_WITH_VALID_COH_INVALID_DUNS("GB-COH", "Companies House",  "GB"),
+    SFID_WITH_VALID_COH_UNKNOWN_DUNS("GB-COH", "Companies House",  "GB"),
+    SFID_WITH_INVALID_COH_INVALID_DUNS("GB-COH", "Companies House",  "GB"),
+    SFID_WITH_DUNS_CHC_NO_COH("US-DUN", "Dun & Bradstreet",  "US"),
     INVALID_SCHEME("GB-XYZ", "",  "");
 
     private final String schemeCode;

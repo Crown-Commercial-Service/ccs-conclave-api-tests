@@ -17,7 +17,6 @@ public class MockDataProvider {
         Identifier additionalIdentifier2 = new Identifier();
         Identifier additionalIdentifier3 = new Identifier();
         Identifier additionalIdentifier4 = new Identifier();
-        Identifier additionalIdentifier5 = new Identifier();
         List<Identifier> additionalIdentifiers = new ArrayList<>();
         Address address = new Address();
         ContactPoint contactPoint = new ContactPoint();
@@ -671,6 +670,30 @@ public class MockDataProvider {
                 identifier.setId("");
                 identifier.setHidden("true");
                 schemeInfo.setIdentifier(identifier);
+                break;
+
+            case SFID_WITH_VALID_DUNS_INVALID_COH:
+                // Todo: wip mock data
+
+                break;
+
+            case SFID_WITH_VALID_DUNS_UNKNOWN_COH:
+                // Todo: wip mock data
+                break;
+
+            case SFID_WITH_VALID_COH_INVALID_DUNS:
+                // Todo: wip mock data
+                break;
+
+            case SFID_WITH_VALID_COH_UNKNOWN_DUNS:
+                // Todo: wip mock data
+                break;
+            case SFID_WITH_INVALID_COH_INVALID_DUNS:
+                // Todo: wip mock data
+                break;
+
+            case SFID_WITH_DUNS_CHC_NO_COH:
+                // Todo: wip mock data
                 break;
 
             default:
