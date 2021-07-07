@@ -47,9 +47,17 @@ public class RestRequests extends BaseClass {
     }
 
     public static Response getSchemeInfo(SchemeRegistry scheme, String identifier) {
-        String endpoint = getBaseURI() + Endpoints.getSchemeInfoURI + "scheme=" + getSchemeCode(scheme) + "&id=" + identifier;
-        logger.info("getSchemeInfo Endpoint: " + endpoint);
-        return get(endpoint);
+        String baseURL = getBaseURI();
+        if (isMockTestEnabled()) {
+            baseURL += Endpoints.getSchemeInfoURI + "scheme=" + getSchemeCode(scheme) + "&id=" + identifier;
+        } else {
+            String endpoint = Endpoints.getSchemeInfoURI;
+            endpoint = endpoint.replace("{{scheme-id}}", getSchemeCode(scheme));
+            endpoint = endpoint.replace("{{identifier-id}}", identifier);
+            baseURL += endpoint;
+        }
+        logger.info("getSchemeInfo Endpoint: " + baseURL);
+        return get(baseURL);
     }
 
     public static Response manageIdentifiers(SchemeRegistry scheme, String identifier, String ccsOrgId) {
@@ -114,8 +122,13 @@ public class RestRequests extends BaseClass {
     public static void deleteOrganisationWithIdTestEndPt(String id) {
         String ccsOrgId = RequestTestEndpoints.getRegisteredOrgId(id); // This is a test endpoint call
         if (!ccsOrgId.isEmpty()) {
-            Response response = RestRequests.deleteAll(getBaseURI() + Endpoints.deleteOrganisationURI +
-                    "ccs_org_id=" + ccsOrgId);
+            Response response;
+            if (isMockTestEnabled()) {
+                response = RestRequests.deleteAll(getBaseURI() + Endpoints.deleteOrganisationURI +
+                        "ccs_org_id=" + ccsOrgId);
+            } else {
+                response = RestRequests.deleteAll(getBaseURI() + Endpoints.deleteOrganisationURI + ccsOrgId);
+            }
             Assert.assertEquals(response.getStatusCode(), OK.getCode(), "Something went wrong while deleting existing organisation!");
             logger.info("Successfully deleted registered organisation.");
         }
