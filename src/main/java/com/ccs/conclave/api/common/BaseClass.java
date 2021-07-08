@@ -10,6 +10,7 @@ import com.ccs.conclave.api.cii.data.OrgDataProvider;
 import com.ccs.conclave.api.cii.data.SchemeRegistry;
 import com.ccs.conclave.api.cii.pojo.Identifier;
 import com.ccs.conclave.api.cii.pojo.SchemeInfo;
+import com.ccs.conclave.api.cii.requests.RequestTestEndpoints;
 import com.ccs.conclave.api.report.ExtentManager;
 import com.ccs.conclave.api.report.ExtentTestManager;
 import org.apache.log4j.Logger;
@@ -51,10 +52,12 @@ public class BaseClass {
         for(SchemeRegistry registry : SchemeRegistry.values()) {
             SchemeInfo schemeInfo = OrgDataProvider.getExpectedSchemeInfo(registry);
 
+            String ccsOrgId = RequestTestEndpoints.getRegisteredOrgId(schemeInfo.getIdentifier().getId());
             // Delete Database entry if the Org. is already registered
-            deleteOrganisationWithIdTestEndPt(schemeInfo.getIdentifier().getId());
+            deleteOrganisation(ccsOrgId);
             for (Identifier id : schemeInfo.getAdditionalIdentifiers()) {
-                deleteOrganisationWithIdTestEndPt(id.getId());
+                ccsOrgId = RequestTestEndpoints.getRegisteredOrgId(id.getId());
+                deleteOrganisation(ccsOrgId);
             }
         }
         logger.info("Cleared all test data...");
