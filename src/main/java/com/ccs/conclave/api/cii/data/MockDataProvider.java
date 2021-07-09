@@ -673,27 +673,202 @@ public class MockDataProvider {
                 break;
 
             case SFID_WITH_VALID_DUNS_INVALID_COH:
-                // Todo: wip mock data
+                schemeInfo.setName("Company Example 222123456");
+                identifier.setId("222123456");
+                identifier.setScheme(SchemeRegistry.getSchemeCode(DUN_AND_BRADSTREET));
+                identifier.setLegalName("Company Example 222123456");
+                identifier.setUri("");
+                schemeInfo.setIdentifier(identifier);
+
+                // Salesforce identifier
+                additionalIdentifier1.setScheme(SchemeRegistry.getSchemeCode(SALES_FORCE));
+                additionalIdentifier1.setId("NSO7IUSHF98HFP9WEH9YBW~56734565467");
+                additionalIdentifier1.setUri("/services/data/v46.0/subjects/Accout/NSO7IUSHF98HFP9WEH9YBW");
+                additionalIdentifier1.setLegalName("Dummy organisation");
+                additionalIdentifier1.setHidden("true");
+                additionalIdentifiers.add(additionalIdentifier1);
+                schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
+
+                address.setCountryName("Country");
+                address.setLocality("Locality");
+                address.setPostalCode("AB1C 2DE");
+                address.setRegion("");
+                address.setStreetAddress("123 Fake Street");
+                schemeInfo.setAddress(address);
+
+                contactPoint.setName("");
+                contactPoint.setEmail("");
+                contactPoint.setFaxNumber("");
+                contactPoint.setTelephone("");
+                contactPoint.setUri("");
+                schemeInfo.setContactPoint(contactPoint);
 
                 break;
 
             case SFID_WITH_VALID_DUNS_UNKNOWN_COH:
-                // Todo: wip mock data
+                schemeInfo.setName("GREENWOOD&BELL");
+                identifier.setId("222223456");
+                identifier.setScheme(SchemeRegistry.getSchemeCode(DUN_AND_BRADSTREET));
+                identifier.setLegalName("Company Example 222223456");
+                identifier.setUri("");
+                schemeInfo.setIdentifier(identifier);
+
+                // Salesforce identifier
+                additionalIdentifier1.setScheme(SchemeRegistry.getSchemeCode(SALES_FORCE));
+                additionalIdentifier1.setId("NSO7IUSHF98HFP9WEH9QAZ~56734565467");
+                additionalIdentifier1.setUri("/services/data/v46.0/subjects/Accout/NSO7IUSHF98HFP9WEH9QAZ");
+                additionalIdentifier1.setLegalName("Dummy organisation");
+                additionalIdentifier1.setHidden("true");
+                additionalIdentifiers.add(additionalIdentifier1);
+                schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
+
+                address.setCountryName("Country");
+                address.setLocality("Locality");
+                address.setPostalCode("AB1C 2DE");
+                address.setRegion("");
+                address.setStreetAddress("123 Fake Street");
+                schemeInfo.setAddress(address);
+
+                contactPoint.setName("");
+                contactPoint.setEmail("");
+                contactPoint.setFaxNumber("");
+                contactPoint.setTelephone("");
+                contactPoint.setUri("");
+                schemeInfo.setContactPoint(contactPoint);
                 break;
 
             case SFID_WITH_VALID_COH_INVALID_DUNS:
-                // Todo: wip mock data
+                schemeInfo.setName("Company Example 02222345");
+                identifier.setId("02222345");
+                identifier.setScheme(SchemeRegistry.getSchemeCode(COMPANIES_HOUSE));
+                identifier.setLegalName("Company Example 02222345");
+                identifier.setUri("");
+                schemeInfo.setIdentifier(identifier);
+
+                // Salesforce identifier
+                additionalIdentifier1.setScheme(SchemeRegistry.getSchemeCode(SALES_FORCE));
+                additionalIdentifier1.setId("NSO7IUSHF98HFP9WEH9YQR~56734565467");
+                additionalIdentifier1.setUri("/services/data/v46.0/subjects/Accout/NSO7IUSHF98HFP9WEH9YQR");
+                additionalIdentifier1.setLegalName("Dummy organisation");
+                additionalIdentifier1.setHidden("true");
+                additionalIdentifiers.add(additionalIdentifier1);
+                schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
+
+                address.setCountryName("Country");
+                address.setLocality("Locality");
+                address.setPostalCode("AB1C 2DE");
+                address.setRegion("");
+                address.setStreetAddress("123 Fake Street");
+                schemeInfo.setAddress(address);
+
+                contactPoint.setName("");
+                contactPoint.setEmail("");
+                contactPoint.setFaxNumber("");
+                contactPoint.setTelephone("");
+                contactPoint.setUri("");
+                schemeInfo.setContactPoint(contactPoint);
                 break;
 
             case SFID_WITH_VALID_COH_UNKNOWN_DUNS:
-                // Todo: wip mock data
+                schemeInfo.setName("Company Example 01112345");
+                identifier.setId("01112345");
+                identifier.setScheme(SchemeRegistry.getSchemeCode(COMPANIES_HOUSE));
+                identifier.setLegalName("Company Example 01112345");
+                identifier.setUri("");
+                schemeInfo.setIdentifier(identifier);
+
+                // Salesforce identifier
+                additionalIdentifier1.setScheme(SchemeRegistry.getSchemeCode(SALES_FORCE));
+                additionalIdentifier1.setId("NSO7IUSHF98HFP9WEH9YLR~56734565467");
+                additionalIdentifier1.setUri("/services/data/v46.0/subjects/Accout/NSO7IUSHF98HFP9WEH9YLR");
+                additionalIdentifier1.setLegalName("Dummy organisation");
+                additionalIdentifier1.setHidden("true");
+                additionalIdentifiers.add(additionalIdentifier1);
+                schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
+
+                address.setCountryName("Country");
+                address.setLocality("Locality");
+                address.setPostalCode("AB1C 2DE");
+                address.setRegion("");
+                address.setStreetAddress("123 Fake Street");
+                schemeInfo.setAddress(address);
+
+                contactPoint.setName("");
+                contactPoint.setEmail("");
+                contactPoint.setFaxNumber("");
+                contactPoint.setTelephone("");
+                contactPoint.setUri("");
+                schemeInfo.setContactPoint(contactPoint);
                 break;
+
             case SFID_WITH_INVALID_COH_INVALID_DUNS:
-                // Todo: wip mock data
+                schemeInfo.setName("");
+                identifier.setId("");
+                identifier.setScheme(SchemeRegistry.getSchemeCode(DUN_AND_BRADSTREET));
+                identifier.setLegalName("");
+                identifier.setUri("");
+                schemeInfo.setIdentifier(identifier);
+
+                // Salesforce identifier
+                additionalIdentifier1.setScheme(SchemeRegistry.getSchemeCode(SALES_FORCE));
+                additionalIdentifier1.setId("NSO7IUSHF98HFP9WEH9YUR~56734565467");
+                additionalIdentifier1.setUri("/services/data/v46.0/subjects/Accout/NSO7IUSHF98HFP9WEH9YUR");
+                additionalIdentifier1.setLegalName("Dummy organisation");
+                additionalIdentifiers.add(additionalIdentifier1);
+                schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
+
+                address.setCountryName("");
+                address.setLocality("");
+                address.setPostalCode("");
+                address.setRegion("");
+                address.setStreetAddress("");
+                schemeInfo.setAddress(address);
+
+                contactPoint.setName("");
+                contactPoint.setEmail("");
+                contactPoint.setFaxNumber("");
+                contactPoint.setTelephone("");
+                contactPoint.setUri("");
+                schemeInfo.setContactPoint(contactPoint);
                 break;
 
             case SFID_WITH_DUNS_CHC_NO_COH:
-                // Todo: wip mock data
+                schemeInfo.setName("Company Example 011122333");
+                identifier.setId("011122333");
+                identifier.setScheme(SchemeRegistry.getSchemeCode(DUN_AND_BRADSTREET));
+                identifier.setLegalName("Company Example 011122333");
+                identifier.setUri("");
+                schemeInfo.setIdentifier(identifier);
+
+                additionalIdentifier1.setScheme(SchemeRegistry.getSchemeCode(NORTHERN_CHARITY));
+                additionalIdentifier1.setId("444123");
+                additionalIdentifier1.setUri("http://www.example.org.uk");
+                additionalIdentifier1.setLegalName("Charity Example NIC444123");
+                additionalIdentifiers.add(additionalIdentifier1);
+                schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
+
+                // Salesforce identifier
+                additionalIdentifier2.setScheme(SchemeRegistry.getSchemeCode(SALES_FORCE));
+                additionalIdentifier2.setId("NSO7IUSHF98HFP9WEH9YWR~56734565467");
+                additionalIdentifier2.setUri("/services/data/v46.0/subjects/Accout/NSO7IUSHF98HFP9WEH9YWR");
+                additionalIdentifier2.setLegalName("Dummy organisation");
+                additionalIdentifier2.setHidden("true");
+                additionalIdentifiers.add(additionalIdentifier2);
+                schemeInfo.setAdditionalIdentifiers(additionalIdentifiers);
+
+                address.setCountryName("Country");
+                address.setLocality("Locality");
+                address.setPostalCode("AB1C 2DE");
+                address.setRegion("");
+                address.setStreetAddress("123 Fake Street");
+                schemeInfo.setAddress(address);
+
+                contactPoint.setName("");
+                contactPoint.setEmail("");
+                contactPoint.setFaxNumber("");
+                contactPoint.setTelephone("");
+                contactPoint.setUri("");
+                schemeInfo.setContactPoint(contactPoint);
                 break;
 
             default:
