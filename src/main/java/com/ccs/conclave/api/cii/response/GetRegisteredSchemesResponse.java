@@ -9,9 +9,9 @@ import java.util.List;
 @Setter
 @Getter
 public class GetRegisteredSchemesResponse {
-    private List<RegisteredSchemeInfo> registeredSchemesInfo;
+    private RegisteredSchemeInfo registeredSchemesInfo;
 
-    public GetRegisteredSchemesResponse(List<RegisteredSchemeInfo> schemeInfo) {
+    public GetRegisteredSchemesResponse(RegisteredSchemeInfo schemeInfo) {
         registeredSchemesInfo = schemeInfo;
     }
 }

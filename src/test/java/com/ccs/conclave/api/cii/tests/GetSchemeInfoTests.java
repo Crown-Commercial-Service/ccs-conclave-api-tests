@@ -134,12 +134,21 @@ public class GetSchemeInfoTests extends BaseClass {
     public void getSchemeInfoWithSpaceInSchemeID() {
         SchemeInfo expSchemeInfo = getExpSchemeInfoWithoutSFIdentifier(COMPANIES_HOUSE);
 
-        Response response = getSchemeInfo(COMPANIES_HOUSE, expSchemeInfo.getIdentifier().getId());
-        postSchemeInfo(response.asString());
+        String IdWithSpaceAtTheEnd = expSchemeInfo.getIdentifier().getId() + " ";
+        Response response = getSchemeInfo(COMPANIES_HOUSE, IdWithSpaceAtTheEnd);
+        verifyResponseCodeForSuccess(response);
 
-        String IdWithSpace = expSchemeInfo.getIdentifier().getId() + " ";
+        String IdWithSpace = " " + expSchemeInfo.getIdentifier().getId();
         response = getSchemeInfo(COMPANIES_HOUSE, IdWithSpace);
         verifyResponseCodeForSuccess(response);
+
+        postSchemeInfo(response.asString());
+
+        response = getSchemeInfo(COMPANIES_HOUSE, IdWithSpaceAtTheEnd);
+        verifyResponseCodeForDuplicateResource(response);
+
+        response = getSchemeInfo(COMPANIES_HOUSE, IdWithSpace);
+        verifyResponseCodeForDuplicateResource(response);
     }
 
     @Test
