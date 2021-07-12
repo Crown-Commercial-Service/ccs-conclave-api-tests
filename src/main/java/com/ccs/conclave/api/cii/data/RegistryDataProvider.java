@@ -1,11 +1,13 @@
 package com.ccs.conclave.api.cii.data;
 
 import com.ccs.conclave.api.cii.pojo.*;
+import com.ccs.conclave.api.cii.requests.RequestTestEndpoints;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.ccs.conclave.api.cii.data.SchemeRegistry.*;
-import static com.ccs.conclave.api.cii.requests.RestRequests.deleteOrganisationWithIdTestEndPt;
+import static com.ccs.conclave.api.cii.requests.RestRequests.deleteOrganisation;
 
 public class RegistryDataProvider {
 
@@ -789,11 +791,12 @@ public class RegistryDataProvider {
                 throw new IllegalStateException("Unexpected value: " + schemeRegistry);
         }
 
-
+        String ccsOrgId = RequestTestEndpoints.getRegisteredOrgId(schemeInfo.getIdentifier().getId());
         // Delete Database entry if the Org. is already registered
-        deleteOrganisationWithIdTestEndPt(schemeInfo.getIdentifier().getId());
+        deleteOrganisation(ccsOrgId);
         for (Identifier id : schemeInfo.getAdditionalIdentifiers()) {
-            deleteOrganisationWithIdTestEndPt(id.getId());
+            ccsOrgId = RequestTestEndpoints.getRegisteredOrgId(id.getId());
+            deleteOrganisation(ccsOrgId);
         }
 
         return schemeInfo;
