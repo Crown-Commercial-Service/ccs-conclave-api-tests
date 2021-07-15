@@ -2,10 +2,14 @@ package com.ccs.conclave.api.cii.verification;
 
 import com.ccs.conclave.api.cii.pojo.*;
 import com.ccs.conclave.api.cii.requests.RestRequests;
-import com.ccs.conclave.api.cii.response.*;
+import com.ccs.conclave.api.cii.response.GetRegisteredSchemesResponse;
+import com.ccs.conclave.api.cii.response.GetSchemeInfoResponse;
+import com.ccs.conclave.api.cii.response.GetSchemesResponse;
+import com.ccs.conclave.api.cii.response.PostSchemeInfoResponse;
 import io.restassured.response.Response;
 import org.apache.log4j.Logger;
 import org.testng.Assert;
+
 import java.util.Arrays;
 
 import static com.ccs.conclave.api.cii.data.SchemeRegistry.*;
@@ -120,10 +124,10 @@ public class VerifyEndpointResponses {
     // Schemes
     public static void verifyPostSchemeInfoResponse(SchemeInfo expectedSchemeInfo, Response response) {
         verifyResponseCodeForCreatedResource(response);
-        PostSchemeInfoResponse actualResponse = new PostSchemeInfoResponse(response.getBody().as(OrgIdentifier.class));
-        Assert.assertTrue(!actualResponse.getOrgIdentifier().getCcsOrgId().isEmpty(), "Not expected Post response! OrgId is empty!!");
-        ccsOrgId = actualResponse.getOrgIdentifier().getCcsOrgId();
-        logger.info("CcsOrgId: " + actualResponse.getOrgIdentifier().getCcsOrgId());
+        PostSchemeInfoResponse actualResponse = new PostSchemeInfoResponse(Arrays.asList(response.getBody().as(OrgIdentifier[].class)));
+        Assert.assertTrue(!actualResponse.getOrgIdentifier().get(0).getCcsOrgId().isEmpty(), "Not expected Post response! OrgId is empty!!");
+        ccsOrgId = actualResponse.getOrgIdentifier().get(0).getCcsOrgId();
+        logger.info("CcsOrgId: " + actualResponse.getOrgIdentifier().get(0).getCcsOrgId());
 
         // get registered schemes after post
         Response regSchemesRes = RestRequests.getRegisteredSchemesInfo(ccsOrgId);
@@ -132,8 +136,8 @@ public class VerifyEndpointResponses {
 
     public static void verifyUpdatedScheme(String ccsOrgId, AdditionalSchemeInfo expectedAdditionalSchemeInfo) {
         Response actualRes = RestRequests.getRegisteredSchemesInfo(ccsOrgId);
-        GetRegisteredSchemesResponse registeredSchemeInfoRes = new GetRegisteredSchemesResponse(actualRes.getBody().as(RegisteredSchemeInfo.class));
-        RegisteredSchemeInfo actualSchemeInfo = registeredSchemeInfoRes.getRegisteredSchemesInfo();
+        GetRegisteredSchemesResponse registeredSchemeInfoRes = new GetRegisteredSchemesResponse(Arrays.asList(actualRes.getBody().as(RegisteredSchemeInfo[].class)));
+        RegisteredSchemeInfo actualSchemeInfo = registeredSchemeInfoRes.getRegisteredSchemesInfo().get(0);
 
         int addIdentifierPresent = 0;
         if (actualSchemeInfo.getIdentifier().getId().equals(expectedAdditionalSchemeInfo.getIdentifier().getId())) {
@@ -158,8 +162,8 @@ public class VerifyEndpointResponses {
 
     public static void verifyDeletedScheme(String ccsOrgId, AdditionalSchemeInfo deletedAdditionalSchemeInfo) {
         Response actualRes = RestRequests.getAllRegisteredSchemesInfo(ccsOrgId);
-        GetRegisteredSchemesResponse registeredSchemeInfoRes = new GetRegisteredSchemesResponse(actualRes.getBody().as(RegisteredSchemeInfo.class));
-        RegisteredSchemeInfo actualSchemeInfo = registeredSchemeInfoRes.getRegisteredSchemesInfo();
+        GetRegisteredSchemesResponse registeredSchemeInfoRes = new GetRegisteredSchemesResponse(Arrays.asList(actualRes.getBody().as(RegisteredSchemeInfo[].class)));
+        RegisteredSchemeInfo actualSchemeInfo = registeredSchemeInfoRes.getRegisteredSchemesInfo().get(0);
 
         if (actualSchemeInfo.getIdentifier().getId().equals(deletedAdditionalSchemeInfo.getIdentifier().getId())) {
             Assert.fail("Deleted Scheme call failed!!");
@@ -197,9 +201,9 @@ public class VerifyEndpointResponses {
     }
 
     public static String getCCSOrgId(Response response) {
-        PostSchemeInfoResponse actualResponse = new PostSchemeInfoResponse(response.getBody().as(OrgIdentifier.class));
-        Assert.assertTrue(!actualResponse.getOrgIdentifier().getCcsOrgId().isEmpty(), "Not expected Post response!");
-        ccsOrgId = actualResponse.getOrgIdentifier().getCcsOrgId();
+        PostSchemeInfoResponse actualResponse = new PostSchemeInfoResponse(Arrays.asList(response.getBody().as(OrgIdentifier[].class)));
+        Assert.assertTrue(!actualResponse.getOrgIdentifier().get(0).getCcsOrgId().isEmpty(), "Not expected Post response!");
+        ccsOrgId = actualResponse.getOrgIdentifier().get(0).getCcsOrgId();
         return ccsOrgId;
     }
 
@@ -212,8 +216,8 @@ public class VerifyEndpointResponses {
 
     public static void verifyRegisteredSchemes(Response actualRes, SchemeInfo expectedSchemeInfo, int selectedAddIds) {
         verifyResponseCodeForSuccess(actualRes);
-        GetRegisteredSchemesResponse registeredSchemeInfoRes = new GetRegisteredSchemesResponse(actualRes.getBody().as(RegisteredSchemeInfo.class));
-        RegisteredSchemeInfo actualSchemeInfo = registeredSchemeInfoRes.getRegisteredSchemesInfo();
+        GetRegisteredSchemesResponse registeredSchemeInfoRes = new GetRegisteredSchemesResponse(Arrays.asList(actualRes.getBody().as(RegisteredSchemeInfo[].class)));
+        RegisteredSchemeInfo actualSchemeInfo = registeredSchemeInfoRes.getRegisteredSchemesInfo().get(0);
         Assert.assertEquals(actualSchemeInfo.getIdentifier().getId(), expectedSchemeInfo.getIdentifier().getId(), "Invalid Id returned via get registered schemes!!");
         Assert.assertEquals(actualSchemeInfo.getIdentifier().getScheme(), expectedSchemeInfo.getIdentifier().getScheme(), "Invalid scheme returned via get registered schemes!!!!");
         Assert.assertEquals(actualSchemeInfo.getIdentifier().getUri(), expectedSchemeInfo.getIdentifier().getUri(), "Invalid uri returned via get registered schemes!!!!");
@@ -241,8 +245,8 @@ public class VerifyEndpointResponses {
 
     public static void verifyAllRegisteredSchemes(Response actualRes, SchemeInfo expectedSchemeInfo) {
         verifyResponseCodeForSuccess(actualRes);
-        GetRegisteredSchemesResponse registeredSchemeInfoRes = new GetRegisteredSchemesResponse(actualRes.getBody().as(RegisteredSchemeInfo.class));
-        RegisteredSchemeInfo actualSchemeInfo = registeredSchemeInfoRes.getRegisteredSchemesInfo();
+        GetRegisteredSchemesResponse registeredSchemeInfoRes = new GetRegisteredSchemesResponse(Arrays.asList(actualRes.getBody().as(RegisteredSchemeInfo[].class)));
+        RegisteredSchemeInfo actualSchemeInfo = registeredSchemeInfoRes.getRegisteredSchemesInfo().get(0);
         Assert.assertEquals(actualSchemeInfo.getIdentifier().getId(), expectedSchemeInfo.getIdentifier().getId(), "Invalid Id returned via get registered schemes!!");
         Assert.assertEquals(actualSchemeInfo.getIdentifier().getScheme(), expectedSchemeInfo.getIdentifier().getScheme(), "Invalid scheme returned via get registered schemes!!!!");
         Assert.assertEquals(actualSchemeInfo.getIdentifier().getUri(), expectedSchemeInfo.getIdentifier().getUri(), "Invalid uri returned via get registered schemes!!!!");
