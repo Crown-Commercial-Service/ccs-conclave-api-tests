@@ -87,9 +87,10 @@ public class RestRequests extends BaseClass {
     public static Response getAllRegisteredSchemesInfo(String ccsOrgId) {
         String path = getBaseURI() + Endpoints.getAllRegisteredSchemesURI;
         if(isMockTestEnabled()) {
-            path += "ccs_org_id=" + ccsOrgId + "&clientid=" + getClientId();
+            path += "ccs_org_id=" + ccsOrgId;
+            return getEndpointWithNoAccessToken(path);
         } else {
-            path = path.replace("{{ccs_org_id}}", ccsOrgId);
+            path += "ccs_org_id=" + ccsOrgId + "&clientid=" + getClientId();
         }
         logger.info("get All RegisteredSchemeInfo Endpoint: " + path);
         String accessToken = RequestTestEndpoints.getAccessToken(ccsOrgId);
@@ -108,8 +109,13 @@ public class RestRequests extends BaseClass {
     }
 
     public static Response postSFInfo(String accountIdType, String accountId) {
-        String endpoint = ciiBaseURI + Endpoints.postRegisterBuyerURI + "account_id_type=" + accountIdType + "&account_id=" + accountId;
-        return postSFInfoToCII(endpoint);
+        String endpoint = null;
+        if (isMockTestEnabled()) {
+            endpoint = ciiMockBaseURI + Endpoints.postRegisterBuyerURI + "account_id_type=" + accountIdType + "&account_id=" + accountId;
+        } else {
+            endpoint = ciiBaseURI + Endpoints.postRegisterBuyerURI + "account_id_type=" + accountIdType + "&account_id=" + accountId;
+        }
+        return postSFInfoToCIIMOCK(endpoint);
     }
 
     public static Response updateScheme(AdditionalSchemeInfo additionalSchemeInfo) {
@@ -152,6 +158,15 @@ public class RestRequests extends BaseClass {
         return res;
     }
 
+    private static Response getEndpointWithNoAccessToken(String path) {
+        Response res = given().header("x-api-key", apiToken)
+                .header("Content-Type", "application/json")
+                .expect().defaultParser(Parser.JSON).when().get(path);
+        logger.info("RestRequests::getEndpointWithNoAccessToken() call with status code: " + res.getStatusCode());
+        return res;
+    }
+
+
     public static Response postToCIIAPI(String path, String requestPayload) {
         Response res = given().header("x-api-key", apiToken).header("Content-Type", "application/json")
                 .body(requestPayload).when().post(path);
@@ -166,6 +181,12 @@ public class RestRequests extends BaseClass {
         return res;
     }
 
+    public static Response postSFInfoToCIIMOCK(String path) {
+        Response res = given().header("x-api-key", apiToken).header("Content-Type", "application/json")
+                .when().post(path);
+        logger.info("RestRequests::postSFInfoToCII() call with status code: " + res.getStatusCode());
+        return res;
+    }
 
     public static Response postToConclaveAPI(String endPoint, Object requestPayload) {
         Response res = given().header("Content-Type", "application/json")
